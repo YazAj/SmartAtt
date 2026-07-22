@@ -1,0 +1,88 @@
+@model PagedResult<DepartmentDto>
+@{
+    ViewData["Title"] = Localizer["DepartmentsTitle"];
+    var search = Context.Request.Query["Search"].ToString();
+    var active = Context.Request.Query["IsActive"].ToString();
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">@Localizer["NavAcademicManagement"]</p>
+        <h1>@Localizer["DepartmentsTitle"]</h1>
+        <p>@Localizer["DepartmentsDescription"]</p>
+    </div>
+    <a class="btn btn-primary app-btn" asp-action="Create">@Localizer["CreateDepartment"]</a>
+</section>
+
+<section class="app-panel">
+    <form method="get" class="filter-grid">
+        <div class="form-field">
+            <label class="form-label" for="Search">@Localizer["Search"]</label>
+            <input id="Search" name="Search" value="@search" class="form-control" placeholder="@Localizer["SearchDepartmentsPlaceholder"]" />
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="IsActive">@Localizer["Status"]</label>
+            <select id="IsActive" name="IsActive" class="form-select">
+                <option value="">@Localizer["AllStatuses"]</option>
+                <option value="true" selected="@(active == "true")">@Localizer["Active"]</option>
+                <option value="false" selected="@(active == "false")">@Localizer["Inactive"]</option>
+            </select>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary app-btn" type="submit">@Localizer["Search"]</button>
+            <a class="btn btn-secondary app-btn" asp-action="Index">@Localizer["Reset"]</a>
+        </div>
+    </form>
+</section>
+
+<section class="app-panel mt-3">
+    <div class="section-heading">
+        <h2>@Localizer["ResultsCount", Model.TotalCount]</h2>
+    </div>
+    <div class="table-responsive">
+        <table class="table app-table">
+            <thead>
+                <tr>
+                    <th>@Localizer["Code"]</th>
+                    <th>@Localizer["NameEnglish"]</th>
+                    <th>@Localizer["NameArabic"]</th>
+                    <th>@Localizer["Status"]</th>
+                    <th>@Localizer["Actions"]</th>
+                </tr>
+            </thead>
+            <tbody>
+            @if (Model.Items.Count == 0)
+            {
+                <tr><td class="empty-row" colspan="5">@Localizer["NoDepartments"]</td></tr>
+            }
+            @foreach (var department in Model.Items)
+            {
+                <tr>
+                    <td data-label="@Localizer["Code"]">@department.Code</td>
+                    <td data-label="@Localizer["NameEnglish"]">@department.NameEnglish</td>
+                    <td data-label="@Localizer["NameArabic"]">@department.NameArabic</td>
+                    <td data-label="@Localizer["Status"]">
+                        <span class="status-badge @(department.IsActive ? "status-badge-success" : "status-badge-warning")">@(department.IsActive ? Localizer["Active"] : Localizer["Inactive"])</span>
+                    </td>
+                    <td data-label="@Localizer["Actions"]">
+                        <div class="row-actions">
+                            <a class="btn btn-secondary btn-sm" asp-action="Details" asp-route-id="@department.Id">@Localizer["Details"]</a>
+                            <a class="btn btn-secondary btn-sm" asp-action="Edit" asp-route-id="@department.Id">@Localizer["Edit"]</a>
+                            <form asp-action="@(department.IsActive ? "Deactivate" : "Activate")" asp-route-id="@department.Id" method="post" onsubmit="return confirm('@Localizer["ConfirmStatusChange"]');">
+                                <button class="btn btn-sm @(department.IsActive ? "btn-danger" : "btn-primary")" type="submit">@(department.IsActive ? Localizer["Deactivate"] : Localizer["Activate"])</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination-wrap">
+        <span>@Localizer["PageOf", Model.PageNumber, Model.TotalPages]</span>
+        <div class="row-actions">
+            <a class="btn btn-secondary app-btn @(Model.HasPreviousPage ? "" : "disabled")" asp-action="Index" asp-route-Search="@search" asp-route-IsActive="@active" asp-route-PageNumber="@(Model.PageNumber - 1)">@Localizer["Previous"]</a>
+            <a class="btn btn-secondary app-btn @(Model.HasNextPage ? "" : "disabled")" asp-action="Index" asp-route-Search="@search" asp-route-IsActive="@active" asp-route-PageNumber="@(Model.PageNumber + 1)">@Localizer["Next"]</a>
+        </div>
+    </div>
+</section>

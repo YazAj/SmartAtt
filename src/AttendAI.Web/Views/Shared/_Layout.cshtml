@@ -11,6 +11,8 @@
             : User.IsInRole(RoleConstants.Student)
                 ? "Student"
                 : "Index";
+    var currentArea = (ViewContext.RouteData.Values["area"] as string) ?? string.Empty;
+    var currentController = (ViewContext.RouteData.Values["controller"] as string) ?? string.Empty;
     var userInitial = User.Identity?.Name is { Length: > 0 } userName ? userName[..1].ToUpperInvariant() : "U";
 }
 <!DOCTYPE html>
@@ -34,7 +36,7 @@
     <div class="app-shell">
         <aside class="app-sidebar" id="appSidebar" aria-label="@Localizer["PrimaryNavigation"]">
             <div class="app-brand">
-                <a asp-controller="Home" asp-action="Index" class="app-brand-link">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="app-brand-link">
                     <span class="app-brand-mark" aria-hidden="true">AI</span>
                     <span>
                         <span class="app-brand-title">AttendAI</span>
@@ -43,14 +45,28 @@
                 </a>
             </div>
             <nav class="app-menu">
-                <a class="app-menu-link" asp-controller="Home" asp-action="Index">@Localizer["NavHome"]</a>
+                <a class="app-menu-link" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["NavHome"]</a>
                 @if (User.Identity?.IsAuthenticated == true)
                 {
-                    <a class="app-menu-link" asp-controller="Dashboard" asp-action="@dashboardAction">@Localizer["NavDashboard"]</a>
-                    <a class="app-menu-link" asp-controller="Profile" asp-action="Index">@Localizer["NavProfile"]</a>
-                    <a class="app-menu-link" asp-controller="Account" asp-action="ChangePassword">@Localizer["NavChangePassword"]</a>
+                    <a class="app-menu-link" asp-area="" asp-controller="Dashboard" asp-action="@dashboardAction">@Localizer["NavDashboard"]</a>
+                    @if (User.IsInRole(RoleConstants.Admin))
+                    {
+                        <div class="admin-nav-group">
+                            <span class="admin-nav-heading">@Localizer["NavAcademicManagement"]</span>
+                            <a class="app-menu-link @(currentArea == "Admin" && currentController == "Departments" ? "active" : "")" asp-area="Admin" asp-controller="Departments" asp-action="Index">@Localizer["NavDepartments"]</a>
+                            <a class="app-menu-link @(currentArea == "Admin" && currentController == "Students" ? "active" : "")" asp-area="Admin" asp-controller="Students" asp-action="Index">@Localizer["NavStudents"]</a>
+                            <a class="app-menu-link @(currentArea == "Admin" && currentController == "Instructors" ? "active" : "")" asp-area="Admin" asp-controller="Instructors" asp-action="Index">@Localizer["NavInstructors"]</a>
+                            <a class="app-menu-link @(currentArea == "Admin" && currentController == "Courses" ? "active" : "")" asp-area="Admin" asp-controller="Courses" asp-action="Index">@Localizer["NavCourses"]</a>
+                            <a class="app-menu-link @(currentArea == "Admin" && currentController == "Sections" ? "active" : "")" asp-area="Admin" asp-controller="Sections" asp-action="Index">@Localizer["NavSections"]</a>
+                            <a class="app-menu-link @(currentArea == "Admin" && currentController == "Classrooms" ? "active" : "")" asp-area="Admin" asp-controller="Classrooms" asp-action="Index">@Localizer["NavClassrooms"]</a>
+                            <a class="app-menu-link @(currentArea == "Admin" && currentController == "Enrollments" ? "active" : "")" asp-area="Admin" asp-controller="Enrollments" asp-action="Index">@Localizer["NavEnrollments"]</a>
+                            <a class="app-menu-link @(currentArea == "Admin" && currentController == "InstructorAssignments" ? "active" : "")" asp-area="Admin" asp-controller="InstructorAssignments" asp-action="Index">@Localizer["NavInstructorAssignments"]</a>
+                        </div>
+                    }
+                    <a class="app-menu-link" asp-area="" asp-controller="Profile" asp-action="Index">@Localizer["NavProfile"]</a>
+                    <a class="app-menu-link" asp-area="" asp-controller="Account" asp-action="ChangePassword">@Localizer["NavChangePassword"]</a>
                 }
-                <a class="app-menu-link" asp-controller="Home" asp-action="Privacy">@Localizer["NavPrivacy"]</a>
+                <a class="app-menu-link" asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["NavPrivacy"]</a>
             </nav>
             <div class="app-sidebar-footer">
                 <span class="status-dot status-dot-success" aria-hidden="true"></span>
@@ -75,7 +91,7 @@
                         <span class="theme-toggle-symbol" aria-hidden="true"></span>
                     </button>
 
-                    <form asp-controller="Preferences" asp-action="SetCulture" method="post" class="language-form">
+                    <form asp-area="" asp-controller="Preferences" asp-action="SetCulture" method="post" class="language-form">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="returnUrl" value="@currentPath" />
                         <label class="visually-hidden" for="cultureSelect">@Localizer["Language"]</label>
@@ -93,11 +109,11 @@
                                 <span class="account-name">@User.Identity?.Name</span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end app-dropdown">
-                                <li><a class="dropdown-item" asp-controller="Profile" asp-action="Index">@Localizer["NavProfile"]</a></li>
-                                <li><a class="dropdown-item" asp-controller="Account" asp-action="ChangePassword">@Localizer["NavChangePassword"]</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Profile" asp-action="Index">@Localizer["NavProfile"]</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="ChangePassword">@Localizer["NavChangePassword"]</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li>
-                                    <form asp-controller="Account" asp-action="Logout" method="post">
+                                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
                                         @Html.AntiForgeryToken()
                                         <button class="dropdown-item" type="submit">@Localizer["Logout"]</button>
                                     </form>
@@ -107,7 +123,7 @@
                     }
                     else
                     {
-                        <a class="btn btn-primary app-btn" asp-controller="Account" asp-action="Login">@Localizer["Login"]</a>
+                        <a class="btn btn-primary app-btn" asp-area="" asp-controller="Account" asp-action="Login">@Localizer["Login"]</a>
                     }
                 </div>
             </header>
@@ -119,7 +135,7 @@
 
             <footer class="app-footer">
                 <span>&copy; 2026 AttendAI</span>
-                <a asp-controller="Home" asp-action="Privacy">@Localizer["PrivacyTitle"]</a>
+                <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["PrivacyTitle"]</a>
             </footer>
         </div>
     </div>

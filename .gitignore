@@ -38,7 +38,8 @@ face-test-images/
 approved-face-samples/
 experiments/**/local-images/
 experiments/**/approved-samples/
-models/
+/models/
+experiments/**/models/
 *.dat
 *.onnx
 *.caffemodel

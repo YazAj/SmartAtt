@@ -1,0 +1,4 @@
+@model SectionCommand
+@{ ViewData["Title"] = Localizer["CreateSection"]; }
+<section class="page-header"><div><p class="eyebrow">@Localizer["SectionsTitle"]</p><h1>@Localizer["CreateSection"]</h1><p>@Localizer["SectionFormDescription"]</p></div></section>
+<partial name="_SectionForm" model="Model" />

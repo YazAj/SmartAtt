@@ -1,0 +1,38 @@
+@model DepartmentCommand
+
+<section class="app-panel form-panel">
+    <form method="post" class="app-form">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+        <input asp-for="RowVersion" type="hidden" />
+        <div class="form-grid">
+            <div class="form-field">
+                <label asp-for="Code" class="form-label field-required">@Localizer["Code"]</label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="validation-message"></span>
+            </div>
+            <div class="form-field">
+                <label asp-for="NameEnglish" class="form-label field-required">@Localizer["NameEnglish"]</label>
+                <input asp-for="NameEnglish" class="form-control" />
+                <span asp-validation-for="NameEnglish" class="validation-message"></span>
+            </div>
+            <div class="form-field">
+                <label asp-for="NameArabic" class="form-label field-required">@Localizer["NameArabic"]</label>
+                <input asp-for="NameArabic" class="form-control" dir="rtl" />
+                <span asp-validation-for="NameArabic" class="validation-message"></span>
+            </div>
+            <div class="form-field">
+                <label asp-for="DescriptionEnglish" class="form-label">@Localizer["DescriptionEnglish"]</label>
+                <textarea asp-for="DescriptionEnglish" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-field">
+                <label asp-for="DescriptionArabic" class="form-label">@Localizer["DescriptionArabic"]</label>
+                <textarea asp-for="DescriptionArabic" class="form-control" rows="3" dir="rtl"></textarea>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary app-btn" type="submit">@Localizer["SaveChanges"]</button>
+            <a class="btn btn-secondary app-btn" asp-action="Index">@Localizer["Cancel"]</a>
+        </div>
+    </form>
+</section>

@@ -18,6 +18,7 @@
 - Actor: Authenticated user
 - Trigger: User opens account security page.
 - Main flow: Enter current and new password, validate Identity rules, refresh sign-in.
+- Sprint 2 extension: Student and Instructor accounts created with temporary passwords are redirected here until password change succeeds.
 
 ## UC-04 Open Role Dashboard
 
@@ -43,8 +44,57 @@
 
 - Actor: Any user
 - Trigger: User opens the biometric data notice.
-- Main flow: Page explains purpose, storage preference, access limits, and Sprint 1 limitations.
+- Main flow: Page explains purpose, storage preference, access limits, and current production biometric limitations.
+
+## UC-08 Manage Departments
+
+- Actor: Admin
+- Trigger: Admin opens Academic Management > Departments.
+- Main flow: Search, create, edit, view details, activate, and deactivate departments.
+- Rule: Department codes are unique and normalized.
+
+## UC-09 Manage Student Accounts
+
+- Actor: Admin
+- Trigger: Admin opens Academic Management > Students.
+- Main flow: Create Identity account plus Student profile, assign Student role, require first-login password change, edit profile, reset temporary password, activate/deactivate account.
+- Rule: Deactivated Student accounts cannot log in.
+
+## UC-10 Manage Instructor Accounts
+
+- Actor: Admin
+- Trigger: Admin opens Academic Management > Instructors.
+- Main flow: Create Identity account plus Instructor profile, assign Instructor role, require first-login password change, edit profile, reset temporary password, activate/deactivate account.
+- Rule: Deactivated Instructor accounts cannot log in.
+
+## UC-11 Manage Courses, Sections, And Classrooms
+
+- Actor: Admin
+- Trigger: Admin opens the relevant Academic Management module.
+- Main flow: Search, create, edit, view details, activate, and deactivate records.
+- Rules: Course credit hours are 1-6; Section capacity is positive; Classroom capacity is positive; coordinates must be supplied as a valid pair.
+
+## UC-12 Manage Enrollments
+
+- Actor: Admin
+- Trigger: Admin opens Academic Management > Enrollments.
+- Main flow: Enroll active Students in active Sections, view details, and change enrollment status.
+- Rules: Duplicate Student/Section enrollments are rejected, and active enrollment count cannot exceed Section capacity.
+
+## UC-13 Manage Instructor Assignments
+
+- Actor: Admin
+- Trigger: Admin opens Academic Management > Instructor assignments.
+- Main flow: Assign active Instructors to active Sections, view details, deactivate assignments, and set primary instructor status.
+- Rule: Only one active primary Instructor assignment is allowed for a Section.
+
+## UC-14 Open Academic Dashboards
+
+- Actor: Admin, Instructor, Student
+- Trigger: User opens dashboard.
+- Main flow: Admin sees active academic counts and quick links; Instructor sees assigned Sections; Student sees academic profile and active enrollments.
+- Alternate flow: Cross-role access redirects to Access Denied.
 
 ## Future Use Cases Not Implemented
 
-Academic CRUD, lecture session management, attendance registration, location validation, duplicate prevention, reports, production face enrollment, and production face verification.
+Lecture session management, attendance registration, location validation for attendance, duplicate attendance prevention, reports, production face enrollment, and production face verification.

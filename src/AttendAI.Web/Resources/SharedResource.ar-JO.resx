@@ -11,7 +11,7 @@
   <data name="NavProfile" xml:space="preserve"><value>الملف الشخصي</value></data>
   <data name="NavChangePassword" xml:space="preserve"><value>تغيير كلمة المرور</value></data>
   <data name="NavPrivacy" xml:space="preserve"><value>إشعار البيانات الحيوية</value></data>
-  <data name="SprintFoundation" xml:space="preserve"><value>أساس السبرنت الأول</value></data>
+  <data name="SprintFoundation" xml:space="preserve"><value>إعداد السبرنت الثاني الأكاديمي</value></data>
   <data name="OpenNavigation" xml:space="preserve"><value>فتح التنقل</value></data>
   <data name="ThemeSystem" xml:space="preserve"><value>تفضيل السمة</value></data>
   <data name="Language" xml:space="preserve"><value>اللغة</value></data>
@@ -19,9 +19,9 @@
   <data name="Login" xml:space="preserve"><value>تسجيل الدخول</value></data>
   <data name="PrivacyTitle" xml:space="preserve"><value>إشعار البيانات الحيوية</value></data>
   <data name="Loading" xml:space="preserve"><value>جار التحميل</value></data>
-  <data name="HomeTitle" xml:space="preserve"><value>أساس AttendAI</value></data>
+  <data name="HomeTitle" xml:space="preserve"><value>إعداد AttendAI الأكاديمي</value></data>
   <data name="HomeHeading" xml:space="preserve"><value>AttendAI</value></data>
-  <data name="HomeLead" xml:space="preserve"><value>أساس متجاوب لمنصة حضور جامعية يدعم المصادقة والتعريب والسمات وحدودا قابلة للاستبدال للتحقق من الوجه.</value></data>
+  <data name="HomeLead" xml:space="preserve"><value>أساس متجاوب لمنصة حضور جامعية يدعم الإعداد الأكاديمي، والحسابات التي ينشئها المدير، والتعريب، والسمات، وحدود تحقق وجه قابلة للاستبدال.</value></data>
   <data name="OpenDashboard" xml:space="preserve"><value>فتح لوحة التحكم</value></data>
   <data name="Architecture" xml:space="preserve"><value>المعمارية</value></data>
   <data name="CleanArchitectureTitle" xml:space="preserve"><value>أساس المعمارية النظيفة</value></data>
@@ -33,15 +33,15 @@
   <data name="FaceSpikeTitle" xml:space="preserve"><value>تجربة تقنية قابلة للاستبدال</value></data>
   <data name="FaceSpikeText" xml:space="preserve"><value>يعتمد تطبيق الويب على واجهة لمحرك الوجه وتستخدم الاختبارات محركا وهميا حتميا دون كاميرا أو ملفات حيوية.</value></data>
   <data name="FoundationWorkflowTitle" xml:space="preserve"><value>جاهزية الأساس</value></data>
-  <data name="FoundationWorkflowText" xml:space="preserve"><value>هذه الصفوف تصف حالة بنية السبرنت الأول وليست إحصاءات حضور إنتاجية.</value></data>
+  <data name="FoundationWorkflowText" xml:space="preserve"><value>هذه الصفوف تصف حالة الأساس والإعداد الأكاديمي في السبرنت الثاني، وليست إحصاءات حضور إنتاجية.</value></data>
   <data name="Area" xml:space="preserve"><value>المجال</value></data>
-  <data name="Sprint1Status" xml:space="preserve"><value>حالة السبرنت الأول</value></data>
+  <data name="Sprint1Status" xml:space="preserve"><value>الحالة الحالية</value></data>
   <data name="NextSprintUse" xml:space="preserve"><value>الاستخدام المستقبلي</value></data>
   <data name="IdentityAndRoles" xml:space="preserve"><value>الهوية والأدوار</value></data>
-  <data name="ReadyForFoundationTesting" xml:space="preserve"><value>جاهز لاختبارات الأساس</value></data>
-  <data name="FutureAdminAccounts" xml:space="preserve"><value>حسابات ينشئها المدير في سبرنت لاحق</value></data>
+  <data name="ReadyForFoundationTesting" xml:space="preserve"><value>تم التحقق للسبرنت الثاني</value></data>
+  <data name="FutureAdminAccounts" xml:space="preserve"><value>حسابات الطالب والمدرس التي ينشئها المدير متاحة</value></data>
   <data name="LocalizationAndThemes" xml:space="preserve"><value>التعريب والسمات</value></data>
-  <data name="FutureArabicEnglishModules" xml:space="preserve"><value>دعم العربية والإنجليزية في الوحدات القادمة</value></data>
+  <data name="FutureArabicEnglishModules" xml:space="preserve"><value>دعم العربية والإنجليزية عبر الوحدات الأكاديمية</value></data>
   <data name="FaceEngineAbstraction" xml:space="preserve"><value>واجهة محرك الوجه</value></data>
   <data name="ManualRecognitionPending" xml:space="preserve"><value>التحقق اليدوي من التعرف معلق</value></data>
   <data name="FutureAttendanceVerification" xml:space="preserve"><value>تحقق حضور واحد إلى واحد في سبرنت لاحق</value></data>
@@ -49,12 +49,12 @@
   <data name="PrivacyHeading" xml:space="preserve"><value>استخدام البيانات الحيوية في AttendAI</value></data>
   <data name="PrivacyLead" xml:space="preserve"><value>يوضح هذا الإشعار حدود المعالجة الحيوية المقترحة للمشروع دون ادعاءات قانونية غير مدعومة.</value></data>
   <data name="PrivacyFaceDataTitle" xml:space="preserve"><value>الغرض من بيانات الوجه</value></data>
-  <data name="PrivacyFaceDataText" xml:space="preserve"><value>تستخدم بيانات الوجه فقط للتحقق من الهوية واحدا إلى واحد ضمن سير عمل الحضور. لا ينفذ السبرنت الأول تحقق حضور إنتاجي.</value></data>
+  <data name="PrivacyFaceDataText" xml:space="preserve"><value>تستخدم بيانات الوجه فقط للتحقق من الهوية واحدا إلى واحد ضمن سير عمل الحضور. لا ينفذ السبرنت الثاني تحقق حضور إنتاجي.</value></data>
   <data name="PrivacyStorageTitle" xml:space="preserve"><value>تخزين قائم على القوالب</value></data>
   <data name="PrivacyStorageText" xml:space="preserve"><value>ينبغي للنظام المخطط تخزين قالب وجه عند الإمكان وتجنب التخزين الدائم لصور الوجه الخام إلا عند وجود حاجة تشغيلية موثقة ومعتمدة.</value></data>
   <data name="PrivacyAccessTitle" xml:space="preserve"><value>وصول مقيد</value></data>
   <data name="PrivacyAccessText" xml:space="preserve"><value>يجب تقييد الوصول إلى قوالب الوجه على الخدمات المصرح لها والمديرين ذوي الحاجة التشغيلية المشروعة.</value></data>
-  <data name="PrivacySprintLimitTitle" xml:space="preserve"><value>حدود السبرنت الأول</value></data>
+  <data name="PrivacySprintLimitTitle" xml:space="preserve"><value>حدود السبرنت الثاني</value></data>
   <data name="PrivacySprintLimitText" xml:space="preserve"><value>يتضمن هذا السبرنت المعمارية والتوثيق ومحرك اختبار وهميا ومشغلا للتجربة التقنية. لا يسجل وجوها إنتاجية ولا يسجل حضورا.</value></data>
   <data name="ErrorTitle" xml:space="preserve"><value>خطأ</value></data>
   <data name="ErrorHeading" xml:space="preserve"><value>حدث خطأ</value></data>
@@ -67,7 +67,7 @@
   <data name="LoginTitle" xml:space="preserve"><value>تسجيل الدخول</value></data>
   <data name="SecureAccess" xml:space="preserve"><value>وصول آمن</value></data>
   <data name="LoginHeading" xml:space="preserve"><value>تسجيل الدخول إلى AttendAI</value></data>
-  <data name="LoginLead" xml:space="preserve"><value>استخدم حسابا جامعيا ينشئه المدير. التسجيل العام خارج نطاق السبرنت الأول.</value></data>
+  <data name="LoginLead" xml:space="preserve"><value>استخدم حسابا جامعيا ينشئه المدير. التسجيل العام خارج نطاق السبرنت الثاني.</value></data>
   <data name="Email" xml:space="preserve"><value>البريد الإلكتروني</value></data>
   <data name="Password" xml:space="preserve"><value>كلمة المرور</value></data>
   <data name="RememberMe" xml:space="preserve"><value>تذكرني</value></data>
@@ -77,7 +77,7 @@
   <data name="LogoutSuccessful" xml:space="preserve"><value>تم تسجيل الخروج.</value></data>
   <data name="PasswordChanged" xml:space="preserve"><value>تم تغيير كلمة المرور.</value></data>
   <data name="AuthAsideTitle" xml:space="preserve"><value>دخول حسب الدور</value></data>
-  <data name="AuthAsideText" xml:space="preserve"><value>بعد تسجيل الدخول يوجه كل مستخدم إلى لوحة الأساس المناسبة لدوره.</value></data>
+  <data name="AuthAsideText" xml:space="preserve"><value>بعد تسجيل الدخول يوجه كل مستخدم إلى لوحة التحكم المناسبة لدوره.</value></data>
   <data name="AuthCheckRoles" xml:space="preserve"><value>تم فصل أدوار المدير والمدرس والطالب.</value></data>
   <data name="AuthCheckCulture" xml:space="preserve"><value>العربية والإنجليزية متاحتان من الشاشة الأولى.</value></data>
   <data name="AuthCheckTheme" xml:space="preserve"><value>تفضيلات السمة الفاتحة والداكنة وسمة النظام محفوظة محليا.</value></data>
@@ -96,17 +96,17 @@
   <data name="AccessDeniedLead" xml:space="preserve"><value>حسابك مصادق، لكن لوحة التحكم هذه تخص دورا آخر.</value></data>
   <data name="AdminDashboardTitle" xml:space="preserve"><value>لوحة تحكم المدير</value></data>
   <data name="AdminRole" xml:space="preserve"><value>دور المدير</value></data>
-  <data name="AdminDashboardLead" xml:space="preserve"><value>عرض أساس لسير عمل الإدارة المخطط له في السبرنتات القادمة.</value></data>
+  <data name="AdminDashboardLead" xml:space="preserve"><value>إدارة الإعداد الأكاديمي والحسابات والتسجيلات وتعيينات المدرسين في السبرنت الثاني.</value></data>
   <data name="FoundationArea" xml:space="preserve"><value>مجال الأساس</value></data>
   <data name="FutureModule" xml:space="preserve"><value>وحدة مستقبلية</value></data>
   <data name="Governance" xml:space="preserve"><value>الحوكمة</value></data>
   <data name="BiometricPrivacy" xml:space="preserve"><value>خصوصية البيانات الحيوية</value></data>
-  <data name="AdminCardIdentity" xml:space="preserve"><value>الأدوار وملفات الارتباط الآمنة وتفويض لوحات التحكم جاهزة لاختبار السبرنت الأول.</value></data>
+  <data name="AdminCardIdentity" xml:space="preserve"><value>الأدوار وملفات الارتباط الآمنة وتفويض اللوحات والحسابات التي ينشئها المدير جاهزة لاختبار السبرنت الثاني.</value></data>
   <data name="AcademicSetup" xml:space="preserve"><value>الإعداد الأكاديمي</value></data>
-  <data name="AdminCardAcademic" xml:space="preserve"><value>الطلاب والمدرسون والمساقات والشعب والقاعات والتسجيلات موثقة لكنها غير منفذة.</value></data>
+  <data name="AdminCardAcademic" xml:space="preserve"><value>الطلاب والمدرسون والمساقات والشعب والقاعات والتسجيلات والتعيينات منفذة للإعداد الأكاديمي.</value></data>
   <data name="AdminCardPrivacy" xml:space="preserve"><value>تم توثيق التعامل مع البيانات الحيوية قبل إضافة التسجيل أو التحقق الإنتاجي.</value></data>
   <data name="AdminReadinessTitle" xml:space="preserve"><value>مكونات واجهة قابلة لإعادة الاستخدام</value></data>
-  <data name="AdminReadinessText" xml:space="preserve"><value>تم تنسيق الأزرار والشارات ومؤشرات الحالة والجداول والنماذج والحالات الفارغة والنوافذ والترقيم والفلاتر والتنبيهات والتحميل للوحدات القادمة.</value></data>
+  <data name="AdminReadinessText" xml:space="preserve"><value>تم تنسيق الأزرار والشارات ومؤشرات الحالة والجداول والنماذج والحالات الفارغة والنوافذ والترقيم والفلاتر والتنبيهات والتحميل للوحدات الأكاديمية.</value></data>
   <data name="PrimaryAction" xml:space="preserve"><value>إجراء رئيسي</value></data>
   <data name="SecondaryAction" xml:space="preserve"><value>إجراء ثانوي</value></data>
   <data name="DangerAction" xml:space="preserve"><value>إجراء خطر</value></data>
@@ -114,27 +114,27 @@
   <data name="PendingStatus" xml:space="preserve"><value>معلق</value></data>
   <data name="InstructorDashboardTitle" xml:space="preserve"><value>لوحة تحكم المدرس</value></data>
   <data name="InstructorRole" xml:space="preserve"><value>دور المدرس</value></data>
-  <data name="InstructorDashboardLead" xml:space="preserve"><value>عرض أساس لسير عمل المحاضرات ومراجعة الحضور المخطط له في السبرنتات القادمة.</value></data>
+  <data name="InstructorDashboardLead" xml:space="preserve"><value>مراجعة الشعب التي عينها المدير. تبقى سير عمل الحضور ضمن العمل المستقبلي.</value></data>
   <data name="LectureSessions" xml:space="preserve"><value>جلسات المحاضرات</value></data>
   <data name="AttendanceReview" xml:space="preserve"><value>مراجعة الحضور</value></data>
   <data name="SecureAccount" xml:space="preserve"><value>حساب آمن</value></data>
-  <data name="InstructorCardSessions" xml:space="preserve"><value>إدارة جلسات المحاضرات مؤجلة عمدا إلى السبرنت الثاني أو ما بعده.</value></data>
-  <data name="InstructorCardReview" xml:space="preserve"><value>تقارير الحضور وشاشات المراجعة لا تحتوي بيانات وهمية في السبرنت الأول.</value></data>
+  <data name="InstructorCardSessions" xml:space="preserve"><value>إدارة جلسات المحاضرات مؤجلة عمدا إلى سبرنت لاحق.</value></data>
+  <data name="InstructorCardReview" xml:space="preserve"><value>تقارير الحضور وشاشات المراجعة لا تحتوي بيانات وهمية في السبرنت الثاني.</value></data>
   <data name="InstructorCardAccount" xml:space="preserve"><value>يمكن لدور المدرس تسجيل الدخول وتغيير كلمة المرور والوصول فقط إلى لوحة المدرس.</value></data>
   <data name="InstructorEmptyTitle" xml:space="preserve"><value>لا توجد أدوات محاضرات بعد</value></data>
   <data name="InstructorEmptyText" xml:space="preserve"><value>ستظهر أدوات جلسات المحاضرات المستقبلية هنا بعد تنفيذ الإعداد الأكاديمي.</value></data>
   <data name="StudentDashboardTitle" xml:space="preserve"><value>لوحة تحكم الطالب</value></data>
   <data name="StudentRole" xml:space="preserve"><value>دور الطالب</value></data>
-  <data name="StudentDashboardLead" xml:space="preserve"><value>عرض أساس لتسجيل الحضور مستقبلا باستخدام الرمز والوقت والموقع والتحقق من الوجه واحدا إلى واحد.</value></data>
+  <data name="StudentDashboardLead" xml:space="preserve"><value>مراجعة الملف الأكاديمي والتسجيلات النشطة التي ينشئها المدير.</value></data>
   <data name="AttendanceRegistration" xml:space="preserve"><value>تسجيل الحضور</value></data>
   <data name="Privacy" xml:space="preserve"><value>الخصوصية</value></data>
   <data name="FaceVerification" xml:space="preserve"><value>التحقق من الوجه</value></data>
   <data name="AccountAccess" xml:space="preserve"><value>الوصول للحساب</value></data>
-  <data name="StudentCardAttendance" xml:space="preserve"><value>تسجيل الحضور موثق للعمل المستقبلي وغير فعال في السبرنت الأول.</value></data>
+  <data name="StudentCardAttendance" xml:space="preserve"><value>تسجيل الحضور موثق للعمل المستقبلي وغير فعال في السبرنت الثاني.</value></data>
   <data name="StudentCardFace" xml:space="preserve"><value>النهج المخطط هو التحقق واحدا إلى واحد وليس التعرف واحدا إلى متعدد.</value></data>
   <data name="StudentCardAccount" xml:space="preserve"><value>يمكن لدور الطالب تسجيل الدخول وتغيير كلمة المرور والوصول فقط إلى لوحة الطالب.</value></data>
   <data name="StudentEmptyTitle" xml:space="preserve"><value>لا توجد جلسة حضور نشطة</value></data>
-  <data name="StudentEmptyText" xml:space="preserve"><value>تسجيل الحضور الإنتاجي خارج السبرنت الأول وسيضاف بعد قبول الأساس.</value></data>
+  <data name="StudentEmptyText" xml:space="preserve"><value>تسجيل الحضور الإنتاجي خارج السبرنت الثاني وسيضاف فقط بعد قبول الأساس الأكاديمي.</value></data>
   <data name="ProfileTitle" xml:space="preserve"><value>ملخص الملف الشخصي</value></data>
   <data name="Account" xml:space="preserve"><value>الحساب</value></data>
   <data name="ProfileLead" xml:space="preserve"><value>راجع الحساب المصادق الحالي والأدوار المعينة له.</value></data>
@@ -144,4 +144,226 @@
   <data name="ValidationEmail" xml:space="preserve"><value>أدخل بريدا إلكترونيا صالحا.</value></data>
   <data name="ValidationPasswordLength" xml:space="preserve"><value>يجب ألا يقل {0} عن {2} أحرف.</value></data>
   <data name="ValidationPasswordConfirm" xml:space="preserve"><value>تأكيد كلمة المرور غير مطابق.</value></data>
+  <data name="NavAcademicManagement" xml:space="preserve"><value>الإدارة الأكاديمية</value></data>
+  <data name="NavDepartments" xml:space="preserve"><value>الأقسام</value></data>
+  <data name="NavStudents" xml:space="preserve"><value>الطلاب</value></data>
+  <data name="NavInstructors" xml:space="preserve"><value>المدرسون</value></data>
+  <data name="NavCourses" xml:space="preserve"><value>المساقات</value></data>
+  <data name="NavSections" xml:space="preserve"><value>الشعب</value></data>
+  <data name="NavClassrooms" xml:space="preserve"><value>القاعات</value></data>
+  <data name="NavEnrollments" xml:space="preserve"><value>تسجيلات الطلاب</value></data>
+  <data name="NavInstructorAssignments" xml:space="preserve"><value>تعيينات المدرسين</value></data>
+  <data name="DepartmentsTitle" xml:space="preserve"><value>الأقسام</value></data>
+  <data name="DepartmentsDescription" xml:space="preserve"><value>إدارة الأقسام النشطة وغير النشطة دون حذف العلاقات التاريخية.</value></data>
+  <data name="CreateDepartment" xml:space="preserve"><value>إنشاء قسم</value></data>
+  <data name="EditDepartment" xml:space="preserve"><value>تعديل قسم</value></data>
+  <data name="DepartmentDetails" xml:space="preserve"><value>تفاصيل القسم</value></data>
+  <data name="DepartmentFormDescription" xml:space="preserve"><value>يتم توحيد الرموز إلى أحرف كبيرة وتخزين الأسماء بالعربية والإنجليزية.</value></data>
+  <data name="StudentsTitle" xml:space="preserve"><value>الطلاب</value></data>
+  <data name="StudentsDescription" xml:space="preserve"><value>إنشاء وصيانة حسابات الطلاب المرتبطة بملفات أكاديمية.</value></data>
+  <data name="CreateStudent" xml:space="preserve"><value>إنشاء طالب</value></data>
+  <data name="EditStudent" xml:space="preserve"><value>تعديل طالب</value></data>
+  <data name="StudentDetails" xml:space="preserve"><value>تفاصيل الطالب</value></data>
+  <data name="StudentCreateDescription" xml:space="preserve"><value>إنشاء حساب هوية وملف طالب مرتبط بكلمة مرور مؤقتة.</value></data>
+  <data name="StudentProfileDescription" xml:space="preserve"><value>تحديث بيانات الملف الأكاديمي دون تغيير البريد أو كلمة المرور.</value></data>
+  <data name="InstructorsTitle" xml:space="preserve"><value>المدرسون</value></data>
+  <data name="InstructorsDescription" xml:space="preserve"><value>إنشاء وصيانة حسابات المدرسين المرتبطة بملفات أكاديمية.</value></data>
+  <data name="CreateInstructor" xml:space="preserve"><value>إنشاء مدرس</value></data>
+  <data name="EditInstructor" xml:space="preserve"><value>تعديل مدرس</value></data>
+  <data name="InstructorDetails" xml:space="preserve"><value>تفاصيل المدرس</value></data>
+  <data name="InstructorCreateDescription" xml:space="preserve"><value>إنشاء حساب هوية وملف مدرس مرتبط بكلمة مرور مؤقتة.</value></data>
+  <data name="InstructorProfileDescription" xml:space="preserve"><value>تحديث بيانات المدرس دون تغيير الصلاحيات.</value></data>
+  <data name="CoursesTitle" xml:space="preserve"><value>المساقات</value></data>
+  <data name="CoursesDescription" xml:space="preserve"><value>إدارة سجل المساقات وربطها بالأقسام النشطة.</value></data>
+  <data name="CreateCourse" xml:space="preserve"><value>إنشاء مساق</value></data>
+  <data name="EditCourse" xml:space="preserve"><value>تعديل مساق</value></data>
+  <data name="CourseDetails" xml:space="preserve"><value>تفاصيل المساق</value></data>
+  <data name="CourseFormDescription" xml:space="preserve"><value>رموز المساقات فريدة والساعات المعتمدة بين واحدة وست.</value></data>
+  <data name="SectionsTitle" xml:space="preserve"><value>الشعب</value></data>
+  <data name="SectionsDescription" xml:space="preserve"><value>إدارة شعب المساقات حسب السنة والفصل دون سلوك حضور.</value></data>
+  <data name="CreateSection" xml:space="preserve"><value>إنشاء شعبة</value></data>
+  <data name="EditSection" xml:space="preserve"><value>تعديل شعبة</value></data>
+  <data name="SectionDetails" xml:space="preserve"><value>تفاصيل الشعبة</value></data>
+  <data name="SectionFormDescription" xml:space="preserve"><value>الشعبة فريدة حسب المساق والسنة والفصل ورقم الشعبة.</value></data>
+  <data name="ClassroomsTitle" xml:space="preserve"><value>القاعات</value></data>
+  <data name="ClassroomsDescription" xml:space="preserve"><value>إدارة سعة القاعات والإحداثيات الاختيارية للتحقق المكاني لاحقا.</value></data>
+  <data name="CreateClassroom" xml:space="preserve"><value>إنشاء قاعة</value></data>
+  <data name="EditClassroom" xml:space="preserve"><value>تعديل قاعة</value></data>
+  <data name="ClassroomDetails" xml:space="preserve"><value>تفاصيل القاعة</value></data>
+  <data name="ClassroomFormDescription" xml:space="preserve"><value>خط العرض والطول اختياريان لكن يجب إدخالهما معا عند الاستخدام.</value></data>
+  <data name="EnrollmentsTitle" xml:space="preserve"><value>تسجيلات الطلاب</value></data>
+  <data name="EnrollmentsDescription" xml:space="preserve"><value>تسجيل الطلاب النشطين في الشعب النشطة مع حفظ السجل التاريخي.</value></data>
+  <data name="CreateEnrollment" xml:space="preserve"><value>إنشاء تسجيل</value></data>
+  <data name="EnrollmentDetails" xml:space="preserve"><value>تفاصيل التسجيل</value></data>
+  <data name="EnrollmentFormDescription" xml:space="preserve"><value>اختر طالبا نشطا وشعبة نشطة ذات سعة متاحة.</value></data>
+  <data name="InstructorAssignmentsTitle" xml:space="preserve"><value>تعيينات المدرسين</value></data>
+  <data name="InstructorAssignmentsDescription" xml:space="preserve"><value>تعيين المدرسين للشعب وضبط المدرس الرئيسي النشط الوحيد.</value></data>
+  <data name="CreateAssignment" xml:space="preserve"><value>إنشاء تعيين</value></data>
+  <data name="AssignmentDetails" xml:space="preserve"><value>تفاصيل التعيين</value></data>
+  <data name="AssignmentFormDescription" xml:space="preserve"><value>اختر مدرسا نشطا وشعبة نشطة؛ يجب أن يكون المدرس الرئيسي فريدا.</value></data>
+  <data name="Search" xml:space="preserve"><value>بحث</value></data>
+  <data name="Reset" xml:space="preserve"><value>إعادة ضبط</value></data>
+  <data name="Status" xml:space="preserve"><value>الحالة</value></data>
+  <data name="AllStatuses" xml:space="preserve"><value>كل الحالات</value></data>
+  <data name="Inactive" xml:space="preserve"><value>غير نشط</value></data>
+  <data name="Code" xml:space="preserve"><value>الرمز</value></data>
+  <data name="NameEnglish" xml:space="preserve"><value>الاسم بالإنجليزية</value></data>
+  <data name="NameArabic" xml:space="preserve"><value>الاسم بالعربية</value></data>
+  <data name="DescriptionEnglish" xml:space="preserve"><value>الوصف بالإنجليزية</value></data>
+  <data name="DescriptionArabic" xml:space="preserve"><value>الوصف بالعربية</value></data>
+  <data name="Actions" xml:space="preserve"><value>الإجراءات</value></data>
+  <data name="Details" xml:space="preserve"><value>التفاصيل</value></data>
+  <data name="Edit" xml:space="preserve"><value>تعديل</value></data>
+  <data name="Activate" xml:space="preserve"><value>تفعيل</value></data>
+  <data name="Deactivate" xml:space="preserve"><value>تعطيل</value></data>
+  <data name="BackToList" xml:space="preserve"><value>العودة للقائمة</value></data>
+  <data name="NotProvided" xml:space="preserve"><value>غير مدخل</value></data>
+  <data name="CreatedAtUtc" xml:space="preserve"><value>وقت الإنشاء UTC</value></data>
+  <data name="UpdatedAtUtc" xml:space="preserve"><value>وقت التحديث UTC</value></data>
+  <data name="ResultsCount" xml:space="preserve"><value>{0} نتيجة</value></data>
+  <data name="PageOf" xml:space="preserve"><value>الصفحة {0} من {1}</value></data>
+  <data name="Previous" xml:space="preserve"><value>السابق</value></data>
+  <data name="Next" xml:space="preserve"><value>التالي</value></data>
+  <data name="ConfirmStatusChange" xml:space="preserve"><value>هل تؤكد تغيير الحالة؟</value></data>
+  <data name="ConfirmPasswordReset" xml:space="preserve"><value>هل تريد إعادة ضبط كلمة المرور المؤقتة لهذا الحساب؟</value></data>
+  <data name="Department" xml:space="preserve"><value>القسم</value></data>
+  <data name="AllDepartments" xml:space="preserve"><value>كل الأقسام</value></data>
+  <data name="SelectDepartment" xml:space="preserve"><value>اختر القسم</value></data>
+  <data name="Course" xml:space="preserve"><value>المساق</value></data>
+  <data name="AllCourses" xml:space="preserve"><value>كل المساقات</value></data>
+  <data name="SelectCourse" xml:space="preserve"><value>اختر المساق</value></data>
+  <data name="Section" xml:space="preserve"><value>الشعبة</value></data>
+  <data name="AllSections" xml:space="preserve"><value>كل الشعب</value></data>
+  <data name="SelectSection" xml:space="preserve"><value>اختر الشعبة</value></data>
+  <data name="Student" xml:space="preserve"><value>الطالب</value></data>
+  <data name="AllStudents" xml:space="preserve"><value>كل الطلاب</value></data>
+  <data name="SelectStudent" xml:space="preserve"><value>اختر الطالب</value></data>
+  <data name="Instructor" xml:space="preserve"><value>المدرس</value></data>
+  <data name="AllInstructors" xml:space="preserve"><value>كل المدرسين</value></data>
+  <data name="SelectInstructor" xml:space="preserve"><value>اختر المدرس</value></data>
+  <data name="StudentNumber" xml:space="preserve"><value>رقم الطالب</value></data>
+  <data name="EmployeeNumber" xml:space="preserve"><value>رقم الموظف</value></data>
+  <data name="AcademicLevel" xml:space="preserve"><value>المستوى الأكاديمي</value></data>
+  <data name="EnrollmentYear" xml:space="preserve"><value>سنة الالتحاق</value></data>
+  <data name="AcademicTitleField" xml:space="preserve"><value>الرتبة الأكاديمية</value></data>
+  <data name="TemporaryPassword" xml:space="preserve"><value>كلمة المرور المؤقتة</value></data>
+  <data name="ResetPassword" xml:space="preserve"><value>إعادة ضبط كلمة المرور</value></data>
+  <data name="ResetPasswordDescription" xml:space="preserve"><value>عيّن كلمة مرور مؤقتة جديدة واطلب تغييرها عند تسجيل الدخول التالي.</value></data>
+  <data name="MustChangePassword" xml:space="preserve"><value>يجب تغيير كلمة المرور</value></data>
+  <data name="Yes" xml:space="preserve"><value>نعم</value></data>
+  <data name="No" xml:space="preserve"><value>لا</value></data>
+  <data name="CreditHours" xml:space="preserve"><value>الساعات المعتمدة</value></data>
+  <data name="SectionNumber" xml:space="preserve"><value>رقم الشعبة</value></data>
+  <data name="AcademicYear" xml:space="preserve"><value>السنة الأكاديمية</value></data>
+  <data name="Semester" xml:space="preserve"><value>الفصل</value></data>
+  <data name="SemesterFirst" xml:space="preserve"><value>الأول</value></data>
+  <data name="SemesterSecond" xml:space="preserve"><value>الثاني</value></data>
+  <data name="SemesterSummer" xml:space="preserve"><value>الصيفي</value></data>
+  <data name="Capacity" xml:space="preserve"><value>السعة</value></data>
+  <data name="Building" xml:space="preserve"><value>المبنى</value></data>
+  <data name="BuildingNameEnglish" xml:space="preserve"><value>اسم المبنى بالإنجليزية</value></data>
+  <data name="BuildingNameArabic" xml:space="preserve"><value>اسم المبنى بالعربية</value></data>
+  <data name="RoomNumber" xml:space="preserve"><value>رقم القاعة</value></data>
+  <data name="Latitude" xml:space="preserve"><value>خط العرض</value></data>
+  <data name="Longitude" xml:space="preserve"><value>خط الطول</value></data>
+  <data name="Coordinates" xml:space="preserve"><value>الإحداثيات</value></data>
+  <data name="EnrollmentStatus" xml:space="preserve"><value>حالة التسجيل</value></data>
+  <data name="EnrollmentStatusActive" xml:space="preserve"><value>نشط</value></data>
+  <data name="EnrollmentStatusDropped" xml:space="preserve"><value>منسحب</value></data>
+  <data name="EnrollmentStatusCompleted" xml:space="preserve"><value>مكتمل</value></data>
+  <data name="EnrollmentStatusCancelled" xml:space="preserve"><value>ملغى</value></data>
+  <data name="ChangeStatus" xml:space="preserve"><value>تغيير الحالة</value></data>
+  <data name="ChangeEnrollmentStatusDescription" xml:space="preserve"><value>تغيير حالة التسجيل دون حذف السجل التاريخي.</value></data>
+  <data name="EnrolledAtUtc" xml:space="preserve"><value>وقت التسجيل UTC</value></data>
+  <data name="PrimaryInstructor" xml:space="preserve"><value>المدرس الرئيسي</value></data>
+  <data name="SetPrimary" xml:space="preserve"><value>تعيين كرئيسي</value></data>
+  <data name="SetPrimaryDescription" xml:space="preserve"><value>يمكن أن يكون لكل شعبة تعيين نشط رئيسي واحد فقط.</value></data>
+  <data name="AssignedAtUtc" xml:space="preserve"><value>وقت التعيين UTC</value></data>
+  <data name="AssignedSections" xml:space="preserve"><value>الشعب المعينة</value></data>
+  <data name="ViewEnrollments" xml:space="preserve"><value>عرض التسجيلات</value></data>
+  <data name="ViewAssignedSections" xml:space="preserve"><value>عرض الشعب المعينة</value></data>
+  <data name="ViewEnrolledStudents" xml:space="preserve"><value>عرض الطلاب المسجلين</value></data>
+  <data name="ViewAssignedInstructors" xml:space="preserve"><value>عرض المدرسين المعينين</value></data>
+  <data name="NoDepartments" xml:space="preserve"><value>لا توجد أقسام تطابق الفلاتر الحالية.</value></data>
+  <data name="NoStudents" xml:space="preserve"><value>لا يوجد طلاب يطابقون الفلاتر الحالية.</value></data>
+  <data name="NoInstructors" xml:space="preserve"><value>لا يوجد مدرسون يطابقون الفلاتر الحالية.</value></data>
+  <data name="NoCourses" xml:space="preserve"><value>لا توجد مساقات تطابق الفلاتر الحالية.</value></data>
+  <data name="NoSections" xml:space="preserve"><value>لا توجد شعب تطابق الفلاتر الحالية.</value></data>
+  <data name="NoClassrooms" xml:space="preserve"><value>لا توجد قاعات تطابق الفلاتر الحالية.</value></data>
+  <data name="NoEnrollments" xml:space="preserve"><value>لا توجد تسجيلات تطابق الفلاتر الحالية.</value></data>
+  <data name="NoAssignments" xml:space="preserve"><value>لا توجد تعيينات تطابق الفلاتر الحالية.</value></data>
+  <data name="SearchDepartmentsPlaceholder" xml:space="preserve"><value>رمز أو اسم القسم</value></data>
+  <data name="SearchStudentsPlaceholder" xml:space="preserve"><value>رقم الطالب أو الاسم أو البريد</value></data>
+  <data name="SearchInstructorsPlaceholder" xml:space="preserve"><value>رقم الموظف أو الاسم أو البريد</value></data>
+  <data name="SearchCoursesPlaceholder" xml:space="preserve"><value>رمز المساق أو اسمه</value></data>
+  <data name="SearchSectionsPlaceholder" xml:space="preserve"><value>المساق أو السنة أو رقم الشعبة</value></data>
+  <data name="SearchClassroomsPlaceholder" xml:space="preserve"><value>رمز القاعة أو المبنى أو الرقم</value></data>
+  <data name="SearchEnrollmentsPlaceholder" xml:space="preserve"><value>طالب أو شعبة أو مساق</value></data>
+  <data name="SearchAssignmentsPlaceholder" xml:space="preserve"><value>مدرس أو شعبة أو مساق</value></data>
+  <data name="DepartmentCreated" xml:space="preserve"><value>تم إنشاء القسم.</value></data>
+  <data name="DepartmentUpdated" xml:space="preserve"><value>تم تحديث القسم.</value></data>
+  <data name="DepartmentActivated" xml:space="preserve"><value>تم تفعيل القسم.</value></data>
+  <data name="DepartmentDeactivated" xml:space="preserve"><value>تم تعطيل القسم.</value></data>
+  <data name="StudentCreated" xml:space="preserve"><value>تم إنشاء حساب الطالب وملفه.</value></data>
+  <data name="StudentUpdated" xml:space="preserve"><value>تم تحديث ملف الطالب.</value></data>
+  <data name="StudentActivated" xml:space="preserve"><value>تم تفعيل حساب الطالب.</value></data>
+  <data name="StudentDeactivated" xml:space="preserve"><value>تم تعطيل حساب الطالب.</value></data>
+  <data name="InstructorCreated" xml:space="preserve"><value>تم إنشاء حساب المدرس وملفه.</value></data>
+  <data name="InstructorUpdated" xml:space="preserve"><value>تم تحديث ملف المدرس.</value></data>
+  <data name="InstructorActivated" xml:space="preserve"><value>تم تفعيل حساب المدرس.</value></data>
+  <data name="InstructorDeactivated" xml:space="preserve"><value>تم تعطيل حساب المدرس.</value></data>
+  <data name="CourseCreated" xml:space="preserve"><value>تم إنشاء المساق.</value></data>
+  <data name="CourseUpdated" xml:space="preserve"><value>تم تحديث المساق.</value></data>
+  <data name="CourseActivated" xml:space="preserve"><value>تم تفعيل المساق.</value></data>
+  <data name="CourseDeactivated" xml:space="preserve"><value>تم تعطيل المساق.</value></data>
+  <data name="ClassroomCreated" xml:space="preserve"><value>تم إنشاء القاعة.</value></data>
+  <data name="ClassroomUpdated" xml:space="preserve"><value>تم تحديث القاعة.</value></data>
+  <data name="ClassroomActivated" xml:space="preserve"><value>تم تفعيل القاعة.</value></data>
+  <data name="ClassroomDeactivated" xml:space="preserve"><value>تم تعطيل القاعة.</value></data>
+  <data name="SectionCreated" xml:space="preserve"><value>تم إنشاء الشعبة.</value></data>
+  <data name="SectionUpdated" xml:space="preserve"><value>تم تحديث الشعبة.</value></data>
+  <data name="SectionActivated" xml:space="preserve"><value>تم تفعيل الشعبة.</value></data>
+  <data name="SectionDeactivated" xml:space="preserve"><value>تم تعطيل الشعبة.</value></data>
+  <data name="EnrollmentCreated" xml:space="preserve"><value>تم إنشاء التسجيل.</value></data>
+  <data name="EnrollmentStatusChanged" xml:space="preserve"><value>تم تغيير حالة التسجيل.</value></data>
+  <data name="EnrollmentDeactivated" xml:space="preserve"><value>تم تعطيل التسجيل.</value></data>
+  <data name="AssignmentCreated" xml:space="preserve"><value>تم إنشاء تعيين المدرس.</value></data>
+  <data name="AssignmentPrimaryChanged" xml:space="preserve"><value>تم تحديث إعداد المدرس الرئيسي.</value></data>
+  <data name="AssignmentDeactivated" xml:space="preserve"><value>تم تعطيل تعيين المدرس.</value></data>
+  <data name="TemporaryPasswordReset" xml:space="preserve"><value>تمت إعادة ضبط كلمة المرور المؤقتة وسيطلب تغييرها عند الدخول التالي.</value></data>
+  <data name="ErrorRequestFailed" xml:space="preserve"><value>تعذر إكمال الطلب.</value></data>
+  <data name="ErrorRecordNotFound" xml:space="preserve"><value>لم يتم العثور على السجل المطلوب.</value></data>
+  <data name="ErrorValidationMessage" xml:space="preserve"><value>{0}</value></data>
+  <data name="ErrorUniqueConstraint" xml:space="preserve"><value>رفض قيد فريد في قاعدة البيانات هذا التغيير. راجع الرموز أو التعيينات المكررة.</value></data>
+  <data name="ErrorConcurrency" xml:space="preserve"><value>تم تغيير هذا السجل من مستخدم آخر. أعد تحميل الصفحة وحاول مجددا.</value></data>
+  <data name="ErrorIdentityMessage" xml:space="preserve"><value>{0}</value></data>
+  <data name="ErrorDepartmentCodeExists" xml:space="preserve"><value>رمز القسم {0} موجود مسبقا.</value></data>
+  <data name="ErrorCourseCodeExists" xml:space="preserve"><value>رمز المساق {0} موجود مسبقا.</value></data>
+  <data name="ErrorClassroomCodeExists" xml:space="preserve"><value>رمز القاعة {0} موجود مسبقا.</value></data>
+  <data name="ErrorEmailExists" xml:space="preserve"><value>البريد {0} موجود مسبقا.</value></data>
+  <data name="ErrorStudentNumberExists" xml:space="preserve"><value>رقم الطالب {0} موجود مسبقا.</value></data>
+  <data name="ErrorEmployeeNumberExists" xml:space="preserve"><value>رقم الموظف {0} موجود مسبقا.</value></data>
+  <data name="ErrorSectionCompositeExists" xml:space="preserve"><value>توجد شعبة بنفس المساق والسنة والفصل ورقم الشعبة.</value></data>
+  <data name="ErrorDuplicateEnrollment" xml:space="preserve"><value>هذا الطالب مسجل مسبقا في الشعبة المختارة.</value></data>
+  <data name="ErrorDuplicateAssignment" xml:space="preserve"><value>هذا المدرس معين مسبقا للشعبة المختارة.</value></data>
+  <data name="ErrorPrimaryInstructorExists" xml:space="preserve"><value>للشعبة المختارة مدرس رئيسي نشط مسبقا.</value></data>
+  <data name="ErrorActiveDepartmentRequired" xml:space="preserve"><value>اختر قسما نشطا.</value></data>
+  <data name="ErrorActiveCourseRequired" xml:space="preserve"><value>اختر مساقا نشطا.</value></data>
+  <data name="ErrorActiveSectionRequired" xml:space="preserve"><value>اختر شعبة نشطة.</value></data>
+  <data name="ErrorActiveStudentRequired" xml:space="preserve"><value>اختر طالبا نشطا.</value></data>
+  <data name="ErrorActiveInstructorRequired" xml:space="preserve"><value>اختر مدرسا نشطا.</value></data>
+  <data name="ErrorSectionCapacityReached" xml:space="preserve"><value>وصلت الشعبة إلى سعتها القصوى.</value></data>
+  <data name="AcademicManagementQuickLinks" xml:space="preserve"><value>روابط الإدارة الأكاديمية السريعة</value></data>
+  <data name="AcademicManagementQuickLinksText" xml:space="preserve"><value>افتح أكثر أعمال الإدارة استخداما في سبرنت 2.</value></data>
+  <data name="ActiveStudentsCount" xml:space="preserve"><value>ملفات طلاب نشطة</value></data>
+  <data name="ActiveInstructorsCount" xml:space="preserve"><value>ملفات مدرسين نشطة</value></data>
+  <data name="ActiveDepartmentsCount" xml:space="preserve"><value>أقسام نشطة</value></data>
+  <data name="ActiveCoursesCount" xml:space="preserve"><value>مساقات نشطة</value></data>
+  <data name="ActiveSectionsCount" xml:space="preserve"><value>شعب نشطة</value></data>
+  <data name="ActiveClassroomsCount" xml:space="preserve"><value>قاعات نشطة</value></data>
+  <data name="InstructorAcademicSummaryText" xml:space="preserve"><value>تعيينات الشعب الحالية من الإعداد الأكاديمي.</value></data>
+  <data name="InstructorAcademicEmptyText" xml:space="preserve"><value>لا توجد تعيينات شعب نشطة مرتبطة بملف هذا المدرس.</value></data>
+  <data name="StudentAcademicSummaryText" xml:space="preserve"><value>معلومات ملف الطالب الحالية من الإعداد الأكاديمي.</value></data>
+  <data name="StudentAcademicEmptyText" xml:space="preserve"><value>لا توجد تسجيلات شعب نشطة مرتبطة بملف هذا الطالب.</value></data>
+  <data name="ActiveEnrollmentsCount" xml:space="preserve"><value>تسجيلات أكاديمية نشطة</value></data>
 </root>

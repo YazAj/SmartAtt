@@ -1,7 +1,8 @@
+@model StudentDashboardSummaryDto
 @inject IStringLocalizer<SharedResource> Localizer
 @{
     ViewData["Title"] = Localizer["StudentDashboardTitle"];
-    var emptyState = new EmptyStateViewModel(Localizer["StudentEmptyTitle"].Value, Localizer["StudentEmptyText"].Value);
+    var emptyState = new EmptyStateViewModel(Localizer["StudentEmptyTitle"].Value, Localizer["StudentAcademicEmptyText"].Value);
 }
 
 <section class="page-header">
@@ -14,20 +15,39 @@
 
 <section class="dashboard-grid">
     <article class="stat-card">
-        <span>@Localizer["FutureModule"]</span>
-        <strong>@Localizer["AttendanceRegistration"]</strong>
-        <p>@Localizer["StudentCardAttendance"]</p>
+        <span>@Localizer["Department"]</span>
+        <strong>@(Model.DepartmentNameEnglish ?? Localizer["NotProvided"])</strong>
+        <p>@(Model.DepartmentNameArabic ?? Localizer["NotProvided"])</p>
     </article>
     <article class="stat-card">
-        <span>@Localizer["Privacy"]</span>
-        <strong>@Localizer["FaceVerification"]</strong>
-        <p>@Localizer["StudentCardFace"]</p>
+        <span>@Localizer["AcademicLevel"]</span>
+        <strong>@(Model.AcademicLevel ?? Localizer["NotProvided"])</strong>
+        <p>@Localizer["StudentAcademicSummaryText"]</p>
     </article>
     <article class="stat-card">
-        <span>@Localizer["FoundationArea"]</span>
-        <strong>@Localizer["AccountAccess"]</strong>
-        <p>@Localizer["StudentCardAccount"]</p>
+        <span>@Localizer["EnrollmentsTitle"]</span>
+        <strong>@Model.EnrolledSections.Count</strong>
+        <p>@Localizer["ActiveEnrollmentsCount"]</p>
     </article>
 </section>
 
-<partial name="Components/_EmptyState" model="emptyState" />
+@if (Model.EnrolledSections.Count == 0)
+{
+    <partial name="Components/_EmptyState" model="emptyState" />
+}
+else
+{
+    <section class="app-panel">
+        <div class="table-responsive">
+            <table class="table app-table">
+                <thead><tr><th>@Localizer["Course"]</th><th>@Localizer["Section"]</th><th>@Localizer["AcademicYear"]</th><th>@Localizer["Semester"]</th><th>@Localizer["EnrollmentStatus"]</th></tr></thead>
+                <tbody>
+                @foreach (var enrollment in Model.EnrolledSections)
+                {
+                    <tr><td data-label="@Localizer["Course"]">@enrollment.CourseCode - @enrollment.CourseNameEnglish<br /><small>@enrollment.CourseNameArabic</small></td><td data-label="@Localizer["Section"]">@enrollment.SectionNumber</td><td data-label="@Localizer["AcademicYear"]">@enrollment.AcademicYear</td><td data-label="@Localizer["Semester"]">@Localizer[$"Semester{enrollment.Semester}"]</td><td data-label="@Localizer["EnrollmentStatus"]">@Localizer[$"EnrollmentStatus{enrollment.EnrollmentStatus}"]</td></tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </section>
+}

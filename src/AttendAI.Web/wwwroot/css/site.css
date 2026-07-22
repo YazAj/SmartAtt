@@ -688,6 +688,92 @@ a:hover {
     padding-inline: .85rem;
 }
 
+.admin-nav-group {
+    display: grid;
+    gap: .25rem;
+    margin-block-start: 1.25rem;
+    padding-block-start: 1rem;
+    border-block-start: 1px solid var(--border-color);
+}
+
+.admin-nav-heading {
+    color: var(--text-muted);
+    font-size: .78rem;
+    font-weight: 800;
+    padding-inline: .85rem;
+    text-transform: uppercase;
+}
+
+.app-menu-link.active {
+    background: color-mix(in srgb, var(--primary) 14%, var(--surface));
+    color: var(--primary);
+}
+
+.filter-grid,
+.form-grid,
+.details-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.filter-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: end;
+}
+
+.form-grid,
+.details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.field-required::after {
+    content: " *";
+    color: var(--danger);
+}
+
+.entity-title {
+    display: grid;
+    gap: .25rem;
+}
+
+.entity-title small,
+.detail-label {
+    color: var(--text-muted);
+    font-size: .82rem;
+    font-weight: 700;
+}
+
+.detail-value {
+    color: var(--text-primary);
+    font-weight: 700;
+    word-break: break-word;
+}
+
+.row-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+}
+
+.pagination-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-block-start: 1rem;
+}
+
+.empty-row {
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.table-responsive {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--surface);
+}
+
 .pagination .page-link {
     border-color: var(--border-color);
     background: var(--surface);
@@ -760,6 +846,12 @@ a:hover {
         justify-content: flex-end;
     }
 
+    .filter-grid,
+    .form-grid,
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
     .account-name {
         display: none;
     }
@@ -814,6 +906,20 @@ a:hover {
     .app-table td {
         border: 0;
         padding: .35rem 0;
+    }
+
+    .app-table td[data-label]::before {
+        content: attr(data-label);
+        display: block;
+        color: var(--text-muted);
+        font-size: .75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    .pagination-wrap {
+        align-items: stretch;
+        flex-direction: column;
     }
 }
 

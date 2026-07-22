@@ -1,0 +1,14 @@
+@model DepartmentCommand
+@{
+    ViewData["Title"] = Localizer["CreateDepartment"];
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">@Localizer["DepartmentsTitle"]</p>
+        <h1>@Localizer["CreateDepartment"]</h1>
+        <p>@Localizer["DepartmentFormDescription"]</p>
+    </div>
+</section>
+
+<partial name="_DepartmentForm" model="Model" />

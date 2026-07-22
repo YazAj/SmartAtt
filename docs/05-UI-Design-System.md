@@ -39,6 +39,8 @@ Implemented CSS classes cover:
 - Skeleton loading indicators.
 - Empty states.
 
+Sprint 2 reuses these styles for Admin academic management lists, filters, details pages, create/edit forms, reset-password pages, enrollment status pages, primary-assignment pages, and role dashboards.
+
 ## Accessibility
 
 - Visible `:focus-visible` ring.
@@ -49,3 +51,13 @@ Implemented CSS classes cover:
 ## Future UI Work
 
 Future academic modules should reuse the existing page header, app panel, form, table, badge, empty-state, and status styles before adding new patterns.
+
+## Sprint 2 Visual Verification
+
+- English LTR Light: Admin dashboard desktop and Departments mobile checked.
+- English LTR Dark: Students desktop checked.
+- Arabic RTL Light: Courses desktop checked.
+- Arabic RTL Dark: Sections mobile checked.
+- Browser overflow checks reported no horizontal overflow for the checked desktop and mobile viewports.
+- Theme persisted through `localStorage` as `attendai-theme`.
+- Culture persisted through the ASP.NET Core culture cookie.

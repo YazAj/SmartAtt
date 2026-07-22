@@ -1,0 +1,4 @@
+@model ClassroomCommand
+@{ ViewData["Title"] = Localizer["CreateClassroom"]; }
+<section class="page-header"><div><p class="eyebrow">@Localizer["ClassroomsTitle"]</p><h1>@Localizer["CreateClassroom"]</h1><p>@Localizer["ClassroomFormDescription"]</p></div></section>
+<partial name="_ClassroomForm" model="Model" />

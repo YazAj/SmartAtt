@@ -66,7 +66,7 @@ public sealed class AccountController : Controller
             return View(model);
         }
 
-        if (user.IsDisabled)
+        if (user.IsDisabled || !user.IsActive)
         {
             _logger.LogWarning("Disabled account login attempt for user {UserId}.", user.Id);
             ModelState.AddModelError(string.Empty, _localizer["AccountDisabled"]);
@@ -83,6 +83,11 @@ public sealed class AccountController : Controller
         {
             user.LastLoginAtUtc = DateTimeOffset.UtcNow;
             await _userManager.UpdateAsync(user);
+
+            if (user.MustChangePassword)
+            {
+                return RedirectToAction(nameof(ChangePassword), "Account");
+            }
 
             if (_safeRedirectService.IsLocalReturnUrl(model.ReturnUrl) && model.ReturnUrl != "/")
             {
@@ -151,6 +156,9 @@ public sealed class AccountController : Controller
             return View(model);
         }
 
+        user.MustChangePassword = false;
+        user.UpdatedAtUtc = DateTimeOffset.UtcNow;
+        await _userManager.UpdateAsync(user);
         await _signInManager.RefreshSignInAsync(user);
         TempData["StatusMessage"] = _localizer["PasswordChanged"].Value;
         return RedirectToAction(nameof(ProfileController.Index), "Profile");

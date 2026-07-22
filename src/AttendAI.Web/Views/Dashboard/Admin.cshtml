@@ -1,3 +1,4 @@
+@model AdminDashboardSummaryDto
 @inject IStringLocalizer<SharedResource> Localizer
 @{
     ViewData["Title"] = Localizer["AdminDashboardTitle"];
@@ -13,32 +14,46 @@
 
 <section class="dashboard-grid">
     <article class="stat-card">
-        <span>@Localizer["FoundationArea"]</span>
-        <strong>@Localizer["IdentityAndRoles"]</strong>
-        <p>@Localizer["AdminCardIdentity"]</p>
+        <span>@Localizer["StudentsTitle"]</span>
+        <strong>@Model.ActiveStudents</strong>
+        <p>@Localizer["ActiveStudentsCount"]</p>
     </article>
     <article class="stat-card">
-        <span>@Localizer["FutureModule"]</span>
-        <strong>@Localizer["AcademicSetup"]</strong>
-        <p>@Localizer["AdminCardAcademic"]</p>
+        <span>@Localizer["InstructorsTitle"]</span>
+        <strong>@Model.ActiveInstructors</strong>
+        <p>@Localizer["ActiveInstructorsCount"]</p>
     </article>
     <article class="stat-card">
-        <span>@Localizer["Governance"]</span>
-        <strong>@Localizer["BiometricPrivacy"]</strong>
-        <p>@Localizer["AdminCardPrivacy"]</p>
+        <span>@Localizer["DepartmentsTitle"]</span>
+        <strong>@Model.ActiveDepartments</strong>
+        <p>@Localizer["ActiveDepartmentsCount"]</p>
+    </article>
+    <article class="stat-card">
+        <span>@Localizer["CoursesTitle"]</span>
+        <strong>@Model.ActiveCourses</strong>
+        <p>@Localizer["ActiveCoursesCount"]</p>
+    </article>
+    <article class="stat-card">
+        <span>@Localizer["SectionsTitle"]</span>
+        <strong>@Model.ActiveSections</strong>
+        <p>@Localizer["ActiveSectionsCount"]</p>
+    </article>
+    <article class="stat-card">
+        <span>@Localizer["ClassroomsTitle"]</span>
+        <strong>@Model.ActiveClassrooms</strong>
+        <p>@Localizer["ActiveClassroomsCount"]</p>
     </article>
 </section>
 
 <section class="app-panel">
     <div class="section-heading">
-        <h2>@Localizer["AdminReadinessTitle"]</h2>
-        <p>@Localizer["AdminReadinessText"]</p>
+        <h2>@Localizer["AcademicManagementQuickLinks"]</h2>
+        <p>@Localizer["AcademicManagementQuickLinksText"]</p>
     </div>
     <div class="component-showcase">
-        <button class="btn btn-primary app-btn">@Localizer["PrimaryAction"]</button>
-        <button class="btn btn-secondary app-btn">@Localizer["SecondaryAction"]</button>
-        <button class="btn btn-danger app-btn">@Localizer["DangerAction"]</button>
-        <span class="status-badge">@Localizer["StatusBadge"]</span>
-        <span class="status-indicator status-pending">@Localizer["PendingStatus"]</span>
+        <a class="btn btn-primary app-btn" asp-area="Admin" asp-controller="Students" asp-action="Create">@Localizer["CreateStudent"]</a>
+        <a class="btn btn-primary app-btn" asp-area="Admin" asp-controller="Instructors" asp-action="Create">@Localizer["CreateInstructor"]</a>
+        <a class="btn btn-secondary app-btn" asp-area="Admin" asp-controller="Departments" asp-action="Index">@Localizer["DepartmentsTitle"]</a>
+        <a class="btn btn-secondary app-btn" asp-area="Admin" asp-controller="Sections" asp-action="Index">@Localizer["SectionsTitle"]</a>
     </div>
 </section>

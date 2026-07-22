@@ -1,7 +1,8 @@
+@model InstructorDashboardSummaryDto
 @inject IStringLocalizer<SharedResource> Localizer
 @{
     ViewData["Title"] = Localizer["InstructorDashboardTitle"];
-    var emptyState = new EmptyStateViewModel(Localizer["InstructorEmptyTitle"].Value, Localizer["InstructorEmptyText"].Value);
+    var emptyState = new EmptyStateViewModel(Localizer["InstructorEmptyTitle"].Value, Localizer["InstructorAcademicEmptyText"].Value);
 }
 
 <section class="page-header">
@@ -14,20 +15,29 @@
 
 <section class="dashboard-grid">
     <article class="stat-card">
-        <span>@Localizer["FutureModule"]</span>
-        <strong>@Localizer["LectureSessions"]</strong>
-        <p>@Localizer["InstructorCardSessions"]</p>
-    </article>
-    <article class="stat-card">
-        <span>@Localizer["FutureModule"]</span>
-        <strong>@Localizer["AttendanceReview"]</strong>
-        <p>@Localizer["InstructorCardReview"]</p>
-    </article>
-    <article class="stat-card">
-        <span>@Localizer["FoundationArea"]</span>
-        <strong>@Localizer["SecureAccount"]</strong>
-        <p>@Localizer["InstructorCardAccount"]</p>
+        <span>@Localizer["AssignedSections"]</span>
+        <strong>@Model.AssignedSections.Count</strong>
+        <p>@Localizer["InstructorAcademicSummaryText"]</p>
     </article>
 </section>
 
-<partial name="Components/_EmptyState" model="emptyState" />
+@if (Model.AssignedSections.Count == 0)
+{
+    <partial name="Components/_EmptyState" model="emptyState" />
+}
+else
+{
+    <section class="app-panel">
+        <div class="table-responsive">
+            <table class="table app-table">
+                <thead><tr><th>@Localizer["Course"]</th><th>@Localizer["Section"]</th><th>@Localizer["AcademicYear"]</th><th>@Localizer["Semester"]</th><th>@Localizer["PrimaryInstructor"]</th></tr></thead>
+                <tbody>
+                @foreach (var assignedSection in Model.AssignedSections)
+                {
+                    <tr><td data-label="@Localizer["Course"]">@assignedSection.CourseCode - @assignedSection.CourseNameEnglish<br /><small>@assignedSection.CourseNameArabic</small></td><td data-label="@Localizer["Section"]">@assignedSection.SectionNumber</td><td data-label="@Localizer["AcademicYear"]">@assignedSection.AcademicYear</td><td data-label="@Localizer["Semester"]">@Localizer[$"Semester{assignedSection.Semester}"]</td><td data-label="@Localizer["PrimaryInstructor"]">@(assignedSection.IsPrimary ? Localizer["Yes"] : Localizer["No"])</td></tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </section>
+}

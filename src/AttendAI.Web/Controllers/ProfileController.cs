@@ -30,7 +30,7 @@ public sealed class ProfileController : Controller
             user.Email ?? string.Empty,
             user.FullName,
             roles.ToArray(),
-            user.IsDisabled);
+            user.IsDisabled || !user.IsActive);
 
         return View(model);
     }

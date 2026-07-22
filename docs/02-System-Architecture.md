@@ -21,11 +21,30 @@ flowchart LR
 
 ## Authentication Design
 
-ASP.NET Core Identity stores users and roles in SQL Server through `ApplicationDbContext`. Cookies use `__Host-AttendAI.Auth`, Secure, HTTP-only, SameSite Lax, and sliding expiration. Login validates disabled accounts and safe return URLs. Logout and culture switching are protected by antiforgery tokens.
+ASP.NET Core Identity stores users and roles in SQL Server through `ApplicationDbContext`. Cookies use `__Host-AttendAI.Auth`, Secure, HTTP-only, SameSite Lax, and sliding expiration. Login validates disabled/inactive accounts and safe return URLs. Logout and culture switching are protected by antiforgery tokens. Sprint 2 adds `IsActive`, `MustChangePassword`, and `UpdatedAtUtc` to `ApplicationUser` so administrator-created accounts can require a first-login password change.
 
 ## Authorization Design
 
 Role names live in `RoleConstants`. `DashboardRouteService` maps roles to dashboards. Dashboard actions use `[Authorize(Roles = ...)]` so cross-role access is denied by policy enforcement.
+
+Admin academic management controllers live under `Areas/Admin` and inherit `[Area("Admin")]`, `[Authorize(Roles = RoleConstants.Admin)]`, and `[AutoValidateAntiforgeryToken]` from `AdminControllerBase`.
+
+## Academic Management Design
+
+Academic entities live in Domain and remain framework-independent. Application exposes commands, DTOs, paged queries, lookup contracts, and service interfaces. Infrastructure implements those contracts with EF Core and ASP.NET Core Identity transactions where account creation or password reset must stay consistent with academic profiles.
+
+```mermaid
+flowchart LR
+    AdminArea["Admin MVC Area"] --> AppContracts["Academic Service Contracts"]
+    Dashboards["Role Dashboards"] --> AppContracts
+    AppContracts --> DomainEntities["Academic Domain Entities"]
+    EfServices["Infrastructure Academic Services"] --> AppContracts
+    EfServices --> Db["ApplicationDbContext"]
+    Db --> Sql["SQL Server"]
+    EfServices --> Identity["UserManager / RoleManager"]
+```
+
+Activation/deactivation preserves historical rows. SQL Server indexes and service rules enforce unique department/course/classroom codes, unique Student and Instructor profile links to Identity users, unique enrollments, capacity checks, and one active primary instructor per section.
 
 ## Localization Design
 

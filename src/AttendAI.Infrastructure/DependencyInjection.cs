@@ -1,4 +1,7 @@
 using AttendAI.Application.FaceRecognition;
+using AttendAI.Application.Academic;
+using AttendAI.Application.Academic.Dashboard;
+using AttendAI.Infrastructure.Academic;
 using AttendAI.Infrastructure.Configuration;
 using AttendAI.Infrastructure.FaceRecognition;
 using AttendAI.Infrastructure.Identity;
@@ -55,6 +58,16 @@ public static class DependencyInjection
         services.AddScoped<IdentitySeedService>();
         services.AddScoped<ApplicationDbInitializer>();
         services.AddScoped<IFaceRecognitionEngine, FakeFaceRecognitionEngine>();
+        services.AddScoped<IDepartmentService, DepartmentService>();
+        services.AddScoped<IStudentService, StudentService>();
+        services.AddScoped<IInstructorService, InstructorService>();
+        services.AddScoped<ICourseService, CourseService>();
+        services.AddScoped<ISectionService, SectionService>();
+        services.AddScoped<IClassroomService, ClassroomService>();
+        services.AddScoped<IEnrollmentService, EnrollmentService>();
+        services.AddScoped<IInstructorAssignmentService, InstructorAssignmentService>();
+        services.AddScoped<IAcademicLookupService, AcademicLookupService>();
+        services.AddScoped<IAcademicDashboardService, AcademicDashboardService>();
 
         return services;
     }

@@ -4,8 +4,10 @@ using AttendAI.Application.Identity;
 using AttendAI.Application.Security;
 using AttendAI.Infrastructure;
 using AttendAI.Infrastructure.Persistence;
+using AttendAI.Infrastructure.Identity;
 using AttendAI.Web;
 using AttendAI.Web.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -93,7 +95,40 @@ app.UseRequestLocalization();
 app.UseRouting();
 
 app.UseAuthentication();
+
+app.Use(async (context, next) =>
+{
+    if (context.User.Identity?.IsAuthenticated == true)
+    {
+        var path = context.Request.Path;
+        var allowed =
+            path.StartsWithSegments("/Account/ChangePassword") ||
+            path.StartsWithSegments("/Account/Logout") ||
+            path.StartsWithSegments("/Account/AccessDenied") ||
+            path.StartsWithSegments("/css") ||
+            path.StartsWithSegments("/js") ||
+            path.StartsWithSegments("/lib");
+
+        if (!allowed)
+        {
+            var userManager = context.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
+            var user = await userManager.GetUserAsync(context.User);
+            if (user?.MustChangePassword == true)
+            {
+                context.Response.Redirect("/Account/ChangePassword");
+                return;
+            }
+        }
+    }
+
+    await next();
+});
+
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

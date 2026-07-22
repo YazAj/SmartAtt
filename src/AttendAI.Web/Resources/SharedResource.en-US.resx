@@ -11,7 +11,7 @@
   <data name="NavProfile" xml:space="preserve"><value>Profile</value></data>
   <data name="NavChangePassword" xml:space="preserve"><value>Change password</value></data>
   <data name="NavPrivacy" xml:space="preserve"><value>Biometric notice</value></data>
-  <data name="SprintFoundation" xml:space="preserve"><value>Sprint 1 foundation</value></data>
+  <data name="SprintFoundation" xml:space="preserve"><value>Sprint 2 academic setup</value></data>
   <data name="OpenNavigation" xml:space="preserve"><value>Open navigation</value></data>
   <data name="ThemeSystem" xml:space="preserve"><value>Theme preference</value></data>
   <data name="Language" xml:space="preserve"><value>Language</value></data>
@@ -19,9 +19,9 @@
   <data name="Login" xml:space="preserve"><value>Login</value></data>
   <data name="PrivacyTitle" xml:space="preserve"><value>Biometric data notice</value></data>
   <data name="Loading" xml:space="preserve"><value>Loading</value></data>
-  <data name="HomeTitle" xml:space="preserve"><value>AttendAI foundation</value></data>
+  <data name="HomeTitle" xml:space="preserve"><value>AttendAI academic setup</value></data>
   <data name="HomeHeading" xml:space="preserve"><value>AttendAI</value></data>
-  <data name="HomeLead" xml:space="preserve"><value>A responsive university attendance management foundation with authentication, localization, theming, and a replaceable face verification boundary.</value></data>
+  <data name="HomeLead" xml:space="preserve"><value>A responsive university attendance management foundation with academic setup, administrator-created accounts, localization, theming, and a replaceable face verification boundary.</value></data>
   <data name="OpenDashboard" xml:space="preserve"><value>Open dashboard</value></data>
   <data name="Architecture" xml:space="preserve"><value>Architecture</value></data>
   <data name="CleanArchitectureTitle" xml:space="preserve"><value>Clean architecture baseline</value></data>
@@ -33,15 +33,15 @@
   <data name="FaceSpikeTitle" xml:space="preserve"><value>Replaceable technical spike</value></data>
   <data name="FaceSpikeText" xml:space="preserve"><value>The web app depends on an engine abstraction and automated tests use a deterministic fake engine without cameras or biometric files.</value></data>
   <data name="FoundationWorkflowTitle" xml:space="preserve"><value>Foundation readiness</value></data>
-  <data name="FoundationWorkflowText" xml:space="preserve"><value>These rows describe Sprint 1 infrastructure status, not production attendance analytics.</value></data>
+  <data name="FoundationWorkflowText" xml:space="preserve"><value>These rows describe the verified foundation and Sprint 2 academic setup status, not production attendance analytics.</value></data>
   <data name="Area" xml:space="preserve"><value>Area</value></data>
-  <data name="Sprint1Status" xml:space="preserve"><value>Sprint 1 status</value></data>
+  <data name="Sprint1Status" xml:space="preserve"><value>Current status</value></data>
   <data name="NextSprintUse" xml:space="preserve"><value>Future use</value></data>
   <data name="IdentityAndRoles" xml:space="preserve"><value>Identity and roles</value></data>
-  <data name="ReadyForFoundationTesting" xml:space="preserve"><value>Ready for foundation testing</value></data>
-  <data name="FutureAdminAccounts" xml:space="preserve"><value>Administrator-created accounts in a future sprint</value></data>
+  <data name="ReadyForFoundationTesting" xml:space="preserve"><value>Verified for Sprint 2</value></data>
+  <data name="FutureAdminAccounts" xml:space="preserve"><value>Administrator-created Student and Instructor accounts are available</value></data>
   <data name="LocalizationAndThemes" xml:space="preserve"><value>Localization and themes</value></data>
-  <data name="FutureArabicEnglishModules" xml:space="preserve"><value>Arabic and English support across future modules</value></data>
+  <data name="FutureArabicEnglishModules" xml:space="preserve"><value>Arabic and English support across academic modules</value></data>
   <data name="FaceEngineAbstraction" xml:space="preserve"><value>Face engine abstraction</value></data>
   <data name="ManualRecognitionPending" xml:space="preserve"><value>Manual recognition pending</value></data>
   <data name="FutureAttendanceVerification" xml:space="preserve"><value>One-to-one attendance verification in a future sprint</value></data>
@@ -49,12 +49,12 @@
   <data name="PrivacyHeading" xml:space="preserve"><value>Biometric data use in AttendAI</value></data>
   <data name="PrivacyLead" xml:space="preserve"><value>This notice explains the intended biometric processing boundaries for the graduation project without making unsupported legal claims.</value></data>
   <data name="PrivacyFaceDataTitle" xml:space="preserve"><value>Face data purpose</value></data>
-  <data name="PrivacyFaceDataText" xml:space="preserve"><value>Face data is intended only for one-to-one identity verification during attendance workflows. Sprint 1 does not perform production attendance verification.</value></data>
+  <data name="PrivacyFaceDataText" xml:space="preserve"><value>Face data is intended only for one-to-one identity verification during attendance workflows. Sprint 2 does not perform production attendance verification.</value></data>
   <data name="PrivacyStorageTitle" xml:space="preserve"><value>Template-first storage</value></data>
   <data name="PrivacyStorageText" xml:space="preserve"><value>The planned system should store a face template where possible and avoid permanent storage of raw face images unless a documented, approved operational need exists.</value></data>
   <data name="PrivacyAccessTitle" xml:space="preserve"><value>Restricted access</value></data>
   <data name="PrivacyAccessText" xml:space="preserve"><value>Access to biometric templates must be restricted to authorized services and administrators with a legitimate operational reason.</value></data>
-  <data name="PrivacySprintLimitTitle" xml:space="preserve"><value>Sprint 1 limitation</value></data>
+  <data name="PrivacySprintLimitTitle" xml:space="preserve"><value>Sprint 2 limitation</value></data>
   <data name="PrivacySprintLimitText" xml:space="preserve"><value>This sprint contains architecture, documentation, a fake test engine, and a POC harness. It does not enroll real production faces or mark attendance.</value></data>
   <data name="ErrorTitle" xml:space="preserve"><value>Error</value></data>
   <data name="ErrorHeading" xml:space="preserve"><value>Something went wrong</value></data>
@@ -67,7 +67,7 @@
   <data name="LoginTitle" xml:space="preserve"><value>Login</value></data>
   <data name="SecureAccess" xml:space="preserve"><value>Secure access</value></data>
   <data name="LoginHeading" xml:space="preserve"><value>Sign in to AttendAI</value></data>
-  <data name="LoginLead" xml:space="preserve"><value>Use a university account created by an administrator. Public registration is intentionally outside Sprint 1.</value></data>
+  <data name="LoginLead" xml:space="preserve"><value>Use a university account created by an administrator. Public registration is intentionally outside Sprint 2.</value></data>
   <data name="Email" xml:space="preserve"><value>Email</value></data>
   <data name="Password" xml:space="preserve"><value>Password</value></data>
   <data name="RememberMe" xml:space="preserve"><value>Remember me</value></data>
@@ -77,7 +77,7 @@
   <data name="LogoutSuccessful" xml:space="preserve"><value>You have been signed out.</value></data>
   <data name="PasswordChanged" xml:space="preserve"><value>Your password was changed.</value></data>
   <data name="AuthAsideTitle" xml:space="preserve"><value>Role-aware entry</value></data>
-  <data name="AuthAsideText" xml:space="preserve"><value>After login, each user is routed to the correct foundation dashboard for their assigned role.</value></data>
+  <data name="AuthAsideText" xml:space="preserve"><value>After login, each user is routed to the correct dashboard for their assigned role.</value></data>
   <data name="AuthCheckRoles" xml:space="preserve"><value>Admin, instructor, and student roles are separated.</value></data>
   <data name="AuthCheckCulture" xml:space="preserve"><value>Arabic and English are available from the first screen.</value></data>
   <data name="AuthCheckTheme" xml:space="preserve"><value>Light, dark, and system theme preferences persist locally.</value></data>
@@ -96,17 +96,17 @@
   <data name="AccessDeniedLead" xml:space="preserve"><value>Your account is authenticated, but this dashboard belongs to another role.</value></data>
   <data name="AdminDashboardTitle" xml:space="preserve"><value>Admin dashboard</value></data>
   <data name="AdminRole" xml:space="preserve"><value>Administrator role</value></data>
-  <data name="AdminDashboardLead" xml:space="preserve"><value>Foundation view for administration workflows planned for future sprints.</value></data>
+  <data name="AdminDashboardLead" xml:space="preserve"><value>Manage academic setup, user accounts, enrollments, and instructor assignments for Sprint 2.</value></data>
   <data name="FoundationArea" xml:space="preserve"><value>Foundation area</value></data>
   <data name="FutureModule" xml:space="preserve"><value>Future module</value></data>
   <data name="Governance" xml:space="preserve"><value>Governance</value></data>
   <data name="BiometricPrivacy" xml:space="preserve"><value>Biometric privacy</value></data>
-  <data name="AdminCardIdentity" xml:space="preserve"><value>Roles, secure cookies, and dashboard authorization are ready for Sprint 1 testing.</value></data>
+  <data name="AdminCardIdentity" xml:space="preserve"><value>Roles, secure cookies, dashboard authorization, and administrator-created accounts are ready for Sprint 2 testing.</value></data>
   <data name="AcademicSetup" xml:space="preserve"><value>Academic setup</value></data>
-  <data name="AdminCardAcademic" xml:space="preserve"><value>Students, instructors, courses, sections, classrooms, and enrollments are documented but not implemented.</value></data>
+  <data name="AdminCardAcademic" xml:space="preserve"><value>Students, instructors, courses, sections, classrooms, enrollments, and assignments are implemented for academic setup.</value></data>
   <data name="AdminCardPrivacy" xml:space="preserve"><value>Biometric data handling is documented before production enrollment or verification is introduced.</value></data>
   <data name="AdminReadinessTitle" xml:space="preserve"><value>Reusable UI components</value></data>
-  <data name="AdminReadinessText" xml:space="preserve"><value>Buttons, badges, status indicators, tables, forms, empty states, modals, pagination, filters, alerts, and loading patterns are styled for future modules.</value></data>
+  <data name="AdminReadinessText" xml:space="preserve"><value>Buttons, badges, status indicators, tables, forms, empty states, modals, pagination, filters, alerts, and loading patterns are styled for academic modules.</value></data>
   <data name="PrimaryAction" xml:space="preserve"><value>Primary action</value></data>
   <data name="SecondaryAction" xml:space="preserve"><value>Secondary action</value></data>
   <data name="DangerAction" xml:space="preserve"><value>Danger action</value></data>
@@ -114,27 +114,27 @@
   <data name="PendingStatus" xml:space="preserve"><value>Pending</value></data>
   <data name="InstructorDashboardTitle" xml:space="preserve"><value>Instructor dashboard</value></data>
   <data name="InstructorRole" xml:space="preserve"><value>Instructor role</value></data>
-  <data name="InstructorDashboardLead" xml:space="preserve"><value>Foundation view for lecture and attendance review workflows planned for future sprints.</value></data>
+  <data name="InstructorDashboardLead" xml:space="preserve"><value>Review the sections assigned by an administrator. Attendance workflows remain future work.</value></data>
   <data name="LectureSessions" xml:space="preserve"><value>Lecture sessions</value></data>
   <data name="AttendanceReview" xml:space="preserve"><value>Attendance review</value></data>
   <data name="SecureAccount" xml:space="preserve"><value>Secure account</value></data>
-  <data name="InstructorCardSessions" xml:space="preserve"><value>Lecture session management is intentionally deferred until Sprint 2 or later.</value></data>
-  <data name="InstructorCardReview" xml:space="preserve"><value>Attendance reports and review screens are not populated with fake data in Sprint 1.</value></data>
+  <data name="InstructorCardSessions" xml:space="preserve"><value>Lecture session management is intentionally deferred to a future sprint.</value></data>
+  <data name="InstructorCardReview" xml:space="preserve"><value>Attendance reports and review screens are not populated with fake data in Sprint 2.</value></data>
   <data name="InstructorCardAccount" xml:space="preserve"><value>The instructor role can authenticate, change password, and access only the instructor dashboard.</value></data>
   <data name="InstructorEmptyTitle" xml:space="preserve"><value>No lecture tools yet</value></data>
   <data name="InstructorEmptyText" xml:space="preserve"><value>Future lecture session tools will appear here after academic setup is implemented.</value></data>
   <data name="StudentDashboardTitle" xml:space="preserve"><value>Student dashboard</value></data>
   <data name="StudentRole" xml:space="preserve"><value>Student role</value></data>
-  <data name="StudentDashboardLead" xml:space="preserve"><value>Foundation view for future attendance registration using code, time, location, and one-to-one face verification.</value></data>
+  <data name="StudentDashboardLead" xml:space="preserve"><value>Review the academic profile and active enrollments created by an administrator.</value></data>
   <data name="AttendanceRegistration" xml:space="preserve"><value>Attendance registration</value></data>
   <data name="Privacy" xml:space="preserve"><value>Privacy</value></data>
   <data name="FaceVerification" xml:space="preserve"><value>Face verification</value></data>
   <data name="AccountAccess" xml:space="preserve"><value>Account access</value></data>
-  <data name="StudentCardAttendance" xml:space="preserve"><value>Attendance submission is documented for future work and is not active in Sprint 1.</value></data>
+  <data name="StudentCardAttendance" xml:space="preserve"><value>Attendance submission is documented for future work and is not active in Sprint 2.</value></data>
   <data name="StudentCardFace" xml:space="preserve"><value>The planned approach is one-to-one verification, not one-to-many identification.</value></data>
   <data name="StudentCardAccount" xml:space="preserve"><value>The student role can authenticate, change password, and access only the student dashboard.</value></data>
   <data name="StudentEmptyTitle" xml:space="preserve"><value>No attendance session active</value></data>
-  <data name="StudentEmptyText" xml:space="preserve"><value>Production attendance registration is outside Sprint 1 and will be added after the foundation is accepted.</value></data>
+  <data name="StudentEmptyText" xml:space="preserve"><value>Production attendance registration is outside Sprint 2 and will be added only after the academic foundation is accepted.</value></data>
   <data name="ProfileTitle" xml:space="preserve"><value>Profile summary</value></data>
   <data name="Account" xml:space="preserve"><value>Account</value></data>
   <data name="ProfileLead" xml:space="preserve"><value>Review the current authenticated account and assigned roles.</value></data>
@@ -144,4 +144,226 @@
   <data name="ValidationEmail" xml:space="preserve"><value>Enter a valid email address.</value></data>
   <data name="ValidationPasswordLength" xml:space="preserve"><value>The {0} must be at least {2} characters long.</value></data>
   <data name="ValidationPasswordConfirm" xml:space="preserve"><value>The confirmation password does not match.</value></data>
+  <data name="NavAcademicManagement" xml:space="preserve"><value>Academic management</value></data>
+  <data name="NavDepartments" xml:space="preserve"><value>Departments</value></data>
+  <data name="NavStudents" xml:space="preserve"><value>Students</value></data>
+  <data name="NavInstructors" xml:space="preserve"><value>Instructors</value></data>
+  <data name="NavCourses" xml:space="preserve"><value>Courses</value></data>
+  <data name="NavSections" xml:space="preserve"><value>Sections</value></data>
+  <data name="NavClassrooms" xml:space="preserve"><value>Classrooms</value></data>
+  <data name="NavEnrollments" xml:space="preserve"><value>Enrollments</value></data>
+  <data name="NavInstructorAssignments" xml:space="preserve"><value>Instructor assignments</value></data>
+  <data name="DepartmentsTitle" xml:space="preserve"><value>Departments</value></data>
+  <data name="DepartmentsDescription" xml:space="preserve"><value>Manage active and inactive academic departments without deleting historical relationships.</value></data>
+  <data name="CreateDepartment" xml:space="preserve"><value>Create department</value></data>
+  <data name="EditDepartment" xml:space="preserve"><value>Edit department</value></data>
+  <data name="DepartmentDetails" xml:space="preserve"><value>Department details</value></data>
+  <data name="DepartmentFormDescription" xml:space="preserve"><value>Codes are normalized to uppercase and names are stored in English and Arabic.</value></data>
+  <data name="StudentsTitle" xml:space="preserve"><value>Students</value></data>
+  <data name="StudentsDescription" xml:space="preserve"><value>Create and maintain student accounts linked to academic profiles.</value></data>
+  <data name="CreateStudent" xml:space="preserve"><value>Create student</value></data>
+  <data name="EditStudent" xml:space="preserve"><value>Edit student</value></data>
+  <data name="StudentDetails" xml:space="preserve"><value>Student details</value></data>
+  <data name="StudentCreateDescription" xml:space="preserve"><value>Create an Identity account and linked student profile with a temporary password.</value></data>
+  <data name="StudentProfileDescription" xml:space="preserve"><value>Update academic profile data without changing the Identity email or password.</value></data>
+  <data name="InstructorsTitle" xml:space="preserve"><value>Instructors</value></data>
+  <data name="InstructorsDescription" xml:space="preserve"><value>Create and maintain instructor accounts linked to academic profiles.</value></data>
+  <data name="CreateInstructor" xml:space="preserve"><value>Create instructor</value></data>
+  <data name="EditInstructor" xml:space="preserve"><value>Edit instructor</value></data>
+  <data name="InstructorDetails" xml:space="preserve"><value>Instructor details</value></data>
+  <data name="InstructorCreateDescription" xml:space="preserve"><value>Create an Identity account and linked instructor profile with a temporary password.</value></data>
+  <data name="InstructorProfileDescription" xml:space="preserve"><value>Update instructor profile data without changing privileged roles.</value></data>
+  <data name="CoursesTitle" xml:space="preserve"><value>Courses</value></data>
+  <data name="CoursesDescription" xml:space="preserve"><value>Manage course catalog records and active department relationships.</value></data>
+  <data name="CreateCourse" xml:space="preserve"><value>Create course</value></data>
+  <data name="EditCourse" xml:space="preserve"><value>Edit course</value></data>
+  <data name="CourseDetails" xml:space="preserve"><value>Course details</value></data>
+  <data name="CourseFormDescription" xml:space="preserve"><value>Course codes are unique and credit hours must be between one and six.</value></data>
+  <data name="SectionsTitle" xml:space="preserve"><value>Sections</value></data>
+  <data name="SectionsDescription" xml:space="preserve"><value>Manage academic course sections by year and semester without attendance behavior.</value></data>
+  <data name="CreateSection" xml:space="preserve"><value>Create section</value></data>
+  <data name="EditSection" xml:space="preserve"><value>Edit section</value></data>
+  <data name="SectionDetails" xml:space="preserve"><value>Section details</value></data>
+  <data name="SectionFormDescription" xml:space="preserve"><value>Sections are unique per course, academic year, semester, and section number.</value></data>
+  <data name="ClassroomsTitle" xml:space="preserve"><value>Classrooms</value></data>
+  <data name="ClassroomsDescription" xml:space="preserve"><value>Manage classroom capacity and optional coordinates for future location validation.</value></data>
+  <data name="CreateClassroom" xml:space="preserve"><value>Create classroom</value></data>
+  <data name="EditClassroom" xml:space="preserve"><value>Edit classroom</value></data>
+  <data name="ClassroomDetails" xml:space="preserve"><value>Classroom details</value></data>
+  <data name="ClassroomFormDescription" xml:space="preserve"><value>Latitude and longitude are optional, but must be provided together when used.</value></data>
+  <data name="EnrollmentsTitle" xml:space="preserve"><value>Student enrollments</value></data>
+  <data name="EnrollmentsDescription" xml:space="preserve"><value>Enroll active students in active sections while preserving enrollment history.</value></data>
+  <data name="CreateEnrollment" xml:space="preserve"><value>Create enrollment</value></data>
+  <data name="EnrollmentDetails" xml:space="preserve"><value>Enrollment details</value></data>
+  <data name="EnrollmentFormDescription" xml:space="preserve"><value>Select an active student and an active section with available capacity.</value></data>
+  <data name="InstructorAssignmentsTitle" xml:space="preserve"><value>Instructor assignments</value></data>
+  <data name="InstructorAssignmentsDescription" xml:space="preserve"><value>Assign instructors to sections and control the single active primary instructor.</value></data>
+  <data name="CreateAssignment" xml:space="preserve"><value>Create assignment</value></data>
+  <data name="AssignmentDetails" xml:space="preserve"><value>Assignment details</value></data>
+  <data name="AssignmentFormDescription" xml:space="preserve"><value>Select an active instructor and active section; primary instructor must be unique.</value></data>
+  <data name="Search" xml:space="preserve"><value>Search</value></data>
+  <data name="Reset" xml:space="preserve"><value>Reset</value></data>
+  <data name="Status" xml:space="preserve"><value>Status</value></data>
+  <data name="AllStatuses" xml:space="preserve"><value>All statuses</value></data>
+  <data name="Inactive" xml:space="preserve"><value>Inactive</value></data>
+  <data name="Code" xml:space="preserve"><value>Code</value></data>
+  <data name="NameEnglish" xml:space="preserve"><value>English name</value></data>
+  <data name="NameArabic" xml:space="preserve"><value>Arabic name</value></data>
+  <data name="DescriptionEnglish" xml:space="preserve"><value>English description</value></data>
+  <data name="DescriptionArabic" xml:space="preserve"><value>Arabic description</value></data>
+  <data name="Actions" xml:space="preserve"><value>Actions</value></data>
+  <data name="Details" xml:space="preserve"><value>Details</value></data>
+  <data name="Edit" xml:space="preserve"><value>Edit</value></data>
+  <data name="Activate" xml:space="preserve"><value>Activate</value></data>
+  <data name="Deactivate" xml:space="preserve"><value>Deactivate</value></data>
+  <data name="BackToList" xml:space="preserve"><value>Back to list</value></data>
+  <data name="NotProvided" xml:space="preserve"><value>Not provided</value></data>
+  <data name="CreatedAtUtc" xml:space="preserve"><value>Created UTC</value></data>
+  <data name="UpdatedAtUtc" xml:space="preserve"><value>Updated UTC</value></data>
+  <data name="ResultsCount" xml:space="preserve"><value>{0} results</value></data>
+  <data name="PageOf" xml:space="preserve"><value>Page {0} of {1}</value></data>
+  <data name="Previous" xml:space="preserve"><value>Previous</value></data>
+  <data name="Next" xml:space="preserve"><value>Next</value></data>
+  <data name="ConfirmStatusChange" xml:space="preserve"><value>Confirm this status change?</value></data>
+  <data name="ConfirmPasswordReset" xml:space="preserve"><value>Reset this account to the new temporary password?</value></data>
+  <data name="Department" xml:space="preserve"><value>Department</value></data>
+  <data name="AllDepartments" xml:space="preserve"><value>All departments</value></data>
+  <data name="SelectDepartment" xml:space="preserve"><value>Select department</value></data>
+  <data name="Course" xml:space="preserve"><value>Course</value></data>
+  <data name="AllCourses" xml:space="preserve"><value>All courses</value></data>
+  <data name="SelectCourse" xml:space="preserve"><value>Select course</value></data>
+  <data name="Section" xml:space="preserve"><value>Section</value></data>
+  <data name="AllSections" xml:space="preserve"><value>All sections</value></data>
+  <data name="SelectSection" xml:space="preserve"><value>Select section</value></data>
+  <data name="Student" xml:space="preserve"><value>Student</value></data>
+  <data name="AllStudents" xml:space="preserve"><value>All students</value></data>
+  <data name="SelectStudent" xml:space="preserve"><value>Select student</value></data>
+  <data name="Instructor" xml:space="preserve"><value>Instructor</value></data>
+  <data name="AllInstructors" xml:space="preserve"><value>All instructors</value></data>
+  <data name="SelectInstructor" xml:space="preserve"><value>Select instructor</value></data>
+  <data name="StudentNumber" xml:space="preserve"><value>Student number</value></data>
+  <data name="EmployeeNumber" xml:space="preserve"><value>Employee number</value></data>
+  <data name="AcademicLevel" xml:space="preserve"><value>Academic level</value></data>
+  <data name="EnrollmentYear" xml:space="preserve"><value>Enrollment year</value></data>
+  <data name="AcademicTitleField" xml:space="preserve"><value>Academic title</value></data>
+  <data name="TemporaryPassword" xml:space="preserve"><value>Temporary password</value></data>
+  <data name="ResetPassword" xml:space="preserve"><value>Reset password</value></data>
+  <data name="ResetPasswordDescription" xml:space="preserve"><value>Set a new temporary password and require the user to change it at next login.</value></data>
+  <data name="MustChangePassword" xml:space="preserve"><value>Must change password</value></data>
+  <data name="Yes" xml:space="preserve"><value>Yes</value></data>
+  <data name="No" xml:space="preserve"><value>No</value></data>
+  <data name="CreditHours" xml:space="preserve"><value>Credit hours</value></data>
+  <data name="SectionNumber" xml:space="preserve"><value>Section number</value></data>
+  <data name="AcademicYear" xml:space="preserve"><value>Academic year</value></data>
+  <data name="Semester" xml:space="preserve"><value>Semester</value></data>
+  <data name="SemesterFirst" xml:space="preserve"><value>First</value></data>
+  <data name="SemesterSecond" xml:space="preserve"><value>Second</value></data>
+  <data name="SemesterSummer" xml:space="preserve"><value>Summer</value></data>
+  <data name="Capacity" xml:space="preserve"><value>Capacity</value></data>
+  <data name="Building" xml:space="preserve"><value>Building</value></data>
+  <data name="BuildingNameEnglish" xml:space="preserve"><value>English building name</value></data>
+  <data name="BuildingNameArabic" xml:space="preserve"><value>Arabic building name</value></data>
+  <data name="RoomNumber" xml:space="preserve"><value>Room number</value></data>
+  <data name="Latitude" xml:space="preserve"><value>Latitude</value></data>
+  <data name="Longitude" xml:space="preserve"><value>Longitude</value></data>
+  <data name="Coordinates" xml:space="preserve"><value>Coordinates</value></data>
+  <data name="EnrollmentStatus" xml:space="preserve"><value>Enrollment status</value></data>
+  <data name="EnrollmentStatusActive" xml:space="preserve"><value>Active</value></data>
+  <data name="EnrollmentStatusDropped" xml:space="preserve"><value>Dropped</value></data>
+  <data name="EnrollmentStatusCompleted" xml:space="preserve"><value>Completed</value></data>
+  <data name="EnrollmentStatusCancelled" xml:space="preserve"><value>Cancelled</value></data>
+  <data name="ChangeStatus" xml:space="preserve"><value>Change status</value></data>
+  <data name="ChangeEnrollmentStatusDescription" xml:space="preserve"><value>Change enrollment status without deleting historical records.</value></data>
+  <data name="EnrolledAtUtc" xml:space="preserve"><value>Enrolled UTC</value></data>
+  <data name="PrimaryInstructor" xml:space="preserve"><value>Primary instructor</value></data>
+  <data name="SetPrimary" xml:space="preserve"><value>Set primary</value></data>
+  <data name="SetPrimaryDescription" xml:space="preserve"><value>Only one active assignment can be primary for a section.</value></data>
+  <data name="AssignedAtUtc" xml:space="preserve"><value>Assigned UTC</value></data>
+  <data name="AssignedSections" xml:space="preserve"><value>Assigned sections</value></data>
+  <data name="ViewEnrollments" xml:space="preserve"><value>View enrollments</value></data>
+  <data name="ViewAssignedSections" xml:space="preserve"><value>View assigned sections</value></data>
+  <data name="ViewEnrolledStudents" xml:space="preserve"><value>View enrolled students</value></data>
+  <data name="ViewAssignedInstructors" xml:space="preserve"><value>View assigned instructors</value></data>
+  <data name="NoDepartments" xml:space="preserve"><value>No departments match the current filters.</value></data>
+  <data name="NoStudents" xml:space="preserve"><value>No students match the current filters.</value></data>
+  <data name="NoInstructors" xml:space="preserve"><value>No instructors match the current filters.</value></data>
+  <data name="NoCourses" xml:space="preserve"><value>No courses match the current filters.</value></data>
+  <data name="NoSections" xml:space="preserve"><value>No sections match the current filters.</value></data>
+  <data name="NoClassrooms" xml:space="preserve"><value>No classrooms match the current filters.</value></data>
+  <data name="NoEnrollments" xml:space="preserve"><value>No enrollments match the current filters.</value></data>
+  <data name="NoAssignments" xml:space="preserve"><value>No assignments match the current filters.</value></data>
+  <data name="SearchDepartmentsPlaceholder" xml:space="preserve"><value>Code or department name</value></data>
+  <data name="SearchStudentsPlaceholder" xml:space="preserve"><value>Student number, name, or email</value></data>
+  <data name="SearchInstructorsPlaceholder" xml:space="preserve"><value>Employee number, name, or email</value></data>
+  <data name="SearchCoursesPlaceholder" xml:space="preserve"><value>Course code or name</value></data>
+  <data name="SearchSectionsPlaceholder" xml:space="preserve"><value>Course, year, or section number</value></data>
+  <data name="SearchClassroomsPlaceholder" xml:space="preserve"><value>Classroom code, building, or room</value></data>
+  <data name="SearchEnrollmentsPlaceholder" xml:space="preserve"><value>Student, section, or course</value></data>
+  <data name="SearchAssignmentsPlaceholder" xml:space="preserve"><value>Instructor, section, or course</value></data>
+  <data name="DepartmentCreated" xml:space="preserve"><value>Department was created.</value></data>
+  <data name="DepartmentUpdated" xml:space="preserve"><value>Department was updated.</value></data>
+  <data name="DepartmentActivated" xml:space="preserve"><value>Department was activated.</value></data>
+  <data name="DepartmentDeactivated" xml:space="preserve"><value>Department was deactivated.</value></data>
+  <data name="StudentCreated" xml:space="preserve"><value>Student account and profile were created.</value></data>
+  <data name="StudentUpdated" xml:space="preserve"><value>Student profile was updated.</value></data>
+  <data name="StudentActivated" xml:space="preserve"><value>Student account was activated.</value></data>
+  <data name="StudentDeactivated" xml:space="preserve"><value>Student account was deactivated.</value></data>
+  <data name="InstructorCreated" xml:space="preserve"><value>Instructor account and profile were created.</value></data>
+  <data name="InstructorUpdated" xml:space="preserve"><value>Instructor profile was updated.</value></data>
+  <data name="InstructorActivated" xml:space="preserve"><value>Instructor account was activated.</value></data>
+  <data name="InstructorDeactivated" xml:space="preserve"><value>Instructor account was deactivated.</value></data>
+  <data name="CourseCreated" xml:space="preserve"><value>Course was created.</value></data>
+  <data name="CourseUpdated" xml:space="preserve"><value>Course was updated.</value></data>
+  <data name="CourseActivated" xml:space="preserve"><value>Course was activated.</value></data>
+  <data name="CourseDeactivated" xml:space="preserve"><value>Course was deactivated.</value></data>
+  <data name="ClassroomCreated" xml:space="preserve"><value>Classroom was created.</value></data>
+  <data name="ClassroomUpdated" xml:space="preserve"><value>Classroom was updated.</value></data>
+  <data name="ClassroomActivated" xml:space="preserve"><value>Classroom was activated.</value></data>
+  <data name="ClassroomDeactivated" xml:space="preserve"><value>Classroom was deactivated.</value></data>
+  <data name="SectionCreated" xml:space="preserve"><value>Section was created.</value></data>
+  <data name="SectionUpdated" xml:space="preserve"><value>Section was updated.</value></data>
+  <data name="SectionActivated" xml:space="preserve"><value>Section was activated.</value></data>
+  <data name="SectionDeactivated" xml:space="preserve"><value>Section was deactivated.</value></data>
+  <data name="EnrollmentCreated" xml:space="preserve"><value>Enrollment was created.</value></data>
+  <data name="EnrollmentStatusChanged" xml:space="preserve"><value>Enrollment status was changed.</value></data>
+  <data name="EnrollmentDeactivated" xml:space="preserve"><value>Enrollment was deactivated.</value></data>
+  <data name="AssignmentCreated" xml:space="preserve"><value>Instructor assignment was created.</value></data>
+  <data name="AssignmentPrimaryChanged" xml:space="preserve"><value>Primary instructor setting was updated.</value></data>
+  <data name="AssignmentDeactivated" xml:space="preserve"><value>Instructor assignment was deactivated.</value></data>
+  <data name="TemporaryPasswordReset" xml:space="preserve"><value>Temporary password was reset and password change is required at next login.</value></data>
+  <data name="ErrorRequestFailed" xml:space="preserve"><value>The request could not be completed.</value></data>
+  <data name="ErrorRecordNotFound" xml:space="preserve"><value>The requested record was not found.</value></data>
+  <data name="ErrorValidationMessage" xml:space="preserve"><value>{0}</value></data>
+  <data name="ErrorUniqueConstraint" xml:space="preserve"><value>A unique database constraint rejected this change. Review duplicate codes or assignments.</value></data>
+  <data name="ErrorConcurrency" xml:space="preserve"><value>This record was changed by another user. Reload the page and try again.</value></data>
+  <data name="ErrorIdentityMessage" xml:space="preserve"><value>{0}</value></data>
+  <data name="ErrorDepartmentCodeExists" xml:space="preserve"><value>Department code {0} already exists.</value></data>
+  <data name="ErrorCourseCodeExists" xml:space="preserve"><value>Course code {0} already exists.</value></data>
+  <data name="ErrorClassroomCodeExists" xml:space="preserve"><value>Classroom code {0} already exists.</value></data>
+  <data name="ErrorEmailExists" xml:space="preserve"><value>Email {0} already exists.</value></data>
+  <data name="ErrorStudentNumberExists" xml:space="preserve"><value>Student number {0} already exists.</value></data>
+  <data name="ErrorEmployeeNumberExists" xml:space="preserve"><value>Employee number {0} already exists.</value></data>
+  <data name="ErrorSectionCompositeExists" xml:space="preserve"><value>A section with the same course, year, semester, and section number already exists.</value></data>
+  <data name="ErrorDuplicateEnrollment" xml:space="preserve"><value>This student is already enrolled in the selected section.</value></data>
+  <data name="ErrorDuplicateAssignment" xml:space="preserve"><value>This instructor is already assigned to the selected section.</value></data>
+  <data name="ErrorPrimaryInstructorExists" xml:space="preserve"><value>The selected section already has an active primary instructor.</value></data>
+  <data name="ErrorActiveDepartmentRequired" xml:space="preserve"><value>Select an active department.</value></data>
+  <data name="ErrorActiveCourseRequired" xml:space="preserve"><value>Select an active course.</value></data>
+  <data name="ErrorActiveSectionRequired" xml:space="preserve"><value>Select an active section.</value></data>
+  <data name="ErrorActiveStudentRequired" xml:space="preserve"><value>Select an active student.</value></data>
+  <data name="ErrorActiveInstructorRequired" xml:space="preserve"><value>Select an active instructor.</value></data>
+  <data name="ErrorSectionCapacityReached" xml:space="preserve"><value>The section capacity has been reached.</value></data>
+  <data name="AcademicManagementQuickLinks" xml:space="preserve"><value>Academic management quick links</value></data>
+  <data name="AcademicManagementQuickLinksText" xml:space="preserve"><value>Open the most common Sprint 2 administration workflows.</value></data>
+  <data name="ActiveStudentsCount" xml:space="preserve"><value>Active student profiles</value></data>
+  <data name="ActiveInstructorsCount" xml:space="preserve"><value>Active instructor profiles</value></data>
+  <data name="ActiveDepartmentsCount" xml:space="preserve"><value>Active departments</value></data>
+  <data name="ActiveCoursesCount" xml:space="preserve"><value>Active courses</value></data>
+  <data name="ActiveSectionsCount" xml:space="preserve"><value>Active sections</value></data>
+  <data name="ActiveClassroomsCount" xml:space="preserve"><value>Active classrooms</value></data>
+  <data name="InstructorAcademicSummaryText" xml:space="preserve"><value>Current section assignments from academic setup.</value></data>
+  <data name="InstructorAcademicEmptyText" xml:space="preserve"><value>No active section assignments are linked to this instructor profile.</value></data>
+  <data name="StudentAcademicSummaryText" xml:space="preserve"><value>Current student profile information from academic setup.</value></data>
+  <data name="StudentAcademicEmptyText" xml:space="preserve"><value>No active section enrollments are linked to this student profile.</value></data>
+  <data name="ActiveEnrollmentsCount" xml:space="preserve"><value>Active academic enrollments</value></data>
 </root>

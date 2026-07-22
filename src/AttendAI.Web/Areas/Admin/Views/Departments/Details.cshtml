@@ -1,0 +1,29 @@
+@model DepartmentDto
+@{
+    ViewData["Title"] = Localizer["DepartmentDetails"];
+}
+
+<section class="page-header">
+    <div class="entity-title">
+        <p class="eyebrow">@Localizer["DepartmentsTitle"]</p>
+        <h1>@Model.Code</h1>
+        <small>@Model.NameEnglish / @Model.NameArabic</small>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-secondary app-btn" asp-action="Edit" asp-route-id="@Model.Id">@Localizer["Edit"]</a>
+        <a class="btn btn-secondary app-btn" asp-action="Index">@Localizer["BackToList"]</a>
+    </div>
+</section>
+
+<section class="app-panel">
+    <div class="details-grid">
+        <div><span class="detail-label">@Localizer["Code"]</span><div class="detail-value">@Model.Code</div></div>
+        <div><span class="detail-label">@Localizer["Status"]</span><div class="detail-value">@(Model.IsActive ? Localizer["Active"] : Localizer["Inactive"])</div></div>
+        <div><span class="detail-label">@Localizer["NameEnglish"]</span><div class="detail-value">@Model.NameEnglish</div></div>
+        <div><span class="detail-label">@Localizer["NameArabic"]</span><div class="detail-value">@Model.NameArabic</div></div>
+        <div><span class="detail-label">@Localizer["DescriptionEnglish"]</span><div class="detail-value">@(Model.DescriptionEnglish ?? Localizer["NotProvided"])</div></div>
+        <div><span class="detail-label">@Localizer["DescriptionArabic"]</span><div class="detail-value">@(Model.DescriptionArabic ?? Localizer["NotProvided"])</div></div>
+        <div><span class="detail-label">@Localizer["CreatedAtUtc"]</span><div class="detail-value">@Model.CreatedAtUtc.ToString("u")</div></div>
+        <div><span class="detail-label">@Localizer["UpdatedAtUtc"]</span><div class="detail-value">@(Model.UpdatedAtUtc?.ToString("u") ?? Localizer["NotProvided"])</div></div>
+    </div>
+</section>
