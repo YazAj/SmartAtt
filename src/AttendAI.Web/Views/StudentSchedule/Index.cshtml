@@ -1,0 +1,10 @@
+@model IReadOnlyList<StudentScheduleItemDto>
+@{ ViewData["Title"] = Localizer["StudentScheduleTitle"]; }
+<section class="page-header"><div><p class="eyebrow">@Localizer["StudentRole"]</p><h1>@Localizer["StudentScheduleTitle"]</h1><p>@Localizer["StudentScheduleDescription"]</p></div></section>
+<section class="app-panel"><div class="timetable-grid">
+@foreach (var day in Enum.GetValues<DayOfWeek>())
+{
+    var dayItems = Model.Where(item => item.DayOfWeek == day).OrderBy(item => item.StartTime).ToList();
+    <article class="timetable-day"><h2>@Localizer[$"DayOfWeek{day}"]</h2>@if (dayItems.Count == 0) { <p class="empty-row">@Localizer["NoScheduledLectures"]</p> } else { foreach (var item in dayItems) { <div class="timetable-item"><strong>@item.StartTime.ToString("HH:mm") - @item.EndTime.ToString("HH:mm")</strong><span>@item.CourseCode - @item.SectionNumber</span><small>@item.ClassroomCode</small><div class="row-actions">@if (item.ActiveSessionId.HasValue) { <a class="btn btn-primary btn-sm" asp-action="Active" asp-route-id="@item.ActiveSessionId.Value">@Localizer["ViewActiveLecture"]</a> } else { <span class="status-badge">@Localizer["Scheduled"]</span> }</div></div> } }</article>
+}
+</div></section>

@@ -40,10 +40,32 @@
 | R-29 | Secrets and sensitive files | `.gitignore`, config, docs, source | Repository secret scan and `git check-ignore` | Passed | No non-ignored credential, key, biometric sample, model, database, or build output found. |
 | R-30 | Automated quality gate | Whole solution | Restore/build/test/format | Passed | Restore/build/test/format all exited 0; 47 tests passed. |
 
+## Sprint 3 Lecture Scheduling And Session Management
+
+| ID | Description | Implementation Location | Test / Verification Location | Status | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| R-31 | Lecture scheduling domain model | `AttendAI.Domain/Academic`, lecture enums | `LectureDomainTests` | Passed | Domain tests cover schedule validation and session transitions. |
+| R-32 | Lecture application contracts | `AttendAI.Application/Lectures` | Build and integration tests | Passed | DTOs, commands, queries, result models, and service interfaces compile and are exercised. |
+| R-33 | SQL Server lecture migration | `20260722160127_AddLectureSchedulingAndSessions` | EF update and SQL smoke query | Passed | `LectureSchedules`, `LectureSessions`, and `LectureSessionEvents` exist in LocalDB verification database. |
+| R-34 | Admin schedule CRUD | Admin `LectureSchedulesController` and views | Runtime smoke flow | Passed | Admin created a valid Lecture Schedule against SQL Server. |
+| R-35 | Schedule conflict detection | `LectureScheduleService` | Unit/integration/runtime smoke | Passed | Runtime conflicting Schedule was rejected; tests cover protected-resource conflicts. |
+| R-36 | Instructor assignment enforcement | `LectureLookupService`, `LectureScheduleService`, `LectureSessionService` | Integration tests and runtime smoke | Passed | Only assigned Instructor could start/manage the runtime Session. |
+| R-37 | Instructor timetable | `InstructorScheduleController`, Instructor views | Runtime smoke | Passed | Instructor changed password, opened schedule, and started an eligible Session. |
+| R-38 | Student timetable and active-session view | `StudentScheduleController`, Student views | Runtime smoke | Passed | Student changed password, saw active Session, and code was hidden. |
+| R-39 | Secure session-code lifecycle | `SessionCodeService`, `LectureSessionService` | Unit/integration/runtime smoke | Passed | Code generated, regenerated, previous code invalidated, terminal state invalidated code. |
+| R-40 | Admin session monitoring and force-end | Admin `LectureSessionsController` and views | Integration tests and code review | Passed | Admin controller/actions exist; force-end service path appends events and invalidates code. |
+| R-41 | Session lifecycle audit | `LectureSessionEvents` and session services | SQL smoke query | Passed | Runtime smoke recorded 4 lifecycle events for the verified Session. |
+| R-42 | Time-zone strategy | `ApplicationTimeZoneService`, `LectureSchedulingOptions` | `LectureSecurityAndTimeZoneTests` | Passed | UTC/local conversion tests pass for configured application time zone. |
+| R-43 | Dashboards and navigation | Layout and dashboard views | Runtime smoke/build | Passed | Lecture schedule/session links render for Admin, Instructor, and Student dashboards. |
+| R-44 | Sprint 3 localization | `SharedResource.en-US.resx`, `SharedResource.ar-JO.resx`, Razor views | Browser snapshots | Passed | English LTR and Arabic RTL strings render in checked lecture pages. |
+| R-45 | Sprint 3 theme coverage | `site.css`, `site.js`, layout | Live Playwright browser checks | Passed | English LTR light desktop/dark mobile and Arabic RTL light/dark desktop, tablet, 390px mobile, and 320px mobile passed; 134 checks reported 0 page-level overflow failures. |
+| R-46 | No Sprint 4 attendance behavior | Source review and SQL schema | `rg` source search, migration review | Passed | No attendance records, student code submission, face enrollment, reports, notifications, or location validation were added. |
+| R-47 | Sprint 3 automated quality gate | Whole solution | Restore/build/test/format | Passed | Restore/build/test/format exited 0; 63 tests passed; `git diff --check` exited 0. |
+
 ## Not Verified / Future Gates
 
 | ID | Description | Status | Required Before Production |
 | --- | --- | --- | --- |
 | G-01 | Real face recognition runtime | Not Verified | Approved biometric samples, selected licensed detection and embedding models, preprocessing, threshold calibration, and native deployment package. |
-| G-02 | Production attendance registration | Not Implemented | Sprint planning after academic setup acceptance and face-recognition gate. |
+| G-02 | Production attendance registration | Not Implemented | Sprint 4 planning after Sprint 3 acceptance and face-recognition gate. |
 | G-03 | Notification delivery for temporary passwords | Not Implemented | Secure out-of-band delivery design; temporary passwords are entered by Admin during Sprint 2. |

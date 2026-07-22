@@ -1,10 +1,12 @@
 using AttendAI.Application.FaceRecognition;
 using AttendAI.Application.Academic;
 using AttendAI.Application.Academic.Dashboard;
+using AttendAI.Application.Lectures;
 using AttendAI.Infrastructure.Academic;
 using AttendAI.Infrastructure.Configuration;
 using AttendAI.Infrastructure.FaceRecognition;
 using AttendAI.Infrastructure.Identity;
+using AttendAI.Infrastructure.Lectures;
 using AttendAI.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +33,9 @@ public static class DependencyInjection
             }
         });
 
+        services.Configure<LectureSchedulingOptions>(
+            configuration.GetSection(LectureSchedulingOptions.SectionName));
+
         var connectionString = configuration.GetConnectionString("DefaultConnection")
             ?? "Server=(localdb)\\MSSQLLocalDB;Database=AttendAI;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True";
 
@@ -55,6 +60,8 @@ public static class DependencyInjection
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
+        services.AddDataProtection();
+
         services.AddScoped<IdentitySeedService>();
         services.AddScoped<ApplicationDbInitializer>();
         services.AddScoped<IFaceRecognitionEngine, FakeFaceRecognitionEngine>();
@@ -68,6 +75,11 @@ public static class DependencyInjection
         services.AddScoped<IInstructorAssignmentService, InstructorAssignmentService>();
         services.AddScoped<IAcademicLookupService, AcademicLookupService>();
         services.AddScoped<IAcademicDashboardService, AcademicDashboardService>();
+        services.AddScoped<IApplicationTimeZoneService, ApplicationTimeZoneService>();
+        services.AddScoped<ISessionCodeService, SessionCodeService>();
+        services.AddScoped<ILectureLookupService, LectureLookupService>();
+        services.AddScoped<ILectureScheduleService, LectureScheduleService>();
+        services.AddScoped<ILectureSessionService, LectureSessionService>();
 
         return services;
     }

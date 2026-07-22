@@ -1,0 +1,111 @@
+using AttendAI.Domain.Enums;
+
+namespace AttendAI.Application.Lectures;
+
+public sealed record LectureScheduleDto(
+    Guid Id,
+    Guid SectionId,
+    string CourseCode,
+    string CourseNameEnglish,
+    string CourseNameArabic,
+    string SectionNumber,
+    string AcademicYear,
+    Semester Semester,
+    Guid InstructorId,
+    string EmployeeNumber,
+    string InstructorNameEnglish,
+    string InstructorNameArabic,
+    Guid ClassroomId,
+    string ClassroomCode,
+    string ClassroomLabelEnglish,
+    string ClassroomLabelArabic,
+    DayOfWeek DayOfWeek,
+    TimeOnly StartTime,
+    TimeOnly EndTime,
+    DateOnly EffectiveFrom,
+    DateOnly EffectiveTo,
+    int DefaultLateThresholdMinutes,
+    int DefaultAllowedRadiusMeters,
+    bool IsActive,
+    DateTimeOffset CreatedAtUtc,
+    DateTimeOffset? UpdatedAtUtc,
+    string RowVersion);
+
+public sealed record LectureSessionDto(
+    Guid Id,
+    Guid LectureScheduleId,
+    Guid SectionId,
+    string CourseCode,
+    string CourseNameEnglish,
+    string CourseNameArabic,
+    string SectionNumber,
+    Guid InstructorId,
+    string InstructorNameEnglish,
+    string InstructorNameArabic,
+    Guid ClassroomId,
+    string ClassroomCode,
+    DateOnly SessionDate,
+    DateTimeOffset ScheduledStartUtc,
+    DateTimeOffset ScheduledEndUtc,
+    DateTimeOffset ScheduledStartLocal,
+    DateTimeOffset ScheduledEndLocal,
+    DateTimeOffset ActualStartUtc,
+    DateTimeOffset ActualStartLocal,
+    DateTimeOffset? ActualEndUtc,
+    DateTimeOffset? ActualEndLocal,
+    LectureSessionStatus Status,
+    DateTimeOffset? SessionCodeExpiresAtUtc,
+    DateTimeOffset? SessionCodeExpiresAtLocal,
+    int SessionCodeVersion,
+    int LateThresholdMinutes,
+    int AllowedRadiusMeters,
+    string? EndReason,
+    bool HasProtectedCode,
+    bool HasCodeHash,
+    string RowVersion);
+
+public sealed record LectureSessionEventDto(
+    Guid Id,
+    Guid LectureSessionId,
+    LectureSessionEventType EventType,
+    DateTimeOffset OccurredAtUtc,
+    DateTimeOffset OccurredAtLocal,
+    string PerformedByUserId,
+    LectureSessionStatus? PreviousStatus,
+    LectureSessionStatus? NewStatus,
+    string SafeDescription);
+
+public sealed record InstructorScheduleItemDto(
+    Guid ScheduleId,
+    Guid? ActiveSessionId,
+    string CourseCode,
+    string CourseNameEnglish,
+    string CourseNameArabic,
+    string SectionNumber,
+    string ClassroomCode,
+    DayOfWeek DayOfWeek,
+    TimeOnly StartTime,
+    TimeOnly EndTime,
+    DateOnly EffectiveFrom,
+    DateOnly EffectiveTo,
+    bool CanStart,
+    LectureSessionStatus? ActiveSessionStatus);
+
+public sealed record StudentScheduleItemDto(
+    Guid ScheduleId,
+    Guid? ActiveSessionId,
+    string CourseCode,
+    string CourseNameEnglish,
+    string CourseNameArabic,
+    string SectionNumber,
+    string ClassroomCode,
+    DayOfWeek DayOfWeek,
+    TimeOnly StartTime,
+    TimeOnly EndTime,
+    DateOnly EffectiveFrom,
+    DateOnly EffectiveTo,
+    bool HasActiveSession);
+
+public sealed record TimetableDayDto(
+    DayOfWeek DayOfWeek,
+    IReadOnlyList<LectureScheduleDto> Schedules);

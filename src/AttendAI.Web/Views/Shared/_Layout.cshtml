@@ -61,7 +61,17 @@
                             <a class="app-menu-link @(currentArea == "Admin" && currentController == "Classrooms" ? "active" : "")" asp-area="Admin" asp-controller="Classrooms" asp-action="Index">@Localizer["NavClassrooms"]</a>
                             <a class="app-menu-link @(currentArea == "Admin" && currentController == "Enrollments" ? "active" : "")" asp-area="Admin" asp-controller="Enrollments" asp-action="Index">@Localizer["NavEnrollments"]</a>
                             <a class="app-menu-link @(currentArea == "Admin" && currentController == "InstructorAssignments" ? "active" : "")" asp-area="Admin" asp-controller="InstructorAssignments" asp-action="Index">@Localizer["NavInstructorAssignments"]</a>
+                            <a class="app-menu-link @(currentArea == "Admin" && currentController == "LectureSchedules" ? "active" : "")" asp-area="Admin" asp-controller="LectureSchedules" asp-action="Index">@Localizer["NavLectureSchedules"]</a>
+                            <a class="app-menu-link @(currentArea == "Admin" && currentController == "LectureSessions" ? "active" : "")" asp-area="Admin" asp-controller="LectureSessions" asp-action="Index">@Localizer["NavLectureSessions"]</a>
                         </div>
+                    }
+                    @if (User.IsInRole(RoleConstants.Instructor))
+                    {
+                        <a class="app-menu-link @(currentController == "InstructorSchedule" ? "active" : "")" asp-area="" asp-controller="InstructorSchedule" asp-action="Index">@Localizer["NavMySchedule"]</a>
+                    }
+                    @if (User.IsInRole(RoleConstants.Student))
+                    {
+                        <a class="app-menu-link @(currentController == "StudentSchedule" ? "active" : "")" asp-area="" asp-controller="StudentSchedule" asp-action="Index">@Localizer["NavMySchedule"]</a>
                     }
                     <a class="app-menu-link" asp-area="" asp-controller="Profile" asp-action="Index">@Localizer["NavProfile"]</a>
                     <a class="app-menu-link" asp-area="" asp-controller="Account" asp-action="ChangePassword">@Localizer["NavChangePassword"]</a>

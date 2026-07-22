@@ -95,6 +95,41 @@
 - Main flow: Admin sees active academic counts and quick links; Instructor sees assigned Sections; Student sees academic profile and active enrollments.
 - Alternate flow: Cross-role access redirects to Access Denied.
 
+## UC-15 Manage Lecture Schedules
+
+- Actor: Admin
+- Trigger: Admin opens Lecture Management > Lecture schedules.
+- Main flow: Search, filter, page, create, edit, view details, activate, deactivate, and open classroom/section timetables.
+- Rules: Instructor must be actively assigned to the Section; Classroom capacity must cover active enrollments; active schedules cannot overlap for the same Classroom, Instructor, or Section.
+
+## UC-16 Monitor Lecture Sessions
+
+- Actor: Admin
+- Trigger: Admin opens Lecture Management > Lecture sessions.
+- Main flow: Search/filter active and historical Sessions, inspect lifecycle events, expire stale Sessions, and force-end an active Session with a safe reason.
+- Rule: Force-end invalidates active code state and appends lifecycle events.
+
+## UC-17 View Instructor Schedule
+
+- Actor: Instructor
+- Trigger: Instructor opens My schedule.
+- Main flow: View assigned weekly timetable; eligible schedule occurrences show Start Session; active Sessions show Open Active Session.
+- Rules: Instructor must have an active profile, active Identity account, and active assignment to the Section.
+
+## UC-18 Manage Instructor Lecture Session
+
+- Actor: Instructor
+- Trigger: Instructor starts or opens an active lecture session.
+- Main flow: Start within configured window, see the temporary code, copy code, view code/session countdowns, regenerate code, end, or cancel.
+- Rules: Plain code is returned only in the authorized start/regenerate response; terminal states invalidate code.
+
+## UC-19 View Student Schedule And Active Session
+
+- Actor: Student
+- Trigger: Student opens My schedule or active lecture session.
+- Main flow: View weekly timetable for actively enrolled Sections and active Session status.
+- Rule: Student response never contains plain code, protected code, or code hash.
+
 ## Future Use Cases Not Implemented
 
-Lecture session management, attendance registration, location validation for attendance, duplicate attendance prevention, reports, production face enrollment, and production face verification.
+Attendance registration, student code submission, location validation for attendance, duplicate attendance prevention, reports, production face enrollment, and production face verification.

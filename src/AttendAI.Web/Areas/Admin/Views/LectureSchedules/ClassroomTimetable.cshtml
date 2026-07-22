@@ -1,0 +1,15 @@
+@model IReadOnlyList<LectureScheduleDto>
+@{
+    ViewData["Title"] = Localizer["ClassroomTimetable"];
+    var classrooms = (IReadOnlyList<LookupItem>)(ViewBag.Classrooms ?? Array.Empty<LookupItem>());
+    var selectedClassroomId = ViewBag.ClassroomId?.ToString() ?? string.Empty;
+}
+<section class="page-header"><div><p class="eyebrow">@Localizer["LectureSchedulesTitle"]</p><h1>@Localizer["ClassroomTimetable"]</h1><p>@Localizer["TimetableDescription"]</p></div><a class="btn btn-secondary app-btn" asp-action="Index">@Localizer["BackToList"]</a></section>
+<section class="app-panel"><form method="get" class="filter-grid"><div class="form-field"><label class="form-label" for="classroomId">@Localizer["Classroom"]</label><select id="classroomId" name="classroomId" class="form-select"><option value="">@Localizer["SelectClassroom"]</option>@foreach (var item in classrooms) { <option value="@item.Value" selected="@(selectedClassroomId == item.Value)">@item.Text</option> }</select></div><div class="form-actions"><button class="btn btn-primary app-btn" type="submit">@Localizer["ViewTimetable"]</button></div></form></section>
+<section class="app-panel mt-3"><div class="timetable-grid">
+@foreach (var day in Enum.GetValues<DayOfWeek>())
+{
+    var dayItems = Model.Where(item => item.DayOfWeek == day).OrderBy(item => item.StartTime).ToList();
+    <article class="timetable-day"><h2>@Localizer[$"DayOfWeek{day}"]</h2>@if (dayItems.Count == 0) { <p class="empty-row">@Localizer["NoScheduledLectures"]</p> } else { foreach (var schedule in dayItems) { <div class="timetable-item"><strong>@schedule.StartTime.ToString("HH:mm") - @schedule.EndTime.ToString("HH:mm")</strong><span>@schedule.CourseCode - @schedule.SectionNumber</span><small>@schedule.InstructorNameEnglish</small></div> } }</article>
+}
+</div></section>

@@ -2,19 +2,21 @@
 
 ## Purpose
 
-AttendAI is a responsive university attendance management platform for the graduation project **Smart Attendance Management System Using Face Recognition**. Sprint 1 establishes a secure, documented, buildable foundation.
+AttendAI is a responsive university attendance management platform for the graduation project **Smart Attendance Management System Using Face Recognition**. Sprint 3 builds on the verified identity and academic foundations by adding lecture scheduling and live lecture-session management.
 
 ## Scope
 
 Sprint 1 includes authentication, role authorization, dashboard shells, localization, RTL/LTR layout support, theming, database foundation, a face-recognition abstraction, a technical spike, and tests.
 
-Sprint 2 adds academic and account management for administrator-created Student and Instructor users. It includes departments, students, instructors, courses, sections, classrooms, enrollments, instructor assignments, academic dashboards, activation/deactivation, temporary password reset, and first-login password change. It does not implement lecture sessions, attendance registration, reports, exports, production face enrollment, production face verification, or liveness detection.
+Sprint 2 adds academic and account management for administrator-created Student and Instructor users. It includes departments, students, instructors, courses, sections, classrooms, enrollments, instructor assignments, academic dashboards, activation/deactivation, temporary password reset, and first-login password change.
+
+Sprint 3 adds weekly lecture schedules, conflict detection, instructor/student timetables, live lecture sessions, temporary session-code management, admin session monitoring, lifecycle audit events, and session timing configuration. It does not implement attendance registration, student code submission, reports, exports, production face enrollment, production face verification, liveness detection, location validation, or notifications.
 
 ## User Roles
 
-- Admin: future academic setup and governance owner.
-- Instructor: assigned section viewer and future lecture session/attendance review owner.
-- Student: academic profile/enrollment viewer and future attendance registration user.
+- Admin: academic setup, lecture scheduling, and session monitoring owner.
+- Instructor: assigned section viewer and authorized lecture-session operator.
+- Student: academic profile, enrollment, and schedule viewer for future attendance registration.
 
 ## Product Functions
 
@@ -30,6 +32,13 @@ Sprint 2 adds academic and account management for administrator-created Student 
 - Require administrator-created Student and Instructor users to change temporary passwords at first login.
 - Enroll students in sections while respecting section capacity.
 - Assign instructors to sections while enforcing one active primary instructor.
+- Manage weekly lecture schedules for existing Sections, Instructors, and Classrooms.
+- Detect Classroom, Instructor, and Section schedule conflicts.
+- Allow Instructors and Students to view scoped weekly timetables.
+- Allow authorized Instructors to start, regenerate code for, end, and cancel lecture sessions.
+- Allow Admin users to monitor, force-end, and expire stale active lecture sessions.
+- Preserve session lifecycle audit history.
+- Hide temporary session codes from Student responses.
 
 ## Functional Requirements
 
@@ -57,6 +66,16 @@ Sprint 2 adds academic and account management for administrator-created Student 
 | FR-20 | Student dashboards show academic profile and active enrollments. |
 | FR-21 | Non-Admin users cannot access Admin academic management pages. |
 | FR-22 | Admin state-changing actions require antiforgery validation. |
+| FR-23 | Admin users can create, edit, activate, deactivate, search, filter, and page weekly Lecture Schedules. |
+| FR-24 | Lecture Schedule creation and editing reject Classroom, Instructor, and Section time conflicts. |
+| FR-25 | Instructors can view schedules for Sections to which they are actively assigned. |
+| FR-26 | Students can view schedules for Sections in which they are actively enrolled. |
+| FR-27 | Authorized Instructors can start eligible Lecture Sessions inside the configured start window. |
+| FR-28 | Lecture Sessions generate secure temporary codes visible only to authorized Instructor/Admin response paths. |
+| FR-29 | Authorized Instructors can regenerate, end, and cancel their active Lecture Sessions. |
+| FR-30 | Admin users can monitor active/historical Lecture Sessions and force-end active Sessions. |
+| FR-31 | Lecture Session lifecycle events are persisted without storing plain codes. |
+| FR-32 | Ended, cancelled, expired, and force-ended Sessions invalidate active code state. |
 
 ## Non-Functional Requirements
 
@@ -67,6 +86,8 @@ Sprint 2 adds academic and account management for administrator-created Student 
 - Configuration must not contain production secrets.
 - Academic setup must preserve historical relationships through activation/deactivation rather than hard deletion.
 - SQL Server constraints and service rules must protect duplicate academic records and invalid ranges.
+- Lecture scheduling must use server-side conflict checks, transactions, pagination, and efficient projections.
+- Session timestamps must be stored in UTC and displayed in the configured application time zone.
 
 ## Security Requirements
 
@@ -78,6 +99,8 @@ Sprint 2 adds academic and account management for administrator-created Student 
 - No password, raw biometric image, template, or secret logging.
 - Administrator-created Student and Instructor users must be assigned only their intended role.
 - Inactive academic user accounts must be blocked from login.
+- Temporary session codes must be generated securely, hashed/protected at rest, invalidated on terminal transitions, and omitted from Student responses.
+- Lecture-session state changes must use antiforgery validation, authorization checks, and optimistic concurrency.
 
 ## Privacy Requirements
 
@@ -85,13 +108,13 @@ Sprint 2 adds academic and account management for administrator-created Student 
 - The project should store a face template where possible.
 - The system should avoid permanent storage of raw images.
 - Access to biometric data must be restricted.
-- Sprint 2 does not perform production attendance verification.
+- Sprint 3 does not perform production attendance verification or attendance registration.
 
 ## Localization Requirements
 
 - Support `en-US` and `ar-JO`.
 - Persist selected culture in a culture cookie.
-- Localize primary navigation, authentication, dashboard, validation, error, theme, and language text.
+- Localize primary navigation, authentication, dashboard, validation, error, theme, language, lecture schedule, lecture session, timetable, and countdown text.
 
 ## Theme Requirements
 
@@ -101,15 +124,17 @@ Sprint 2 adds academic and account management for administrator-created Student 
 
 ## Business Rules
 
-- Public registration is not required in Sprint 2.
-- Public registration is not required in Sprint 2.
+- Public registration is not required in Sprint 3.
 - Student and Instructor production accounts are administrator-created.
 - The initial face approach is one-to-one verification.
-- Duplicate attendance prevention, location validation, and lecture time validation are future attendance rules.
+- Duplicate attendance prevention, location validation, and attendance decisions are future attendance rules.
 - Department, Course, Classroom, Student, and Instructor codes/numbers are unique.
 - Sections are unique per Course, academic year, semester, and section number.
 - Student enrollment is unique per Student and Section.
 - Only one active primary Instructor assignment is allowed per Section.
+- Lecture Schedules cannot overlap for the same Classroom, Instructor, or Section.
+- Lecture Sessions are unique per Lecture Schedule and Session Date.
+- A Student can see active-session state but cannot see temporary session codes.
 
 ## Face Recognition Statement
 
@@ -119,7 +144,7 @@ The initial version uses one-to-one face verification, not one-to-many identific
 
 ## Out Of Scope
 
-Lecture sessions, attendance registration, reports, exports, production face enrollment, production verification, liveness detection, and native mobile applications are out of scope for Sprint 2.
+Attendance registration, student code submission, attendance records, reports, exports, production face enrollment, production verification, liveness detection, location validation, notifications, QR attendance, and native mobile applications are out of scope for Sprint 3.
 
 ## Acceptance Criteria
 
@@ -134,3 +159,8 @@ Lecture sessions, attendance registration, reports, exports, production face enr
 - Admin academic CRUD and account workflows run against SQL Server.
 - Student and Instructor first-login password change works.
 - Role boundaries are enforced for Admin, Instructor, and Student dashboards.
+- Lecture schedule migration applies to SQL Server.
+- Admin schedule management and conflict detection work.
+- Instructor session lifecycle works with secure temporary code handling.
+- Student active-session views exclude code data.
+- Lifecycle audit events persist.

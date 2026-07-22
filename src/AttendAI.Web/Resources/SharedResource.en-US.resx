@@ -366,4 +366,136 @@
   <data name="StudentAcademicSummaryText" xml:space="preserve"><value>Current student profile information from academic setup.</value></data>
   <data name="StudentAcademicEmptyText" xml:space="preserve"><value>No active section enrollments are linked to this student profile.</value></data>
   <data name="ActiveEnrollmentsCount" xml:space="preserve"><value>Active academic enrollments</value></data>
+  <data name="NavLectureManagement" xml:space="preserve"><value>Lecture management</value></data>
+  <data name="NavLectureSchedules" xml:space="preserve"><value>Lecture schedules</value></data>
+  <data name="NavLectureSessions" xml:space="preserve"><value>Lecture sessions</value></data>
+  <data name="NavMySchedule" xml:space="preserve"><value>My schedule</value></data>
+  <data name="LectureSchedulesTitle" xml:space="preserve"><value>Lecture schedules</value></data>
+  <data name="LectureSchedulesDescription" xml:space="preserve"><value>Manage weekly lecture schedules, protected resources, and effective date ranges.</value></data>
+  <data name="LectureScheduleFormDescription" xml:space="preserve"><value>Select an active section, assigned instructor, active classroom, local recurring time, and future attendance defaults.</value></data>
+  <data name="CreateLectureSchedule" xml:space="preserve"><value>Create lecture schedule</value></data>
+  <data name="EditLectureSchedule" xml:space="preserve"><value>Edit lecture schedule</value></data>
+  <data name="LectureScheduleDetails" xml:space="preserve"><value>Lecture schedule details</value></data>
+  <data name="LectureScheduleCreated" xml:space="preserve"><value>Lecture schedule was created.</value></data>
+  <data name="LectureScheduleUpdated" xml:space="preserve"><value>Lecture schedule was updated.</value></data>
+  <data name="LectureScheduleActivated" xml:space="preserve"><value>Lecture schedule was activated.</value></data>
+  <data name="LectureScheduleDeactivated" xml:space="preserve"><value>Lecture schedule was deactivated.</value></data>
+  <data name="SearchLectureSchedulesPlaceholder" xml:space="preserve"><value>Course, instructor, classroom, or section</value></data>
+  <data name="AllClassrooms" xml:space="preserve"><value>All classrooms</value></data>
+  <data name="AllDays" xml:space="preserve"><value>All days</value></data>
+  <data name="Day" xml:space="preserve"><value>Day</value></data>
+  <data name="DayOfWeekSunday" xml:space="preserve"><value>Sunday</value></data>
+  <data name="DayOfWeekMonday" xml:space="preserve"><value>Monday</value></data>
+  <data name="DayOfWeekTuesday" xml:space="preserve"><value>Tuesday</value></data>
+  <data name="DayOfWeekWednesday" xml:space="preserve"><value>Wednesday</value></data>
+  <data name="DayOfWeekThursday" xml:space="preserve"><value>Thursday</value></data>
+  <data name="DayOfWeekFriday" xml:space="preserve"><value>Friday</value></data>
+  <data name="DayOfWeekSaturday" xml:space="preserve"><value>Saturday</value></data>
+  <data name="ScheduleWindow" xml:space="preserve"><value>Schedule window</value></data>
+  <data name="Defaults" xml:space="preserve"><value>Defaults</value></data>
+  <data name="NoLectureSchedules" xml:space="preserve"><value>No lecture schedules match the current filters.</value></data>
+  <data name="LateMinutesShort" xml:space="preserve"><value>{0} late min</value></data>
+  <data name="RadiusMetersShort" xml:space="preserve"><value>{0} m radius</value></data>
+  <data name="SelectClassroom" xml:space="preserve"><value>Select classroom</value></data>
+  <data name="EffectiveFrom" xml:space="preserve"><value>Effective from</value></data>
+  <data name="EffectiveTo" xml:space="preserve"><value>Effective to</value></data>
+  <data name="EffectiveRange" xml:space="preserve"><value>Effective range</value></data>
+  <data name="StartTime" xml:space="preserve"><value>Start time</value></data>
+  <data name="EndTime" xml:space="preserve"><value>End time</value></data>
+  <data name="LateThresholdMinutes" xml:space="preserve"><value>Late threshold minutes</value></data>
+  <data name="AllowedRadiusMeters" xml:space="preserve"><value>Allowed radius meters</value></data>
+  <data name="ClassroomTimetable" xml:space="preserve"><value>Classroom timetable</value></data>
+  <data name="SectionTimetable" xml:space="preserve"><value>Section timetable</value></data>
+  <data name="TimetableDescription" xml:space="preserve"><value>Review active weekly lecture times grouped by day.</value></data>
+  <data name="ViewTimetable" xml:space="preserve"><value>View timetable</value></data>
+  <data name="NoScheduledLectures" xml:space="preserve"><value>No scheduled lectures.</value></data>
+  <data name="LectureSessionsTitle" xml:space="preserve"><value>Lecture sessions</value></data>
+  <data name="LectureSessionsDescription" xml:space="preserve"><value>Monitor active and historical lecture sessions without exposing plain session codes.</value></data>
+  <data name="SearchLectureSessionsPlaceholder" xml:space="preserve"><value>Course, instructor, classroom, or section</value></data>
+  <data name="ExpireStaleSessions" xml:space="preserve"><value>Expire stale sessions</value></data>
+  <data name="NoLectureSessions" xml:space="preserve"><value>No lecture sessions match the current filters.</value></data>
+  <data name="SessionTime" xml:space="preserve"><value>Session time</value></data>
+  <data name="LectureSessionDetails" xml:space="preserve"><value>Lecture session details</value></data>
+  <data name="ScheduledTime" xml:space="preserve"><value>Scheduled time</value></data>
+  <data name="ActualTime" xml:space="preserve"><value>Actual time</value></data>
+  <data name="SessionCodeState" xml:space="preserve"><value>Session code state</value></data>
+  <data name="SessionCodeStoredSecurely" xml:space="preserve"><value>Protected and hashed code values are present.</value></data>
+  <data name="SessionCodeInvalidated" xml:space="preserve"><value>Session code is invalidated.</value></data>
+  <data name="CodeExpires" xml:space="preserve"><value>Code expires</value></data>
+  <data name="AdminForceEnd" xml:space="preserve"><value>Admin force end</value></data>
+  <data name="AdminForceEndDescription" xml:space="preserve"><value>Terminate an active session when administrative intervention is required.</value></data>
+  <data name="ForceEndSession" xml:space="preserve"><value>Force end session</value></data>
+  <data name="LectureSessionForceEnded" xml:space="preserve"><value>Lecture session was force-ended.</value></data>
+  <data name="LectureSessionsExpired" xml:space="preserve"><value>{0} stale lecture sessions were expired.</value></data>
+  <data name="LifecycleEvents" xml:space="preserve"><value>Lifecycle events</value></data>
+  <data name="OccurredAt" xml:space="preserve"><value>Occurred at</value></data>
+  <data name="Event" xml:space="preserve"><value>Event</value></data>
+  <data name="PerformedBy" xml:space="preserve"><value>Performed by</value></data>
+  <data name="StatusChange" xml:space="preserve"><value>Status change</value></data>
+  <data name="Description" xml:space="preserve"><value>Description</value></data>
+  <data name="NoLifecycleEvents" xml:space="preserve"><value>No lifecycle events are recorded.</value></data>
+  <data name="LectureSessionStatusActive" xml:space="preserve"><value>Active</value></data>
+  <data name="LectureSessionStatusEnded" xml:space="preserve"><value>Ended</value></data>
+  <data name="LectureSessionStatusCancelled" xml:space="preserve"><value>Cancelled</value></data>
+  <data name="LectureSessionStatusExpired" xml:space="preserve"><value>Expired</value></data>
+  <data name="LectureSessionEventStarted" xml:space="preserve"><value>Started</value></data>
+  <data name="LectureSessionEventCodeGenerated" xml:space="preserve"><value>Code generated</value></data>
+  <data name="LectureSessionEventCodeRegenerated" xml:space="preserve"><value>Code regenerated</value></data>
+  <data name="LectureSessionEventEnded" xml:space="preserve"><value>Ended</value></data>
+  <data name="LectureSessionEventCancelled" xml:space="preserve"><value>Cancelled</value></data>
+  <data name="LectureSessionEventExpired" xml:space="preserve"><value>Expired</value></data>
+  <data name="LectureSessionEventAdminForceEnded" xml:space="preserve"><value>Admin force-ended</value></data>
+  <data name="InstructorScheduleTitle" xml:space="preserve"><value>My lecture schedule</value></data>
+  <data name="InstructorScheduleDescription" xml:space="preserve"><value>Review assigned lectures and start eligible live sessions.</value></data>
+  <data name="OpenActiveSession" xml:space="preserve"><value>Open active session</value></data>
+  <data name="StartSession" xml:space="preserve"><value>Start session</value></data>
+  <data name="NotEligibleToStart" xml:space="preserve"><value>Not eligible to start</value></data>
+  <data name="ActiveLectureSession" xml:space="preserve"><value>Active lecture session</value></data>
+  <data name="BackToSchedule" xml:space="preserve"><value>Back to schedule</value></data>
+  <data name="TemporarySessionCode" xml:space="preserve"><value>Temporary session code</value></data>
+  <data name="CodeVisibleOnlyNow" xml:space="preserve"><value>This plain code is visible only in this authorized response.</value></data>
+  <data name="CopyCode" xml:space="preserve"><value>Copy code</value></data>
+  <data name="CodeCountdown" xml:space="preserve"><value>Code countdown</value></data>
+  <data name="SessionCountdown" xml:space="preserve"><value>Session countdown</value></data>
+  <data name="SessionActions" xml:space="preserve"><value>Session actions</value></data>
+  <data name="SessionActionsDescription" xml:space="preserve"><value>Regenerate the temporary code or close the active session.</value></data>
+  <data name="RegenerateCode" xml:space="preserve"><value>Regenerate code</value></data>
+  <data name="EndSession" xml:space="preserve"><value>End session</value></data>
+  <data name="CancelSession" xml:space="preserve"><value>Cancel session</value></data>
+  <data name="LectureSessionEnded" xml:space="preserve"><value>Lecture session was ended.</value></data>
+  <data name="LectureSessionCancelled" xml:space="preserve"><value>Lecture session was cancelled.</value></data>
+  <data name="StudentScheduleTitle" xml:space="preserve"><value>My lecture schedule</value></data>
+  <data name="StudentScheduleDescription" xml:space="preserve"><value>Review enrolled lecture schedules and active lecture indicators.</value></data>
+  <data name="ViewActiveLecture" xml:space="preserve"><value>View active lecture</value></data>
+  <data name="Scheduled" xml:space="preserve"><value>Scheduled</value></data>
+  <data name="SessionStatus" xml:space="preserve"><value>Session status</value></data>
+  <data name="ActiveLectureIndicator" xml:space="preserve"><value>Your enrolled section has an active lecture session.</value></data>
+  <data name="StudentActiveSessionNoCode" xml:space="preserve"><value>Session code is hidden from student responses.</value></data>
+  <data name="StudentSessionCodePrivacyNotice" xml:space="preserve"><value>Only the instructor sees the temporary session code. Attendance submission is reserved for a future sprint.</value></data>
+  <data name="Reason" xml:space="preserve"><value>Reason</value></data>
+  <data name="NotApplicable" xml:space="preserve"><value>Not applicable</value></data>
+  <data name="ErrorLectureStartBeforeEnd" xml:space="preserve"><value>Start time must be before end time.</value></data>
+  <data name="ErrorLectureEffectiveRange" xml:space="preserve"><value>Effective-from date must be on or before effective-to date.</value></data>
+  <data name="ErrorLectureDurationRange" xml:space="preserve"><value>Lecture duration must be between {0} and {1} minutes.</value></data>
+  <data name="ErrorLectureLateThreshold" xml:space="preserve"><value>Late threshold must be zero or greater and shorter than the lecture duration.</value></data>
+  <data name="ErrorLectureRadiusRange" xml:space="preserve"><value>Allowed radius must be between {0} and {1} meters.</value></data>
+  <data name="ErrorActiveSectionAndCourseRequired" xml:space="preserve"><value>Select an active section linked to an active course.</value></data>
+  <data name="ErrorActiveInstructorAccountRequired" xml:space="preserve"><value>The instructor identity account must be active.</value></data>
+  <data name="ErrorInstructorAssignmentRequired" xml:space="preserve"><value>The instructor must have an active assignment to the selected section.</value></data>
+  <data name="ErrorActiveClassroomRequired" xml:space="preserve"><value>Select an active classroom.</value></data>
+  <data name="ErrorClassroomCapacityLowerThanEnrollment" xml:space="preserve"><value>Classroom capacity ({0}) is lower than active enrollment count ({1}).</value></data>
+  <data name="ErrorScheduleClassroomConflict" xml:space="preserve"><value>This classroom already has an overlapping active lecture schedule.</value></data>
+  <data name="ErrorScheduleInstructorConflict" xml:space="preserve"><value>This instructor already has an overlapping active lecture schedule.</value></data>
+  <data name="ErrorScheduleSectionConflict" xml:space="preserve"><value>This section already has an overlapping active lecture schedule.</value></data>
+  <data name="ErrorScheduleConflict" xml:space="preserve"><value>An overlapping active lecture schedule already exists.</value></data>
+  <data name="ErrorLectureScheduleNotFound" xml:space="preserve"><value>Lecture schedule was not found.</value></data>
+  <data name="ErrorLectureSessionNotFound" xml:space="preserve"><value>Lecture session was not found.</value></data>
+  <data name="ErrorLectureScheduleInactive" xml:space="preserve"><value>The selected schedule or one of its protected resources is inactive.</value></data>
+  <data name="ErrorLectureInstructorOwnership" xml:space="preserve"><value>You are not authorized to manage this lecture session.</value></data>
+  <data name="ErrorLectureOccurrenceDate" xml:space="preserve"><value>The selected date is not a valid occurrence for this schedule.</value></data>
+  <data name="ErrorLectureSessionDurationLimit" xml:space="preserve"><value>The scheduled session exceeds the configured maximum session duration.</value></data>
+  <data name="ErrorLectureStartWindow" xml:space="preserve"><value>The lecture can only be started within the configured start window.</value></data>
+  <data name="ErrorLectureOccurrenceExists" xml:space="preserve"><value>A session already exists for this schedule occurrence.</value></data>
+  <data name="ErrorLectureActiveResourceConflict" xml:space="preserve"><value>Another active session already uses the instructor, section, or classroom.</value></data>
+  <data name="ErrorLectureSessionMustBeActive" xml:space="preserve"><value>Only an active lecture session can perform this action.</value></data>
 </root>

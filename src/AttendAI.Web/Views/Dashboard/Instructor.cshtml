@@ -19,6 +19,11 @@
         <strong>@Model.AssignedSections.Count</strong>
         <p>@Localizer["InstructorAcademicSummaryText"]</p>
     </article>
+    <article class="stat-card">
+        <span>@Localizer["LectureSchedulesTitle"]</span>
+        <strong>@Localizer["NavMySchedule"]</strong>
+        <p><a asp-controller="InstructorSchedule" asp-action="Index">@Localizer["NavMySchedule"]</a></p>
+    </article>
 </section>
 
 @if (Model.AssignedSections.Count == 0)

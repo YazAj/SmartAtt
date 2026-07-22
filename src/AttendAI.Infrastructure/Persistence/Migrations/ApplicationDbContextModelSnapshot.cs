@@ -325,6 +325,236 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
                     b.ToTable("InstructorAssignments", (string)null);
                 });
 
+            modelBuilder.Entity("AttendAI.Domain.Academic.LectureSchedule", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ClassroomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DefaultAllowedRadiusMeters")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DefaultLateThresholdMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("EffectiveFrom")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("EffectiveTo")
+                        .HasColumnType("date");
+
+                    b.Property<TimeOnly>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<Guid>("InstructorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<Guid>("SectionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<TimeOnly>("StartTime")
+                        .HasColumnType("time");
+
+                    b.Property<DateTimeOffset?>("UpdatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassroomId", "DayOfWeek", "IsActive", "EffectiveFrom", "EffectiveTo", "StartTime", "EndTime");
+
+                    b.HasIndex("InstructorId", "DayOfWeek", "IsActive", "EffectiveFrom", "EffectiveTo", "StartTime", "EndTime");
+
+                    b.HasIndex("SectionId", "DayOfWeek", "IsActive", "EffectiveFrom", "EffectiveTo", "StartTime", "EndTime");
+
+                    b.ToTable("LectureSchedules", t =>
+                        {
+                            t.HasCheckConstraint("CK_LectureSchedules_AllowedRadius", "[DefaultAllowedRadiusMeters] >= 0");
+
+                            t.HasCheckConstraint("CK_LectureSchedules_EffectiveRange", "[EffectiveFrom] <= [EffectiveTo]");
+
+                            t.HasCheckConstraint("CK_LectureSchedules_LateThreshold", "[DefaultLateThresholdMinutes] >= 0");
+
+                            t.HasCheckConstraint("CK_LectureSchedules_TimeRange", "[StartTime] < [EndTime]");
+                        });
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.LectureSession", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("ActualEndUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset>("ActualStartUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("AllowedRadiusMeters")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CancelledByUserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("ClassroomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("EndReason")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("EndedByUserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("InstructorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LateThresholdMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("LectureScheduleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ProtectedSessionCode")
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<DateTimeOffset>("ScheduledEndUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset>("ScheduledStartUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("SectionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("SessionCodeExpiresAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("SessionCodeHash")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("SessionCodeVersion")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("SessionDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("StartedByUserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("UpdatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SessionCodeExpiresAtUtc");
+
+                    b.HasIndex("ClassroomId", "Status");
+
+                    b.HasIndex("InstructorId", "Status");
+
+                    b.HasIndex("LectureScheduleId", "SessionDate")
+                        .IsUnique();
+
+                    b.HasIndex("SectionId", "Status");
+
+                    b.ToTable("LectureSessions", t =>
+                        {
+                            t.HasCheckConstraint("CK_LectureSessions_AllowedRadius", "[AllowedRadiusMeters] >= 0");
+
+                            t.HasCheckConstraint("CK_LectureSessions_LateThreshold", "[LateThresholdMinutes] >= 0");
+
+                            t.HasCheckConstraint("CK_LectureSessions_ScheduledRange", "[ScheduledStartUtc] < [ScheduledEndUtc]");
+                        });
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.LectureSessionEvent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("EventType")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("LectureSessionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("NewStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("OccurredAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("PerformedByUserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("PreviousStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SafeDescription")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTimeOffset?>("UpdatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LectureSessionId", "OccurredAtUtc");
+
+                    b.ToTable("LectureSessionEvents");
+                });
+
             modelBuilder.Entity("AttendAI.Domain.Academic.Section", b =>
                 {
                     b.Property<Guid>("Id")
@@ -766,6 +996,79 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
                     b.Navigation("Section");
                 });
 
+            modelBuilder.Entity("AttendAI.Domain.Academic.LectureSchedule", b =>
+                {
+                    b.HasOne("AttendAI.Domain.Academic.Classroom", "Classroom")
+                        .WithMany()
+                        .HasForeignKey("ClassroomId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AttendAI.Domain.Academic.Instructor", "Instructor")
+                        .WithMany()
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AttendAI.Domain.Academic.Section", "Section")
+                        .WithMany()
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Classroom");
+
+                    b.Navigation("Instructor");
+
+                    b.Navigation("Section");
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.LectureSession", b =>
+                {
+                    b.HasOne("AttendAI.Domain.Academic.Classroom", "Classroom")
+                        .WithMany()
+                        .HasForeignKey("ClassroomId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AttendAI.Domain.Academic.Instructor", "Instructor")
+                        .WithMany()
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AttendAI.Domain.Academic.LectureSchedule", "LectureSchedule")
+                        .WithMany("Sessions")
+                        .HasForeignKey("LectureScheduleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AttendAI.Domain.Academic.Section", "Section")
+                        .WithMany()
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Classroom");
+
+                    b.Navigation("Instructor");
+
+                    b.Navigation("LectureSchedule");
+
+                    b.Navigation("Section");
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.LectureSessionEvent", b =>
+                {
+                    b.HasOne("AttendAI.Domain.Academic.LectureSession", "LectureSession")
+                        .WithMany("Events")
+                        .HasForeignKey("LectureSessionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("LectureSession");
+                });
+
             modelBuilder.Entity("AttendAI.Domain.Academic.Section", b =>
                 {
                     b.HasOne("AttendAI.Domain.Academic.Course", "Course")
@@ -881,6 +1184,16 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("AttendAI.Domain.Academic.Instructor", b =>
                 {
                     b.Navigation("Assignments");
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.LectureSchedule", b =>
+                {
+                    b.Navigation("Sessions");
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.LectureSession", b =>
+                {
+                    b.Navigation("Events");
                 });
 
             modelBuilder.Entity("AttendAI.Domain.Academic.Section", b =>

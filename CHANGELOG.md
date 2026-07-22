@@ -2,6 +2,37 @@
 
 ## 2026-07-22
 
+### Sprint 3 Added
+
+- Added lecture scheduling domain entities, session lifecycle entities, and enums.
+- Added application contracts, DTOs, commands, queries, conflict results, session results, time-zone contracts, and code-security services for lecture scheduling.
+- Added EF Core configurations and migration `20260722160127_AddLectureSchedulingAndSessions` for `LectureSchedules`, `LectureSessions`, and `LectureSessionEvents`.
+- Added Admin lecture schedule CRUD, conflict validation, classroom/section timetable pages, active-session monitoring, session details, force-end, and stale-expiration actions.
+- Added Instructor schedule and active-session workflows with start, temporary code display, copy code, regenerate, end, and cancel actions.
+- Added Student schedule and active-session views that hide session-code material.
+- Added secure temporary code generation, hashing, Data Protection storage, expiration, regeneration, invalidation, and lifecycle audit events.
+- Added Sprint 3 unit and integration tests for lecture domain rules, time-zone behavior, code security, scheduling conflicts, authorization, session lifecycle, and Student code exclusion.
+- Added Sprint 3 documentation: plan, lecture scheduling domain model, test plan, review, and session-code security.
+
+### Sprint 3 Changed
+
+- Updated README, SRS, architecture, ERD, use cases, UI design-system notes, localization/theme documentation, traceability matrix, and data dictionary for lecture scheduling/session management.
+- Updated layout navigation and Admin/Instructor/Student dashboards with lecture schedule/session links.
+- Updated localization resources for English LTR and Arabic RTL lecture workflows.
+- Updated CSS and JavaScript with timetable, responsive lecture identifiers, countdown, and copy-code support.
+- Closed the Arabic RTL dark mobile clipping gap by replacing the hidden mobile-sidebar translate transform with an opacity/visibility closed state and by wrapping long lecture identifiers, action rows, and session-code content safely.
+
+### Sprint 3 Verified
+
+- Verified SQL Server LocalDB database `AttendAI_Sprint3Verification_20260722` with all migrations through `AddLectureSchedulingAndSessions`.
+- Verified runtime Admin schedule creation and conflict rejection, Instructor session start/regenerate/end flow, Student active-session code exclusion, and cross-role access denial.
+- Verified SQL evidence for lecture tables, Admin/Instructor/Student roles, lifecycle event persistence, and terminal code invalidation.
+- Verified live Playwright responsive/layout coverage across 1440x900, 1024x768, 768x1024, 390x844, and 320x568; 134 checks reported 0 page-level overflow failures.
+- Verified Arabic RTL dark desktop/tablet/mobile, including 390px and 320px, plus English LTR light/dark regressions.
+- Verified keyboard walkthrough for mobile navigation, filters/forms, timetable/session links, active-session actions, language selector, theme selector, and Escape close behavior.
+- Verified automated restore/build/test/format gates; final command evidence is recorded in Sprint 3 review.
+- Verified no Sprint 4 attendance records, student code submission, face enrollment, reports, notifications, or location validation were implemented.
+
 ### Sprint 2 Added
 
 - Added academic domain entities for departments, students, instructors, courses, sections, classrooms, student enrollments, and instructor assignments.

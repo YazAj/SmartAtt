@@ -366,4 +366,136 @@
   <data name="StudentAcademicSummaryText" xml:space="preserve"><value>معلومات ملف الطالب الحالية من الإعداد الأكاديمي.</value></data>
   <data name="StudentAcademicEmptyText" xml:space="preserve"><value>لا توجد تسجيلات شعب نشطة مرتبطة بملف هذا الطالب.</value></data>
   <data name="ActiveEnrollmentsCount" xml:space="preserve"><value>تسجيلات أكاديمية نشطة</value></data>
+  <data name="NavLectureManagement" xml:space="preserve"><value>إدارة المحاضرات</value></data>
+  <data name="NavLectureSchedules" xml:space="preserve"><value>جداول المحاضرات</value></data>
+  <data name="NavLectureSessions" xml:space="preserve"><value>جلسات المحاضرات</value></data>
+  <data name="NavMySchedule" xml:space="preserve"><value>جدولي</value></data>
+  <data name="LectureSchedulesTitle" xml:space="preserve"><value>جداول المحاضرات</value></data>
+  <data name="LectureSchedulesDescription" xml:space="preserve"><value>إدارة الجداول الأسبوعية والموارد المحمية ونطاقات السريان.</value></data>
+  <data name="LectureScheduleFormDescription" xml:space="preserve"><value>اختر شعبة نشطة ومدرساً معيناً وقاعة نشطة ووقتاً أكاديمياً محلياً وإعدادات مستقبلية للحضور.</value></data>
+  <data name="CreateLectureSchedule" xml:space="preserve"><value>إنشاء جدول محاضرة</value></data>
+  <data name="EditLectureSchedule" xml:space="preserve"><value>تعديل جدول المحاضرة</value></data>
+  <data name="LectureScheduleDetails" xml:space="preserve"><value>تفاصيل جدول المحاضرة</value></data>
+  <data name="LectureScheduleCreated" xml:space="preserve"><value>تم إنشاء جدول المحاضرة.</value></data>
+  <data name="LectureScheduleUpdated" xml:space="preserve"><value>تم تحديث جدول المحاضرة.</value></data>
+  <data name="LectureScheduleActivated" xml:space="preserve"><value>تم تفعيل جدول المحاضرة.</value></data>
+  <data name="LectureScheduleDeactivated" xml:space="preserve"><value>تم تعطيل جدول المحاضرة.</value></data>
+  <data name="SearchLectureSchedulesPlaceholder" xml:space="preserve"><value>المادة أو المدرس أو القاعة أو الشعبة</value></data>
+  <data name="AllClassrooms" xml:space="preserve"><value>كل القاعات</value></data>
+  <data name="AllDays" xml:space="preserve"><value>كل الأيام</value></data>
+  <data name="Day" xml:space="preserve"><value>اليوم</value></data>
+  <data name="DayOfWeekSunday" xml:space="preserve"><value>الأحد</value></data>
+  <data name="DayOfWeekMonday" xml:space="preserve"><value>الاثنين</value></data>
+  <data name="DayOfWeekTuesday" xml:space="preserve"><value>الثلاثاء</value></data>
+  <data name="DayOfWeekWednesday" xml:space="preserve"><value>الأربعاء</value></data>
+  <data name="DayOfWeekThursday" xml:space="preserve"><value>الخميس</value></data>
+  <data name="DayOfWeekFriday" xml:space="preserve"><value>الجمعة</value></data>
+  <data name="DayOfWeekSaturday" xml:space="preserve"><value>السبت</value></data>
+  <data name="ScheduleWindow" xml:space="preserve"><value>وقت الجدول</value></data>
+  <data name="Defaults" xml:space="preserve"><value>الإعدادات الافتراضية</value></data>
+  <data name="NoLectureSchedules" xml:space="preserve"><value>لا توجد جداول محاضرات تطابق عوامل التصفية الحالية.</value></data>
+  <data name="LateMinutesShort" xml:space="preserve"><value>{0} دقيقة تأخير</value></data>
+  <data name="RadiusMetersShort" xml:space="preserve"><value>نطاق {0} متر</value></data>
+  <data name="SelectClassroom" xml:space="preserve"><value>اختر القاعة</value></data>
+  <data name="EffectiveFrom" xml:space="preserve"><value>ساري من</value></data>
+  <data name="EffectiveTo" xml:space="preserve"><value>ساري إلى</value></data>
+  <data name="EffectiveRange" xml:space="preserve"><value>نطاق السريان</value></data>
+  <data name="StartTime" xml:space="preserve"><value>وقت البداية</value></data>
+  <data name="EndTime" xml:space="preserve"><value>وقت النهاية</value></data>
+  <data name="LateThresholdMinutes" xml:space="preserve"><value>دقائق حد التأخير</value></data>
+  <data name="AllowedRadiusMeters" xml:space="preserve"><value>النطاق المسموح بالمتر</value></data>
+  <data name="ClassroomTimetable" xml:space="preserve"><value>جدول القاعة</value></data>
+  <data name="SectionTimetable" xml:space="preserve"><value>جدول الشعبة</value></data>
+  <data name="TimetableDescription" xml:space="preserve"><value>مراجعة أوقات المحاضرات الأسبوعية النشطة حسب اليوم.</value></data>
+  <data name="ViewTimetable" xml:space="preserve"><value>عرض الجدول</value></data>
+  <data name="NoScheduledLectures" xml:space="preserve"><value>لا توجد محاضرات مجدولة.</value></data>
+  <data name="LectureSessionsTitle" xml:space="preserve"><value>جلسات المحاضرات</value></data>
+  <data name="LectureSessionsDescription" xml:space="preserve"><value>مراقبة جلسات المحاضرات النشطة والتاريخية دون إظهار الرموز النصية.</value></data>
+  <data name="SearchLectureSessionsPlaceholder" xml:space="preserve"><value>المادة أو المدرس أو القاعة أو الشعبة</value></data>
+  <data name="ExpireStaleSessions" xml:space="preserve"><value>إنهاء الجلسات المنتهية</value></data>
+  <data name="NoLectureSessions" xml:space="preserve"><value>لا توجد جلسات محاضرات تطابق عوامل التصفية الحالية.</value></data>
+  <data name="SessionTime" xml:space="preserve"><value>وقت الجلسة</value></data>
+  <data name="LectureSessionDetails" xml:space="preserve"><value>تفاصيل جلسة المحاضرة</value></data>
+  <data name="ScheduledTime" xml:space="preserve"><value>الوقت المجدول</value></data>
+  <data name="ActualTime" xml:space="preserve"><value>الوقت الفعلي</value></data>
+  <data name="SessionCodeState" xml:space="preserve"><value>حالة رمز الجلسة</value></data>
+  <data name="SessionCodeStoredSecurely" xml:space="preserve"><value>توجد قيم محمية ومهشّرة للرمز.</value></data>
+  <data name="SessionCodeInvalidated" xml:space="preserve"><value>تم إبطال رمز الجلسة.</value></data>
+  <data name="CodeExpires" xml:space="preserve"><value>انتهاء الرمز</value></data>
+  <data name="AdminForceEnd" xml:space="preserve"><value>إنهاء إداري</value></data>
+  <data name="AdminForceEndDescription" xml:space="preserve"><value>إنهاء جلسة نشطة عند الحاجة إلى تدخل إداري.</value></data>
+  <data name="ForceEndSession" xml:space="preserve"><value>إنهاء الجلسة إجبارياً</value></data>
+  <data name="LectureSessionForceEnded" xml:space="preserve"><value>تم إنهاء جلسة المحاضرة إجبارياً.</value></data>
+  <data name="LectureSessionsExpired" xml:space="preserve"><value>تم إنهاء {0} جلسة محاضرة منتهية.</value></data>
+  <data name="LifecycleEvents" xml:space="preserve"><value>أحداث دورة الحياة</value></data>
+  <data name="OccurredAt" xml:space="preserve"><value>حدث في</value></data>
+  <data name="Event" xml:space="preserve"><value>الحدث</value></data>
+  <data name="PerformedBy" xml:space="preserve"><value>بواسطة</value></data>
+  <data name="StatusChange" xml:space="preserve"><value>تغيير الحالة</value></data>
+  <data name="Description" xml:space="preserve"><value>الوصف</value></data>
+  <data name="NoLifecycleEvents" xml:space="preserve"><value>لا توجد أحداث دورة حياة مسجلة.</value></data>
+  <data name="LectureSessionStatusActive" xml:space="preserve"><value>نشطة</value></data>
+  <data name="LectureSessionStatusEnded" xml:space="preserve"><value>منتهية</value></data>
+  <data name="LectureSessionStatusCancelled" xml:space="preserve"><value>ملغاة</value></data>
+  <data name="LectureSessionStatusExpired" xml:space="preserve"><value>منتهية الصلاحية</value></data>
+  <data name="LectureSessionEventStarted" xml:space="preserve"><value>بدأت</value></data>
+  <data name="LectureSessionEventCodeGenerated" xml:space="preserve"><value>تم توليد الرمز</value></data>
+  <data name="LectureSessionEventCodeRegenerated" xml:space="preserve"><value>تم تجديد الرمز</value></data>
+  <data name="LectureSessionEventEnded" xml:space="preserve"><value>انتهت</value></data>
+  <data name="LectureSessionEventCancelled" xml:space="preserve"><value>ألغيت</value></data>
+  <data name="LectureSessionEventExpired" xml:space="preserve"><value>انتهت الصلاحية</value></data>
+  <data name="LectureSessionEventAdminForceEnded" xml:space="preserve"><value>إنهاء إداري</value></data>
+  <data name="InstructorScheduleTitle" xml:space="preserve"><value>جدول محاضراتي</value></data>
+  <data name="InstructorScheduleDescription" xml:space="preserve"><value>راجع المحاضرات المعينة وابدأ الجلسات المؤهلة.</value></data>
+  <data name="OpenActiveSession" xml:space="preserve"><value>فتح الجلسة النشطة</value></data>
+  <data name="StartSession" xml:space="preserve"><value>بدء الجلسة</value></data>
+  <data name="NotEligibleToStart" xml:space="preserve"><value>غير مؤهل للبدء</value></data>
+  <data name="ActiveLectureSession" xml:space="preserve"><value>جلسة محاضرة نشطة</value></data>
+  <data name="BackToSchedule" xml:space="preserve"><value>العودة إلى الجدول</value></data>
+  <data name="TemporarySessionCode" xml:space="preserve"><value>رمز الجلسة المؤقت</value></data>
+  <data name="CodeVisibleOnlyNow" xml:space="preserve"><value>يظهر الرمز النصي في هذا الرد المصرح فقط.</value></data>
+  <data name="CopyCode" xml:space="preserve"><value>نسخ الرمز</value></data>
+  <data name="CodeCountdown" xml:space="preserve"><value>العد التنازلي للرمز</value></data>
+  <data name="SessionCountdown" xml:space="preserve"><value>العد التنازلي للجلسة</value></data>
+  <data name="SessionActions" xml:space="preserve"><value>إجراءات الجلسة</value></data>
+  <data name="SessionActionsDescription" xml:space="preserve"><value>جدد الرمز المؤقت أو أغلق الجلسة النشطة.</value></data>
+  <data name="RegenerateCode" xml:space="preserve"><value>تجديد الرمز</value></data>
+  <data name="EndSession" xml:space="preserve"><value>إنهاء الجلسة</value></data>
+  <data name="CancelSession" xml:space="preserve"><value>إلغاء الجلسة</value></data>
+  <data name="LectureSessionEnded" xml:space="preserve"><value>تم إنهاء جلسة المحاضرة.</value></data>
+  <data name="LectureSessionCancelled" xml:space="preserve"><value>تم إلغاء جلسة المحاضرة.</value></data>
+  <data name="StudentScheduleTitle" xml:space="preserve"><value>جدول محاضراتي</value></data>
+  <data name="StudentScheduleDescription" xml:space="preserve"><value>راجع جداول الشعب المسجل فيها ومؤشرات المحاضرات النشطة.</value></data>
+  <data name="ViewActiveLecture" xml:space="preserve"><value>عرض المحاضرة النشطة</value></data>
+  <data name="Scheduled" xml:space="preserve"><value>مجدولة</value></data>
+  <data name="SessionStatus" xml:space="preserve"><value>حالة الجلسة</value></data>
+  <data name="ActiveLectureIndicator" xml:space="preserve"><value>يوجد لشعبتك المسجلة جلسة محاضرة نشطة.</value></data>
+  <data name="StudentActiveSessionNoCode" xml:space="preserve"><value>رمز الجلسة مخفي عن ردود الطلاب.</value></data>
+  <data name="StudentSessionCodePrivacyNotice" xml:space="preserve"><value>المدرس فقط يرى رمز الجلسة المؤقت. تسجيل الحضور مؤجل إلى سبرنت لاحق.</value></data>
+  <data name="Reason" xml:space="preserve"><value>السبب</value></data>
+  <data name="NotApplicable" xml:space="preserve"><value>لا ينطبق</value></data>
+  <data name="ErrorLectureStartBeforeEnd" xml:space="preserve"><value>يجب أن يكون وقت البداية قبل وقت النهاية.</value></data>
+  <data name="ErrorLectureEffectiveRange" xml:space="preserve"><value>يجب أن يكون تاريخ السريان من قبل أو يساوي تاريخ السريان إلى.</value></data>
+  <data name="ErrorLectureDurationRange" xml:space="preserve"><value>يجب أن تكون مدة المحاضرة بين {0} و {1} دقيقة.</value></data>
+  <data name="ErrorLectureLateThreshold" xml:space="preserve"><value>يجب أن يكون حد التأخير صفراً أو أكثر وأقل من مدة المحاضرة.</value></data>
+  <data name="ErrorLectureRadiusRange" xml:space="preserve"><value>يجب أن يكون النطاق المسموح بين {0} و {1} متر.</value></data>
+  <data name="ErrorActiveSectionAndCourseRequired" xml:space="preserve"><value>اختر شعبة نشطة مرتبطة بمادة نشطة.</value></data>
+  <data name="ErrorActiveInstructorAccountRequired" xml:space="preserve"><value>يجب أن يكون حساب المدرس نشطاً.</value></data>
+  <data name="ErrorInstructorAssignmentRequired" xml:space="preserve"><value>يجب أن يكون المدرس معيناً بشكل نشط على الشعبة المختارة.</value></data>
+  <data name="ErrorActiveClassroomRequired" xml:space="preserve"><value>اختر قاعة نشطة.</value></data>
+  <data name="ErrorClassroomCapacityLowerThanEnrollment" xml:space="preserve"><value>سعة القاعة ({0}) أقل من عدد التسجيلات النشطة ({1}).</value></data>
+  <data name="ErrorScheduleClassroomConflict" xml:space="preserve"><value>لدى هذه القاعة جدول محاضرة نشط ومتداخل.</value></data>
+  <data name="ErrorScheduleInstructorConflict" xml:space="preserve"><value>لدى هذا المدرس جدول محاضرة نشط ومتداخل.</value></data>
+  <data name="ErrorScheduleSectionConflict" xml:space="preserve"><value>لدى هذه الشعبة جدول محاضرة نشط ومتداخل.</value></data>
+  <data name="ErrorScheduleConflict" xml:space="preserve"><value>يوجد جدول محاضرة نشط ومتداخل.</value></data>
+  <data name="ErrorLectureScheduleNotFound" xml:space="preserve"><value>لم يتم العثور على جدول المحاضرة.</value></data>
+  <data name="ErrorLectureSessionNotFound" xml:space="preserve"><value>لم يتم العثور على جلسة المحاضرة.</value></data>
+  <data name="ErrorLectureScheduleInactive" xml:space="preserve"><value>الجدول المحدد أو أحد موارده المحمية غير نشط.</value></data>
+  <data name="ErrorLectureInstructorOwnership" xml:space="preserve"><value>غير مصرح لك بإدارة جلسة المحاضرة هذه.</value></data>
+  <data name="ErrorLectureOccurrenceDate" xml:space="preserve"><value>التاريخ المحدد ليس موعداً صالحاً لهذا الجدول.</value></data>
+  <data name="ErrorLectureSessionDurationLimit" xml:space="preserve"><value>الجلسة المجدولة تتجاوز الحد الأقصى لمدة الجلسة.</value></data>
+  <data name="ErrorLectureStartWindow" xml:space="preserve"><value>لا يمكن بدء المحاضرة إلا ضمن نافذة البدء المحددة.</value></data>
+  <data name="ErrorLectureOccurrenceExists" xml:space="preserve"><value>توجد جلسة مسبقاً لهذا الموعد من الجدول.</value></data>
+  <data name="ErrorLectureActiveResourceConflict" xml:space="preserve"><value>توجد جلسة نشطة أخرى تستخدم المدرس أو الشعبة أو القاعة.</value></data>
+  <data name="ErrorLectureSessionMustBeActive" xml:space="preserve"><value>هذا الإجراء متاح فقط لجلسة محاضرة نشطة.</value></data>
 </root>

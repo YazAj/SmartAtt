@@ -28,6 +28,12 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<InstructorAssignment> InstructorAssignments => Set<InstructorAssignment>();
 
+    public DbSet<LectureSchedule> LectureSchedules => Set<LectureSchedule>();
+
+    public DbSet<LectureSession> LectureSessions => Set<LectureSession>();
+
+    public DbSet<LectureSessionEvent> LectureSessionEvents => Set<LectureSessionEvent>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -58,6 +64,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             ConfigureSqliteRowVersion<Classroom>(builder);
             ConfigureSqliteRowVersion<StudentEnrollment>(builder);
             ConfigureSqliteRowVersion<InstructorAssignment>(builder);
+            ConfigureSqliteRowVersion<LectureSchedule>(builder);
+            ConfigureSqliteRowVersion<LectureSession>(builder);
         }
     }
 

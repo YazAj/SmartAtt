@@ -2,11 +2,11 @@
 
 AttendAI is a responsive university attendance management web platform for the graduation project **Smart Attendance Management System Using Face Recognition**.
 
-Sprint 1 established the buildable foundation. Sprint 2 adds academic and account management: departments, students, instructors, courses, sections, classrooms, enrollments, instructor assignments, administrator-created accounts, first-login password changes, and role-aware academic dashboards. Lecture sessions, attendance registration, reports, exports, and production biometric workflows are intentionally out of scope.
+Sprint 1 established the buildable foundation. Sprint 2 adds academic and account management: departments, students, instructors, courses, sections, classrooms, enrollments, instructor assignments, administrator-created accounts, first-login password changes, and role-aware academic dashboards. Sprint 3 adds weekly lecture schedules, schedule conflict detection, instructor/student timetables, live lecture sessions, secure temporary session codes, and session lifecycle audit history. Attendance registration, reports, exports, location validation, and production biometric workflows are intentionally out of scope.
 
 ## Current Sprint Status
 
-Sprint 2 is closed as completed for academic and account management. The solution builds, automated tests pass, formatting passes, SQL Server LocalDB migrations are applied, runtime authentication/account flows were verified, academic CRUD was exercised against SQL Server, and desktop/mobile English/Arabic light/dark screenshots were checked. Real face-recognition runtime remains a documented technical gate before production Face Enrollment because no approved biometric samples or selected model dependencies are committed.
+Sprint 3 is completed for lecture scheduling and session management. The solution builds with 0 warnings and 0 errors, 63 automated tests pass, formatting verification passes, SQL Server LocalDB migration/runtime verification passes, secure session-code handling was exercised, and no Sprint 4 attendance or biometric workflow was added. The previous Arabic RTL dark mobile no-overflow gap was closed with live-browser Playwright verification at 390px, 320px, and tablet widths.
 
 ## Technology Stack
 
@@ -20,10 +20,10 @@ Sprint 2 is closed as completed for academic and account management. The solutio
 ## Architecture Summary
 
 ```text
-src/AttendAI.Domain          Core domain abstractions, academic entities, and enums
-src/AttendAI.Application     Contracts, academic DTOs/services, role routing, safe redirects, face engine abstraction
-src/AttendAI.Infrastructure  EF Core, Identity persistence, academic services, seeding, fake face engine
-src/AttendAI.Web             MVC controllers, Admin area, Razor views, localization, theming, UI
+src/AttendAI.Domain          Core domain abstractions, academic/lecture entities, and enums
+src/AttendAI.Application     Contracts, academic/lecture DTOs/services, role routing, safe redirects, face engine abstraction
+src/AttendAI.Infrastructure  EF Core, Identity persistence, academic/lecture services, seeding, fake face engine
+src/AttendAI.Web             MVC controllers, Admin area, lecture UI, Razor views, localization, theming
 tests/                       Unit and integration tests
 experiments/                 Face-recognition POC console harness
 docs/                        Sprint documentation and verification evidence
@@ -68,6 +68,7 @@ The current migration set is:
 
 - `20260722120650_InitialIdentityFoundation`
 - `20260722140818_AddAcademicManagement`
+- `20260722160127_AddLectureSchedulingAndSessions`
 
 ## Demo Admin Setup
 
@@ -87,7 +88,7 @@ Do not commit real credentials.
 dotnet run --project src/AttendAI.Web
 ```
 
-The first non-test startup applies migrations and seeds Identity roles. Use the HTTPS URL printed by ASP.NET Core. Admin users can create Student and Instructor accounts with temporary passwords; those users must change password on first login.
+The first non-test startup applies migrations and seeds Identity roles. Use the HTTPS URL printed by ASP.NET Core. Admin users can create Student and Instructor accounts with temporary passwords; those users must change password on first login. Admins can then create lecture schedules from active sections, assigned instructors, and classrooms. Instructors can start eligible lecture sessions and receive temporary codes only in the authorized response. Students can view active session state for enrolled sections but cannot see session codes.
 
 ## Tests and Quality
 
@@ -147,10 +148,26 @@ No personal biometric images are committed. To test negative fake-engine paths, 
 - Screenshots were captured under ignored `logs/ui-verification-sprint2/` for English LTR light/dark and Arabic RTL light/dark across desktop and mobile.
 - Secret scan found no non-ignored credentials, private keys, SDK licenses, biometric samples, database files, or model files.
 
+## Sprint 3 Verification Evidence
+
+- SQL Server LocalDB verification database: `AttendAI_Sprint3Verification_20260722`.
+- Migrations verified: `InitialIdentityFoundation`, `AddAcademicManagement`, and `AddLectureSchedulingAndSessions`.
+- Runtime Admin flow created academic setup data, a valid lecture schedule, and rejected a conflicting lecture schedule.
+- Instructor temporary-password login redirected to Change Password, then the Instructor opened the schedule, started a Session, saw the temporary code, regenerated it, and ended the Session.
+- Student temporary-password login redirected to Change Password, then the Student opened the active Session and did not receive the code.
+- SQL smoke evidence confirmed 3 lecture tables, Admin/Instructor/Student roles, terminal code invalidation, and lifecycle events.
+- Runtime smoke screenshots were captured under ignored `artifacts/verification/sprint3-visual/`.
+- Live Playwright layout verification covered Admin lecture schedules, create/edit/details, classroom/section timetables, active sessions, session details, Instructor schedule/active session, Student schedule/active session, and a redacted Instructor code-card response.
+- Viewports verified: 1440x900, 1024x768, 768x1024, 390x844, and 320x568.
+- Culture/theme combinations verified: English LTR Light desktop, English LTR Dark mobile, and Arabic RTL Light/Dark desktop, tablet, 390px mobile, and 320px mobile.
+- Programmatic overflow result: 134 checks, 0 page-level overflow failures, including Arabic RTL light/dark tablet, Arabic RTL light/dark 390px, and Arabic RTL light/dark 320px.
+- Keyboard walkthrough covered mobile navigation, language selector, theme selector, schedule filters/forms, timetable/session links, active-session actions, and Escape close behavior.
+- Secret scan found no non-ignored credentials, private keys, SDK licenses, biometric samples, database files, model files, build outputs, or session-code values.
+
 ## Known Limitations
 
 - No public self-registration.
-- No lecture sessions, attendance registration, reports, exports, liveness detection, or production face enrollment.
+- No attendance registration, reports, exports, liveness detection, location validation, notifications, or production face enrollment.
 - Real face recognition was evaluated and documented, but not executed with biometric samples in Sprint 2.
 - Student and Instructor account creation currently captures academic profile data only; production onboarding policies and notification delivery remain future work.
 
@@ -172,7 +189,12 @@ No personal biometric images are committed. To test negative fake-engine paths, 
 - [14-Sprint-2-Test-Plan.md](docs/14-Sprint-2-Test-Plan.md)
 - [15-Sprint-2-Review.md](docs/15-Sprint-2-Review.md)
 - [16-Data-Dictionary.md](docs/16-Data-Dictionary.md)
+- [17-Sprint-3-Plan.md](docs/17-Sprint-3-Plan.md)
+- [18-Lecture-Scheduling-Domain-Model.md](docs/18-Lecture-Scheduling-Domain-Model.md)
+- [19-Sprint-3-Test-Plan.md](docs/19-Sprint-3-Test-Plan.md)
+- [20-Sprint-3-Review.md](docs/20-Sprint-3-Review.md)
+- [21-Session-Code-Security.md](docs/21-Session-Code-Security.md)
 
 ## Future Sprint Summary
 
-The next sprint can begin lecture/session and attendance planning after Sprint 2 acceptance. Do not add production biometric enrollment or attendance marking before the face-recognition technical gate is satisfied.
+Sprint 4 planning may begin from the completed Sprint 3 scheduling/session baseline. Do not add production biometric enrollment or attendance marking before the face-recognition technical gate is satisfied, and add session-code rate limiting before public attendance-code submission.

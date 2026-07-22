@@ -4,8 +4,8 @@
 
 ```mermaid
 flowchart LR
-    Web["AttendAI.Web\nMVC, Razor, auth UI, localization, themes"] --> Application["AttendAI.Application\nContracts, role routing, safe redirects, face engine interface"]
-    Web --> Infrastructure["AttendAI.Infrastructure\nEF Core, Identity, seeding, fake engine"]
+    Web["AttendAI.Web\nMVC, Razor, auth UI, lecture UI, localization, themes"] --> Application["AttendAI.Application\nContracts, role routing, schedules, sessions, safe redirects, face engine interface"]
+    Web --> Infrastructure["AttendAI.Infrastructure\nEF Core, Identity, seeding, lecture services, fake engine"]
     Infrastructure --> Application
     Infrastructure --> Domain["AttendAI.Domain\nCore concepts and framework-free enums"]
     Application --> Domain
@@ -46,6 +46,27 @@ flowchart LR
 
 Activation/deactivation preserves historical rows. SQL Server indexes and service rules enforce unique department/course/classroom codes, unique Student and Instructor profile links to Identity users, unique enrollments, capacity checks, and one active primary instructor per section.
 
+## Lecture Scheduling And Session Design
+
+Lecture scheduling follows the same layered style as Sprint 2. Domain owns state and validation concepts. Application owns commands, queries, DTOs, result models, and service interfaces. Infrastructure owns EF Core, SQL Server transactions, schedule conflict queries, code generation/hash/protection, lifecycle events, and time-zone conversion. Web controllers remain thin MVC use-case adapters.
+
+```mermaid
+flowchart LR
+    AdminLectureUi["Admin Lecture MVC"] --> LectureContracts["Lecture Service Contracts"]
+    InstructorUi["Instructor Schedule MVC"] --> LectureContracts
+    StudentUi["Student Schedule MVC"] --> LectureContracts
+    LectureContracts --> LectureDomain["LectureSchedule / LectureSession / LectureSessionEvent"]
+    LectureServices["Infrastructure Lecture Services"] --> LectureContracts
+    LectureServices --> Db["ApplicationDbContext"]
+    LectureServices --> DataProtection["ASP.NET Core Data Protection"]
+    LectureServices --> Clock["IDateTimeProvider + Application Time Zone"]
+    Db --> Sql["SQL Server"]
+```
+
+Schedule conflict checks protect Classroom, Instructor, and Section resources using active effective-date overlap plus time-window overlap. Service methods use transactions because recurring interval exclusion cannot be fully expressed as a simple SQL Server unique constraint.
+
+Session lifecycle methods snapshot schedule/resource values, persist UTC timestamps, generate a temporary session code, store only hash/protected code state, and append audit events. Student projections deliberately omit plain code, protected code, and hash fields.
+
 ## Localization Design
 
 Resources live under `src/AttendAI.Web/Resources`. Supported cultures are `en-US` and `ar-JO`. The active culture is selected by the ASP.NET Core culture cookie and the layout applies `lang` and `dir` from `CultureInfo.CurrentUICulture`.
@@ -56,7 +77,7 @@ CSS custom properties define design tokens. `[data-theme="dark"]` overrides toke
 
 ## Face Engine Abstraction
 
-`IFaceRecognitionEngine` lives in Application. Infrastructure provides `FakeFaceRecognitionEngine` for tests and development. Controllers and Razor views do not contain face-recognition logic.
+`IFaceRecognitionEngine` lives in Application. Infrastructure provides `FakeFaceRecognitionEngine` for tests and development. Controllers and Razor views do not contain face-recognition logic. Sprint 3 does not call face recognition from lecture scheduling or session management.
 
 ## Future Attendance Workflow
 
@@ -82,7 +103,7 @@ Development uses the developer exception page. Non-development uses `/Home/Error
 
 ## Configuration Strategy
 
-Configuration supports `ConnectionStrings:DefaultConnection`, `FaceRecognition`, `SupportedCultures`, and optional `DemoAdmin`. Secrets belong in User Secrets or environment variables.
+Configuration supports `ConnectionStrings:DefaultConnection`, `FaceRecognition`, `SupportedCultures`, `LectureScheduling`, and optional `DemoAdmin`. Secrets belong in User Secrets or environment variables.
 
 ## Security Boundaries
 
@@ -90,3 +111,5 @@ Configuration supports `ConnectionStrings:DefaultConnection`, `FaceRecognition`,
 - Web validates return URLs before local redirects.
 - Infrastructure owns persistence and external adapters.
 - Biometric templates must not be exposed through MVC models.
+- Temporary session codes must not be stored or logged in plain text.
+- Student lecture/session projections must not expose code material.

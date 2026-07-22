@@ -1,0 +1,4 @@
+@model LectureScheduleCommand
+@{ ViewData["Title"] = Localizer["EditLectureSchedule"]; }
+<section class="page-header"><div><p class="eyebrow">@Localizer["LectureSchedulesTitle"]</p><h1>@Localizer["EditLectureSchedule"]</h1><p>@Localizer["LectureScheduleFormDescription"]</p></div></section>
+<partial name="_LectureScheduleForm" model="Model" />

@@ -29,6 +29,11 @@
         <strong>@Model.EnrolledSections.Count</strong>
         <p>@Localizer["ActiveEnrollmentsCount"]</p>
     </article>
+    <article class="stat-card">
+        <span>@Localizer["LectureSchedulesTitle"]</span>
+        <strong>@Localizer["NavMySchedule"]</strong>
+        <p><a asp-controller="StudentSchedule" asp-action="Index">@Localizer["NavMySchedule"]</a></p>
+    </article>
 </section>
 
 @if (Model.EnrolledSections.Count == 0)
