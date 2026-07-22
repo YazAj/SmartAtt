@@ -1,0 +1,11 @@
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["NotFoundTitle"];
+}
+
+<section class="error-state">
+    <div class="error-code">404</div>
+    <h1>@Localizer["NotFoundHeading"]</h1>
+    <p>@Localizer["NotFoundLead"]</p>
+    <a class="btn btn-primary app-btn" asp-controller="Home" asp-action="Index">@Localizer["ReturnHome"]</a>
+</section>

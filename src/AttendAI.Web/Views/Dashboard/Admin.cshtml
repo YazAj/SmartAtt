@@ -1,0 +1,44 @@
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["AdminDashboardTitle"];
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">@Localizer["AdminRole"]</p>
+        <h1>@Localizer["AdminDashboardTitle"]</h1>
+        <p>@Localizer["AdminDashboardLead"]</p>
+    </div>
+</section>
+
+<section class="dashboard-grid">
+    <article class="stat-card">
+        <span>@Localizer["FoundationArea"]</span>
+        <strong>@Localizer["IdentityAndRoles"]</strong>
+        <p>@Localizer["AdminCardIdentity"]</p>
+    </article>
+    <article class="stat-card">
+        <span>@Localizer["FutureModule"]</span>
+        <strong>@Localizer["AcademicSetup"]</strong>
+        <p>@Localizer["AdminCardAcademic"]</p>
+    </article>
+    <article class="stat-card">
+        <span>@Localizer["Governance"]</span>
+        <strong>@Localizer["BiometricPrivacy"]</strong>
+        <p>@Localizer["AdminCardPrivacy"]</p>
+    </article>
+</section>
+
+<section class="app-panel">
+    <div class="section-heading">
+        <h2>@Localizer["AdminReadinessTitle"]</h2>
+        <p>@Localizer["AdminReadinessText"]</p>
+    </div>
+    <div class="component-showcase">
+        <button class="btn btn-primary app-btn">@Localizer["PrimaryAction"]</button>
+        <button class="btn btn-secondary app-btn">@Localizer["SecondaryAction"]</button>
+        <button class="btn btn-danger app-btn">@Localizer["DangerAction"]</button>
+        <span class="status-badge">@Localizer["StatusBadge"]</span>
+        <span class="status-indicator status-pending">@Localizer["PendingStatus"]</span>
+    </div>
+</section>

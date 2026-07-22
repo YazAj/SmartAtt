@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="AcademicTitle" xml:space="preserve"><value>Smart attendance platform</value></data>
+  <data name="PrimaryNavigation" xml:space="preserve"><value>Primary navigation</value></data>
+  <data name="NavHome" xml:space="preserve"><value>Home</value></data>
+  <data name="NavDashboard" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="NavProfile" xml:space="preserve"><value>Profile</value></data>
+  <data name="NavChangePassword" xml:space="preserve"><value>Change password</value></data>
+  <data name="NavPrivacy" xml:space="preserve"><value>Biometric notice</value></data>
+  <data name="SprintFoundation" xml:space="preserve"><value>Sprint 1 foundation</value></data>
+  <data name="OpenNavigation" xml:space="preserve"><value>Open navigation</value></data>
+  <data name="ThemeSystem" xml:space="preserve"><value>Theme preference</value></data>
+  <data name="Language" xml:space="preserve"><value>Language</value></data>
+  <data name="Logout" xml:space="preserve"><value>Logout</value></data>
+  <data name="Login" xml:space="preserve"><value>Login</value></data>
+  <data name="PrivacyTitle" xml:space="preserve"><value>Biometric data notice</value></data>
+  <data name="Loading" xml:space="preserve"><value>Loading</value></data>
+  <data name="HomeTitle" xml:space="preserve"><value>AttendAI foundation</value></data>
+  <data name="HomeHeading" xml:space="preserve"><value>AttendAI</value></data>
+  <data name="HomeLead" xml:space="preserve"><value>A responsive university attendance management foundation with authentication, localization, theming, and a replaceable face verification boundary.</value></data>
+  <data name="OpenDashboard" xml:space="preserve"><value>Open dashboard</value></data>
+  <data name="Architecture" xml:space="preserve"><value>Architecture</value></data>
+  <data name="CleanArchitectureTitle" xml:space="preserve"><value>Clean architecture baseline</value></data>
+  <data name="CleanArchitectureText" xml:space="preserve"><value>Domain, application, infrastructure, and web responsibilities are separated so future attendance modules can grow without coupling to MVC.</value></data>
+  <data name="Security" xml:space="preserve"><value>Security</value></data>
+  <data name="IdentityFoundationTitle" xml:space="preserve"><value>Identity and role access</value></data>
+  <data name="IdentityFoundationText" xml:space="preserve"><value>Cookie authentication, role-based dashboards, safe return URLs, antiforgery validation, and disabled-account handling are prepared.</value></data>
+  <data name="FaceRecognition" xml:space="preserve"><value>Face recognition</value></data>
+  <data name="FaceSpikeTitle" xml:space="preserve"><value>Replaceable technical spike</value></data>
+  <data name="FaceSpikeText" xml:space="preserve"><value>The web app depends on an engine abstraction and automated tests use a deterministic fake engine without cameras or biometric files.</value></data>
+  <data name="FoundationWorkflowTitle" xml:space="preserve"><value>Foundation readiness</value></data>
+  <data name="FoundationWorkflowText" xml:space="preserve"><value>These rows describe Sprint 1 infrastructure status, not production attendance analytics.</value></data>
+  <data name="Area" xml:space="preserve"><value>Area</value></data>
+  <data name="Sprint1Status" xml:space="preserve"><value>Sprint 1 status</value></data>
+  <data name="NextSprintUse" xml:space="preserve"><value>Future use</value></data>
+  <data name="IdentityAndRoles" xml:space="preserve"><value>Identity and roles</value></data>
+  <data name="ReadyForFoundationTesting" xml:space="preserve"><value>Ready for foundation testing</value></data>
+  <data name="FutureAdminAccounts" xml:space="preserve"><value>Administrator-created accounts in a future sprint</value></data>
+  <data name="LocalizationAndThemes" xml:space="preserve"><value>Localization and themes</value></data>
+  <data name="FutureArabicEnglishModules" xml:space="preserve"><value>Arabic and English support across future modules</value></data>
+  <data name="FaceEngineAbstraction" xml:space="preserve"><value>Face engine abstraction</value></data>
+  <data name="ManualRecognitionPending" xml:space="preserve"><value>Manual recognition pending</value></data>
+  <data name="FutureAttendanceVerification" xml:space="preserve"><value>One-to-one attendance verification in a future sprint</value></data>
+  <data name="BiometricNotice" xml:space="preserve"><value>Privacy notice</value></data>
+  <data name="PrivacyHeading" xml:space="preserve"><value>Biometric data use in AttendAI</value></data>
+  <data name="PrivacyLead" xml:space="preserve"><value>This notice explains the intended biometric processing boundaries for the graduation project without making unsupported legal claims.</value></data>
+  <data name="PrivacyFaceDataTitle" xml:space="preserve"><value>Face data purpose</value></data>
+  <data name="PrivacyFaceDataText" xml:space="preserve"><value>Face data is intended only for one-to-one identity verification during attendance workflows. Sprint 1 does not perform production attendance verification.</value></data>
+  <data name="PrivacyStorageTitle" xml:space="preserve"><value>Template-first storage</value></data>
+  <data name="PrivacyStorageText" xml:space="preserve"><value>The planned system should store a face template where possible and avoid permanent storage of raw face images unless a documented, approved operational need exists.</value></data>
+  <data name="PrivacyAccessTitle" xml:space="preserve"><value>Restricted access</value></data>
+  <data name="PrivacyAccessText" xml:space="preserve"><value>Access to biometric templates must be restricted to authorized services and administrators with a legitimate operational reason.</value></data>
+  <data name="PrivacySprintLimitTitle" xml:space="preserve"><value>Sprint 1 limitation</value></data>
+  <data name="PrivacySprintLimitText" xml:space="preserve"><value>This sprint contains architecture, documentation, a fake test engine, and a POC harness. It does not enroll real production faces or mark attendance.</value></data>
+  <data name="ErrorTitle" xml:space="preserve"><value>Error</value></data>
+  <data name="ErrorHeading" xml:space="preserve"><value>Something went wrong</value></data>
+  <data name="ErrorLead" xml:space="preserve"><value>The request could not be completed safely. Please try again or contact the project team with the trace identifier.</value></data>
+  <data name="TraceId" xml:space="preserve"><value>Trace identifier</value></data>
+  <data name="ReturnHome" xml:space="preserve"><value>Return home</value></data>
+  <data name="NotFoundTitle" xml:space="preserve"><value>Page not found</value></data>
+  <data name="NotFoundHeading" xml:space="preserve"><value>We could not find that page</value></data>
+  <data name="NotFoundLead" xml:space="preserve"><value>The page may have moved, or the address may be incorrect.</value></data>
+  <data name="LoginTitle" xml:space="preserve"><value>Login</value></data>
+  <data name="SecureAccess" xml:space="preserve"><value>Secure access</value></data>
+  <data name="LoginHeading" xml:space="preserve"><value>Sign in to AttendAI</value></data>
+  <data name="LoginLead" xml:space="preserve"><value>Use a university account created by an administrator. Public registration is intentionally outside Sprint 1.</value></data>
+  <data name="Email" xml:space="preserve"><value>Email</value></data>
+  <data name="Password" xml:space="preserve"><value>Password</value></data>
+  <data name="RememberMe" xml:space="preserve"><value>Remember me</value></data>
+  <data name="InvalidLogin" xml:space="preserve"><value>The email or password is incorrect.</value></data>
+  <data name="AccountDisabled" xml:space="preserve"><value>This account is disabled. Contact an administrator.</value></data>
+  <data name="AccountLocked" xml:space="preserve"><value>This account is temporarily locked because of repeated failed login attempts.</value></data>
+  <data name="LogoutSuccessful" xml:space="preserve"><value>You have been signed out.</value></data>
+  <data name="PasswordChanged" xml:space="preserve"><value>Your password was changed.</value></data>
+  <data name="AuthAsideTitle" xml:space="preserve"><value>Role-aware entry</value></data>
+  <data name="AuthAsideText" xml:space="preserve"><value>After login, each user is routed to the correct foundation dashboard for their assigned role.</value></data>
+  <data name="AuthCheckRoles" xml:space="preserve"><value>Admin, instructor, and student roles are separated.</value></data>
+  <data name="AuthCheckCulture" xml:space="preserve"><value>Arabic and English are available from the first screen.</value></data>
+  <data name="AuthCheckTheme" xml:space="preserve"><value>Light, dark, and system theme preferences persist locally.</value></data>
+  <data name="ChangePasswordTitle" xml:space="preserve"><value>Change password</value></data>
+  <data name="AccountSecurity" xml:space="preserve"><value>Account security</value></data>
+  <data name="ChangePasswordHeading" xml:space="preserve"><value>Update your password</value></data>
+  <data name="ChangePasswordLead" xml:space="preserve"><value>Use a strong password and keep it private. AttendAI never logs passwords.</value></data>
+  <data name="CurrentPassword" xml:space="preserve"><value>Current password</value></data>
+  <data name="NewPassword" xml:space="preserve"><value>New password</value></data>
+  <data name="ConfirmPassword" xml:space="preserve"><value>Confirm password</value></data>
+  <data name="SaveChanges" xml:space="preserve"><value>Save changes</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="AccessDeniedTitle" xml:space="preserve"><value>Access denied</value></data>
+  <data name="AccessDeniedCode" xml:space="preserve"><value>403</value></data>
+  <data name="AccessDeniedHeading" xml:space="preserve"><value>You do not have access to this page</value></data>
+  <data name="AccessDeniedLead" xml:space="preserve"><value>Your account is authenticated, but this dashboard belongs to another role.</value></data>
+  <data name="AdminDashboardTitle" xml:space="preserve"><value>Admin dashboard</value></data>
+  <data name="AdminRole" xml:space="preserve"><value>Administrator role</value></data>
+  <data name="AdminDashboardLead" xml:space="preserve"><value>Foundation view for administration workflows planned for future sprints.</value></data>
+  <data name="FoundationArea" xml:space="preserve"><value>Foundation area</value></data>
+  <data name="FutureModule" xml:space="preserve"><value>Future module</value></data>
+  <data name="Governance" xml:space="preserve"><value>Governance</value></data>
+  <data name="BiometricPrivacy" xml:space="preserve"><value>Biometric privacy</value></data>
+  <data name="AdminCardIdentity" xml:space="preserve"><value>Roles, secure cookies, and dashboard authorization are ready for Sprint 1 testing.</value></data>
+  <data name="AcademicSetup" xml:space="preserve"><value>Academic setup</value></data>
+  <data name="AdminCardAcademic" xml:space="preserve"><value>Students, instructors, courses, sections, classrooms, and enrollments are documented but not implemented.</value></data>
+  <data name="AdminCardPrivacy" xml:space="preserve"><value>Biometric data handling is documented before production enrollment or verification is introduced.</value></data>
+  <data name="AdminReadinessTitle" xml:space="preserve"><value>Reusable UI components</value></data>
+  <data name="AdminReadinessText" xml:space="preserve"><value>Buttons, badges, status indicators, tables, forms, empty states, modals, pagination, filters, alerts, and loading patterns are styled for future modules.</value></data>
+  <data name="PrimaryAction" xml:space="preserve"><value>Primary action</value></data>
+  <data name="SecondaryAction" xml:space="preserve"><value>Secondary action</value></data>
+  <data name="DangerAction" xml:space="preserve"><value>Danger action</value></data>
+  <data name="StatusBadge" xml:space="preserve"><value>Status badge</value></data>
+  <data name="PendingStatus" xml:space="preserve"><value>Pending</value></data>
+  <data name="InstructorDashboardTitle" xml:space="preserve"><value>Instructor dashboard</value></data>
+  <data name="InstructorRole" xml:space="preserve"><value>Instructor role</value></data>
+  <data name="InstructorDashboardLead" xml:space="preserve"><value>Foundation view for lecture and attendance review workflows planned for future sprints.</value></data>
+  <data name="LectureSessions" xml:space="preserve"><value>Lecture sessions</value></data>
+  <data name="AttendanceReview" xml:space="preserve"><value>Attendance review</value></data>
+  <data name="SecureAccount" xml:space="preserve"><value>Secure account</value></data>
+  <data name="InstructorCardSessions" xml:space="preserve"><value>Lecture session management is intentionally deferred until Sprint 2 or later.</value></data>
+  <data name="InstructorCardReview" xml:space="preserve"><value>Attendance reports and review screens are not populated with fake data in Sprint 1.</value></data>
+  <data name="InstructorCardAccount" xml:space="preserve"><value>The instructor role can authenticate, change password, and access only the instructor dashboard.</value></data>
+  <data name="InstructorEmptyTitle" xml:space="preserve"><value>No lecture tools yet</value></data>
+  <data name="InstructorEmptyText" xml:space="preserve"><value>Future lecture session tools will appear here after academic setup is implemented.</value></data>
+  <data name="StudentDashboardTitle" xml:space="preserve"><value>Student dashboard</value></data>
+  <data name="StudentRole" xml:space="preserve"><value>Student role</value></data>
+  <data name="StudentDashboardLead" xml:space="preserve"><value>Foundation view for future attendance registration using code, time, location, and one-to-one face verification.</value></data>
+  <data name="AttendanceRegistration" xml:space="preserve"><value>Attendance registration</value></data>
+  <data name="Privacy" xml:space="preserve"><value>Privacy</value></data>
+  <data name="FaceVerification" xml:space="preserve"><value>Face verification</value></data>
+  <data name="AccountAccess" xml:space="preserve"><value>Account access</value></data>
+  <data name="StudentCardAttendance" xml:space="preserve"><value>Attendance submission is documented for future work and is not active in Sprint 1.</value></data>
+  <data name="StudentCardFace" xml:space="preserve"><value>The planned approach is one-to-one verification, not one-to-many identification.</value></data>
+  <data name="StudentCardAccount" xml:space="preserve"><value>The student role can authenticate, change password, and access only the student dashboard.</value></data>
+  <data name="StudentEmptyTitle" xml:space="preserve"><value>No attendance session active</value></data>
+  <data name="StudentEmptyText" xml:space="preserve"><value>Production attendance registration is outside Sprint 1 and will be added after the foundation is accepted.</value></data>
+  <data name="ProfileTitle" xml:space="preserve"><value>Profile summary</value></data>
+  <data name="Account" xml:space="preserve"><value>Account</value></data>
+  <data name="ProfileLead" xml:space="preserve"><value>Review the current authenticated account and assigned roles.</value></data>
+  <data name="Active" xml:space="preserve"><value>Active</value></data>
+  <data name="Disabled" xml:space="preserve"><value>Disabled</value></data>
+  <data name="ValidationRequired" xml:space="preserve"><value>The {0} field is required.</value></data>
+  <data name="ValidationEmail" xml:space="preserve"><value>Enter a valid email address.</value></data>
+  <data name="ValidationPasswordLength" xml:space="preserve"><value>The {0} must be at least {2} characters long.</value></data>
+  <data name="ValidationPasswordConfirm" xml:space="preserve"><value>The confirmation password does not match.</value></data>
+</root>

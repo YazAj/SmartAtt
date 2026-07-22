@@ -1,0 +1,33 @@
+@model ProfileSummaryViewModel
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["ProfileTitle"];
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">@Localizer["Account"]</p>
+        <h1>@Localizer["ProfileTitle"]</h1>
+        <p>@Localizer["ProfileLead"]</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-primary app-btn" asp-controller="Account" asp-action="ChangePassword">@Localizer["ChangePasswordTitle"]</a>
+    </div>
+</section>
+
+<section class="app-panel profile-panel">
+    <div class="profile-avatar" aria-hidden="true">@((Model.Email.Length > 0 ? Model.Email[..1] : "U").ToUpperInvariant())</div>
+    <div>
+        <h2>@(string.IsNullOrWhiteSpace(Model.FullName) ? Model.Email : Model.FullName)</h2>
+        <p>@Model.Email</p>
+        <div class="badge-row">
+            @foreach (var role in Model.Roles)
+            {
+                <span class="status-badge">@role</span>
+            }
+            <span class="status-indicator @(Model.IsDisabled ? "status-danger" : "status-ready")">
+                @(Model.IsDisabled ? Localizer["Disabled"] : Localizer["Active"])
+            </span>
+        </div>
+    </div>
+</section>

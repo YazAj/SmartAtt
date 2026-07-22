@@ -1,0 +1,33 @@
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["StudentDashboardTitle"];
+    var emptyState = new EmptyStateViewModel(Localizer["StudentEmptyTitle"].Value, Localizer["StudentEmptyText"].Value);
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">@Localizer["StudentRole"]</p>
+        <h1>@Localizer["StudentDashboardTitle"]</h1>
+        <p>@Localizer["StudentDashboardLead"]</p>
+    </div>
+</section>
+
+<section class="dashboard-grid">
+    <article class="stat-card">
+        <span>@Localizer["FutureModule"]</span>
+        <strong>@Localizer["AttendanceRegistration"]</strong>
+        <p>@Localizer["StudentCardAttendance"]</p>
+    </article>
+    <article class="stat-card">
+        <span>@Localizer["Privacy"]</span>
+        <strong>@Localizer["FaceVerification"]</strong>
+        <p>@Localizer["StudentCardFace"]</p>
+    </article>
+    <article class="stat-card">
+        <span>@Localizer["FoundationArea"]</span>
+        <strong>@Localizer["AccountAccess"]</strong>
+        <p>@Localizer["StudentCardAccount"]</p>
+    </article>
+</section>
+
+<partial name="Components/_EmptyState" model="emptyState" />

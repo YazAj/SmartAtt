@@ -1,0 +1,12 @@
+@model int
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["ErrorTitle"];
+}
+
+<section class="error-state">
+    <div class="error-code">@Model</div>
+    <h1>@Localizer["ErrorHeading"]</h1>
+    <p>@Localizer["ErrorLead"]</p>
+    <a class="btn btn-primary app-btn" asp-controller="Home" asp-action="Index">@Localizer["ReturnHome"]</a>
+</section>

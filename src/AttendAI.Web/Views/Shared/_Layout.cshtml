@@ -1,0 +1,135 @@
+@using System.Globalization
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    var currentCulture = CultureInfo.CurrentUICulture;
+    var isRtl = currentCulture.TextInfo.IsRightToLeft;
+    var currentPath = Context.Request.PathBase + Context.Request.Path + Context.Request.QueryString;
+    var dashboardAction = User.IsInRole(RoleConstants.Admin)
+        ? "Admin"
+        : User.IsInRole(RoleConstants.Instructor)
+            ? "Instructor"
+            : User.IsInRole(RoleConstants.Student)
+                ? "Student"
+                : "Index";
+    var userInitial = User.Identity?.Name is { Length: > 0 } userName ? userName[..1].ToUpperInvariant() : "U";
+}
+<!DOCTYPE html>
+<html lang="@currentCulture.TwoLetterISOLanguageName" dir="@(isRtl ? "rtl" : "ltr")" data-theme="light" data-theme-preference="system">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AttendAI</title>
+    <script>
+        (function () {
+            var preference = localStorage.getItem('attendai-theme') || 'system';
+            var isDark = preference === 'dark' || (preference === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+            document.documentElement.dataset.themePreference = preference;
+        })();
+    </script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap@(isRtl ? ".rtl" : "").min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="app-sidebar" id="appSidebar" aria-label="@Localizer["PrimaryNavigation"]">
+            <div class="app-brand">
+                <a asp-controller="Home" asp-action="Index" class="app-brand-link">
+                    <span class="app-brand-mark" aria-hidden="true">AI</span>
+                    <span>
+                        <span class="app-brand-title">AttendAI</span>
+                        <span class="app-brand-subtitle">@Localizer["AcademicTitle"]</span>
+                    </span>
+                </a>
+            </div>
+            <nav class="app-menu">
+                <a class="app-menu-link" asp-controller="Home" asp-action="Index">@Localizer["NavHome"]</a>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a class="app-menu-link" asp-controller="Dashboard" asp-action="@dashboardAction">@Localizer["NavDashboard"]</a>
+                    <a class="app-menu-link" asp-controller="Profile" asp-action="Index">@Localizer["NavProfile"]</a>
+                    <a class="app-menu-link" asp-controller="Account" asp-action="ChangePassword">@Localizer["NavChangePassword"]</a>
+                }
+                <a class="app-menu-link" asp-controller="Home" asp-action="Privacy">@Localizer["NavPrivacy"]</a>
+            </nav>
+            <div class="app-sidebar-footer">
+                <span class="status-dot status-dot-success" aria-hidden="true"></span>
+                <span>@Localizer["SprintFoundation"]</span>
+            </div>
+        </aside>
+
+        <div class="app-overlay" data-sidebar-close></div>
+
+        <div class="app-main">
+            <header class="app-topbar">
+                <button class="icon-button d-lg-none" type="button" data-sidebar-toggle aria-label="@Localizer["OpenNavigation"]">
+                    <span aria-hidden="true">☰</span>
+                </button>
+                <div class="topbar-title">
+                    <span class="breadcrumb-lite">@Localizer["NavHome"]</span>
+                    <strong>@(ViewData["Title"] ?? "AttendAI")</strong>
+                </div>
+
+                <div class="topbar-actions">
+                    <button class="icon-button" type="button" data-theme-toggle title="@Localizer["ThemeSystem"]" aria-label="@Localizer["ThemeSystem"]">
+                        <span class="theme-toggle-symbol" aria-hidden="true"></span>
+                    </button>
+
+                    <form asp-controller="Preferences" asp-action="SetCulture" method="post" class="language-form">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="returnUrl" value="@currentPath" />
+                        <label class="visually-hidden" for="cultureSelect">@Localizer["Language"]</label>
+                        <select id="cultureSelect" name="culture" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="en-US" selected="@(currentCulture.Name == "en-US")">English</option>
+                            <option value="ar-JO" selected="@(currentCulture.Name == "ar-JO")">العربية</option>
+                        </select>
+                    </form>
+
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="dropdown">
+                            <button class="account-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="account-avatar" aria-hidden="true">@userInitial</span>
+                                <span class="account-name">@User.Identity?.Name</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end app-dropdown">
+                                <li><a class="dropdown-item" asp-controller="Profile" asp-action="Index">@Localizer["NavProfile"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="Account" asp-action="ChangePassword">@Localizer["NavChangePassword"]</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li>
+                                    <form asp-controller="Account" asp-action="Logout" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <button class="dropdown-item" type="submit">@Localizer["Logout"]</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary app-btn" asp-controller="Account" asp-action="Login">@Localizer["Login"]</a>
+                    }
+                </div>
+            </header>
+
+            <main class="app-content" role="main">
+                <partial name="_AlertArea" />
+                @RenderBody()
+            </main>
+
+            <footer class="app-footer">
+                <span>&copy; 2026 AttendAI</span>
+                <a asp-controller="Home" asp-action="Privacy">@Localizer["PrivacyTitle"]</a>
+            </footer>
+        </div>
+    </div>
+    <div id="pageLoading" class="page-loading" hidden>
+        <div class="loading-spinner" aria-hidden="true"></div>
+        <span>@Localizer["Loading"]</span>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

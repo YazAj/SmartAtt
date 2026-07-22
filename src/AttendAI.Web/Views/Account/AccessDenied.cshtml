@@ -1,0 +1,11 @@
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["AccessDeniedTitle"];
+}
+
+<section class="error-state">
+    <div class="error-code">@Localizer["AccessDeniedCode"]</div>
+    <h1>@Localizer["AccessDeniedHeading"]</h1>
+    <p>@Localizer["AccessDeniedLead"]</p>
+    <a class="btn btn-primary app-btn" asp-controller="Dashboard" asp-action="Index">@Localizer["OpenDashboard"]</a>
+</section>

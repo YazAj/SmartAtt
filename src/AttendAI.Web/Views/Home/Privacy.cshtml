@@ -1,0 +1,26 @@
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["PrivacyTitle"];
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">@Localizer["BiometricNotice"]</p>
+        <h1>@Localizer["PrivacyHeading"]</h1>
+        <p>@Localizer["PrivacyLead"]</p>
+    </div>
+</section>
+
+<section class="app-panel readable-panel">
+    <h2>@Localizer["PrivacyFaceDataTitle"]</h2>
+    <p>@Localizer["PrivacyFaceDataText"]</p>
+
+    <h2>@Localizer["PrivacyStorageTitle"]</h2>
+    <p>@Localizer["PrivacyStorageText"]</p>
+
+    <h2>@Localizer["PrivacyAccessTitle"]</h2>
+    <p>@Localizer["PrivacyAccessText"]</p>
+
+    <h2>@Localizer["PrivacySprintLimitTitle"]</h2>
+    <p>@Localizer["PrivacySprintLimitText"]</p>
+</section>

@@ -1,0 +1,63 @@
+# Build output
+bin/
+obj/
+artifacts/
+TestResults/
+coverage/
+*.trx
+*.coverage
+*.coveragexml
+
+# IDE and editor state
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+secrets.json
+appsettings.Local.json
+appsettings.*.local.json
+
+# Local databases
+*.db
+*.db-shm
+*.db-wal
+*.mdf
+*.ldf
+
+# Biometric samples and face-recognition model assets
+local-face-images/
+face-test-images/
+approved-face-samples/
+experiments/**/local-images/
+experiments/**/approved-samples/
+models/
+*.dat
+*.onnx
+*.caffemodel
+*.pb
+*.tflite
+
+# License keys and private SDK activation files
+license.txt
+LICENSE.txt
+LICENSE
+LICENSE.*
+license.*
+*.lic
+*.license
+*.key
+*.pem
+
+# Logs and temporary files
+logs/
+*.log
+*.tmp
+*.temp

@@ -1,0 +1,11 @@
+@model EmptyStateViewModel
+
+<section class="empty-state">
+    <div class="empty-state-mark" aria-hidden="true"></div>
+    <h2>@Model.Title</h2>
+    <p>@Model.Message</p>
+    @if (!string.IsNullOrWhiteSpace(Model.ActionText) && !string.IsNullOrWhiteSpace(Model.ActionUrl))
+    {
+        <a class="btn btn-primary app-btn" href="@Model.ActionUrl">@Model.ActionText</a>
+    }
+</section>

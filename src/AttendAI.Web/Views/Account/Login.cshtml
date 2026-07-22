@@ -1,0 +1,50 @@
+@model LoginViewModel
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["LoginTitle"];
+}
+
+<section class="auth-layout">
+    <div class="auth-panel">
+        <p class="eyebrow">@Localizer["SecureAccess"]</p>
+        <h1>@Localizer["LoginHeading"]</h1>
+        <p>@Localizer["LoginLead"]</p>
+        <form asp-controller="Account" asp-action="Login" method="post" class="app-form">
+            @Html.AntiForgeryToken()
+            <input asp-for="ReturnUrl" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+            <div class="form-field">
+                <label asp-for="Email" class="form-label">@Localizer["Email"]</label>
+                <input asp-for="Email" class="form-control" autocomplete="username" />
+                <span asp-validation-for="Email" class="validation-message"></span>
+            </div>
+
+            <div class="form-field">
+                <label asp-for="Password" class="form-label">@Localizer["Password"]</label>
+                <input asp-for="Password" class="form-control" autocomplete="current-password" />
+                <span asp-validation-for="Password" class="validation-message"></span>
+            </div>
+
+            <div class="form-check app-check">
+                <input asp-for="RememberMe" class="form-check-input" />
+                <label asp-for="RememberMe" class="form-check-label">@Localizer["RememberMe"]</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary app-btn w-100">@Localizer["Login"]</button>
+        </form>
+    </div>
+    <aside class="auth-aside">
+        <h2>@Localizer["AuthAsideTitle"]</h2>
+        <p>@Localizer["AuthAsideText"]</p>
+        <ul class="check-list">
+            <li>@Localizer["AuthCheckRoles"]</li>
+            <li>@Localizer["AuthCheckCulture"]</li>
+            <li>@Localizer["AuthCheckTheme"]</li>
+        </ul>
+    </aside>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,76 @@
+@inject IStringLocalizer<SharedResource> Localizer
+@{
+    ViewData["Title"] = Localizer["HomeTitle"];
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">@Localizer["SprintFoundation"]</p>
+        <h1>@Localizer["HomeHeading"]</h1>
+        <p>@Localizer["HomeLead"]</p>
+    </div>
+    <div class="page-actions">
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a class="btn btn-primary app-btn" asp-controller="Dashboard" asp-action="Index">@Localizer["OpenDashboard"]</a>
+        }
+        else
+        {
+            <a class="btn btn-primary app-btn" asp-controller="Account" asp-action="Login">@Localizer["Login"]</a>
+        }
+        <a class="btn btn-secondary app-btn" asp-controller="Home" asp-action="Privacy">@Localizer["PrivacyTitle"]</a>
+    </div>
+</section>
+
+<section class="feature-grid">
+    <article class="app-card">
+        <span class="status-badge">@Localizer["Architecture"]</span>
+        <h2>@Localizer["CleanArchitectureTitle"]</h2>
+        <p>@Localizer["CleanArchitectureText"]</p>
+    </article>
+    <article class="app-card">
+        <span class="status-badge status-badge-success">@Localizer["Security"]</span>
+        <h2>@Localizer["IdentityFoundationTitle"]</h2>
+        <p>@Localizer["IdentityFoundationText"]</p>
+    </article>
+    <article class="app-card">
+        <span class="status-badge status-badge-warning">@Localizer["FaceRecognition"]</span>
+        <h2>@Localizer["FaceSpikeTitle"]</h2>
+        <p>@Localizer["FaceSpikeText"]</p>
+    </article>
+</section>
+
+<section class="app-panel">
+    <div class="section-heading">
+        <h2>@Localizer["FoundationWorkflowTitle"]</h2>
+        <p>@Localizer["FoundationWorkflowText"]</p>
+    </div>
+    <div class="table-responsive">
+        <table class="table app-table">
+            <thead>
+                <tr>
+                    <th>@Localizer["Area"]</th>
+                    <th>@Localizer["Sprint1Status"]</th>
+                    <th>@Localizer["NextSprintUse"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Localizer["IdentityAndRoles"]</td>
+                    <td><span class="status-indicator status-ready">@Localizer["ReadyForFoundationTesting"]</span></td>
+                    <td>@Localizer["FutureAdminAccounts"]</td>
+                </tr>
+                <tr>
+                    <td>@Localizer["LocalizationAndThemes"]</td>
+                    <td><span class="status-indicator status-ready">@Localizer["ReadyForFoundationTesting"]</span></td>
+                    <td>@Localizer["FutureArabicEnglishModules"]</td>
+                </tr>
+                <tr>
+                    <td>@Localizer["FaceEngineAbstraction"]</td>
+                    <td><span class="status-indicator status-pending">@Localizer["ManualRecognitionPending"]</span></td>
+                    <td>@Localizer["FutureAttendanceVerification"]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
