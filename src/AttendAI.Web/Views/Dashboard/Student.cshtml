@@ -34,6 +34,11 @@
         <strong>@Localizer["NavMySchedule"]</strong>
         <p><a asp-controller="StudentSchedule" asp-action="Index">@Localizer["NavMySchedule"]</a></p>
     </article>
+    <article class="stat-card">
+        <span>@Localizer["BiometricStatus"]</span>
+        <strong>@Localizer[$"FaceEnrollmentStatus{Model.BiometricStatus}"]</strong>
+        <p><a asp-controller="BiometricEnrollment" asp-action="Index">@Localizer["BiometricEnrollmentTitle"]</a></p>
+    </article>
 </section>
 
 @if (Model.EnrolledSections.Count == 0)

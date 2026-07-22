@@ -498,4 +498,143 @@
   <data name="ErrorLectureOccurrenceExists" xml:space="preserve"><value>توجد جلسة مسبقاً لهذا الموعد من الجدول.</value></data>
   <data name="ErrorLectureActiveResourceConflict" xml:space="preserve"><value>توجد جلسة نشطة أخرى تستخدم المدرس أو الشعبة أو القاعة.</value></data>
   <data name="ErrorLectureSessionMustBeActive" xml:space="preserve"><value>هذا الإجراء متاح فقط لجلسة محاضرة نشطة.</value></data>
+  <data name="NavBiometricEnrollments" xml:space="preserve"><value>تسجيلات القياسات الحيوية</value></data>
+  <data name="NavBiometricEnrollment" xml:space="preserve"><value>الملف الحيوي</value></data>
+  <data name="BiometricEnrollmentTitle" xml:space="preserve"><value>الملف الحيوي</value></data>
+  <data name="BiometricEnrollmentLead" xml:space="preserve"><value>إدارة الموافقة وحالة التسجيل وبيانات قالب الوجه المحمي.</value></data>
+  <data name="AdminBiometricEnrollmentsTitle" xml:space="preserve"><value>متابعة التسجيل الحيوي</value></data>
+  <data name="AdminBiometricEnrollmentsLead" xml:space="preserve"><value>راجع حالة التسجيل الحيوي للطلاب من دون كشف بيانات القالب.</value></data>
+  <data name="RequiresReEnrollment" xml:space="preserve"><value>يتطلب إعادة التسجيل</value></data>
+  <data name="StudentsRequiringReEnrollmentCount" xml:space="preserve"><value>طلاب لديهم قوالب ملغاة وتتطلب تسجيلاً جديداً.</value></data>
+  <data name="BiometricStatus" xml:space="preserve"><value>حالة القياسات الحيوية</value></data>
+  <data name="FaceEnrollmentStatusNotEnrolled" xml:space="preserve"><value>غير مسجل</value></data>
+  <data name="FaceEnrollmentStatusEnrollmentInProgress" xml:space="preserve"><value>التسجيل قيد التنفيذ</value></data>
+  <data name="FaceEnrollmentStatusActive" xml:space="preserve"><value>نشط</value></data>
+  <data name="FaceEnrollmentStatusRequiresReEnrollment" xml:space="preserve"><value>يتطلب إعادة التسجيل</value></data>
+  <data name="FaceEnrollmentStatusRevoked" xml:space="preserve"><value>ملغى</value></data>
+  <data name="FaceEnrollmentStatusConsentWithdrawn" xml:space="preserve"><value>تم سحب الموافقة</value></data>
+  <data name="FaceEnrollmentStatusEngineUnavailable" xml:space="preserve"><value>المحرك غير متاح</value></data>
+  <data name="BiometricPrivacyNoticeTitle" xml:space="preserve"><value>إشعار خصوصية القياسات الحيوية</value></data>
+  <data name="BiometricPrivacyNoticeLead" xml:space="preserve"><value>راجع كيفية تعامل AttendAI مع التسجيل الحيوي قبل تقديم الموافقة.</value></data>
+  <data name="StartReEnrollment" xml:space="preserve"><value>بدء إعادة التسجيل</value></data>
+  <data name="StartEnrollment" xml:space="preserve"><value>بدء التسجيل</value></data>
+  <data name="Consent" xml:space="preserve"><value>الموافقة</value></data>
+  <data name="NotActive" xml:space="preserve"><value>غير نشط</value></data>
+  <data name="Template" xml:space="preserve"><value>القالب</value></data>
+  <data name="StoredSecurely" xml:space="preserve"><value>مخزن بشكل آمن</value></data>
+  <data name="NotEnrolled" xml:space="preserve"><value>غير مسجل</value></data>
+  <data name="ConsentRequiredTitle" xml:space="preserve"><value>الموافقة مطلوبة</value></data>
+  <data name="ConsentRequiredText" xml:space="preserve"><value>التسجيل متاح فقط بعد قبول إشعار خصوصية القياسات الحيوية.</value></data>
+  <data name="ReviewConsent" xml:space="preserve"><value>مراجعة الموافقة</value></data>
+  <data name="ConsentManagement" xml:space="preserve"><value>إدارة الموافقة</value></data>
+  <data name="ConsentManagementText" xml:space="preserve"><value>سحب الموافقة يلغي القالب المحمي النشط ويوقف ميزات الحضور الحيوية حتى يتم تقديم موافقة وتسجيل جديدين.</value></data>
+  <data name="ConfirmWithdrawBiometricConsent" xml:space="preserve"><value>هل تريد سحب الموافقة الحيوية وإلغاء القالب النشط؟</value></data>
+  <data name="WithdrawConsent" xml:space="preserve"><value>سحب الموافقة</value></data>
+  <data name="BiometricEnrollmentEvents" xml:space="preserve"><value>أحداث التسجيل الحيوي</value></data>
+  <data name="Outcome" xml:space="preserve"><value>النتيجة</value></data>
+  <data name="NoBiometricEvents" xml:space="preserve"><value>لا توجد أحداث تسجيل حيوي مسجلة.</value></data>
+  <data name="BiometricNoticeWhatTitle" xml:space="preserve"><value>ما الذي يتم التقاطه</value></data>
+  <data name="BiometricNoticeWhatText" xml:space="preserve"><value>يستخدم مسار التسجيل إطارات الكاميرا أو الصور المرفوعة فقط لإنشاء قالب وجه. لا يتم حفظ الصور الخام قصداً.</value></data>
+  <data name="BiometricNoticeStorageTitle" xml:space="preserve"><value>التخزين والحماية</value></data>
+  <data name="BiometricNoticeStorageText" xml:space="preserve"><value>يتم تخزين قالب وجه محمي وبيانات جودة وموافقة وأحداث تدقيق آمنة فقط.</value></data>
+  <data name="BiometricNoticeRightsTitle" xml:space="preserve"><value>خياراتك</value></data>
+  <data name="BiometricNoticeRightsText" xml:space="preserve"><value>يمكنك سحب الموافقة من صفحة الملف الحيوي. يؤدي السحب إلى إلغاء القالب النشط.</value></data>
+  <data name="BiometricNoticeLimitTitle" xml:space="preserve"><value>حدود سبرنت 4</value></data>
+  <data name="BiometricNoticeLimitText" xml:space="preserve"><value>يغطي سبرنت 4 التسجيل وإدارة الملف فقط. التحقق الإنتاجي من الوجه وقرارات الحضور محفوظة لعمل لاحق خاضع للبوابات.</value></data>
+  <data name="BiometricConsentCheckbox" xml:space="preserve"><value>قرأت إشعار خصوصية القياسات الحيوية وأوافق على التسجيل الحيوي.</value></data>
+  <data name="AcceptConsent" xml:space="preserve"><value>قبول الموافقة</value></data>
+  <data name="BiometricConsentAlreadyAccepted" xml:space="preserve"><value>الموافقة الحيوية نشطة بالفعل.</value></data>
+  <data name="BiometricCaptureTitle" xml:space="preserve"><value>التقاط الوجه للتسجيل</value></data>
+  <data name="BiometricCaptureLead" xml:space="preserve"><value>التقط عدة عينات واضحة لإنشاء قالب الوجه المحمي.</value></data>
+  <data name="CameraPreviewPlaceholder" xml:space="preserve"><value>تظهر معاينة الكاميرا هنا.</value></data>
+  <data name="CaptureChecklistTitle" xml:space="preserve"><value>قائمة التحقق من الالتقاط</value></data>
+  <data name="CaptureChecklistText" xml:space="preserve"><value>التقط {0} عينات صالحة قبل الإرسال.</value></data>
+  <data name="CaptureGuidanceLighting" xml:space="preserve"><value>استخدم إضاءة متوازنة واجعل الوجه واضحاً.</value></data>
+  <data name="CaptureGuidanceOneFace" xml:space="preserve"><value>يجب أن يظهر وجه واحد فقط.</value></data>
+  <data name="CaptureGuidanceCenterFace" xml:space="preserve"><value>ضع الوجه في الوسط وثبت الكاميرا.</value></data>
+  <data name="StartCamera" xml:space="preserve"><value>تشغيل الكاميرا</value></data>
+  <data name="CaptureFrame" xml:space="preserve"><value>التقاط إطار</value></data>
+  <data name="ClearCaptures" xml:space="preserve"><value>مسح اللقطات</value></data>
+  <data name="UploadCaptureFallback" xml:space="preserve"><value>رفع ملفات التقاط معتمدة</value></data>
+  <data name="SubmitReEnrollment" xml:space="preserve"><value>إرسال إعادة التسجيل</value></data>
+  <data name="SubmitEnrollment" xml:space="preserve"><value>إرسال التسجيل</value></data>
+  <data name="FaceEngineReadiness" xml:space="preserve"><value>جاهزية محرك الوجه</value></data>
+  <data name="EngineMode" xml:space="preserve"><value>وضع المحرك</value></data>
+  <data name="GateResult" xml:space="preserve"><value>نتيجة البوابة</value></data>
+  <data name="Model" xml:space="preserve"><value>النموذج</value></data>
+  <data name="ProductionSafe" xml:space="preserve"><value>آمن للإنتاج</value></data>
+  <data name="SearchBiometricsPlaceholder" xml:space="preserve"><value>ابحث برقم الطالب أو الاسم أو البريد</value></data>
+  <data name="NoBiometricEnrollments" xml:space="preserve"><value>لا توجد سجلات تسجيل حيوي تطابق المرشحات.</value></data>
+  <data name="Engine" xml:space="preserve"><value>المحرك</value></data>
+  <data name="AdminBiometricEnrollmentDetails" xml:space="preserve"><value>تفاصيل التسجيل الحيوي</value></data>
+  <data name="StudentStatus" xml:space="preserve"><value>حالة الطالب</value></data>
+  <data name="EnrolledAt" xml:space="preserve"><value>تاريخ التسجيل</value></data>
+  <data name="ActiveTemplateMetadata" xml:space="preserve"><value>بيانات القالب النشط</value></data>
+  <data name="TemplateMetadataSafeText" xml:space="preserve"><value>تعرض هذه الصفحة بيانات آمنة فقط. لا يتم عرض بايتات القالب المحمي أبداً.</value></data>
+  <data name="QualityScore" xml:space="preserve"><value>درجة الجودة</value></data>
+  <data name="CaptureCount" xml:space="preserve"><value>عدد اللقطات</value></data>
+  <data name="TemplateVersion" xml:space="preserve"><value>إصدار القالب</value></data>
+  <data name="EmbeddingDimension" xml:space="preserve"><value>أبعاد التمثيل</value></data>
+  <data name="AdminBiometricActions" xml:space="preserve"><value>إجراءات إدارية</value></data>
+  <data name="AdminBiometricActionsText" xml:space="preserve"><value>الإلغاء يزيل حالة القالب النشط. طلب إعادة التسجيل يضع الطالب في حالة تحتاج تسجيلاً جديداً.</value></data>
+  <data name="RevokeTemplate" xml:space="preserve"><value>إلغاء القالب</value></data>
+  <data name="RequireReEnrollment" xml:space="preserve"><value>طلب إعادة التسجيل</value></data>
+  <data name="TemplateHistory" xml:space="preserve"><value>سجل القوالب</value></data>
+  <data name="RevokedAt" xml:space="preserve"><value>تاريخ الإلغاء</value></data>
+  <data name="NoTemplateHistory" xml:space="preserve"><value>لا يوجد سجل قوالب متاح.</value></data>
+  <data name="BiometricConsentAccepted" xml:space="preserve"><value>تم قبول الموافقة الحيوية.</value></data>
+  <data name="BiometricConsentWithdrawn" xml:space="preserve"><value>تم سحب الموافقة الحيوية وإلغاء القالب النشط.</value></data>
+  <data name="BiometricEnrollmentSucceeded" xml:space="preserve"><value>اكتمل التسجيل الحيوي.</value></data>
+  <data name="BiometricTemplateRevoked" xml:space="preserve"><value>تم إلغاء القالب الحيوي النشط.</value></data>
+  <data name="BiometricReEnrollmentRequired" xml:space="preserve"><value>أصبحت إعادة التسجيل مطلوبة لهذا الطالب.</value></data>
+  <data name="BiometricEngineDisabledMessage" xml:space="preserve"><value>تسجيل الوجه معطل حتى يتم ضبط وضع المحرك.</value></data>
+  <data name="BiometricRealEngineUnavailableMessage" xml:space="preserve"><value>التسجيل الحقيقي للوجه غير موثق لأن محول الإنتاج والنماذج والتراخيص وصور الاختبار المعتمدة غير مضبوطة.</value></data>
+  <data name="BiometricFakeEngineDevelopmentMessage" xml:space="preserve"><value>محرك التطوير الوهمي مفعّل لاختبار سير العمل فقط. التعرف الإنتاجي على الوجه ما زال غير موثق.</value></data>
+  <data name="BiometricFakeEngineProductionBlockedMessage" xml:space="preserve"><value>محرك الوجه الوهمي محظور في الإنتاج.</value></data>
+  <data name="FaceEnrollmentEventConsentAccepted" xml:space="preserve"><value>قبول الموافقة</value></data>
+  <data name="FaceEnrollmentEventConsentWithdrawn" xml:space="preserve"><value>سحب الموافقة</value></data>
+  <data name="FaceEnrollmentEventEnrollmentStarted" xml:space="preserve"><value>بدء التسجيل</value></data>
+  <data name="FaceEnrollmentEventCaptureRejected" xml:space="preserve"><value>رفض اللقطة</value></data>
+  <data name="FaceEnrollmentEventTemplateCreated" xml:space="preserve"><value>إنشاء القالب</value></data>
+  <data name="FaceEnrollmentEventReEnrollmentStarted" xml:space="preserve"><value>بدء إعادة التسجيل</value></data>
+  <data name="FaceEnrollmentEventTemplateReplaced" xml:space="preserve"><value>استبدال القالب</value></data>
+  <data name="FaceEnrollmentEventTemplateRevoked" xml:space="preserve"><value>إلغاء القالب</value></data>
+  <data name="FaceEnrollmentEventAdminRevoked" xml:space="preserve"><value>إلغاء إداري</value></data>
+  <data name="FaceEnrollmentEventEnrollmentFailed" xml:space="preserve"><value>فشل التسجيل</value></data>
+  <data name="FaceEnrollmentEventEngineUnavailable" xml:space="preserve"><value>المحرك غير متاح</value></data>
+  <data name="OutcomeStarted" xml:space="preserve"><value>بدأ</value></data>
+  <data name="OutcomeSucceeded" xml:space="preserve"><value>نجح</value></data>
+  <data name="OutcomeFailed" xml:space="preserve"><value>فشل</value></data>
+  <data name="FaceEventDescriptionConsentAccepted" xml:space="preserve"><value>تم قبول الموافقة.</value></data>
+  <data name="FaceEventDescriptionEnrollmentStarted" xml:space="preserve"><value>تم بدء التسجيل.</value></data>
+  <data name="FaceEventDescriptionReEnrollmentStarted" xml:space="preserve"><value>تم بدء إعادة التسجيل.</value></data>
+  <data name="FaceEventDescriptionCaptureRejected" xml:space="preserve"><value>تم رفض لقطة التسجيل بأمان.</value></data>
+  <data name="FaceEventDescriptionPreviousTemplateReplaced" xml:space="preserve"><value>تم استبدال القالب السابق بإعادة التسجيل.</value></data>
+  <data name="FaceEventDescriptionTemplateCreated" xml:space="preserve"><value>تم إنشاء قالب وجه محمي.</value></data>
+  <data name="FaceEventDescriptionConsentWithdrawn" xml:space="preserve"><value>تم سحب الموافقة.</value></data>
+  <data name="FaceEventDescriptionTemplateRevokedAfterConsentWithdrawal" xml:space="preserve"><value>تم إلغاء القالب بعد سحب الموافقة.</value></data>
+  <data name="FaceEventDescriptionTemplateRequiresReEnrollment" xml:space="preserve"><value>تم إلغاء القالب وأصبحت إعادة التسجيل مطلوبة.</value></data>
+  <data name="FaceEventDescriptionTemplateRevokedByAdmin" xml:space="preserve"><value>تم إلغاء القالب بواسطة المسؤول.</value></data>
+  <data name="ErrorBiometricConsentRequired" xml:space="preserve"><value>الموافقة الحيوية مطلوبة قبل التسجيل.</value></data>
+  <data name="ErrorBiometricActiveTemplateRequired" xml:space="preserve"><value>يلزم وجود قالب حيوي نشط لهذا الإجراء.</value></data>
+  <data name="ErrorBiometricRateLimit" xml:space="preserve"><value>محاولات تسجيل حيوي كثيرة جداً. حاول لاحقاً.</value></data>
+  <data name="ErrorBiometricRequestTooLarge" xml:space="preserve"><value>طلب التسجيل كبير جداً.</value></data>
+  <data name="ErrorBiometricUnexpectedField" xml:space="preserve"><value>يتضمن طلب التسجيل حقل ملف غير متوقع.</value></data>
+  <data name="ErrorBiometricCaptureCount" xml:space="preserve"><value>أرسل العدد المطلوب من عينات الالتقاط.</value></data>
+  <data name="ErrorBiometricImageEmpty" xml:space="preserve"><value>ملف الالتقاط فارغ.</value></data>
+  <data name="ErrorBiometricImageTooLarge" xml:space="preserve"><value>ملف الالتقاط كبير جداً.</value></data>
+  <data name="ErrorBiometricUnsupportedFormat" xml:space="preserve"><value>يدعم النظام ملفات JPEG وPNG فقط.</value></data>
+  <data name="ErrorBiometricInvalidImage" xml:space="preserve"><value>تعذرت قراءة صورة الالتقاط.</value></data>
+  <data name="ErrorBiometricImageTooSmall" xml:space="preserve"><value>صورة الالتقاط أصغر من الأبعاد المطلوبة.</value></data>
+  <data name="ErrorBiometricImageDimensionsTooLarge" xml:space="preserve"><value>أبعاد صورة الالتقاط تتجاوز الحد المضبوط.</value></data>
+  <data name="ErrorBiometricNoFace" xml:space="preserve"><value>لم يتم اكتشاف وجه في اللقطة.</value></data>
+  <data name="ErrorBiometricMultipleFaces" xml:space="preserve"><value>تم اكتشاف أكثر من وجه في اللقطة.</value></data>
+  <data name="ErrorBiometricEngineUnavailable" xml:space="preserve"><value>محرك الوجه غير متاح.</value></data>
+  <data name="ErrorBiometricProcessingFailed" xml:space="preserve"><value>تعذرت معالجة لقطة التسجيل.</value></data>
+  <data name="ErrorBiometricQualityTooLow" xml:space="preserve"><value>جودة اللقطة منخفضة جداً.</value></data>
+  <data name="ErrorBiometricLowBrightness" xml:space="preserve"><value>اللقطة معتمة جداً.</value></data>
+  <data name="ErrorBiometricHighBrightness" xml:space="preserve"><value>اللقطة ساطعة جداً.</value></data>
+  <data name="ErrorBiometricLowSharpness" xml:space="preserve"><value>اللقطة غير واضحة بما يكفي.</value></data>
+  <data name="ErrorBiometricFaceTooSmall" xml:space="preserve"><value>الوجه المكتشف صغير جداً.</value></data>
+  <data name="ErrorBiometricFaceTooLarge" xml:space="preserve"><value>الوجه المكتشف كبير جداً.</value></data>
 </root>

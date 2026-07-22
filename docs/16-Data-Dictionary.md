@@ -110,7 +110,68 @@
 
 ## Sensitive Data Notes
 
-- No raw biometric image, face template, model file, database file, private key, SDK license, real password, or plain session code is part of the Sprint 3 schema or tracked repository files.
+- No raw biometric image, model file, database file, private key, SDK license, real password, or plain session code is part of the tracked repository files.
 - Identity passwords remain in ASP.NET Core Identity password hashes.
 - Temporary password values are accepted through Admin forms but are not stored in academic tables.
 - Temporary session codes are returned only in authorized runtime responses and are not persisted in plain text.
+- Sprint 4 stores protected face template bytes only in `StudentFaceTemplates.ProtectedTemplate`; public DTOs and views expose metadata only.
+
+## Biometric Enrollment Tables
+
+### BiometricConsents
+
+| Column | SQL Type | Required | Max | Index / Relationship | Privacy | Description |
+| --- | --- | --- | --- | --- | --- | --- |
+| Id | uniqueidentifier | Yes | n/a | PK | Internal | Consent identifier. |
+| StudentId | uniqueidentifier | Yes | n/a | FK `Students`; filtered active unique index | Internal | Student who accepted consent. |
+| ConsentVersion | nvarchar(40) | Yes | 40 | none | Internal | Version of the biometric privacy notice. |
+| ConsentTextHash | nvarchar(128) | Yes | 128 | none | Internal | Hash of canonical notice text. |
+| AcceptedAtUtc | datetimeoffset | Yes | n/a | none | Internal | Acceptance timestamp. |
+| WithdrawnAtUtc | datetimeoffset nullable | No | n/a | none | Internal | Withdrawal timestamp. |
+| AcceptedByUserId | nvarchar(450) | Yes | 450 | Identity user id | Internal | Actor that accepted consent. |
+| WithdrawnByUserId | nvarchar(450) nullable | No | 450 | Identity user id | Internal | Actor that withdrew consent. |
+| IsActive | bit | Yes | n/a | filtered active unique index | Internal | Active consent flag. |
+| RowVersion | rowversion | Yes | n/a | concurrency token | Internal | Optimistic concurrency. |
+
+### StudentFaceTemplates
+
+| Column | SQL Type | Required | Max | Index / Relationship | Privacy | Description |
+| --- | --- | --- | --- | --- | --- | --- |
+| Id | uniqueidentifier | Yes | n/a | PK | Internal | Template identifier. |
+| StudentId | uniqueidentifier | Yes | n/a | FK `Students`; filtered active unique index | Internal | Owning Student. |
+| BiometricConsentId | uniqueidentifier | Yes | n/a | FK `BiometricConsents` | Internal | Consent authorizing the template. |
+| ProtectedTemplate | varbinary(max) | Yes | n/a | none | Sensitive | Data Protection payload; never render. |
+| TemplateFingerprint | nvarchar(128) | Yes | 128 | indexed | Sensitive metadata | Hash/fingerprint for internal integrity checks; not exposed in UI. |
+| EngineName | nvarchar(80) | Yes | 80 | none | Internal | Engine that produced template. |
+| EngineVersion | nvarchar(80) | Yes | 80 | none | Internal | Engine version. |
+| ModelName | nvarchar(120) | Yes | 120 | none | Internal | Model name. |
+| ModelVersion | nvarchar(80) | Yes | 80 | none | Internal | Model version. |
+| TemplateFormatVersion | nvarchar(80) | Yes | 80 | none | Internal | Template format. |
+| EmbeddingDimension | int | Yes | n/a | check > 0 | Internal | Template dimension. |
+| QualityScore | decimal(5,4) | Yes | n/a | check 0..1 | Internal | Selected capture quality. |
+| CaptureCount | int | Yes | n/a | check > 0 | Internal | Accepted samples processed. |
+| TemplateVersion | int | Yes | n/a | unique per Student | Internal | Version incremented by re-enrollment. |
+| EnrolledAtUtc | datetimeoffset | Yes | n/a | none | Internal | Enrollment timestamp. |
+| RevokedAtUtc | datetimeoffset nullable | No | n/a | none | Internal | Revocation timestamp. |
+| RevokedByUserId | nvarchar(450) nullable | No | 450 | Identity user id | Internal | Actor that revoked template. |
+| RevocationReason | nvarchar(300) nullable | No | 300 | none | Internal | Safe reason. |
+| RequiresReEnrollment | bit | Yes | n/a | status index | Internal | Indicates required fresh enrollment. |
+| IsActive | bit | Yes | n/a | filtered active unique index | Internal | Active template flag. |
+| RowVersion | rowversion | Yes | n/a | concurrency token | Internal | Optimistic concurrency. |
+
+### FaceEnrollmentEvents
+
+| Column | SQL Type | Required | Max | Index / Relationship | Privacy | Description |
+| --- | --- | --- | --- | --- | --- | --- |
+| Id | uniqueidentifier | Yes | n/a | PK | Internal | Event identifier. |
+| StudentId | uniqueidentifier | Yes | n/a | FK `Students`; indexed with time | Internal | Student subject. |
+| FaceTemplateId | uniqueidentifier nullable | No | n/a | FK `StudentFaceTemplates` | Internal | Related template when applicable. |
+| BiometricConsentId | uniqueidentifier nullable | No | n/a | FK `BiometricConsents` | Internal | Related consent when applicable. |
+| EventType | int | Yes | n/a | none | Internal | Enrollment event type. |
+| Outcome | nvarchar(40) | Yes | 40 | none | Internal | Safe outcome key. |
+| ErrorCode | nvarchar(80) | Yes | 80 | none | Internal | Safe error code only. |
+| OccurredAtUtc | datetimeoffset | Yes | n/a | indexed with StudentId | Internal | Event time. |
+| PerformedByUserId | nvarchar(450) | Yes | 450 | Identity user id | Internal | Actor user id. |
+| EngineName | nvarchar(80) | Yes | 80 | none | Internal | Engine name. |
+| EngineVersion | nvarchar(80) | Yes | 80 | none | Internal | Engine version. |
+| SafeDescription | nvarchar(300) | Yes | 300 | none | Internal | Localizable safe description key. |

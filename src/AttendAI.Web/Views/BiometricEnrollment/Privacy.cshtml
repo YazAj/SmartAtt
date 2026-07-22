@@ -1,0 +1,28 @@
+@model StudentBiometricStatusDto
+@{
+    ViewData["Title"] = Localizer["BiometricPrivacyNoticeTitle"];
+}
+<section class="page-header"><div><p class="eyebrow">@Localizer["BiometricNotice"]</p><h1>@Localizer["BiometricPrivacyNoticeTitle"]</h1><p>@Localizer["BiometricPrivacyNoticeLead"]</p></div><div class="page-actions"><a class="btn btn-secondary app-btn" asp-action="Index">@Localizer["BackToStatus"]</a></div></section>
+<section class="app-panel readable-panel">
+    <h2>@Localizer["BiometricNoticeWhatTitle"]</h2>
+    <p>@Localizer["BiometricNoticeWhatText"]</p>
+    <h2>@Localizer["BiometricNoticeStorageTitle"]</h2>
+    <p>@Localizer["BiometricNoticeStorageText"]</p>
+    <h2>@Localizer["BiometricNoticeRightsTitle"]</h2>
+    <p>@Localizer["BiometricNoticeRightsText"]</p>
+    <h2>@Localizer["BiometricNoticeLimitTitle"]</h2>
+    <p>@Localizer["BiometricNoticeLimitText"]</p>
+</section>
+@if (!Model.HasActiveConsent)
+{
+    <section class="app-panel mt-3">
+        <form asp-action="AcceptConsent" method="post" class="app-form">
+            <div class="form-check app-check"><input id="ConsentAccepted" class="form-check-input" type="checkbox" required /><label class="form-check-label" for="ConsentAccepted">@Localizer["BiometricConsentCheckbox"]</label></div>
+            <div class="form-actions"><button class="btn btn-primary app-btn" type="submit">@Localizer["AcceptConsent"]</button></div>
+        </form>
+    </section>
+}
+else
+{
+    <section class="app-panel mt-3"><span class="status-badge status-badge-success">@Localizer["BiometricConsentAlreadyAccepted"]</span></section>
+}

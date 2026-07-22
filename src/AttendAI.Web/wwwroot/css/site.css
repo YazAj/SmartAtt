@@ -897,6 +897,80 @@ a:hover {
     color: var(--text-primary);
 }
 
+.camera-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .85fr);
+    gap: 1rem;
+}
+
+.camera-preview {
+    position: relative;
+    min-block-size: clamp(16rem, 38vw, 28rem);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--surface-secondary);
+}
+
+.camera-preview video,
+.camera-preview canvas {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+}
+
+.camera-placeholder {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--text-secondary);
+    font-weight: 700;
+    padding: 1rem;
+    text-align: center;
+}
+
+.capture-panel {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+}
+
+.capture-counter {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .25rem;
+    color: var(--text-primary);
+    font-size: 1.35rem;
+    font-weight: 800;
+}
+
+.capture-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(4.5rem, 1fr));
+    gap: .5rem;
+}
+
+.capture-thumb {
+    aspect-ratio: 1;
+    inline-size: 100%;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--surface-secondary);
+}
+
+.capture-thumb img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+}
+
+.biometric-form .btn[disabled] {
+    cursor: not-allowed;
+    opacity: .65;
+}
+
 .app-overlay {
     display: none;
 }
@@ -943,7 +1017,8 @@ a:hover {
 
     .feature-grid,
     .dashboard-grid,
-    .auth-layout {
+    .auth-layout,
+    .camera-grid {
         grid-template-columns: 1fr;
     }
 

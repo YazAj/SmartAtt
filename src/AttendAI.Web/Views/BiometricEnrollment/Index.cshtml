@@ -1,0 +1,35 @@
+@model StudentBiometricStatusDto
+@{
+    ViewData["Title"] = Localizer["BiometricEnrollmentTitle"];
+    var events = (IReadOnlyList<FaceEnrollmentEventDto>)(ViewBag.Events ?? Array.Empty<FaceEnrollmentEventDto>());
+    var statusClass = Model.Status switch
+    {
+        FaceEnrollmentStatus.Active => "status-badge-success",
+        FaceEnrollmentStatus.RequiresReEnrollment or FaceEnrollmentStatus.EngineUnavailable => "status-badge-warning",
+        FaceEnrollmentStatus.Revoked or FaceEnrollmentStatus.ConsentWithdrawn => "status-danger",
+        _ => string.Empty
+    };
+}
+<section class="page-header"><div><p class="eyebrow">@Localizer["StudentRole"]</p><h1>@Localizer["BiometricEnrollmentTitle"]</h1><p>@Localizer["BiometricEnrollmentLead"]</p></div><div class="page-actions"><a class="btn btn-secondary app-btn" asp-action="Privacy">@Localizer["BiometricPrivacyNoticeTitle"]</a>@if (Model.HasActiveConsent && Model.EngineAllowsEnrollment) { <a class="btn btn-primary app-btn" asp-action="Enroll">@Localizer[Model.HasActiveTemplate ? "StartReEnrollment" : "StartEnrollment"]</a> }</div></section>
+<section class="dashboard-grid">
+    <article class="stat-card"><span>@Localizer["BiometricStatus"]</span><strong><span class="status-badge @statusClass">@Localizer[$"FaceEnrollmentStatus{Model.Status}"]</span></strong><p>@Localizer[Model.EngineStatusMessageKey]</p></article>
+    <article class="stat-card"><span>@Localizer["Consent"]</span><strong>@(Model.HasActiveConsent ? Localizer["Active"] : Localizer["NotActive"])</strong><p>@(Model.ConsentVersion ?? Localizer["NotApplicable"])</p></article>
+    <article class="stat-card"><span>@Localizer["Template"]</span><strong>@(Model.HasActiveTemplate ? Localizer["StoredSecurely"] : Localizer["NotEnrolled"])</strong><p>@(Model.EnrolledAtUtc?.ToLocalTime().ToString("g") ?? Localizer["NotApplicable"])</p></article>
+</section>
+@if (!Model.HasActiveConsent)
+{
+    <section class="app-panel"><div class="section-heading"><h2>@Localizer["ConsentRequiredTitle"]</h2><p>@Localizer["ConsentRequiredText"]</p></div><a class="btn btn-primary app-btn" asp-action="Privacy">@Localizer["ReviewConsent"]</a></section>
+}
+else
+{
+    <section class="app-panel">
+        <div class="section-heading"><h2>@Localizer["ConsentManagement"]</h2><p>@Localizer["ConsentManagementText"]</p></div>
+        <form asp-action="WithdrawConsent" method="post" onsubmit="return confirm('@Localizer["ConfirmWithdrawBiometricConsent"]');">
+            <button class="btn btn-danger app-btn" type="submit">@Localizer["WithdrawConsent"]</button>
+        </form>
+    </section>
+}
+<section class="app-panel mt-3"><div class="section-heading"><h2>@Localizer["BiometricEnrollmentEvents"]</h2></div><div class="table-responsive"><table class="table app-table"><thead><tr><th>@Localizer["OccurredAt"]</th><th>@Localizer["Event"]</th><th>@Localizer["Outcome"]</th><th>@Localizer["Description"]</th></tr></thead><tbody>
+@if (events.Count == 0) { <tr><td class="empty-row" colspan="4">@Localizer["NoBiometricEvents"]</td></tr> }
+@foreach (var item in events) { <tr><td data-label="@Localizer["OccurredAt"]">@item.OccurredAtUtc.ToLocalTime().ToString("f")</td><td data-label="@Localizer["Event"]">@Localizer[$"FaceEnrollmentEvent{item.EventType}"]</td><td data-label="@Localizer["Outcome"]">@Localizer[$"Outcome{item.Outcome}"]</td><td data-label="@Localizer["Description"]">@Localizer[item.SafeDescription]</td></tr> }
+</tbody></table></div></section>

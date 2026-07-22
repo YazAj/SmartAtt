@@ -130,6 +130,20 @@
 - Main flow: View weekly timetable for actively enrolled Sections and active Session status.
 - Rule: Student response never contains plain code, protected code, or code hash.
 
+## UC-20 Manage Student Biometric Profile
+
+- Actor: Student
+- Trigger: Student opens Biometric profile.
+- Main flow: Review status, open privacy notice, accept consent, enroll with configured captures, view active status, re-enroll, withdraw consent, and review safe history.
+- Rules: Student acts only on their own profile; active Student profile and consent are required for enrollment; raw images are not stored.
+
+## UC-21 Admin Biometric Oversight
+
+- Actor: Admin
+- Trigger: Admin opens Biometric enrollment oversight.
+- Main flow: Search/filter Students by enrollment status, view safe metadata/history, revoke active template, or require re-enrollment with a reason.
+- Rules: Admin cannot see protected template bytes and cannot accept Student consent.
+
 ## Future Use Cases Not Implemented
 
-Attendance registration, student code submission, location validation for attendance, duplicate attendance prevention, reports, production face enrollment, and production face verification.
+Attendance registration, student code submission, location validation for attendance, duplicate attendance prevention, reports, production face verification, and production attendance decisions.

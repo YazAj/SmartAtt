@@ -164,3 +164,20 @@ Attendance registration, student code submission, attendance records, reports, e
 - Instructor session lifecycle works with secure temporary code handling.
 - Student active-session views exclude code data.
 - Lifecycle audit events persist.
+
+## Sprint 4 Biometric Enrollment Requirements
+
+- Students must review a localized biometric privacy notice before enrollment.
+- Students must explicitly accept versioned biometric consent; Admins cannot accept consent for a Student through normal UI.
+- Students may withdraw consent; withdrawal revokes the active protected template.
+- Students may enroll and re-enroll only their own profile.
+- Enrollment requires the configured capture count and server-side validation for MIME type, signature, size, dimensions, total request size, and expected multipart field.
+- Enrollment must reject no-face, multiple-face, invalid-image, and safe quality-failure outcomes.
+- Only a protected template and safe metadata may be stored.
+- Raw camera frames and uploaded face images must not be intentionally persisted.
+- Admins may view enrollment status and safe metadata only.
+- Admins may revoke an active template or require re-enrollment with a reason.
+- Enrollment events must be append-only and safe for display.
+- Fake engine mode may support development/tests but must be blocked in Production.
+- Real-engine gate must remain Not Verified until approved samples, selected licensed models, native dependencies, and adapter verification are complete.
+- Sprint 4 does not implement attendance submission, face verification against stored templates, attendance decisions, liveness, one-to-many identification, or location validation.

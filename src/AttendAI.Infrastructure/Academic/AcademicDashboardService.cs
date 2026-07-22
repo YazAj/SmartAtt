@@ -22,7 +22,9 @@ public sealed class AcademicDashboardService : IAcademicDashboardService
             await _dbContext.Departments.CountAsync(department => department.IsActive, cancellationToken),
             await _dbContext.Courses.CountAsync(course => course.IsActive, cancellationToken),
             await _dbContext.Sections.CountAsync(section => section.IsActive, cancellationToken),
-            await _dbContext.Classrooms.CountAsync(classroom => classroom.IsActive, cancellationToken));
+            await _dbContext.Classrooms.CountAsync(classroom => classroom.IsActive, cancellationToken),
+            await _dbContext.StudentFaceTemplates.CountAsync(template => template.IsActive, cancellationToken),
+            await _dbContext.StudentFaceTemplates.CountAsync(template => !template.IsActive && template.RequiresReEnrollment, cancellationToken));
     }
 
     public async Task<InstructorDashboardSummaryDto> GetInstructorSummaryAsync(string userId, CancellationToken cancellationToken = default)
@@ -58,7 +60,7 @@ public sealed class AcademicDashboardService : IAcademicDashboardService
 
         if (student is null)
         {
-            return new StudentDashboardSummaryDto(null, null, null, []);
+            return new StudentDashboardSummaryDto(null, null, null, FaceEnrollmentStatus.NotEnrolled, []);
         }
 
         var enrollments = await _dbContext.StudentEnrollments
@@ -86,6 +88,43 @@ public sealed class AcademicDashboardService : IAcademicDashboardService
             student.Department?.NameEnglish,
             student.Department?.NameArabic,
             student.AcademicLevel,
+            await GetStudentBiometricStatusAsync(student.Id, cancellationToken),
             enrollments);
+    }
+
+    private async Task<FaceEnrollmentStatus> GetStudentBiometricStatusAsync(Guid studentId, CancellationToken cancellationToken)
+    {
+        var activeTemplate = await _dbContext.StudentFaceTemplates
+            .AsNoTracking()
+            .AnyAsync(template => template.StudentId == studentId && template.IsActive, cancellationToken);
+        if (activeTemplate)
+        {
+            return FaceEnrollmentStatus.Active;
+        }
+
+        var latestTemplate = await _dbContext.StudentFaceTemplates
+            .AsNoTracking()
+            .Where(template => template.StudentId == studentId)
+            .OrderByDescending(template => template.TemplateVersion)
+            .FirstOrDefaultAsync(cancellationToken);
+        if (latestTemplate?.RequiresReEnrollment == true)
+        {
+            return FaceEnrollmentStatus.RequiresReEnrollment;
+        }
+
+        if (latestTemplate?.RevokedAtUtc is not null)
+        {
+            return FaceEnrollmentStatus.Revoked;
+        }
+
+        var latestConsent = await _dbContext.BiometricConsents
+            .AsNoTracking()
+            .Where(consent => consent.StudentId == studentId)
+            .OrderByDescending(consent => consent.AcceptedAtUtc)
+            .FirstOrDefaultAsync(cancellationToken);
+
+        return latestConsent?.WithdrawnAtUtc is not null
+            ? FaceEnrollmentStatus.ConsentWithdrawn
+            : FaceEnrollmentStatus.NotEnrolled;
     }
 }

@@ -177,4 +177,70 @@ erDiagram
     AspNetUsers ||--o{ ActivityLogs : future_generates
 ```
 
-Future entities retain `future_` relationship labels and must not be treated as implemented Sprint 3 tables.
+Future attendance/reporting entities retain `future_` relationship labels and must not be treated as implemented tables.
+
+## Sprint 4 Biometric Enrollment ERD Delta
+
+```mermaid
+erDiagram
+    Students ||--o{ BiometricConsents : grants
+    Students ||--o{ StudentFaceTemplates : owns
+    BiometricConsents ||--o{ StudentFaceTemplates : authorizes
+    Students ||--o{ FaceEnrollmentEvents : audits
+    BiometricConsents ||--o{ FaceEnrollmentEvents : referenced_by
+    StudentFaceTemplates ||--o{ FaceEnrollmentEvents : referenced_by
+
+    BiometricConsents {
+        uniqueidentifier Id PK
+        uniqueidentifier StudentId FK
+        string ConsentVersion
+        string ConsentTextHash
+        datetime AcceptedAtUtc
+        datetime WithdrawnAtUtc
+        string AcceptedByUserId
+        string WithdrawnByUserId
+        bool IsActive
+        rowversion RowVersion
+    }
+
+    StudentFaceTemplates {
+        uniqueidentifier Id PK
+        uniqueidentifier StudentId FK
+        uniqueidentifier BiometricConsentId FK
+        binary ProtectedTemplate
+        string TemplateFingerprint
+        string EngineName
+        string EngineVersion
+        string ModelName
+        string ModelVersion
+        string TemplateFormatVersion
+        int EmbeddingDimension
+        decimal QualityScore
+        int CaptureCount
+        int TemplateVersion
+        datetime EnrolledAtUtc
+        datetime RevokedAtUtc
+        string RevokedByUserId
+        string RevocationReason
+        bool RequiresReEnrollment
+        bool IsActive
+        rowversion RowVersion
+    }
+
+    FaceEnrollmentEvents {
+        uniqueidentifier Id PK
+        uniqueidentifier StudentId FK
+        uniqueidentifier FaceTemplateId FK
+        uniqueidentifier BiometricConsentId FK
+        int EventType
+        string Outcome
+        string ErrorCode
+        datetime OccurredAtUtc
+        string PerformedByUserId
+        string EngineName
+        string EngineVersion
+        string SafeDescription
+    }
+```
+
+SQL Server constraints include one active consent per Student, one active template per Student, unique template version per Student, rowversion concurrency for consent/template rows, and check constraints for quality score, capture count, embedding dimension, and template version. No raw-image column exists.

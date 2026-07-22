@@ -11,10 +11,12 @@ public sealed class FakeFaceRecognitionEngine : IFaceRecognitionEngine
     private const string TemplateVersion = "fake-sha256-v1";
     private const string TemplateFormat = "application/vnd.attendai.fake-face-template";
     private readonly double _threshold;
+    private readonly FaceRecognitionOptions _options;
 
     public FakeFaceRecognitionEngine(IOptions<FaceRecognitionOptions> options)
     {
-        _threshold = options.Value.Threshold <= 0 ? 0.95 : options.Value.Threshold;
+        _options = options.Value;
+        _threshold = _options.Threshold <= 0 ? 0.95 : _options.Threshold;
     }
 
     public Task<FaceEncodingResult> ExtractEncodingAsync(
@@ -49,7 +51,13 @@ public sealed class FakeFaceRecognitionEngine : IFaceRecognitionEngine
             TemplateVersion,
             TemplateFormat,
             templateData,
-            DateTimeOffset.UtcNow);
+            DateTimeOffset.UtcNow,
+            "Fake",
+            string.IsNullOrWhiteSpace(_options.EngineVersion) ? TemplateVersion : _options.EngineVersion,
+            string.IsNullOrWhiteSpace(_options.ModelName) ? "Deterministic fake engine" : _options.ModelName,
+            string.IsNullOrWhiteSpace(_options.ModelVersion) ? "v1" : _options.ModelVersion,
+            templateData.Length,
+            0.9);
 
         return Task.FromResult(FaceEncodingResult.Success(template));
     }

@@ -92,4 +92,16 @@ For production, prefer an ONNX Runtime adapter with explicitly licensed face det
 - Run one same-person and one different-person comparison.
 - Record thresholds, false match behavior, and deployment constraints.
 
-This is a mandatory technical gate before Sprint 4 or any production Face Enrollment work.
+This is a mandatory technical gate before production face verification, Sprint 5 attendance verification, or marking Sprint 4 fully complete.
+
+## Sprint 4 Gate Update
+
+Sprint 4 introduced application support for explicit engine modes:
+
+- `Fake`: deterministic development/test engine; may support UI and automated workflow testing; blocked in Production enrollment by readiness logic.
+- `Disabled`: enrollment unavailable.
+- `Real`: reserved for a future production adapter; currently Not Verified.
+
+The fake engine now returns safe template metadata used by the enrollment workflow. It remains unsuitable for production biometric enrollment and must not be represented as a real biometric engine.
+
+Sprint 4 still has no selected production engine. A real ONNX-based option would require face detection, face embedding, preprocessing/alignment, template normalization, similarity/distance strategy, threshold calibration, licensing review, and native/runtime deployment packaging. See `docs/27-Face-Engine-Readiness-Gate.md`.

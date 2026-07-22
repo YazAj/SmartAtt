@@ -22,6 +22,67 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AttendAI.Domain.Academic.BiometricConsent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("AcceptedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("AcceptedByUserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConsentTextHash")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("ConsentVersion")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("UpdatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("WithdrawnAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("WithdrawnByUserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId")
+                        .IsUnique()
+                        .HasDatabaseName("UX_BiometricConsents_StudentId_Active")
+                        .HasFilter("[IsActive] = 1");
+
+                    b.ToTable("BiometricConsents", (string)null);
+                });
+
             modelBuilder.Entity("AttendAI.Domain.Academic.Classroom", b =>
                 {
                     b.Property<Guid>("Id")
@@ -212,6 +273,77 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("Departments", (string)null);
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.FaceEnrollmentEvent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("BiometricConsentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("EngineName")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("EngineVersion")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("ErrorCode")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<int>("EventType")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("FaceTemplateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("OccurredAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Outcome")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("PerformedByUserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SafeDescription")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("UpdatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BiometricConsentId")
+                        .HasDatabaseName("IX_FaceEnrollmentEvents_BiometricConsentId");
+
+                    b.HasIndex("FaceTemplateId")
+                        .HasDatabaseName("IX_FaceEnrollmentEvents_FaceTemplateId");
+
+                    b.HasIndex("StudentId", "OccurredAtUtc")
+                        .HasDatabaseName("IX_FaceEnrollmentEvents_StudentId_OccurredAtUtc");
+
+                    b.ToTable("FaceEnrollmentEvents", (string)null);
                 });
 
             modelBuilder.Entity("AttendAI.Domain.Academic.Instructor", b =>
@@ -722,6 +854,131 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
                     b.ToTable("StudentEnrollments", (string)null);
                 });
 
+            modelBuilder.Entity("AttendAI.Domain.Academic.StudentFaceTemplate", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BiometricConsentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CaptureCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("EmbeddingDimension")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EngineName")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("EngineVersion")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<DateTimeOffset>("EnrolledAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("ModelName")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<string>("ModelVersion")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<byte[]>("ProtectedTemplate")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<decimal>("QualityScore")
+                        .HasColumnType("decimal(5,4)");
+
+                    b.Property<bool>("RequiresReEnrollment")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("RevocationReason")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTimeOffset?>("RevokedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("RevokedByUserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TemplateFingerprint")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("TemplateFormatVersion")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<int>("TemplateVersion")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset?>("UpdatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BiometricConsentId");
+
+                    b.HasIndex("StudentId")
+                        .IsUnique()
+                        .HasDatabaseName("UX_StudentFaceTemplates_StudentId_Active")
+                        .HasFilter("[IsActive] = 1");
+
+                    b.HasIndex("TemplateFingerprint")
+                        .HasDatabaseName("IX_StudentFaceTemplates_TemplateFingerprint");
+
+                    b.HasIndex("StudentId", "TemplateVersion")
+                        .IsUnique()
+                        .HasDatabaseName("UX_StudentFaceTemplates_StudentId_TemplateVersion");
+
+                    b.HasIndex("StudentId", "IsActive", "RequiresReEnrollment")
+                        .HasDatabaseName("IX_StudentFaceTemplates_Status");
+
+                    b.ToTable("StudentFaceTemplates", t =>
+                        {
+                            t.HasCheckConstraint("CK_StudentFaceTemplates_CaptureCount", "[CaptureCount] > 0");
+
+                            t.HasCheckConstraint("CK_StudentFaceTemplates_EmbeddingDimension", "[EmbeddingDimension] > 0");
+
+                            t.HasCheckConstraint("CK_StudentFaceTemplates_QualityScore", "[QualityScore] >= 0 AND [QualityScore] <= 1");
+
+                            t.HasCheckConstraint("CK_StudentFaceTemplates_TemplateVersion", "[TemplateVersion] > 0");
+                        });
+                });
+
             modelBuilder.Entity("AttendAI.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -949,6 +1206,17 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("AttendAI.Domain.Academic.BiometricConsent", b =>
+                {
+                    b.HasOne("AttendAI.Domain.Academic.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("AttendAI.Domain.Academic.Course", b =>
                 {
                     b.HasOne("AttendAI.Domain.Academic.Department", "Department")
@@ -958,6 +1226,31 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.FaceEnrollmentEvent", b =>
+                {
+                    b.HasOne("AttendAI.Domain.Academic.BiometricConsent", "BiometricConsent")
+                        .WithMany()
+                        .HasForeignKey("BiometricConsentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("AttendAI.Domain.Academic.StudentFaceTemplate", "FaceTemplate")
+                        .WithMany()
+                        .HasForeignKey("FaceTemplateId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("AttendAI.Domain.Academic.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("BiometricConsent");
+
+                    b.Navigation("FaceTemplate");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("AttendAI.Domain.Academic.Instructor", b =>
@@ -1112,6 +1405,25 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Section");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.StudentFaceTemplate", b =>
+                {
+                    b.HasOne("AttendAI.Domain.Academic.BiometricConsent", "BiometricConsent")
+                        .WithMany()
+                        .HasForeignKey("BiometricConsentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AttendAI.Domain.Academic.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("BiometricConsent");
 
                     b.Navigation("Student");
                 });

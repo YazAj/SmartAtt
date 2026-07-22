@@ -62,10 +62,29 @@
 | R-46 | No Sprint 4 attendance behavior | Source review and SQL schema | `rg` source search, migration review | Passed | No attendance records, student code submission, face enrollment, reports, notifications, or location validation were added. |
 | R-47 | Sprint 3 automated quality gate | Whole solution | Restore/build/test/format | Passed | Restore/build/test/format exited 0; 63 tests passed; `git diff --check` exited 0. |
 
+## Sprint 4 Biometric Face Enrollment
+
+| ID | Description | Implementation Location | Test / Verification Location | Status | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| R-48 | Biometric consent domain | `BiometricConsent`, EF configuration | `BiometricDomainTests`, migration review | Passed | Consent supports version/hash, withdrawal, active flag, rowversion, and one active consent index. |
+| R-49 | Protected Student face template domain | `StudentFaceTemplate`, EF configuration | `BiometricDomainTests`, migration review | Passed | Protected template metadata, revocation, versioning, checks, and one active template index implemented. |
+| R-50 | Append-only enrollment events | `FaceEnrollmentEvent`, `BiometricEnrollmentService` | Build, service review | Passed | Consent, enrollment, replacement, revocation, and failure events append safe data only. |
+| R-51 | Application biometric contracts | `AttendAI.Application/Biometrics` | Build | Passed | DTOs, commands, queries, result models, and service interfaces compile. |
+| R-52 | Face engine modes and readiness | `FaceEngineReadinessService`, DI | `FaceEnrollmentProcessorTests`, docs gate | Passed | Fake/Disabled/Real modes implemented; Fake blocked in Production; Real gate Not Verified. |
+| R-53 | Capture validation | `FaceCaptureValidator`, controller request checks | `BiometricCaptureValidatorTests` | Passed | MIME, signature, size, dimensions, total request size, and unexpected field checks implemented. |
+| R-54 | Template protection | `BiometricTemplateProtector` | `BiometricTemplateProtectorTests` | Passed | Protected bytes differ from original and round-trip through Data Protection. |
+| R-55 | Student biometric UI | `BiometricEnrollmentController`, Student views, `site.js`, `site.css` | Build, integration authorization tests, runtime smoke | Passed | Privacy, consent, status, enrollment, re-enrollment, withdrawal, and history pages verified against SQL Server. |
+| R-56 | Admin biometric management | Admin `BiometricEnrollmentsController` and views | `BiometricEnrollmentAuthorizationTests`, runtime smoke | Passed | Overview, filters, details, safe metadata, revocation, require re-enrollment, and history verified; template bytes were not exposed. |
+| R-57 | Biometric dashboard/navigation | Layout and dashboard views/services | Build | Passed | Admin metrics and Student status link added; Instructor has no biometric controls. |
+| R-58 | Biometric localization and theme | `SharedResource.*.resx`, `site.css` | Playwright browser checks | Passed | English LTR light desktop, English LTR dark mobile, Arabic RTL light desktop, Arabic RTL dark tablet, Arabic RTL dark 390px, and Arabic RTL dark 320px checked without page-level overflow. |
+| R-59 | SQL Server biometric migration | `20260722190900_AddBiometricEnrollment` | SQL Server LocalDB verification | Passed | Migration applied to `AttendAI_Sprint4Verification_20260722`; 3 biometric tables, 6 FKs, 2 filtered unique indexes, rowversions, 4 checks, and no raw-image column verified. |
+| R-60 | No raw image retention | Schema, controller, service, docs | Migration/source scan | Passed | No raw-image table/column added; captures are processed from memory and not saved. |
+| R-61 | No Sprint 5 behavior | Source/migration review | `rg` source and migration review | Passed | No attendance submission, face verification UI, location validation, reports, or attendance decisions added. |
+
 ## Not Verified / Future Gates
 
 | ID | Description | Status | Required Before Production |
 | --- | --- | --- | --- |
-| G-01 | Real face recognition runtime | Not Verified | Approved biometric samples, selected licensed detection and embedding models, preprocessing, threshold calibration, and native deployment package. |
-| G-02 | Production attendance registration | Not Implemented | Sprint 4 planning after Sprint 3 acceptance and face-recognition gate. |
+| G-01 | Real face recognition runtime | Not Verified | Approved biometric samples, selected licensed detection and embedding models, preprocessing, threshold calibration, production adapter, and native deployment package. |
+| G-02 | Production attendance registration | Not Implemented | Sprint 5 planning after Sprint 4 acceptance and face-recognition gate. |
 | G-03 | Notification delivery for temporary passwords | Not Implemented | Secure out-of-band delivery design; temporary passwords are entered by Admin during Sprint 2. |

@@ -2,6 +2,31 @@
 
 ## 2026-07-22
 
+### Sprint 4 Added
+
+- Added biometric consent, protected face-template, and face-enrollment event domain entities and enums.
+- Added biometric application DTOs, commands, queries, result models, and service interfaces.
+- Added EF Core configurations and migration `20260722190900_AddBiometricEnrollment` for `BiometricConsents`, `StudentFaceTemplates`, and `FaceEnrollmentEvents`.
+- Added fake/disabled/real engine mode readiness, production fake-engine blocking, capture validation, enrollment processing, Data Protection template protection, and enrollment rate limiting.
+- Added Student biometric privacy notice, consent, enrollment status, camera capture wizard with upload fallback, re-enrollment, consent withdrawal, and safe history pages.
+- Added Admin biometric oversight, filters, details, safe metadata, revoke, require re-enrollment, and audit history pages.
+- Added Sprint 4 unit and integration tests for biometric domain rules, capture validation, template protection, enrollment processing, and authorization.
+- Added Sprint 4 documentation: plan, domain model, test plan, review, biometric privacy/security, and face-engine readiness gate.
+
+### Sprint 4 Changed
+
+- Updated README, SRS, architecture, ERD, use cases, UI design-system notes, localization/theme documentation, face technical spike, traceability matrix, and data dictionary for biometric enrollment/profile management.
+- Updated layout navigation and Admin/Student dashboards with biometric links and metrics.
+- Updated localization resources for English LTR and Arabic RTL biometric workflows.
+- Updated CSS and JavaScript with responsive camera capture, preview, capture counter, thumbnail strip, file fallback, and camera-track cleanup.
+
+### Sprint 4 Verified
+
+- Verified automated build with 0 warnings and 0 errors during implementation.
+- Verified automated tests: 79 total, 79 passed, 0 failed, 0 skipped during implementation.
+- Verified no Sprint 5 attendance submission, attendance decisions, face verification UI, or location validation were implemented.
+- Real face-engine runtime remains Not Verified because approved biometric samples, licensed models, adapter, and native dependencies are not available.
+
 ### Sprint 3 Added
 
 - Added lecture scheduling domain entities, session lifecycle entities, and enums.

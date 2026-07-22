@@ -1,8 +1,10 @@
-using AttendAI.Application.FaceRecognition;
 using AttendAI.Application.Academic;
 using AttendAI.Application.Academic.Dashboard;
+using AttendAI.Application.Biometrics;
+using AttendAI.Application.FaceRecognition;
 using AttendAI.Application.Lectures;
 using AttendAI.Infrastructure.Academic;
+using AttendAI.Infrastructure.Biometrics;
 using AttendAI.Infrastructure.Configuration;
 using AttendAI.Infrastructure.FaceRecognition;
 using AttendAI.Infrastructure.Identity;
@@ -12,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace AttendAI.Infrastructure;
 
@@ -26,12 +29,18 @@ public static class DependencyInjection
         {
             options.Provider = faceRecognitionSection["Provider"] ?? options.Provider;
             options.ModelPath = faceRecognitionSection["ModelPath"] ?? options.ModelPath;
+            options.EngineVersion = faceRecognitionSection["EngineVersion"] ?? options.EngineVersion;
+            options.ModelName = faceRecognitionSection["ModelName"] ?? options.ModelName;
+            options.ModelVersion = faceRecognitionSection["ModelVersion"] ?? options.ModelVersion;
 
             if (double.TryParse(faceRecognitionSection["Threshold"], out var threshold))
             {
                 options.Threshold = threshold;
             }
         });
+
+        services.Configure<BiometricEnrollmentOptions>(
+            configuration.GetSection(BiometricEnrollmentOptions.SectionName));
 
         services.Configure<LectureSchedulingOptions>(
             configuration.GetSection(LectureSchedulingOptions.SectionName));
@@ -64,7 +73,19 @@ public static class DependencyInjection
 
         services.AddScoped<IdentitySeedService>();
         services.AddScoped<ApplicationDbInitializer>();
-        services.AddScoped<IFaceRecognitionEngine, FakeFaceRecognitionEngine>();
+        services.AddScoped<IFaceRecognitionEngine>(serviceProvider =>
+        {
+            var options = serviceProvider.GetRequiredService<IOptions<FaceRecognitionOptions>>().Value;
+            return options.Provider.Equals("Fake", StringComparison.OrdinalIgnoreCase)
+                ? ActivatorUtilities.CreateInstance<FakeFaceRecognitionEngine>(serviceProvider)
+                : ActivatorUtilities.CreateInstance<DisabledFaceRecognitionEngine>(serviceProvider);
+        });
+        services.AddScoped<IFaceCaptureValidator, FaceCaptureValidator>();
+        services.AddScoped<IFaceEnrollmentProcessor, FaceEnrollmentProcessor>();
+        services.AddScoped<IBiometricTemplateProtector, BiometricTemplateProtector>();
+        services.AddSingleton<IBiometricEnrollmentRateLimiter, InMemoryBiometricEnrollmentRateLimiter>();
+        services.AddScoped<IFaceEngineReadinessService, FaceEngineReadinessService>();
+        services.AddScoped<IBiometricEnrollmentService, BiometricEnrollmentService>();
         services.AddScoped<IDepartmentService, DepartmentService>();
         services.AddScoped<IStudentService, StudentService>();
         services.AddScoped<IInstructorService, InstructorService>();

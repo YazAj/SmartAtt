@@ -8,7 +8,9 @@ public sealed record AdminDashboardSummaryDto(
     int ActiveDepartments,
     int ActiveCourses,
     int ActiveSections,
-    int ActiveClassrooms);
+    int ActiveClassrooms,
+    int ActiveBiometricTemplates,
+    int StudentsRequiringBiometricReEnrollment);
 
 public sealed record InstructorDashboardSectionDto(
     string CourseCode,
@@ -34,6 +36,7 @@ public sealed record StudentDashboardSummaryDto(
     string? DepartmentNameEnglish,
     string? DepartmentNameArabic,
     string? AcademicLevel,
+    FaceEnrollmentStatus BiometricStatus,
     IReadOnlyList<StudentDashboardEnrollmentDto> EnrolledSections);
 
 public interface IAcademicDashboardService

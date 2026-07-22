@@ -8,5 +8,11 @@ public sealed class FaceRecognitionOptions
 
     public string ModelPath { get; set; } = string.Empty;
 
+    public string EngineVersion { get; set; } = "fake-sha256-v1";
+
+    public string ModelName { get; set; } = "Deterministic fake engine";
+
+    public string ModelVersion { get; set; } = "v1";
+
     public double Threshold { get; set; } = 0.95;
 }

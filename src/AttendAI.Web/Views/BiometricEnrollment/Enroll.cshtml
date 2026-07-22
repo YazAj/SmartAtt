@@ -1,0 +1,49 @@
+@model StudentBiometricStatusDto
+@{
+    ViewData["Title"] = Localizer["BiometricCaptureTitle"];
+    var requiredCaptureCount = (int)(ViewBag.RequiredCaptureCount ?? 3);
+    var maximumCaptureBytes = (int)(ViewBag.MaximumCaptureBytes ?? 1500000);
+    var allowedContentTypes = (string)(ViewBag.AllowedContentTypes ?? "image/jpeg,image/png");
+}
+<section class="page-header"><div><p class="eyebrow">@Localizer["BiometricEnrollmentTitle"]</p><h1>@Localizer["BiometricCaptureTitle"]</h1><p>@Localizer["BiometricCaptureLead"]</p></div><div class="page-actions"><a class="btn btn-secondary app-btn" asp-action="Index">@Localizer["BackToStatus"]</a></div></section>
+<section class="app-panel" data-biometric-camera data-required-captures="@requiredCaptureCount" data-max-capture-bytes="@maximumCaptureBytes">
+    <div asp-validation-summary="All" class="validation-summary"></div>
+    @if (!Model.HasActiveConsent)
+    {
+        <div class="alert app-alert alert-danger">@Localizer["ErrorBiometricConsentRequired"]</div>
+        <a class="btn btn-primary app-btn" asp-action="Privacy">@Localizer["ReviewConsent"]</a>
+    }
+    else if (!Model.EngineAllowsEnrollment)
+    {
+        <div class="alert app-alert alert-danger">@Localizer[Model.EngineStatusMessageKey]</div>
+    }
+    else
+    {
+        <form asp-action="Enroll" method="post" enctype="multipart/form-data" class="app-form biometric-form">
+            <div class="camera-grid">
+                <div class="camera-preview">
+                    <video playsinline muted data-biometric-video></video>
+                    <canvas hidden data-biometric-canvas></canvas>
+                    <div class="camera-placeholder" data-biometric-placeholder>@Localizer["CameraPreviewPlaceholder"]</div>
+                </div>
+                <div class="capture-panel">
+                    <div class="section-heading"><h2>@Localizer["CaptureChecklistTitle"]</h2><p>@Localizer["CaptureChecklistText", requiredCaptureCount]</p></div>
+                    <ol class="check-list">
+                        <li>@Localizer["CaptureGuidanceLighting"]</li>
+                        <li>@Localizer["CaptureGuidanceOneFace"]</li>
+                        <li>@Localizer["CaptureGuidanceCenterFace"]</li>
+                    </ol>
+                    <div class="capture-counter"><span data-biometric-count>0</span><span>/</span><span>@requiredCaptureCount</span></div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary app-btn" type="button" data-biometric-start>@Localizer["StartCamera"]</button>
+                        <button class="btn btn-primary app-btn" type="button" data-biometric-capture disabled>@Localizer["CaptureFrame"]</button>
+                        <button class="btn btn-secondary app-btn" type="button" data-biometric-clear disabled>@Localizer["ClearCaptures"]</button>
+                    </div>
+                    <div class="form-field"><label class="form-label" for="CaptureFiles">@Localizer["UploadCaptureFallback"]</label><input id="CaptureFiles" type="file" name="captures" accept="@allowedContentTypes" multiple class="form-control" data-biometric-file-input /></div>
+                    <div class="capture-strip" data-biometric-strip></div>
+                    <button class="btn btn-primary app-btn" type="submit" data-biometric-submit disabled>@Localizer[Model.HasActiveTemplate ? "SubmitReEnrollment" : "SubmitEnrollment"]</button>
+                </div>
+            </div>
+        </form>
+    }
+</section>

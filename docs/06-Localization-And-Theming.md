@@ -88,3 +88,21 @@ Runtime visual snapshots were generated from authenticated SQL Server-backed flo
 The Playwright closure run covered 134 route/viewport/culture/theme checks with 0 page-level overflow failures. `document.documentElement.scrollWidth` matched `clientWidth` for all checked routes, including Arabic RTL light/dark tablet and Arabic RTL light/dark mobile at 390px and 320px. Theme persistence was verified through `attendai-theme` in localStorage. Culture persistence was verified through the ASP.NET Core culture cookie. The layout continues to set `lang` and `dir` from `CultureInfo.CurrentUICulture`.
 
 The Arabic RTL dark mobile root cause was the closed mobile sidebar's off-viewport `translateX(...)` state. The sidebar now remains fixed at logical inline-start and is hidden with `opacity`, `visibility`, and `pointer-events`, which avoids clipping without hiding meaningful content.
+
+## Sprint 4 Localization Additions
+
+Sprint 4 added English and Arabic resources for:
+
+- Biometric navigation.
+- Privacy notice and consent text.
+- Enrollment status and capture wizard.
+- Capture validation and quality errors.
+- Face-engine readiness messages.
+- Admin biometric overview/details/actions.
+- Enrollment events and safe localized event descriptions.
+
+The layout continues to use `lang` and `dir` from the active culture. Biometric pages reuse Bootstrap RTL and logical custom CSS, so camera panels, tables, forms, badges, and action rows align correctly in Arabic RTL and English LTR.
+
+## Sprint 4 Theme Notes
+
+The camera and biometric Admin UI use existing CSS variables such as `--surface`, `--surface-secondary`, `--text-primary`, `--text-secondary`, `--border-color`, `--primary`, `--danger`, and `--success`. No important biometric UI text is intentionally hardcoded to dark colors on dark backgrounds. Theme preference remains persisted as `attendai-theme`; culture preference remains persisted through the ASP.NET Core culture cookie.

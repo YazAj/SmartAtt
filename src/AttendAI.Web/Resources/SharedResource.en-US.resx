@@ -498,4 +498,143 @@
   <data name="ErrorLectureOccurrenceExists" xml:space="preserve"><value>A session already exists for this schedule occurrence.</value></data>
   <data name="ErrorLectureActiveResourceConflict" xml:space="preserve"><value>Another active session already uses the instructor, section, or classroom.</value></data>
   <data name="ErrorLectureSessionMustBeActive" xml:space="preserve"><value>Only an active lecture session can perform this action.</value></data>
+  <data name="NavBiometricEnrollments" xml:space="preserve"><value>Biometric enrollments</value></data>
+  <data name="NavBiometricEnrollment" xml:space="preserve"><value>Biometric profile</value></data>
+  <data name="BiometricEnrollmentTitle" xml:space="preserve"><value>Biometric profile</value></data>
+  <data name="BiometricEnrollmentLead" xml:space="preserve"><value>Manage consent, enrollment status, and protected face-template metadata.</value></data>
+  <data name="AdminBiometricEnrollmentsTitle" xml:space="preserve"><value>Biometric enrollment oversight</value></data>
+  <data name="AdminBiometricEnrollmentsLead" xml:space="preserve"><value>Review student biometric enrollment status without exposing template data.</value></data>
+  <data name="RequiresReEnrollment" xml:space="preserve"><value>Requires re-enrollment</value></data>
+  <data name="StudentsRequiringReEnrollmentCount" xml:space="preserve"><value>Students with revoked templates that require new enrollment.</value></data>
+  <data name="BiometricStatus" xml:space="preserve"><value>Biometric status</value></data>
+  <data name="FaceEnrollmentStatusNotEnrolled" xml:space="preserve"><value>Not enrolled</value></data>
+  <data name="FaceEnrollmentStatusEnrollmentInProgress" xml:space="preserve"><value>Enrollment in progress</value></data>
+  <data name="FaceEnrollmentStatusActive" xml:space="preserve"><value>Active</value></data>
+  <data name="FaceEnrollmentStatusRequiresReEnrollment" xml:space="preserve"><value>Requires re-enrollment</value></data>
+  <data name="FaceEnrollmentStatusRevoked" xml:space="preserve"><value>Revoked</value></data>
+  <data name="FaceEnrollmentStatusConsentWithdrawn" xml:space="preserve"><value>Consent withdrawn</value></data>
+  <data name="FaceEnrollmentStatusEngineUnavailable" xml:space="preserve"><value>Engine unavailable</value></data>
+  <data name="BiometricPrivacyNoticeTitle" xml:space="preserve"><value>Biometric privacy notice</value></data>
+  <data name="BiometricPrivacyNoticeLead" xml:space="preserve"><value>Review how AttendAI handles biometric enrollment before giving consent.</value></data>
+  <data name="StartReEnrollment" xml:space="preserve"><value>Start re-enrollment</value></data>
+  <data name="StartEnrollment" xml:space="preserve"><value>Start enrollment</value></data>
+  <data name="Consent" xml:space="preserve"><value>Consent</value></data>
+  <data name="NotActive" xml:space="preserve"><value>Not active</value></data>
+  <data name="Template" xml:space="preserve"><value>Template</value></data>
+  <data name="StoredSecurely" xml:space="preserve"><value>Stored securely</value></data>
+  <data name="NotEnrolled" xml:space="preserve"><value>Not enrolled</value></data>
+  <data name="ConsentRequiredTitle" xml:space="preserve"><value>Consent required</value></data>
+  <data name="ConsentRequiredText" xml:space="preserve"><value>Enrollment is available only after the biometric privacy notice is accepted.</value></data>
+  <data name="ReviewConsent" xml:space="preserve"><value>Review consent</value></data>
+  <data name="ConsentManagement" xml:space="preserve"><value>Consent management</value></data>
+  <data name="ConsentManagementText" xml:space="preserve"><value>Withdrawing consent revokes the active protected template and blocks biometric attendance features until new consent and enrollment are completed.</value></data>
+  <data name="ConfirmWithdrawBiometricConsent" xml:space="preserve"><value>Withdraw biometric consent and revoke the active template?</value></data>
+  <data name="WithdrawConsent" xml:space="preserve"><value>Withdraw consent</value></data>
+  <data name="BiometricEnrollmentEvents" xml:space="preserve"><value>Biometric enrollment events</value></data>
+  <data name="Outcome" xml:space="preserve"><value>Outcome</value></data>
+  <data name="NoBiometricEvents" xml:space="preserve"><value>No biometric enrollment events are recorded.</value></data>
+  <data name="BiometricNoticeWhatTitle" xml:space="preserve"><value>What is captured</value></data>
+  <data name="BiometricNoticeWhatText" xml:space="preserve"><value>The enrollment flow uses camera frames or uploaded images only to create a face template. Raw images are not intentionally persisted.</value></data>
+  <data name="BiometricNoticeStorageTitle" xml:space="preserve"><value>Storage and protection</value></data>
+  <data name="BiometricNoticeStorageText" xml:space="preserve"><value>Only a protected face template, quality metadata, consent metadata, and safe audit events are stored.</value></data>
+  <data name="BiometricNoticeRightsTitle" xml:space="preserve"><value>Your choices</value></data>
+  <data name="BiometricNoticeRightsText" xml:space="preserve"><value>You can withdraw consent from the biometric profile page. Withdrawal revokes the active template.</value></data>
+  <data name="BiometricNoticeLimitTitle" xml:space="preserve"><value>Sprint 4 limitation</value></data>
+  <data name="BiometricNoticeLimitText" xml:space="preserve"><value>Sprint 4 covers enrollment and profile management only. Production face verification and attendance decisions are reserved for later gated work.</value></data>
+  <data name="BiometricConsentCheckbox" xml:space="preserve"><value>I have read the biometric privacy notice and consent to biometric enrollment.</value></data>
+  <data name="AcceptConsent" xml:space="preserve"><value>Accept consent</value></data>
+  <data name="BiometricConsentAlreadyAccepted" xml:space="preserve"><value>Biometric consent is already active.</value></data>
+  <data name="BiometricCaptureTitle" xml:space="preserve"><value>Face capture enrollment</value></data>
+  <data name="BiometricCaptureLead" xml:space="preserve"><value>Capture multiple clear samples for the protected face template.</value></data>
+  <data name="CameraPreviewPlaceholder" xml:space="preserve"><value>Camera preview appears here.</value></data>
+  <data name="CaptureChecklistTitle" xml:space="preserve"><value>Capture checklist</value></data>
+  <data name="CaptureChecklistText" xml:space="preserve"><value>Capture {0} usable samples before submitting.</value></data>
+  <data name="CaptureGuidanceLighting" xml:space="preserve"><value>Use even lighting and keep your face visible.</value></data>
+  <data name="CaptureGuidanceOneFace" xml:space="preserve"><value>Only one face should be present.</value></data>
+  <data name="CaptureGuidanceCenterFace" xml:space="preserve"><value>Center your face and keep the camera steady.</value></data>
+  <data name="StartCamera" xml:space="preserve"><value>Start camera</value></data>
+  <data name="CaptureFrame" xml:space="preserve"><value>Capture frame</value></data>
+  <data name="ClearCaptures" xml:space="preserve"><value>Clear captures</value></data>
+  <data name="UploadCaptureFallback" xml:space="preserve"><value>Upload approved capture files</value></data>
+  <data name="SubmitReEnrollment" xml:space="preserve"><value>Submit re-enrollment</value></data>
+  <data name="SubmitEnrollment" xml:space="preserve"><value>Submit enrollment</value></data>
+  <data name="FaceEngineReadiness" xml:space="preserve"><value>Face engine readiness</value></data>
+  <data name="EngineMode" xml:space="preserve"><value>Engine mode</value></data>
+  <data name="GateResult" xml:space="preserve"><value>Gate result</value></data>
+  <data name="Model" xml:space="preserve"><value>Model</value></data>
+  <data name="ProductionSafe" xml:space="preserve"><value>Production safe</value></data>
+  <data name="SearchBiometricsPlaceholder" xml:space="preserve"><value>Search student number, name, or email</value></data>
+  <data name="NoBiometricEnrollments" xml:space="preserve"><value>No biometric enrollment records match the filters.</value></data>
+  <data name="Engine" xml:space="preserve"><value>Engine</value></data>
+  <data name="AdminBiometricEnrollmentDetails" xml:space="preserve"><value>Biometric enrollment details</value></data>
+  <data name="StudentStatus" xml:space="preserve"><value>Student status</value></data>
+  <data name="EnrolledAt" xml:space="preserve"><value>Enrolled at</value></data>
+  <data name="ActiveTemplateMetadata" xml:space="preserve"><value>Active template metadata</value></data>
+  <data name="TemplateMetadataSafeText" xml:space="preserve"><value>This page displays safe metadata only. Protected template bytes are never rendered.</value></data>
+  <data name="QualityScore" xml:space="preserve"><value>Quality score</value></data>
+  <data name="CaptureCount" xml:space="preserve"><value>Capture count</value></data>
+  <data name="TemplateVersion" xml:space="preserve"><value>Template version</value></data>
+  <data name="EmbeddingDimension" xml:space="preserve"><value>Embedding dimension</value></data>
+  <data name="AdminBiometricActions" xml:space="preserve"><value>Administrative actions</value></data>
+  <data name="AdminBiometricActionsText" xml:space="preserve"><value>Revocation removes the active template state. Re-enrollment marks the student as needing a fresh enrollment.</value></data>
+  <data name="RevokeTemplate" xml:space="preserve"><value>Revoke template</value></data>
+  <data name="RequireReEnrollment" xml:space="preserve"><value>Require re-enrollment</value></data>
+  <data name="TemplateHistory" xml:space="preserve"><value>Template history</value></data>
+  <data name="RevokedAt" xml:space="preserve"><value>Revoked at</value></data>
+  <data name="NoTemplateHistory" xml:space="preserve"><value>No template history is available.</value></data>
+  <data name="BiometricConsentAccepted" xml:space="preserve"><value>Biometric consent was accepted.</value></data>
+  <data name="BiometricConsentWithdrawn" xml:space="preserve"><value>Biometric consent was withdrawn and the active template was revoked.</value></data>
+  <data name="BiometricEnrollmentSucceeded" xml:space="preserve"><value>Biometric enrollment was completed.</value></data>
+  <data name="BiometricTemplateRevoked" xml:space="preserve"><value>The active biometric template was revoked.</value></data>
+  <data name="BiometricReEnrollmentRequired" xml:space="preserve"><value>Re-enrollment is now required for this student.</value></data>
+  <data name="BiometricEngineDisabledMessage" xml:space="preserve"><value>Face enrollment is disabled until an engine mode is configured.</value></data>
+  <data name="BiometricRealEngineUnavailableMessage" xml:space="preserve"><value>Real face enrollment is not verified because a production engine adapter, models, licenses, and approved test images are not configured.</value></data>
+  <data name="BiometricFakeEngineDevelopmentMessage" xml:space="preserve"><value>Development fake engine is enabled for workflow testing only. Production face recognition remains not verified.</value></data>
+  <data name="BiometricFakeEngineProductionBlockedMessage" xml:space="preserve"><value>The fake face engine is blocked in production.</value></data>
+  <data name="FaceEnrollmentEventConsentAccepted" xml:space="preserve"><value>Consent accepted</value></data>
+  <data name="FaceEnrollmentEventConsentWithdrawn" xml:space="preserve"><value>Consent withdrawn</value></data>
+  <data name="FaceEnrollmentEventEnrollmentStarted" xml:space="preserve"><value>Enrollment started</value></data>
+  <data name="FaceEnrollmentEventCaptureRejected" xml:space="preserve"><value>Capture rejected</value></data>
+  <data name="FaceEnrollmentEventTemplateCreated" xml:space="preserve"><value>Template created</value></data>
+  <data name="FaceEnrollmentEventReEnrollmentStarted" xml:space="preserve"><value>Re-enrollment started</value></data>
+  <data name="FaceEnrollmentEventTemplateReplaced" xml:space="preserve"><value>Template replaced</value></data>
+  <data name="FaceEnrollmentEventTemplateRevoked" xml:space="preserve"><value>Template revoked</value></data>
+  <data name="FaceEnrollmentEventAdminRevoked" xml:space="preserve"><value>Admin revoked</value></data>
+  <data name="FaceEnrollmentEventEnrollmentFailed" xml:space="preserve"><value>Enrollment failed</value></data>
+  <data name="FaceEnrollmentEventEngineUnavailable" xml:space="preserve"><value>Engine unavailable</value></data>
+  <data name="OutcomeStarted" xml:space="preserve"><value>Started</value></data>
+  <data name="OutcomeSucceeded" xml:space="preserve"><value>Succeeded</value></data>
+  <data name="OutcomeFailed" xml:space="preserve"><value>Failed</value></data>
+  <data name="FaceEventDescriptionConsentAccepted" xml:space="preserve"><value>Consent accepted.</value></data>
+  <data name="FaceEventDescriptionEnrollmentStarted" xml:space="preserve"><value>Enrollment started.</value></data>
+  <data name="FaceEventDescriptionReEnrollmentStarted" xml:space="preserve"><value>Re-enrollment started.</value></data>
+  <data name="FaceEventDescriptionCaptureRejected" xml:space="preserve"><value>Enrollment capture was rejected safely.</value></data>
+  <data name="FaceEventDescriptionPreviousTemplateReplaced" xml:space="preserve"><value>Previous template replaced by re-enrollment.</value></data>
+  <data name="FaceEventDescriptionTemplateCreated" xml:space="preserve"><value>Protected face template created.</value></data>
+  <data name="FaceEventDescriptionConsentWithdrawn" xml:space="preserve"><value>Consent withdrawn.</value></data>
+  <data name="FaceEventDescriptionTemplateRevokedAfterConsentWithdrawal" xml:space="preserve"><value>Template revoked after consent withdrawal.</value></data>
+  <data name="FaceEventDescriptionTemplateRequiresReEnrollment" xml:space="preserve"><value>Template revoked and re-enrollment required.</value></data>
+  <data name="FaceEventDescriptionTemplateRevokedByAdmin" xml:space="preserve"><value>Template revoked by admin.</value></data>
+  <data name="ErrorBiometricConsentRequired" xml:space="preserve"><value>Biometric consent is required before enrollment.</value></data>
+  <data name="ErrorBiometricActiveTemplateRequired" xml:space="preserve"><value>An active biometric template is required for this action.</value></data>
+  <data name="ErrorBiometricRateLimit" xml:space="preserve"><value>Too many biometric enrollment attempts. Try again later.</value></data>
+  <data name="ErrorBiometricRequestTooLarge" xml:space="preserve"><value>The enrollment request is too large.</value></data>
+  <data name="ErrorBiometricUnexpectedField" xml:space="preserve"><value>The enrollment request contains an unexpected file field.</value></data>
+  <data name="ErrorBiometricCaptureCount" xml:space="preserve"><value>Submit the required number of capture samples.</value></data>
+  <data name="ErrorBiometricImageEmpty" xml:space="preserve"><value>The capture file is empty.</value></data>
+  <data name="ErrorBiometricImageTooLarge" xml:space="preserve"><value>The capture file is too large.</value></data>
+  <data name="ErrorBiometricUnsupportedFormat" xml:space="preserve"><value>Only JPEG and PNG capture files are supported.</value></data>
+  <data name="ErrorBiometricInvalidImage" xml:space="preserve"><value>The capture image could not be read.</value></data>
+  <data name="ErrorBiometricImageTooSmall" xml:space="preserve"><value>The capture image is smaller than the required dimensions.</value></data>
+  <data name="ErrorBiometricImageDimensionsTooLarge" xml:space="preserve"><value>The capture image dimensions exceed the configured limit.</value></data>
+  <data name="ErrorBiometricNoFace" xml:space="preserve"><value>No face was detected in the capture.</value></data>
+  <data name="ErrorBiometricMultipleFaces" xml:space="preserve"><value>Multiple faces were detected in the capture.</value></data>
+  <data name="ErrorBiometricEngineUnavailable" xml:space="preserve"><value>The face engine is unavailable.</value></data>
+  <data name="ErrorBiometricProcessingFailed" xml:space="preserve"><value>The enrollment capture could not be processed.</value></data>
+  <data name="ErrorBiometricQualityTooLow" xml:space="preserve"><value>The capture quality is too low.</value></data>
+  <data name="ErrorBiometricLowBrightness" xml:space="preserve"><value>The capture is too dark.</value></data>
+  <data name="ErrorBiometricHighBrightness" xml:space="preserve"><value>The capture is too bright.</value></data>
+  <data name="ErrorBiometricLowSharpness" xml:space="preserve"><value>The capture is too blurry.</value></data>
+  <data name="ErrorBiometricFaceTooSmall" xml:space="preserve"><value>The detected face is too small.</value></data>
+  <data name="ErrorBiometricFaceTooLarge" xml:space="preserve"><value>The detected face is too large.</value></data>
 </root>

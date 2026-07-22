@@ -72,6 +72,28 @@ Future attendance modules should reuse the existing page header, app panel, form
 - Theme persisted through `localStorage` as `attendai-theme`.
 - Culture persisted through the ASP.NET Core culture cookie.
 
+## Sprint 4 UI Components
+
+- `camera-grid` lays out the live preview and capture controls responsively.
+- `camera-preview` contains the browser video stream and a localized placeholder.
+- `capture-counter` shows how many configured samples are ready.
+- `capture-strip` and `capture-thumb` show local preview thumbnails only before submit.
+- Biometric Admin pages reuse existing `app-panel`, `details-grid`, `app-table`, `status-badge`, and `filter-grid` patterns.
+- Student and Admin dashboards use existing `stat-card` patterns for biometric status and counts.
+
+## Sprint 4 Visual Verification Targets
+
+Required manual/browser combinations:
+
+- English LTR Light Desktop.
+- English LTR Dark Mobile.
+- Arabic RTL Light Desktop.
+- Arabic RTL Dark Tablet.
+- Arabic RTL Dark 390px.
+- Arabic RTL Dark 320px.
+
+The implementation uses existing design tokens for dark/light colors and logical CSS properties for RTL/LTR alignment. Raw image previews are held in browser memory/file inputs only and are not stored in localStorage.
+
 ## Sprint 3 Visual Verification
 
 - English LTR Light Desktop: Admin lecture schedules checked.

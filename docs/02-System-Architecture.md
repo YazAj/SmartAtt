@@ -113,3 +113,27 @@ Configuration supports `ConnectionStrings:DefaultConnection`, `FaceRecognition`,
 - Biometric templates must not be exposed through MVC models.
 - Temporary session codes must not be stored or logged in plain text.
 - Student lecture/session projections must not expose code material.
+
+## Biometric Enrollment Architecture
+
+Sprint 4 follows the same Clean Architecture dependency direction.
+
+```mermaid
+flowchart LR
+    StudentBioUi["Student Biometric MVC"] --> BioContracts["Biometric Application Contracts"]
+    AdminBioUi["Admin Biometric MVC"] --> BioContracts
+    BioContracts --> BioDomain["BiometricConsent / StudentFaceTemplate / FaceEnrollmentEvent"]
+    BioServices["Infrastructure Biometric Services"] --> BioContracts
+    BioServices --> FaceEngine["IFaceRecognitionEngine"]
+    BioServices --> DataProtection["ASP.NET Core Data Protection"]
+    BioServices --> Db["ApplicationDbContext"]
+    Db --> Sql["SQL Server"]
+```
+
+Controllers pass authenticated user context and commands to Application interfaces. Infrastructure validates capture files, coordinates fake/disabled/future real engine modes, protects template bytes, persists consent/template/event rows in transactions, and rate-limits enrollment attempts.
+
+The Web layer never receives protected template bytes through public DTOs. Admin pages render metadata only. Student pages render status and event history only.
+
+## Face Engine Readiness
+
+`FaceRecognition:Provider` supports `Fake`, `Real`, and `Disabled`. `Fake` is allowed for development/testing and blocked for Production enrollment by `FaceEngineReadinessService`. `Real` remains unavailable until the production adapter and model/runtime package are selected and verified. See `docs/27-Face-Engine-Readiness-Gate.md`.
