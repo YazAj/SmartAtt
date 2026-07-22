@@ -105,3 +105,23 @@ Sprint 4 introduced application support for explicit engine modes:
 The fake engine now returns safe template metadata used by the enrollment workflow. It remains unsuitable for production biometric enrollment and must not be represented as a real biometric engine.
 
 Sprint 4 still has no selected production engine. A real ONNX-based option would require face detection, face embedding, preprocessing/alignment, template normalization, similarity/distance strategy, threshold calibration, licensing review, and native/runtime deployment packaging. See `docs/27-Face-Engine-Readiness-Gate.md`.
+
+## Sprint 5 Update
+
+Sprint 5 uses the same `IFaceRecognitionEngine` abstraction for one-to-one self-verification. The verified runtime evidence is limited to the deterministic fake-development engine. Fake verification is useful for exercising workflow, authorization, persistence, localization, and threshold-policy plumbing, but it is not biometric evidence.
+
+The real-engine gate remains Not Verified:
+
+- Engine/library: Not selected.
+- Detection model: Not selected.
+- Embedding model: Not selected.
+- Model licenses: Not verified.
+- Native/runtime package: Not verified.
+- Approved same-person samples: Not available.
+- Approved different-person samples: Not available.
+- No-face and multiple-face real image tests: Not executed.
+- Threshold calibration: Not performed.
+
+Sprint 5 added explicit template compatibility checks using engine name/version, model name/version, template format version, and embedding dimension. Incompatible active templates are rejected safely and marked for re-enrollment. This prevents fake templates from being silently accepted by a future real verifier.
+
+Before Sprint 6 production attendance work depends on face verification, the team must provide approved local samples outside Git, choose licensed detection and embedding models, implement the adapter, document preprocessing and normalization, run same-person and different-person comparisons, verify no-face/multiple-face/low-quality handling, and calibrate a threshold. Do not commit biometric images, model files, or license keys.

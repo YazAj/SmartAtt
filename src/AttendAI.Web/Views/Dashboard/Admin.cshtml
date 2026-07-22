@@ -53,6 +53,16 @@
         <strong>@Model.StudentsRequiringBiometricReEnrollment</strong>
         <p>@Localizer["StudentsRequiringReEnrollmentCount"]</p>
     </article>
+    <article class="stat-card">
+        <span>@Localizer["FaceVerificationAttemptsToday"]</span>
+        <strong>@Model.FaceVerificationAttemptsToday</strong>
+        <p><a asp-area="Admin" asp-controller="FaceVerifications" asp-action="Index">@Localizer["AdminFaceVerificationsTitle"]</a></p>
+    </article>
+    <article class="stat-card">
+        <span>@Localizer["FaceVerificationMatchesToday"]</span>
+        <strong>@Model.FaceVerificationMatchesToday</strong>
+        <p>@Localizer["DevelopmentVerificationOnly"]</p>
+    </article>
 </section>
 
 <section class="app-panel">
@@ -68,5 +78,6 @@
         <a class="btn btn-secondary app-btn" asp-area="Admin" asp-controller="LectureSchedules" asp-action="Index">@Localizer["LectureSchedulesTitle"]</a>
         <a class="btn btn-secondary app-btn" asp-area="Admin" asp-controller="LectureSessions" asp-action="Index">@Localizer["LectureSessionsTitle"]</a>
         <a class="btn btn-secondary app-btn" asp-area="Admin" asp-controller="BiometricEnrollments" asp-action="Index">@Localizer["AdminBiometricEnrollmentsTitle"]</a>
+        <a class="btn btn-secondary app-btn" asp-area="Admin" asp-controller="FaceVerifications" asp-action="Index">@Localizer["AdminFaceVerificationsTitle"]</a>
     </div>
 </section>

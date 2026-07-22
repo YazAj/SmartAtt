@@ -2,6 +2,32 @@
 
 ## 2026-07-22
 
+### Sprint 5 Added
+
+- Added one-to-one Student face verification against only the authenticated Student's active compatible template.
+- Added append-only `FaceVerificationAttempt` safe metadata persistence and EF Core migration `20260722221335_AddFaceVerification`.
+- Added verification outcomes, purpose, score metric policy, strongly typed options, eligibility, rate limiting, idempotency, diagnostics, template compatibility, and one-to-one verifier contracts.
+- Added Infrastructure services for verification policy, diagnostics, compatibility, rate limiting, eligibility, query projections, attempt persistence, and template unprotection inside Infrastructure only.
+- Added Student verification status, capture, result, and history pages with fake-mode demo warning.
+- Added Admin face-verification overview, filters, details, diagnostics, and dashboard metrics.
+- Added Sprint 5 unit and integration tests for domain rules, threshold decisions, compatibility checks, authorization, idempotency, match/no-match, and incompatible-template re-enrollment marking.
+- Added Sprint 5 documentation set: plan, domain model, test plan, review, security, threshold calibration, and real-engine integration guide.
+
+### Sprint 5 Changed
+
+- Updated README, SRS, architecture, ERD, use cases, UI design notes, localization/theme documentation, face technical spike, traceability matrix, data dictionary, Sprint 4 review, and face-engine readiness gate.
+- Updated navigation and dashboards with Student verification and Admin verification oversight links while leaving Instructor without verification management controls.
+- Updated English and Arabic resources for verification statuses, diagnostics, validation messages, enum labels, page titles, buttons, table labels, and warnings.
+- Updated shared camera JavaScript so verification capture stops camera tracks on submit and page unload.
+
+### Sprint 5 Verified
+
+- Verified SQL Server LocalDB database `AttendAI_Sprint5Verification_20260723` through all migrations including `AddFaceVerification`.
+- Verified fake-development runtime smoke: Admin login, Student creation, Student forced password change, biometric consent, fake enrollment, match verification, no-match verification, rate-limit outcome, Student denial from Admin verification routes, and Admin safe attempt details.
+- Verified automated tests: 94 total, 94 passed, 0 failed, 0 skipped during implementation after Sprint 5 coverage was added.
+- Verified no attendance registration, location validation, attendance reports, exports, notifications, or one-to-many identification were implemented.
+- Real face-engine runtime remains Not Verified because approved biometric samples, licensed models, production adapter, and native dependencies are not available.
+
 ### Sprint 4 Added
 
 - Added biometric consent, protected face-template, and face-enrollment event domain entities and enums.

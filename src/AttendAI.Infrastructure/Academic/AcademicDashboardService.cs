@@ -16,6 +16,8 @@ public sealed class AcademicDashboardService : IAcademicDashboardService
 
     public async Task<AdminDashboardSummaryDto> GetAdminSummaryAsync(CancellationToken cancellationToken = default)
     {
+        var todayUtc = new DateTimeOffset(DateTimeOffset.UtcNow.Date, TimeSpan.Zero);
+        var verificationCounts = await GetVerificationCountsAsync(todayUtc, cancellationToken);
         return new AdminDashboardSummaryDto(
             await _dbContext.Students.CountAsync(student => student.IsActive, cancellationToken),
             await _dbContext.Instructors.CountAsync(instructor => instructor.IsActive, cancellationToken),
@@ -24,7 +26,9 @@ public sealed class AcademicDashboardService : IAcademicDashboardService
             await _dbContext.Sections.CountAsync(section => section.IsActive, cancellationToken),
             await _dbContext.Classrooms.CountAsync(classroom => classroom.IsActive, cancellationToken),
             await _dbContext.StudentFaceTemplates.CountAsync(template => template.IsActive, cancellationToken),
-            await _dbContext.StudentFaceTemplates.CountAsync(template => !template.IsActive && template.RequiresReEnrollment, cancellationToken));
+            await _dbContext.StudentFaceTemplates.CountAsync(template => !template.IsActive && template.RequiresReEnrollment, cancellationToken),
+            verificationCounts.AttemptsToday,
+            verificationCounts.MatchesToday);
     }
 
     public async Task<InstructorDashboardSummaryDto> GetInstructorSummaryAsync(string userId, CancellationToken cancellationToken = default)
@@ -60,7 +64,7 @@ public sealed class AcademicDashboardService : IAcademicDashboardService
 
         if (student is null)
         {
-            return new StudentDashboardSummaryDto(null, null, null, FaceEnrollmentStatus.NotEnrolled, []);
+            return new StudentDashboardSummaryDto(null, null, null, FaceEnrollmentStatus.NotEnrolled, false, null, []);
         }
 
         var enrollments = await _dbContext.StudentEnrollments
@@ -84,11 +88,19 @@ public sealed class AcademicDashboardService : IAcademicDashboardService
                 enrollment.EnrollmentStatus))
             .ToListAsync(cancellationToken);
 
+        var biometricStatus = await GetStudentBiometricStatusAsync(student.Id, cancellationToken);
+        var faceVerificationEligible = biometricStatus == FaceEnrollmentStatus.Active &&
+            await _dbContext.BiometricConsents.AnyAsync(consent => consent.StudentId == student.Id && consent.IsActive, cancellationToken) &&
+            await _dbContext.StudentFaceTemplates.AnyAsync(template => template.StudentId == student.Id && template.IsActive && !template.RequiresReEnrollment, cancellationToken);
+        var lastVerificationOutcome = await GetLastVerificationOutcomeAsync(student.Id, cancellationToken);
+
         return new StudentDashboardSummaryDto(
             student.Department?.NameEnglish,
             student.Department?.NameArabic,
             student.AcademicLevel,
-            await GetStudentBiometricStatusAsync(student.Id, cancellationToken),
+            biometricStatus,
+            faceVerificationEligible,
+            lastVerificationOutcome,
             enrollments);
     }
 
@@ -126,5 +138,47 @@ public sealed class AcademicDashboardService : IAcademicDashboardService
         return latestConsent?.WithdrawnAtUtc is not null
             ? FaceEnrollmentStatus.ConsentWithdrawn
             : FaceEnrollmentStatus.NotEnrolled;
+    }
+
+    private async Task<(int AttemptsToday, int MatchesToday)> GetVerificationCountsAsync(
+        DateTimeOffset todayUtc,
+        CancellationToken cancellationToken)
+    {
+        if (_dbContext.Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
+        {
+            var attempts = await _dbContext.FaceVerificationAttempts
+                .AsNoTracking()
+                .Select(attempt => new { attempt.AttemptedAtUtc, attempt.Decision })
+                .ToListAsync(cancellationToken);
+            return (
+                attempts.Count(attempt => attempt.AttemptedAtUtc >= todayUtc),
+                attempts.Count(attempt => attempt.AttemptedAtUtc >= todayUtc && attempt.Decision == FaceVerificationDecision.Match));
+        }
+
+        return (
+            await _dbContext.FaceVerificationAttempts.CountAsync(attempt => attempt.AttemptedAtUtc >= todayUtc, cancellationToken),
+            await _dbContext.FaceVerificationAttempts.CountAsync(attempt => attempt.AttemptedAtUtc >= todayUtc && attempt.Decision == FaceVerificationDecision.Match, cancellationToken));
+    }
+
+    private async Task<FaceVerificationOutcome?> GetLastVerificationOutcomeAsync(Guid studentId, CancellationToken cancellationToken)
+    {
+        if (_dbContext.Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
+        {
+            return (await _dbContext.FaceVerificationAttempts
+                    .AsNoTracking()
+                    .Where(attempt => attempt.StudentId == studentId)
+                    .Select(attempt => new { attempt.AttemptedAtUtc, attempt.Outcome })
+                    .ToListAsync(cancellationToken))
+                .OrderByDescending(attempt => attempt.AttemptedAtUtc)
+                .Select(attempt => (FaceVerificationOutcome?)attempt.Outcome)
+                .FirstOrDefault();
+        }
+
+        return await _dbContext.FaceVerificationAttempts
+            .AsNoTracking()
+            .Where(attempt => attempt.StudentId == studentId)
+            .OrderByDescending(attempt => attempt.AttemptedAtUtc)
+            .Select(attempt => (FaceVerificationOutcome?)attempt.Outcome)
+            .FirstOrDefaultAsync(cancellationToken);
     }
 }

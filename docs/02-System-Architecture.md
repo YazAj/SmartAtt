@@ -4,8 +4,8 @@
 
 ```mermaid
 flowchart LR
-    Web["AttendAI.Web\nMVC, Razor, auth UI, lecture UI, localization, themes"] --> Application["AttendAI.Application\nContracts, role routing, schedules, sessions, safe redirects, face engine interface"]
-    Web --> Infrastructure["AttendAI.Infrastructure\nEF Core, Identity, seeding, lecture services, fake engine"]
+    Web["AttendAI.Web\nMVC, Razor, auth UI, lecture/biometric/verification UI, localization, themes"] --> Application["AttendAI.Application\nContracts, role routing, schedules, sessions, biometrics, verification, safe redirects, face engine interface"]
+    Web --> Infrastructure["AttendAI.Infrastructure\nEF Core, Identity, seeding, lecture/biometric/verification services, fake engine"]
     Infrastructure --> Application
     Infrastructure --> Domain["AttendAI.Domain\nCore concepts and framework-free enums"]
     Application --> Domain
@@ -77,7 +77,7 @@ CSS custom properties define design tokens. `[data-theme="dark"]` overrides toke
 
 ## Face Engine Abstraction
 
-`IFaceRecognitionEngine` lives in Application. Infrastructure provides `FakeFaceRecognitionEngine` for tests and development. Controllers and Razor views do not contain face-recognition logic. Sprint 3 does not call face recognition from lecture scheduling or session management.
+`IFaceRecognitionEngine` lives in Application. Infrastructure provides `FakeFaceRecognitionEngine` for tests and development plus `DisabledFaceRecognitionEngine` for safe rejection. Controllers and Razor views do not contain face-recognition logic. Lecture scheduling and session management do not call face recognition.
 
 ## Future Attendance Workflow
 
@@ -137,3 +137,37 @@ The Web layer never receives protected template bytes through public DTOs. Admin
 ## Face Engine Readiness
 
 `FaceRecognition:Provider` supports `Fake`, `Real`, and `Disabled`. `Fake` is allowed for development/testing and blocked for Production enrollment by `FaceEngineReadinessService`. `Real` remains unavailable until the production adapter and model/runtime package are selected and verified. See `docs/27-Face-Engine-Readiness-Gate.md`.
+
+## Face Verification Architecture
+
+Sprint 5 introduces one-to-one verification while preserving Clean Architecture boundaries.
+
+```mermaid
+flowchart LR
+    StudentVerifyUi["Student Face Verification MVC"] --> VerificationContracts["Face Verification Application Contracts"]
+    AdminVerifyUi["Admin Verification MVC"] --> VerificationContracts
+    VerificationContracts --> VerificationDomain["FaceVerificationAttempt and verification enums"]
+    VerificationServices["Infrastructure Verification Services"] --> VerificationContracts
+    VerificationServices --> Db["ApplicationDbContext"]
+    VerificationServices --> FaceEngine["IFaceRecognitionEngine"]
+    VerificationServices --> DataProtection["ASP.NET Core Data Protection"]
+    VerificationServices --> Policy["Threshold, metric, rate limit, diagnostics"]
+    Db --> Sql["SQL Server"]
+```
+
+Controllers submit the authenticated user id and a capture command. They never accept a StudentId, template id, protected template, template fingerprint, or embedding from the browser. Infrastructure resolves the Student, checks eligibility, validates the capture, loads only the Student's active template, checks engine/template compatibility, unprotects the template, calls the configured engine, applies the threshold policy, stores safe attempt metadata, and returns a safe DTO.
+
+`FaceVerificationAttempt` is append-only metadata. It deliberately omits raw captures, image paths, base64 images, face encoding bytes, protected template bytes, template fingerprints, session codes, model file paths, and raw native exceptions.
+
+The verification service is future-ready for attendance use through `IOneToOneFaceVerifier`, but Sprint 5 invokes only `FaceVerificationPurpose.SelfTest`. No attendance record, attendance status, location validation, report, export, or notification path calls the service.
+
+## Template Compatibility
+
+`ITemplateCompatibilityService` compares template metadata with current engine diagnostics:
+
+- Engine name and version.
+- Model name and version.
+- Template format version.
+- Embedding dimension.
+
+Incompatible active templates are rejected safely and marked for re-enrollment. Fake templates are not silently accepted by a future real verifier.

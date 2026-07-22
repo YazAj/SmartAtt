@@ -106,3 +106,25 @@ The implementation uses existing design tokens for dark/light colors and logical
 - Keyboard walkthrough passed for mobile navigation, filters/forms, timetable/session links, active-session actions, language selector, theme selector, and Escape close behavior.
 - Theme persisted through `localStorage` as `attendai-theme`.
 - Culture persisted through the ASP.NET Core culture cookie.
+
+## Sprint 5 UI Components
+
+- Student face-verification status uses existing `app-panel`, `status-badge`, `details-grid`, `empty-state`, and action button patterns.
+- Student capture reuses the camera grid and preview behavior from biometric enrollment but posts exactly one verification capture.
+- Result pages use localized safe outcome copy and score/threshold metadata without displaying images, embeddings, template ids, or template fingerprints.
+- Student history and Admin attempt overview reuse `app-table`, `filter-grid`, pagination, badges, and empty states.
+- Admin diagnostics uses compact status panels so the fake-development warning, threshold, score metric, rate-limit policy, and real-engine gate are visible without implying production readiness.
+- Instructor navigation remains unchanged and has no face-verification management controls.
+
+## Sprint 5 Visual Verification Targets
+
+Required runtime/manual combinations:
+
+- English LTR Light at 1440x900.
+- English LTR Dark at 390x844.
+- Arabic RTL Light at 1024x768.
+- Arabic RTL Dark at 768x1024.
+- Arabic RTL Dark at 390x844.
+- Arabic RTL Dark at 320x568.
+
+Checked surfaces include sidebar, navbar, breadcrumbs/page titles, dropdowns, forms, placeholders, validation messages, buttons, cards, tables, badges, alerts, empty states, profile menu, Student verification pages, Admin verification pages, dashboards, and error/access-denied flows. Verification capture previews are kept in browser memory/file inputs only and are not written to localStorage, IndexedDB, query strings, or persisted DOM after submit.

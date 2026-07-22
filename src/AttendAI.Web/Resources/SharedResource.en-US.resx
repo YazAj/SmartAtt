@@ -637,4 +637,120 @@
   <data name="ErrorBiometricLowSharpness" xml:space="preserve"><value>The capture is too blurry.</value></data>
   <data name="ErrorBiometricFaceTooSmall" xml:space="preserve"><value>The detected face is too small.</value></data>
   <data name="ErrorBiometricFaceTooLarge" xml:space="preserve"><value>The detected face is too large.</value></data>
+  <data name="NavFaceVerification" xml:space="preserve"><value>Face verification</value></data>
+  <data name="NavFaceVerifications" xml:space="preserve"><value>Face verification attempts</value></data>
+  <data name="FaceVerificationTitle" xml:space="preserve"><value>Face verification</value></data>
+  <data name="FaceVerificationLead" xml:space="preserve"><value>Run a one-to-one self-test against your own active biometric template.</value></data>
+  <data name="StartFaceVerification" xml:space="preserve"><value>Start verification</value></data>
+  <data name="Eligibility" xml:space="preserve"><value>Eligibility</value></data>
+  <data name="Eligible" xml:space="preserve"><value>Eligible</value></data>
+  <data name="NotEligible" xml:space="preserve"><value>Not eligible</value></data>
+  <data name="ConsentRequiredForVerification" xml:space="preserve"><value>Active biometric consent is required for verification.</value></data>
+  <data name="FaceVerificationTemplateCompatible" xml:space="preserve"><value>Template is compatible with the configured verification engine.</value></data>
+  <data name="FaceVerificationHistory" xml:space="preserve"><value>Verification history</value></data>
+  <data name="FaceVerificationHistoryText" xml:space="preserve"><value>Only safe attempt metadata is shown. Captures, templates, and embeddings are not displayed.</value></data>
+  <data name="AttemptedAt" xml:space="preserve"><value>Attempted at</value></data>
+  <data name="Decision" xml:space="preserve"><value>Decision</value></data>
+  <data name="Score" xml:space="preserve"><value>Score</value></data>
+  <data name="NoFaceVerificationAttempts" xml:space="preserve"><value>No face verification attempts are available.</value></data>
+  <data name="FaceVerificationCaptureTitle" xml:space="preserve"><value>Capture verification image</value></data>
+  <data name="FaceVerificationCaptureLead" xml:space="preserve"><value>Capture one current image for a one-to-one comparison with your own active template.</value></data>
+  <data name="FaceVerificationDemoWarning" xml:space="preserve"><value>Demo verification is using the deterministic Fake engine. This is not real biometric recognition.</value></data>
+  <data name="FaceVerificationCameraPlaceholder" xml:space="preserve"><value>Camera preview appears here for verification.</value></data>
+  <data name="VerificationCaptureChecklistTitle" xml:space="preserve"><value>Verification capture</value></data>
+  <data name="VerificationCaptureChecklistText" xml:space="preserve"><value>Submit one clear image with only your face in view.</value></data>
+  <data name="SubmitFaceVerification" xml:space="preserve"><value>Submit verification</value></data>
+  <data name="FaceVerificationResultTitle" xml:space="preserve"><value>Verification result</value></data>
+  <data name="TryAgain" xml:space="preserve"><value>Try again</value></data>
+  <data name="Threshold" xml:space="preserve"><value>Threshold</value></data>
+  <data name="FaceVerificationThresholdPolicy" xml:space="preserve"><value>Decision uses the configured score metric and threshold.</value></data>
+  <data name="ProcessingTime" xml:space="preserve"><value>Processing time</value></data>
+  <data name="MillisecondsShort" xml:space="preserve"><value>ms</value></data>
+  <data name="SafeVerificationMetadata" xml:space="preserve"><value>Safe verification metadata</value></data>
+  <data name="SafeVerificationMetadataText" xml:space="preserve"><value>This metadata excludes images, templates, template fingerprints, and embeddings.</value></data>
+  <data name="ImageDimensions" xml:space="preserve"><value>Image dimensions</value></data>
+  <data name="DetectedFaceCount" xml:space="preserve"><value>Detected face count</value></data>
+  <data name="TemplateFormatVersion" xml:space="preserve"><value>Template format version</value></data>
+  <data name="AdminFaceVerificationsTitle" xml:space="preserve"><value>Face verification attempts</value></data>
+  <data name="AdminFaceVerificationsLead" xml:space="preserve"><value>Review one-to-one verification attempts with safe metadata only.</value></data>
+  <data name="EngineDiagnostics" xml:space="preserve"><value>Engine diagnostics</value></data>
+  <data name="VerificationDiagnostics" xml:space="preserve"><value>Verification diagnostics</value></data>
+  <data name="ScoreMetric" xml:space="preserve"><value>Score metric</value></data>
+  <data name="SearchVerificationAttemptsPlaceholder" xml:space="preserve"><value>Search student number, name, or email</value></data>
+  <data name="FaceVerificationAttemptDetails" xml:space="preserve"><value>Face verification attempt details</value></data>
+  <data name="Purpose" xml:space="preserve"><value>Purpose</value></data>
+  <data name="ErrorCode" xml:space="preserve"><value>Error code</value></data>
+  <data name="TemplateReference" xml:space="preserve"><value>Template reference</value></data>
+  <data name="VerificationEnabled" xml:space="preserve"><value>Verification enabled</value></data>
+  <data name="DemoMode" xml:space="preserve"><value>Demo mode</value></data>
+  <data name="RateLimit" xml:space="preserve"><value>Rate limit</value></data>
+  <data name="VerificationRateLimitSummary" xml:space="preserve"><value>{0} attempts per {1} minutes with {2} seconds cooldown.</value></data>
+  <data name="FaceVerificationAttemptsToday" xml:space="preserve"><value>Verification attempts today</value></data>
+  <data name="FaceVerificationMatchesToday" xml:space="preserve"><value>Verification matches today</value></data>
+  <data name="DevelopmentVerificationOnly" xml:space="preserve"><value>Development self-test only; no attendance record is created.</value></data>
+  <data name="LastVerificationOutcome" xml:space="preserve"><value>Last verification outcome</value></data>
+  <data name="FaceVerificationDisabledMessage" xml:space="preserve"><value>Face verification is disabled by configuration.</value></data>
+  <data name="FaceVerificationEngineDisabledMessage" xml:space="preserve"><value>The face verification engine is disabled.</value></data>
+  <data name="FaceVerificationRealEngineUnavailableMessage" xml:space="preserve"><value>Real face verification is not verified because a production engine adapter, models, licenses, and approved test samples are not configured.</value></data>
+  <data name="FaceVerificationFakeEngineDevelopmentMessage" xml:space="preserve"><value>Development Fake verification is enabled for Localhost demonstration only.</value></data>
+  <data name="FaceVerificationFakeEngineBlockedMessage" xml:space="preserve"><value>Fake verification is blocked for this environment or policy.</value></data>
+  <data name="FaceVerificationReadyMessage" xml:space="preserve"><value>Face verification is ready for a one-to-one self-test.</value></data>
+  <data name="FaceVerificationMatchedMessage" xml:space="preserve"><value>The captured face matched the active template under the configured demo policy.</value></data>
+  <data name="FaceVerificationNotMatchedMessage" xml:space="preserve"><value>The captured face did not match the active template under the configured demo policy.</value></data>
+  <data name="ErrorFaceVerificationUnexpectedField" xml:space="preserve"><value>The verification request contains an unexpected file field.</value></data>
+  <data name="ErrorFaceVerificationCaptureRequired" xml:space="preserve"><value>Submit one verification capture.</value></data>
+  <data name="ErrorFaceVerificationRequestTooLarge" xml:space="preserve"><value>The verification request is too large.</value></data>
+  <data name="ErrorFaceVerificationConsentRequired" xml:space="preserve"><value>Active biometric consent is required before verification.</value></data>
+  <data name="ErrorFaceVerificationActiveTemplateRequired" xml:space="preserve"><value>An active biometric template is required before verification.</value></data>
+  <data name="ErrorFaceVerificationRequiresReEnrollment" xml:space="preserve"><value>Your biometric profile must be re-enrolled before verification.</value></data>
+  <data name="ErrorFaceVerificationIncompatibleTemplate" xml:space="preserve"><value>Your biometric profile was created with an incompatible face model and must be enrolled again.</value></data>
+  <data name="ErrorFaceVerificationNoFace" xml:space="preserve"><value>No face was detected in the verification capture.</value></data>
+  <data name="ErrorFaceVerificationMultipleFaces" xml:space="preserve"><value>Multiple faces were detected in the verification capture.</value></data>
+  <data name="ErrorFaceVerificationEngineUnavailable" xml:space="preserve"><value>The face verification engine is unavailable.</value></data>
+  <data name="ErrorFaceVerificationProcessingFailed" xml:space="preserve"><value>The verification capture could not be processed.</value></data>
+  <data name="ErrorFaceVerificationQualityTooLow" xml:space="preserve"><value>The verification capture quality is too low.</value></data>
+  <data name="ErrorFaceVerificationInvalidImage" xml:space="preserve"><value>The verification capture image could not be read.</value></data>
+  <data name="ErrorFaceVerificationRateLimit" xml:space="preserve"><value>Too many verification attempts. Try again later.</value></data>
+  <data name="ErrorFaceVerificationPasswordChangeRequired" xml:space="preserve"><value>Change your temporary password before face verification.</value></data>
+  <data name="ErrorFaceVerificationEligibility" xml:space="preserve"><value>Face verification eligibility could not be confirmed.</value></data>
+  <data name="FaceVerificationOutcomeMatched" xml:space="preserve"><value>Matched</value></data>
+  <data name="FaceVerificationOutcomeNotMatched" xml:space="preserve"><value>Not matched</value></data>
+  <data name="FaceVerificationOutcomeNoActiveConsent" xml:space="preserve"><value>No active consent</value></data>
+  <data name="FaceVerificationOutcomeNoActiveTemplate" xml:space="preserve"><value>No active template</value></data>
+  <data name="FaceVerificationOutcomeRequiresReEnrollment" xml:space="preserve"><value>Requires re-enrollment</value></data>
+  <data name="FaceVerificationOutcomeIncompatibleTemplate" xml:space="preserve"><value>Incompatible template</value></data>
+  <data name="FaceVerificationOutcomeNoFace" xml:space="preserve"><value>No face</value></data>
+  <data name="FaceVerificationOutcomeMultipleFaces" xml:space="preserve"><value>Multiple faces</value></data>
+  <data name="FaceVerificationOutcomeLowQuality" xml:space="preserve"><value>Low quality</value></data>
+  <data name="FaceVerificationOutcomeInvalidImage" xml:space="preserve"><value>Invalid image</value></data>
+  <data name="FaceVerificationOutcomeRateLimited" xml:space="preserve"><value>Rate limited</value></data>
+  <data name="FaceVerificationOutcomeEngineUnavailable" xml:space="preserve"><value>Engine unavailable</value></data>
+  <data name="FaceVerificationOutcomeProcessingFailed" xml:space="preserve"><value>Processing failed</value></data>
+  <data name="FaceVerificationOutcomeCancelled" xml:space="preserve"><value>Cancelled</value></data>
+  <data name="FaceVerificationPurposeSelfTest" xml:space="preserve"><value>Self-test</value></data>
+  <data name="FaceVerificationPurposeEngineValidation" xml:space="preserve"><value>Engine validation</value></data>
+  <data name="FaceVerificationPurposeFutureAttendance" xml:space="preserve"><value>Future attendance</value></data>
+  <data name="FaceVerificationDecisionUnknown" xml:space="preserve"><value>Unknown</value></data>
+  <data name="FaceVerificationDecisionMatch" xml:space="preserve"><value>Match</value></data>
+  <data name="FaceVerificationDecisionNoMatch" xml:space="preserve"><value>No match</value></data>
+  <data name="FaceVerificationDecisionNoFaceDetected" xml:space="preserve"><value>No face detected</value></data>
+  <data name="FaceVerificationDecisionMultipleFacesDetected" xml:space="preserve"><value>Multiple faces detected</value></data>
+  <data name="FaceVerificationDecisionEngineError" xml:space="preserve"><value>Engine error</value></data>
+  <data name="ScoreMetricCosineSimilarity" xml:space="preserve"><value>Cosine similarity</value></data>
+  <data name="ScoreMetricEuclideanDistance" xml:space="preserve"><value>Euclidean distance</value></data>
+  <data name="ScoreMetricEngineDefined" xml:space="preserve"><value>Engine-defined</value></data>
+  <data name="FaceVerificationAttemptDescriptionMatched" xml:space="preserve"><value>Verification matched the active template.</value></data>
+  <data name="FaceVerificationAttemptDescriptionNotMatched" xml:space="preserve"><value>Verification did not match the active template.</value></data>
+  <data name="FaceVerificationAttemptDescriptionNoActiveConsent" xml:space="preserve"><value>Verification rejected because active consent was missing.</value></data>
+  <data name="FaceVerificationAttemptDescriptionNoActiveTemplate" xml:space="preserve"><value>Verification rejected because no active template was available.</value></data>
+  <data name="FaceVerificationAttemptDescriptionRequiresReEnrollment" xml:space="preserve"><value>Verification rejected because re-enrollment is required.</value></data>
+  <data name="FaceVerificationAttemptDescriptionIncompatibleTemplate" xml:space="preserve"><value>Verification rejected because the template is incompatible.</value></data>
+  <data name="FaceVerificationAttemptDescriptionNoFace" xml:space="preserve"><value>Verification capture was rejected because no face was detected.</value></data>
+  <data name="FaceVerificationAttemptDescriptionMultipleFaces" xml:space="preserve"><value>Verification capture was rejected because multiple faces were detected.</value></data>
+  <data name="FaceVerificationAttemptDescriptionLowQuality" xml:space="preserve"><value>Verification capture was rejected because quality was too low.</value></data>
+  <data name="FaceVerificationAttemptDescriptionInvalidImage" xml:space="preserve"><value>Verification capture was rejected as an invalid image.</value></data>
+  <data name="FaceVerificationAttemptDescriptionRateLimited" xml:space="preserve"><value>Verification attempt was rate limited.</value></data>
+  <data name="FaceVerificationAttemptDescriptionEngineUnavailable" xml:space="preserve"><value>Verification engine was unavailable.</value></data>
+  <data name="FaceVerificationAttemptDescriptionProcessingFailed" xml:space="preserve"><value>Verification processing failed safely.</value></data>
+  <data name="FaceVerificationAttemptDescriptionCancelled" xml:space="preserve"><value>Verification was cancelled safely.</value></data>
 </root>

@@ -346,6 +346,134 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
                     b.ToTable("FaceEnrollmentEvents", (string)null);
                 });
 
+            modelBuilder.Entity("AttendAI.Domain.Academic.FaceVerificationAttempt", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("AttemptedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("ClientRequestId")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("Decision")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DetectedFaceCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EngineName")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("EngineVersion")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("ErrorCode")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<Guid?>("FaceTemplateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("ImageHeight")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ImageWidth")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModelName")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<string>("ModelVersion")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<int>("Outcome")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProcessingDurationMilliseconds")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("QualityScore")
+                        .HasColumnType("decimal(5,4)");
+
+                    b.Property<string>("SafeDescription")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<decimal?>("Score")
+                        .HasColumnType("decimal(9,6)");
+
+                    b.Property<int>("ScoreMetric")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TemplateFormatVersion")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<decimal>("Threshold")
+                        .HasColumnType("decimal(9,6)");
+
+                    b.Property<DateTimeOffset?>("UpdatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("VerificationPurpose")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FaceTemplateId")
+                        .HasDatabaseName("IX_FaceVerificationAttempts_FaceTemplateId");
+
+                    b.HasIndex("Outcome", "AttemptedAtUtc")
+                        .HasDatabaseName("IX_FaceVerificationAttempts_Outcome_AttemptedAtUtc");
+
+                    b.HasIndex("StudentId", "AttemptedAtUtc")
+                        .HasDatabaseName("IX_FaceVerificationAttempts_StudentId_AttemptedAtUtc");
+
+                    b.HasIndex("StudentId", "ClientRequestId")
+                        .IsUnique()
+                        .HasDatabaseName("UX_FaceVerificationAttempts_StudentId_ClientRequestId")
+                        .HasFilter("[ClientRequestId] <> ''");
+
+                    b.ToTable("FaceVerificationAttempts", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_FaceVerificationAttempts_DetectedFaceCount", "[DetectedFaceCount] IS NULL OR [DetectedFaceCount] >= 0");
+
+                            t.HasCheckConstraint("CK_FaceVerificationAttempts_ImageHeight", "[ImageHeight] IS NULL OR [ImageHeight] >= 0");
+
+                            t.HasCheckConstraint("CK_FaceVerificationAttempts_ImageWidth", "[ImageWidth] IS NULL OR [ImageWidth] >= 0");
+
+                            t.HasCheckConstraint("CK_FaceVerificationAttempts_ProcessingDuration", "[ProcessingDurationMilliseconds] IS NULL OR [ProcessingDurationMilliseconds] >= 0");
+
+                            t.HasCheckConstraint("CK_FaceVerificationAttempts_QualityScore", "[QualityScore] IS NULL OR ([QualityScore] >= 0 AND [QualityScore] <= 1)");
+
+                            t.HasCheckConstraint("CK_FaceVerificationAttempts_Score", "[Score] IS NULL OR [Score] >= 0");
+
+                            t.HasCheckConstraint("CK_FaceVerificationAttempts_Threshold", "[Threshold] >= 0");
+                        });
+                });
+
             modelBuilder.Entity("AttendAI.Domain.Academic.Instructor", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1247,6 +1375,24 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("BiometricConsent");
+
+                    b.Navigation("FaceTemplate");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.FaceVerificationAttempt", b =>
+                {
+                    b.HasOne("AttendAI.Domain.Academic.StudentFaceTemplate", "FaceTemplate")
+                        .WithMany()
+                        .HasForeignKey("FaceTemplateId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("AttendAI.Domain.Academic.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("FaceTemplate");
 

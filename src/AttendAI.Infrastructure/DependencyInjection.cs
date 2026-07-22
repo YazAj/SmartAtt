@@ -2,11 +2,13 @@ using AttendAI.Application.Academic;
 using AttendAI.Application.Academic.Dashboard;
 using AttendAI.Application.Biometrics;
 using AttendAI.Application.FaceRecognition;
+using AttendAI.Application.FaceVerification;
 using AttendAI.Application.Lectures;
 using AttendAI.Infrastructure.Academic;
 using AttendAI.Infrastructure.Biometrics;
 using AttendAI.Infrastructure.Configuration;
 using AttendAI.Infrastructure.FaceRecognition;
+using AttendAI.Infrastructure.FaceVerification;
 using AttendAI.Infrastructure.Identity;
 using AttendAI.Infrastructure.Lectures;
 using AttendAI.Infrastructure.Persistence;
@@ -41,6 +43,9 @@ public static class DependencyInjection
 
         services.Configure<BiometricEnrollmentOptions>(
             configuration.GetSection(BiometricEnrollmentOptions.SectionName));
+
+        services.Configure<FaceVerificationOptions>(
+            configuration.GetSection(FaceVerificationOptions.SectionName));
 
         services.Configure<LectureSchedulingOptions>(
             configuration.GetSection(LectureSchedulingOptions.SectionName));
@@ -86,6 +91,14 @@ public static class DependencyInjection
         services.AddSingleton<IBiometricEnrollmentRateLimiter, InMemoryBiometricEnrollmentRateLimiter>();
         services.AddScoped<IFaceEngineReadinessService, FaceEngineReadinessService>();
         services.AddScoped<IBiometricEnrollmentService, BiometricEnrollmentService>();
+        services.AddScoped<IFaceEngineDiagnosticsService, FaceEngineDiagnosticsService>();
+        services.AddScoped<ITemplateCompatibilityService, TemplateCompatibilityService>();
+        services.AddScoped<IFaceVerificationPolicyService, FaceVerificationPolicyService>();
+        services.AddSingleton<IFaceVerificationRateLimiter, InMemoryFaceVerificationRateLimiter>();
+        services.AddScoped<IFaceVerificationEligibilityService, FaceVerificationEligibilityService>();
+        services.AddScoped<IOneToOneFaceVerifier, OneToOneFaceVerifier>();
+        services.AddScoped<IFaceVerificationService, FaceVerificationService>();
+        services.AddScoped<IFaceVerificationQueryService, FaceVerificationQueryService>();
         services.AddScoped<IDepartmentService, DepartmentService>();
         services.AddScoped<IStudentService, StudentService>();
         services.AddScoped<IInstructorService, InstructorService>();

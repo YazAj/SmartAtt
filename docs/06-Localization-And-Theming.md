@@ -106,3 +106,23 @@ The layout continues to use `lang` and `dir` from the active culture. Biometric 
 ## Sprint 4 Theme Notes
 
 The camera and biometric Admin UI use existing CSS variables such as `--surface`, `--surface-secondary`, `--text-primary`, `--text-secondary`, `--border-color`, `--primary`, `--danger`, and `--success`. No important biometric UI text is intentionally hardcoded to dark colors on dark backgrounds. Theme preference remains persisted as `attendai-theme`; culture preference remains persisted through the ASP.NET Core culture cookie.
+
+## Sprint 5 Localization Additions
+
+Sprint 5 added English and Arabic resources for:
+
+- Student face-verification navigation, status, capture, result, and history pages.
+- Admin face-verification overview, filters, details, diagnostics, and dashboard metrics.
+- Verification outcome, decision, purpose, score metric, and safe attempt description labels.
+- Eligibility, request validation, rate limit, incompatible template, no-face, multiple-face, low-quality, engine-unavailable, match, and no-match messages.
+- Fake-development engine warnings and real-engine readiness labels.
+
+Visible Razor text for the Sprint 5 pages is resource-backed through `IStringLocalizer<SharedResource>`. Enum values are rendered through localized keys instead of raw enum names.
+
+## Sprint 5 Theme And Direction Notes
+
+The verification UI uses the existing design tokens and logical CSS properties for English LTR and Arabic RTL. The Student capture page, Student result/history, Admin table/filter/details, diagnostics panels, badges, alerts, and dashboard cards were checked for dark-theme readability and RTL alignment.
+
+Theme preference continues to persist in `localStorage` as `attendai-theme`, and the inline layout script applies the resolved theme before stylesheet loading to reduce incorrect-theme flash. Culture preference continues to persist through the ASP.NET Core culture cookie.
+
+Manual/runtime verification target combinations are recorded in `docs/30-Sprint-5-Test-Plan.md` and `docs/31-Sprint-5-Review.md`. Any item without runtime browser evidence is marked Not Verified rather than Passed.

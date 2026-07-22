@@ -1,3 +1,4 @@
+using AttendAI.Application.FaceVerification;
 using AttendAI.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -25,6 +26,12 @@ public sealed class IdentityCookieWebApplicationFactory : WebApplicationFactory<
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(_connection));
+
+            services.Configure<FaceVerificationOptions>(options =>
+            {
+                options.CooldownSeconds = 0;
+                options.MaximumAttemptsPerWindow = 100;
+            });
         });
     }
 

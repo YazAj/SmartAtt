@@ -1,0 +1,50 @@
+@model StudentFaceVerificationStatusDto
+@{
+    ViewData["Title"] = Localizer["FaceVerificationCaptureTitle"];
+    var maximumCaptureBytes = (int)(ViewBag.MaximumCaptureBytes ?? 1500000);
+    var allowedContentTypes = (string)(ViewBag.AllowedContentTypes ?? "image/jpeg,image/png");
+    var clientRequestId = (string)(ViewBag.ClientRequestId ?? Guid.NewGuid().ToString("N"));
+}
+<section class="page-header"><div><p class="eyebrow">@Localizer["FaceVerificationTitle"]</p><h1>@Localizer["FaceVerificationCaptureTitle"]</h1><p>@Localizer["FaceVerificationCaptureLead"]</p></div><div class="page-actions"><a class="btn btn-secondary app-btn" asp-action="Index">@Localizer["BackToStatus"]</a></div></section>
+@if (Model.Diagnostics.IsDemoMode)
+{
+    <div class="alert app-alert alert-warning">@Localizer["FaceVerificationDemoWarning"]</div>
+}
+<section class="app-panel" data-face-capture data-required-captures="1" data-max-capture-bytes="@maximumCaptureBytes">
+    <div asp-validation-summary="All" class="validation-summary"></div>
+    @if (!Model.Eligibility.IsEligible)
+    {
+        <div class="alert app-alert alert-danger">@Localizer[Model.Eligibility.MessageKey]</div>
+        <a class="btn btn-primary app-btn" asp-controller="BiometricEnrollment" asp-action="Index">@Localizer["BiometricEnrollmentTitle"]</a>
+    }
+    else
+    {
+        <form asp-action="Verify" method="post" enctype="multipart/form-data" class="app-form biometric-form">
+            <input type="hidden" name="ClientRequestId" value="@clientRequestId" />
+            <div class="camera-grid">
+                <div class="camera-preview">
+                    <video playsinline muted data-biometric-video></video>
+                    <canvas hidden data-biometric-canvas></canvas>
+                    <div class="camera-placeholder" data-biometric-placeholder>@Localizer["FaceVerificationCameraPlaceholder"]</div>
+                </div>
+                <div class="capture-panel">
+                    <div class="section-heading"><h2>@Localizer["VerificationCaptureChecklistTitle"]</h2><p>@Localizer["VerificationCaptureChecklistText"]</p></div>
+                    <ol class="check-list">
+                        <li>@Localizer["CaptureGuidanceLighting"]</li>
+                        <li>@Localizer["CaptureGuidanceOneFace"]</li>
+                        <li>@Localizer["CaptureGuidanceCenterFace"]</li>
+                    </ol>
+                    <div class="capture-counter"><span data-biometric-count>0</span><span>/</span><span>1</span></div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary app-btn" type="button" data-biometric-start>@Localizer["StartCamera"]</button>
+                        <button class="btn btn-primary app-btn" type="button" data-biometric-capture disabled>@Localizer["CaptureFrame"]</button>
+                        <button class="btn btn-secondary app-btn" type="button" data-biometric-clear disabled>@Localizer["ClearCaptures"]</button>
+                    </div>
+                    <div class="form-field"><label class="form-label" for="VerificationCaptureFile">@Localizer["UploadCaptureFallback"]</label><input id="VerificationCaptureFile" type="file" name="capture" accept="@allowedContentTypes" class="form-control" data-biometric-file-input /></div>
+                    <div class="capture-strip" data-biometric-strip></div>
+                    <button class="btn btn-primary app-btn" type="submit" data-biometric-submit disabled>@Localizer["SubmitFaceVerification"]</button>
+                </div>
+            </div>
+        </form>
+    }
+</section>

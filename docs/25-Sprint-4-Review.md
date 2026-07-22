@@ -80,3 +80,7 @@ Checked Student biometric status, privacy, enrollment, Admin overview, and Admin
 ## Recommended Commit
 
 `feat(sprint-4): implement secure biometric face enrollment`
+
+## Sprint 5 Baseline Confirmation
+
+Sprint 5 implementation started after Sprint 4 was committed as `dd98658 feat(sprint-4): implement biometric enrollment foundation` on branch `main` tracking `origin/main`. Sprint 5 preserved the Sprint 4 consent, protected template, enrollment, re-enrollment, withdrawal, Admin oversight, and readiness-gate behavior. The real face-engine gate remains Not Verified and is carried into Sprint 5 as a mandatory production blocker.

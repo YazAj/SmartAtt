@@ -39,6 +39,16 @@
         <strong>@Localizer[$"FaceEnrollmentStatus{Model.BiometricStatus}"]</strong>
         <p><a asp-controller="BiometricEnrollment" asp-action="Index">@Localizer["BiometricEnrollmentTitle"]</a></p>
     </article>
+    <article class="stat-card">
+        <span>@Localizer["FaceVerificationTitle"]</span>
+        <strong>@(Model.FaceVerificationEligible ? Localizer["Eligible"] : Localizer["NotEligible"])</strong>
+        <p><a asp-controller="FaceVerification" asp-action="Index">@Localizer["NavFaceVerification"]</a></p>
+    </article>
+    <article class="stat-card">
+        <span>@Localizer["LastVerificationOutcome"]</span>
+        <strong>@(Model.LastFaceVerificationOutcome.HasValue ? Localizer[$"FaceVerificationOutcome{Model.LastFaceVerificationOutcome.Value}"] : Localizer["NotApplicable"])</strong>
+        <p>@Localizer["DevelopmentVerificationOnly"]</p>
+    </article>
 </section>
 
 @if (Model.EnrolledSections.Count == 0)

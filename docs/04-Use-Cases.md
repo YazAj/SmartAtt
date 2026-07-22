@@ -144,6 +144,20 @@
 - Main flow: Search/filter Students by enrollment status, view safe metadata/history, revoke active template, or require re-enrollment with a reason.
 - Rules: Admin cannot see protected template bytes and cannot accept Student consent.
 
+## UC-22 Student Face Self-Verification
+
+- Actor: Student
+- Trigger: Student opens Face verification.
+- Main flow: The system resolves the Student from the authenticated user, checks active account/profile, password-change completion, active consent, active compatible template, enabled engine, cooldown, and rate limits. The Student captures one image, submits it with antiforgery protection, receives Match, No Match, or a safe rejection result, and can review paged safe history.
+- Rules: The browser never posts a StudentId or template id. The capture is processed in memory, compared only against the Student's own active compatible template, and is not stored.
+
+## UC-23 Admin Face-Verification Oversight
+
+- Actor: Admin
+- Trigger: Admin opens Face verification oversight.
+- Main flow: Search and filter attempts by Student, outcome, decision, and date, inspect safe attempt details, and review diagnostics/readiness information.
+- Rules: Admin sees safe metadata only. Protected templates, template fingerprints, embeddings, raw captures, model paths, and raw native errors are not exposed.
+
 ## Future Use Cases Not Implemented
 
-Attendance registration, student code submission, location validation for attendance, duplicate attendance prevention, reports, production face verification, and production attendance decisions.
+Attendance registration, student code submission for attendance, location validation for attendance, duplicate attendance prevention, reports, exports, notifications, one-to-many face identification, classroom-camera recognition, liveness production claims, production real-engine verification, and production attendance decisions.

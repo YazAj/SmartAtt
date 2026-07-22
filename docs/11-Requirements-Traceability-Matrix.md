@@ -81,10 +81,33 @@
 | R-60 | No raw image retention | Schema, controller, service, docs | Migration/source scan | Passed | No raw-image table/column added; captures are processed from memory and not saved. |
 | R-61 | No Sprint 5 behavior | Source/migration review | `rg` source and migration review | Passed | No attendance submission, face verification UI, location validation, reports, or attendance decisions added. |
 
+## Sprint 5 Face Verification And One-To-One Matching
+
+| ID | Description | Implementation Location | Test / Verification Location | Status | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| R-62 | Verification attempt domain model | `FaceVerificationAttempt`, verification enums | `FaceVerificationDomainTests`, migration review | Passed | Append-only safe metadata entity and enums compile and tests pass. |
+| R-63 | Verification application contracts | `AttendAI.Application/FaceVerification` | Build and integration tests | Passed | Commands, queries, DTOs, options, result models, and service interfaces compile and are exercised. |
+| R-64 | SQL Server verification migration | `20260722221335_AddFaceVerification` | EF update and SQL schema queries | Passed | `FaceVerificationAttempts` exists with FKs, indexes, checks, and no image/embedding/template columns. |
+| R-65 | Student ownership and eligibility | `FaceVerificationService`, `FaceVerificationEligibilityService`, `FaceVerificationController` | Integration tests and runtime smoke | Passed | Student is resolved from authenticated user; inactive/password/consent/template/engine/rate checks are enforced. |
+| R-66 | One-to-one verification pipeline | `OneToOneFaceVerifier` | Integration tests and runtime smoke | Passed | Capture validates, one face is required, quality checked, active template loaded, unprotected in Infrastructure, compared one-to-one, and attempt persisted. |
+| R-67 | Threshold and score policy | `FaceVerificationPolicyService`, options | `FaceVerificationPolicyTests`, runtime diagnostics | Passed | Cosine similarity matches when score is greater than or equal to threshold; Euclidean distance matches when score is less than or equal to threshold. |
+| R-68 | Template compatibility and re-enrollment | `TemplateCompatibilityService`, `FaceVerificationService` | `TemplateCompatibilityServiceTests`, `VerifyCurrentStudentAsync_marks_incompatible_active_template_for_re_enrollment` | Passed | Engine/model/format/dimension mismatch rejects safely and marks active template for re-enrollment. |
+| R-69 | Rate limiting and idempotency | `InMemoryFaceVerificationRateLimiter`, unique filtered index | Runtime smoke, integration tests, migration review | Passed | Repeated client request id returns the existing attempt; rate-limit attempt is recorded safely. |
+| R-70 | Student verification UI | `Views/FaceVerification`, `FaceVerificationController`, `site.js` | Runtime smoke and manual UI checks | Passed | Status, capture, result, history, demo warning, and camera-track cleanup implemented. |
+| R-71 | Admin verification oversight | Admin `FaceVerificationsController` and views | Authorization tests and runtime smoke | Passed | Overview, filters, details, diagnostics, and safe metadata verified. |
+| R-72 | Authorization boundaries | Controllers and role attributes | `FaceVerificationAuthorizationTests`, runtime smoke | Passed | Student allowed only for Student routes; Admin allowed only for Admin routes; Instructor/anonymous rejected. |
+| R-73 | Privacy and sensitive data boundary | Schema, DTOs, views, services | SQL/source/HTML/runtime scans | Passed | Attempts and HTML omit raw images, encodings, protected templates, template fingerprints, model paths, and attendance data. |
+| R-74 | Localization and theme coverage | `SharedResource.*.resx`, Razor views, CSS/JS | Browser/manual verification and build | Passed | English/Arabic, LTR/RTL, light/dark resources and tokenized styling are implemented. |
+| R-75 | Dashboards and navigation | Layout, dashboards, `AcademicDashboardService` | Runtime smoke and build | Passed | Admin verification metrics and Student verification status/link added; Instructor remains unchanged. |
+| R-76 | Automated Sprint 5 quality gate | Whole solution | Restore/build/test/format/git diff | Passed | Final command results are recorded in `docs/31-Sprint-5-Review.md`. |
+| R-77 | Real engine readiness | `FaceEngineDiagnosticsService`, docs | Gate review | Not Verified | Approved samples, licensed models, adapter, native dependencies, and threshold calibration are unavailable. |
+| R-78 | No Sprint 6 scope | Source/migration review | `rg` source search and schema review | Passed | No attendance records/statuses/reports, location validation, exports, notifications, or one-to-many identification were implemented. |
+
 ## Not Verified / Future Gates
 
 | ID | Description | Status | Required Before Production |
 | --- | --- | --- | --- |
 | G-01 | Real face recognition runtime | Not Verified | Approved biometric samples, selected licensed detection and embedding models, preprocessing, threshold calibration, production adapter, and native deployment package. |
-| G-02 | Production attendance registration | Not Implemented | Sprint 5 planning after Sprint 4 acceptance and face-recognition gate. |
+| G-02 | Production attendance registration | Not Implemented | Sprint 6 planning after Sprint 5 acceptance and real face-engine/threshold gate. |
 | G-03 | Notification delivery for temporary passwords | Not Implemented | Secure out-of-band delivery design; temporary passwords are entered by Admin during Sprint 2. |
+| G-04 | Production liveness and anti-spoofing | Not Implemented | Separate approved design, licensed model/dependency review, and security testing. |

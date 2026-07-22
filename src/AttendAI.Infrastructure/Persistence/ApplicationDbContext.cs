@@ -40,6 +40,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<FaceEnrollmentEvent> FaceEnrollmentEvents => Set<FaceEnrollmentEvent>();
 
+    public DbSet<FaceVerificationAttempt> FaceVerificationAttempts => Set<FaceVerificationAttempt>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

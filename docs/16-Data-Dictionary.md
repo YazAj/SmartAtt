@@ -44,6 +44,13 @@
 | LectureSessionStatus | Active, Ended, Cancelled, Expired |
 | LectureSessionEventType | Started, CodeGenerated, CodeRegenerated, Ended, Cancelled, Expired, AdminForceEnded |
 | ScheduleConflictType | Classroom, Instructor, Section |
+| FaceEnrollmentStatus | NotStarted, ConsentRequired, ReadyToEnroll, Active, RequiresReEnrollment, Withdrawn, EngineUnavailable |
+| FaceEnrollmentEventType | ConsentAccepted, EnrollmentSucceeded, EnrollmentFailed, ReEnrollmentSucceeded, ReEnrollmentRequired, TemplateRevoked, ConsentWithdrawn |
+| FaceCaptureRejectionReason | None, EmptyImage, UnsupportedMimeType, FileTooLarge, ImageTooSmall, ImageTooLarge, InvalidImage, NoFace, MultipleFaces, QualityTooLow, LowBrightness, HighBrightness, LowSharpness, TooManyCaptures, RequestTooLarge, UnexpectedField |
+| FaceVerificationOutcome | Matched, NotMatched, NoActiveConsent, NoActiveTemplate, RequiresReEnrollment, IncompatibleTemplate, NoFace, MultipleFaces, LowQuality, InvalidImage, RateLimited, EngineUnavailable, ProcessingFailed, Cancelled |
+| FaceVerificationPurpose | SelfTest, EngineValidation, FutureAttendance |
+| FaceVerificationDecision | Unknown, Match, NoMatch, NoFaceDetected, MultipleFacesDetected, EngineError |
+| ScoreMetric | CosineSimilarity, EuclideanDistance, EngineDefined |
 
 ## LectureSchedules
 
@@ -115,6 +122,7 @@
 - Temporary password values are accepted through Admin forms but are not stored in academic tables.
 - Temporary session codes are returned only in authorized runtime responses and are not persisted in plain text.
 - Sprint 4 stores protected face template bytes only in `StudentFaceTemplates.ProtectedTemplate`; public DTOs and views expose metadata only.
+- Sprint 5 verification attempts store safe metadata only. They do not store raw images, image paths, base64 images, face encoding bytes, embeddings, protected templates, template fingerprints, facial landmarks, session codes, attendance status, location data, model file paths, or raw native exceptions.
 
 ## Biometric Enrollment Tables
 
@@ -175,3 +183,38 @@
 | EngineName | nvarchar(80) | Yes | 80 | none | Internal | Engine name. |
 | EngineVersion | nvarchar(80) | Yes | 80 | none | Internal | Engine version. |
 | SafeDescription | nvarchar(300) | Yes | 300 | none | Internal | Localizable safe description key. |
+
+## Face Verification Tables
+
+### FaceVerificationAttempts
+
+| Column | SQL Type | Required | Max | Index / Relationship | Privacy | Description |
+| --- | --- | --- | --- | --- | --- | --- |
+| Id | uniqueidentifier | Yes | n/a | PK | Internal | Attempt identifier. |
+| StudentId | uniqueidentifier | Yes | n/a | FK `Students`; indexed with AttemptedAtUtc | Internal | Student subject resolved from authenticated user. |
+| FaceTemplateId | uniqueidentifier nullable | No | n/a | FK `StudentFaceTemplates`; indexed | Internal | Template used when one was loaded. |
+| VerificationPurpose | int | Yes | n/a | check constraint | Internal | Sprint 5 UI uses `SelfTest`; future attendance value is not invoked. |
+| Outcome | int | Yes | n/a | indexed with AttemptedAtUtc; check constraint | Internal | Safe localized outcome. |
+| Decision | int | Yes | n/a | check constraint | Internal | Match, no-match, or safe rejection decision. |
+| ErrorCode | nvarchar(80) | Yes | 80 | none | Internal | Safe error code only; no raw exception text. |
+| Score | decimal(9,6) nullable | No | n/a | check constraint | Internal | Similarity/distance score when produced. |
+| Threshold | decimal(9,6) | Yes | n/a | check constraint | Internal | Configured threshold at attempt time. |
+| ScoreMetric | int | Yes | n/a | check constraint | Internal | Explicit metric/direction for interpreting score. |
+| EngineName | nvarchar(80) | Yes | 80 | none | Internal | Engine name. |
+| EngineVersion | nvarchar(80) | Yes | 80 | none | Internal | Engine version. |
+| ModelName | nvarchar(120) | Yes | 120 | none | Internal | Model name. |
+| ModelVersion | nvarchar(80) | Yes | 80 | none | Internal | Model version. |
+| TemplateFormatVersion | nvarchar(80) | Yes | 80 | none | Internal | Expected template format. |
+| AttemptedAtUtc | datetimeoffset | Yes | n/a | Student/time and outcome/time indexes | Internal | Attempt timestamp. |
+| ClientRequestId | nvarchar(80) | Yes | 80 | filtered unique `(StudentId, ClientRequestId)` | Internal | Optional idempotency key; must not contain sensitive data. |
+| SafeDescription | nvarchar(300) | Yes | 300 | none | Internal | Localizable safe description key. |
+| ImageWidth | int nullable | No | n/a | check constraint | Internal | Validated capture width, if known. |
+| ImageHeight | int nullable | No | n/a | check constraint | Internal | Validated capture height, if known. |
+| DetectedFaceCount | int nullable | No | n/a | check constraint | Internal | Safe face-count outcome. |
+| QualityScore | decimal(5,4) nullable | No | n/a | check constraint | Internal | Normalized quality score, if known. |
+| ProcessingDurationMilliseconds | int nullable | No | n/a | check constraint | Internal | Safe processing timing. |
+| CreatedAtUtc | datetimeoffset | Yes | n/a | audit | Internal | Creation timestamp. |
+| UpdatedAtUtc | datetimeoffset nullable | No | n/a | audit | Internal | Present from shared base but not used for normal editing. |
+| RowVersion | rowversion | Yes | n/a | concurrency token | Internal | Optimistic concurrency token. |
+
+No normal UI path edits or physically deletes verification attempts. Retention policy remains a future production governance item.

@@ -64,6 +64,7 @@
                             <a class="app-menu-link @(currentArea == "Admin" && currentController == "LectureSchedules" ? "active" : "")" asp-area="Admin" asp-controller="LectureSchedules" asp-action="Index">@Localizer["NavLectureSchedules"]</a>
                             <a class="app-menu-link @(currentArea == "Admin" && currentController == "LectureSessions" ? "active" : "")" asp-area="Admin" asp-controller="LectureSessions" asp-action="Index">@Localizer["NavLectureSessions"]</a>
                             <a class="app-menu-link @(currentArea == "Admin" && currentController == "BiometricEnrollments" ? "active" : "")" asp-area="Admin" asp-controller="BiometricEnrollments" asp-action="Index">@Localizer["NavBiometricEnrollments"]</a>
+                            <a class="app-menu-link @(currentArea == "Admin" && currentController == "FaceVerifications" ? "active" : "")" asp-area="Admin" asp-controller="FaceVerifications" asp-action="Index">@Localizer["NavFaceVerifications"]</a>
                         </div>
                     }
                     @if (User.IsInRole(RoleConstants.Instructor))
@@ -74,6 +75,7 @@
                     {
                         <a class="app-menu-link @(currentController == "StudentSchedule" ? "active" : "")" asp-area="" asp-controller="StudentSchedule" asp-action="Index">@Localizer["NavMySchedule"]</a>
                         <a class="app-menu-link @(currentController == "BiometricEnrollment" ? "active" : "")" asp-area="" asp-controller="BiometricEnrollment" asp-action="Index">@Localizer["NavBiometricEnrollment"]</a>
+                        <a class="app-menu-link @(currentController == "FaceVerification" ? "active" : "")" asp-area="" asp-controller="FaceVerification" asp-action="Index">@Localizer["NavFaceVerification"]</a>
                     }
                     <a class="app-menu-link" asp-area="" asp-controller="Profile" asp-action="Index">@Localizer["NavProfile"]</a>
                     <a class="app-menu-link" asp-area="" asp-controller="Account" asp-action="ChangePassword">@Localizer["NavChangePassword"]</a>

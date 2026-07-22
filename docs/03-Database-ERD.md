@@ -1,6 +1,6 @@
 # 03. Database ERD
 
-Sprint 3 implements ASP.NET Core Identity tables, academic setup tables, lecture schedules, lecture sessions, and session lifecycle events. Attendance records, biometric templates, recognition attempts, notifications, and activity logs remain future entities.
+AttendAI implements ASP.NET Core Identity tables, academic setup tables, lecture schedules, lecture sessions, session lifecycle events, biometric consent/templates/events, and Sprint 5 safe face-verification attempts. Attendance records, reports, notifications, one-to-many recognition, and activity logs remain future entities.
 
 ```mermaid
 erDiagram
@@ -169,8 +169,9 @@ erDiagram
         string SafeDescription
     }
 
-    Students ||--o{ FaceProfiles : future_has
-    FaceProfiles ||--o{ RecognitionAttempts : future_used_by
+    Students ||--o{ BiometricConsents : grants
+    Students ||--o{ StudentFaceTemplates : owns
+    Students ||--o{ FaceVerificationAttempts : self_verifies
     LectureSessions ||--o{ AttendanceRecords : future_records
     Students ||--o{ AttendanceRecords : future_marks
     AspNetUsers ||--o{ Notifications : future_receives
@@ -244,3 +245,41 @@ erDiagram
 ```
 
 SQL Server constraints include one active consent per Student, one active template per Student, unique template version per Student, rowversion concurrency for consent/template rows, and check constraints for quality score, capture count, embedding dimension, and template version. No raw-image column exists.
+
+## Sprint 5 Face Verification ERD Delta
+
+```mermaid
+erDiagram
+    Students ||--o{ FaceVerificationAttempts : owns
+    StudentFaceTemplates ||--o{ FaceVerificationAttempts : used_by
+
+    FaceVerificationAttempts {
+        uniqueidentifier Id PK
+        uniqueidentifier StudentId FK
+        uniqueidentifier FaceTemplateId FK
+        int VerificationPurpose
+        int Outcome
+        int Decision
+        string ErrorCode
+        decimal Score
+        decimal Threshold
+        int ScoreMetric
+        string EngineName
+        string EngineVersion
+        string ModelName
+        string ModelVersion
+        string TemplateFormatVersion
+        datetime AttemptedAtUtc
+        string ClientRequestId
+        string SafeDescription
+        int ImageWidth
+        int ImageHeight
+        int DetectedFaceCount
+        decimal QualityScore
+        int ProcessingDurationMilliseconds
+    }
+```
+
+SQL Server constraints include two foreign keys, seven check constraints for bounded enum/score/image/face-count/timing metadata, indexes for Student/time and outcome/time queries, and a filtered unique idempotency index on `(StudentId, ClientRequestId)` when `ClientRequestId` is not empty.
+
+The table intentionally has no raw image, image path, base64 image, encoding, embedding, protected template, template fingerprint, facial landmarks, session code, attendance status, location, model path, or raw exception column.

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-AttendAI is a responsive university attendance management platform for the graduation project **Smart Attendance Management System Using Face Recognition**. Sprint 3 builds on the verified identity and academic foundations by adding lecture scheduling and live lecture-session management.
+AttendAI is a responsive university attendance management platform for the graduation project **Smart Attendance Management System Using Face Recognition**. Sprint 5 builds on the verified identity, academic, lecture, and biometric-enrollment foundations by adding secure one-to-one Student self-verification.
 
 ## Scope
 
@@ -10,13 +10,17 @@ Sprint 1 includes authentication, role authorization, dashboard shells, localiza
 
 Sprint 2 adds academic and account management for administrator-created Student and Instructor users. It includes departments, students, instructors, courses, sections, classrooms, enrollments, instructor assignments, academic dashboards, activation/deactivation, temporary password reset, and first-login password change.
 
-Sprint 3 adds weekly lecture schedules, conflict detection, instructor/student timetables, live lecture sessions, temporary session-code management, admin session monitoring, lifecycle audit events, and session timing configuration. It does not implement attendance registration, student code submission, reports, exports, production face enrollment, production face verification, liveness detection, location validation, or notifications.
+Sprint 3 adds weekly lecture schedules, conflict detection, instructor/student timetables, live lecture sessions, temporary session-code management, admin session monitoring, lifecycle audit events, and session timing configuration.
+
+Sprint 4 adds biometric privacy notice, explicit Student consent, capture validation, protected template storage, Student biometric enrollment and re-enrollment, consent withdrawal, Admin biometric oversight, and the real-engine readiness gate.
+
+Sprint 5 adds one-to-one Student self-verification, eligibility checks, capture validation, template compatibility, safe attempt metadata, Admin verification oversight, diagnostics, rate limiting, idempotency, threshold policy, and fake-development runtime verification. It does not implement attendance registration, attendance records, attendance statuses, attendance reports, production real face recognition, liveness detection, location validation, notifications, exports, or one-to-many identification.
 
 ## User Roles
 
-- Admin: academic setup, lecture scheduling, and session monitoring owner.
+- Admin: academic setup, lecture scheduling, session monitoring, biometric oversight, and face-verification oversight owner.
 - Instructor: assigned section viewer and authorized lecture-session operator.
-- Student: academic profile, enrollment, and schedule viewer for future attendance registration.
+- Student: academic profile, enrollment, schedule viewer, biometric profile owner, and one-to-one self-verification actor.
 
 ## Product Functions
 
@@ -39,6 +43,11 @@ Sprint 3 adds weekly lecture schedules, conflict detection, instructor/student t
 - Allow Admin users to monitor, force-end, and expire stale active lecture sessions.
 - Preserve session lifecycle audit history.
 - Hide temporary session codes from Student responses.
+- Manage Student biometric consent, protected template enrollment, re-enrollment, withdrawal, and safe history.
+- Allow eligible Students to perform one-to-one self-verification against their own active compatible template.
+- Persist safe verification-attempt metadata without raw captures, encodings, protected templates, or template fingerprints.
+- Allow Admin users to review verification attempts and engine diagnostics using safe metadata only.
+- Clearly label fake-engine verification as development/demo behavior.
 
 ## Functional Requirements
 
@@ -76,6 +85,15 @@ Sprint 3 adds weekly lecture schedules, conflict detection, instructor/student t
 | FR-30 | Admin users can monitor active/historical Lecture Sessions and force-end active Sessions. |
 | FR-31 | Lecture Session lifecycle events are persisted without storing plain codes. |
 | FR-32 | Ended, cancelled, expired, and force-ended Sessions invalidate active code state. |
+| FR-33 | Students can accept biometric consent, enroll, re-enroll, withdraw consent, and view safe enrollment history. |
+| FR-34 | Admin users can view biometric enrollment status and safe metadata without template exposure. |
+| FR-35 | Eligible Students can open self-verification status, capture one image, submit it, and receive a localized safe result. |
+| FR-36 | Verification uses only the authenticated Student's active compatible template and never performs one-to-many search. |
+| FR-37 | Verification attempts are append-only safe metadata and store no raw image, encoding, protected template, template fingerprint, session code, or location data. |
+| FR-38 | Verification applies an explicit configurable threshold and score metric. |
+| FR-39 | Incompatible templates are rejected safely and marked for re-enrollment. |
+| FR-40 | Admin users can search/filter verification attempts, view safe details, and inspect diagnostics/readiness status. |
+| FR-41 | Student, Admin, Instructor, anonymous, and cross-Student authorization boundaries are enforced for verification. |
 
 ## Non-Functional Requirements
 
@@ -88,6 +106,8 @@ Sprint 3 adds weekly lecture schedules, conflict detection, instructor/student t
 - SQL Server constraints and service rules must protect duplicate academic records and invalid ranges.
 - Lecture scheduling must use server-side conflict checks, transactions, pagination, and efficient projections.
 - Session timestamps must be stored in UTC and displayed in the configured application time zone.
+- Biometric verification must process captures in memory, persist safe metadata only, and use server-side rate limiting and idempotency.
+- Real face-engine verification must not be marked passed without approved samples, licensed models, adapter initialization, and threshold evidence.
 
 ## Security Requirements
 
@@ -101,6 +121,8 @@ Sprint 3 adds weekly lecture schedules, conflict detection, instructor/student t
 - Inactive academic user accounts must be blocked from login.
 - Temporary session codes must be generated securely, hashed/protected at rest, invalidated on terminal transitions, and omitted from Student responses.
 - Lecture-session state changes must use antiforgery validation, authorization checks, and optimistic concurrency.
+- Face verification POST actions must use antiforgery validation, size limits, MIME/signature validation, safe error mapping, rate limiting, and Student ownership checks.
+- The Web layer must not receive template bytes, embeddings, template fingerprints, or raw native model paths.
 
 ## Privacy Requirements
 
@@ -108,13 +130,14 @@ Sprint 3 adds weekly lecture schedules, conflict detection, instructor/student t
 - The project should store a face template where possible.
 - The system should avoid permanent storage of raw images.
 - Access to biometric data must be restricted.
-- Sprint 3 does not perform production attendance verification or attendance registration.
+- Sprint 5 performs Student self-verification only; it does not create attendance data.
+- Verification captures are not intentionally retained in SQL Server, disk, browser storage, query strings, or logs.
 
 ## Localization Requirements
 
 - Support `en-US` and `ar-JO`.
 - Persist selected culture in a culture cookie.
-- Localize primary navigation, authentication, dashboard, validation, error, theme, language, lecture schedule, lecture session, timetable, and countdown text.
+- Localize primary navigation, authentication, dashboard, validation, error, theme, language, lecture schedule, lecture session, timetable, countdown, biometric enrollment, and face-verification text.
 
 ## Theme Requirements
 
@@ -135,6 +158,8 @@ Sprint 3 adds weekly lecture schedules, conflict detection, instructor/student t
 - Lecture Schedules cannot overlap for the same Classroom, Instructor, or Section.
 - Lecture Sessions are unique per Lecture Schedule and Session Date.
 - A Student can see active-session state but cannot see temporary session codes.
+- A Student may verify only themselves after password-change completion, active account/profile checks, active consent, active template, compatible template metadata, enabled engine, cooldown, and rate-limit checks.
+- Verification outcomes must be Match, No Match, or a safe rejection state; they must not create attendance records.
 
 ## Face Recognition Statement
 
@@ -142,9 +167,23 @@ The project integrates a pre-trained third-party face recognition engine. The re
 
 The initial version uses one-to-one face verification, not one-to-many identification.
 
+## Sprint 5 Face Verification Requirements
+
+- Resolve the Student from the authenticated Identity user.
+- Reject inactive users, inactive Student profiles, and users still required to change password.
+- Require active biometric consent and an active compatible template.
+- Validate exactly one capture file named for the verification workflow.
+- Validate MIME type, file signature, size, request size, image dimensions, face-count outcome, and quality outcome.
+- Unprotect templates only inside Infrastructure and zero unprotected bytes where practical.
+- Compare the capture only with the authenticated Student's template.
+- Apply `ScoreMetric` and `VerificationThreshold` from configuration.
+- Persist only safe `FaceVerificationAttempt` metadata.
+- Provide Student status/history/capture/result pages and Admin overview/details/diagnostics pages.
+- Keep fake mode labeled as development/demo and keep real mode Not Verified until actual gate evidence exists.
+
 ## Out Of Scope
 
-Attendance registration, student code submission, attendance records, reports, exports, production face enrollment, production verification, liveness detection, location validation, notifications, QR attendance, and native mobile applications are out of scope for Sprint 3.
+Attendance registration, student code submission for attendance, attendance records, attendance statuses, reports, exports, production real face recognition, liveness detection, anti-spoofing production claims, location validation, notifications, QR attendance, one-to-many identification, classroom-camera recognition, background recognition, and native mobile applications are out of scope for Sprint 5.
 
 ## Acceptance Criteria
 
@@ -164,6 +203,13 @@ Attendance registration, student code submission, attendance records, reports, e
 - Instructor session lifecycle works with secure temporary code handling.
 - Student active-session views exclude code data.
 - Lifecycle audit events persist.
+- Biometric enrollment migration applies to SQL Server.
+- Student biometric consent/enrollment/re-enrollment/withdrawal workflows run against SQL Server.
+- Admin biometric oversight exposes safe metadata only.
+- Face verification migration applies to SQL Server.
+- Student self-verification match, no-match, safe rejection, rate-limit, and idempotency paths are tested.
+- Admin verification oversight exposes safe attempt metadata only.
+- No verification attempt stores raw image, encoding, protected template, template fingerprint, attendance status, or location data.
 
 ## Sprint 4 Biometric Enrollment Requirements
 
@@ -181,3 +227,9 @@ Attendance registration, student code submission, attendance records, reports, e
 - Fake engine mode may support development/tests but must be blocked in Production.
 - Real-engine gate must remain Not Verified until approved samples, selected licensed models, native dependencies, and adapter verification are complete.
 - Sprint 4 does not implement attendance submission, face verification against stored templates, attendance decisions, liveness, one-to-many identification, or location validation.
+
+## Sprint 5 Face Verification Status
+
+- One-to-one verification architecture, fake-development workflow, SQL migration, Student/Admin UI, localization, tests, and documentation are implemented.
+- Real face-engine verification remains Not Verified because approved samples, selected licensed models, native dependencies, production adapter, and threshold calibration are not available.
+- Sprint 5 is therefore Partially completed by the project status rules.

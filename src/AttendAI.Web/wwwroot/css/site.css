@@ -480,6 +480,12 @@ a:hover {
     color: var(--warning);
 }
 
+.status-badge-danger,
+.status-badge.status-danger {
+    background: color-mix(in srgb, var(--danger) 14%, transparent);
+    color: var(--danger);
+}
+
 .status-indicator {
     gap: .35rem;
     color: var(--text-primary);
@@ -670,6 +676,15 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+.profile-panel > div {
+    min-inline-size: 0;
+}
+
+.profile-panel h2,
+.profile-panel p {
+    overflow-wrap: anywhere;
 }
 
 .profile-avatar {

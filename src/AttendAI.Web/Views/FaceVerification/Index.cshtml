@@ -1,0 +1,48 @@
+@model StudentFaceVerificationStatusDto
+@{
+    ViewData["Title"] = Localizer["FaceVerificationTitle"];
+    var eligibility = Model.Eligibility;
+    var statusClass = eligibility.IsEligible ? "status-badge-success" : "status-badge-warning";
+}
+<section class="page-header">
+    <div>
+        <p class="eyebrow">@Localizer["StudentRole"]</p>
+        <h1>@Localizer["FaceVerificationTitle"]</h1>
+        <p>@Localizer["FaceVerificationLead"]</p>
+    </div>
+    <div class="page-actions">
+        @if (eligibility.IsEligible)
+        {
+            <a class="btn btn-primary app-btn" asp-action="Verify">@Localizer["StartFaceVerification"]</a>
+        }
+        <a class="btn btn-secondary app-btn" asp-controller="BiometricEnrollment" asp-action="Index">@Localizer["BiometricEnrollmentTitle"]</a>
+    </div>
+</section>
+@if (Model.Diagnostics.IsDemoMode)
+{
+    <div class="alert app-alert alert-warning">@Localizer["FaceVerificationDemoWarning"]</div>
+}
+<section class="dashboard-grid">
+    <article class="stat-card"><span>@Localizer["Eligibility"]</span><strong><span class="status-badge @statusClass">@(eligibility.IsEligible ? Localizer["Eligible"] : Localizer["NotEligible"])</span></strong><p>@Localizer[eligibility.MessageKey]</p></article>
+    <article class="stat-card"><span>@Localizer["Consent"]</span><strong>@(eligibility.HasActiveConsent ? Localizer["Active"] : Localizer["NotActive"])</strong><p>@Localizer["ConsentRequiredForVerification"]</p></article>
+    <article class="stat-card"><span>@Localizer["Template"]</span><strong>@(eligibility.HasActiveTemplate ? Localizer["StoredSecurely"] : Localizer["NotEnrolled"])</strong><p>@(eligibility.TemplateCompatible ? Localizer["FaceVerificationTemplateCompatible"] : Localizer["ErrorFaceVerificationIncompatibleTemplate"])</p></article>
+    <article class="stat-card"><span>@Localizer["EngineMode"]</span><strong>@Model.Diagnostics.Mode</strong><p>@Localizer[Model.Diagnostics.StatusMessageKey]</p></article>
+</section>
+<section class="app-panel">
+    <div class="section-heading"><h2>@Localizer["FaceVerificationHistory"]</h2><p>@Localizer["FaceVerificationHistoryText"]</p></div>
+    <div class="table-responsive">
+        <table class="table app-table">
+            <thead><tr><th>@Localizer["AttemptedAt"]</th><th>@Localizer["Outcome"]</th><th>@Localizer["Decision"]</th><th>@Localizer["Score"]</th><th>@Localizer["Description"]</th></tr></thead>
+            <tbody>
+            @if (Model.RecentAttempts.Count == 0)
+            {
+                <tr><td class="empty-row" colspan="5">@Localizer["NoFaceVerificationAttempts"]</td></tr>
+            }
+            @foreach (var attempt in Model.RecentAttempts)
+            {
+                <tr><td data-label="@Localizer["AttemptedAt"]">@attempt.AttemptedAtUtc.ToLocalTime().ToString("f")</td><td data-label="@Localizer["Outcome"]">@Localizer[$"FaceVerificationOutcome{attempt.Outcome}"]</td><td data-label="@Localizer["Decision"]">@Localizer[$"FaceVerificationDecision{attempt.Decision}"]</td><td data-label="@Localizer["Score"]">@(attempt.Score?.ToString("0.######") ?? "-")</td><td data-label="@Localizer["Description"]">@Localizer[attempt.SafeDescription]</td></tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</section>

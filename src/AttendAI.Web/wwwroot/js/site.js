@@ -87,9 +87,10 @@
         setInterval(updateCountdowns, 1000);
     }
 
-    document.querySelectorAll('[data-biometric-camera]').forEach(function (root) {
+    document.querySelectorAll('[data-biometric-camera], [data-face-capture]').forEach(function (root) {
         var required = Number(root.getAttribute('data-required-captures')) || 3;
         var maxBytes = Number(root.getAttribute('data-max-capture-bytes')) || 1500000;
+        var form = root.querySelector('form');
         var video = root.querySelector('[data-biometric-video]');
         var canvas = root.querySelector('[data-biometric-canvas]');
         var placeholder = root.querySelector('[data-biometric-placeholder]');
@@ -209,6 +210,12 @@
             fileInput.addEventListener('change', function () {
                 captures = Array.prototype.slice.call(fileInput.files || []).slice(0, required);
                 renderCaptures();
+            });
+        }
+
+        if (form) {
+            form.addEventListener('submit', function () {
+                stopCamera();
             });
         }
 

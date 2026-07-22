@@ -637,4 +637,120 @@
   <data name="ErrorBiometricLowSharpness" xml:space="preserve"><value>اللقطة غير واضحة بما يكفي.</value></data>
   <data name="ErrorBiometricFaceTooSmall" xml:space="preserve"><value>الوجه المكتشف صغير جداً.</value></data>
   <data name="ErrorBiometricFaceTooLarge" xml:space="preserve"><value>الوجه المكتشف كبير جداً.</value></data>
+  <data name="NavFaceVerification" xml:space="preserve"><value>التحقق من الوجه</value></data>
+  <data name="NavFaceVerifications" xml:space="preserve"><value>محاولات التحقق من الوجه</value></data>
+  <data name="FaceVerificationTitle" xml:space="preserve"><value>التحقق من الوجه</value></data>
+  <data name="FaceVerificationLead" xml:space="preserve"><value>نفذ اختباراً ذاتياً واحداً مقابل قالبك الحيوي النشط فقط.</value></data>
+  <data name="StartFaceVerification" xml:space="preserve"><value>بدء التحقق</value></data>
+  <data name="Eligibility" xml:space="preserve"><value>الأهلية</value></data>
+  <data name="Eligible" xml:space="preserve"><value>مؤهل</value></data>
+  <data name="NotEligible" xml:space="preserve"><value>غير مؤهل</value></data>
+  <data name="ConsentRequiredForVerification" xml:space="preserve"><value>الموافقة الحيوية النشطة مطلوبة للتحقق.</value></data>
+  <data name="FaceVerificationTemplateCompatible" xml:space="preserve"><value>القالب متوافق مع محرك التحقق المضبوط.</value></data>
+  <data name="FaceVerificationHistory" xml:space="preserve"><value>سجل التحقق</value></data>
+  <data name="FaceVerificationHistoryText" xml:space="preserve"><value>تظهر بيانات المحاولة الآمنة فقط. لا يتم عرض اللقطات أو القوالب أو التمثيلات.</value></data>
+  <data name="AttemptedAt" xml:space="preserve"><value>وقت المحاولة</value></data>
+  <data name="Decision" xml:space="preserve"><value>القرار</value></data>
+  <data name="Score" xml:space="preserve"><value>الدرجة</value></data>
+  <data name="NoFaceVerificationAttempts" xml:space="preserve"><value>لا توجد محاولات تحقق من الوجه.</value></data>
+  <data name="FaceVerificationCaptureTitle" xml:space="preserve"><value>التقاط صورة التحقق</value></data>
+  <data name="FaceVerificationCaptureLead" xml:space="preserve"><value>التقط صورة حالية واحدة للمقارنة الفردية مع قالبك النشط.</value></data>
+  <data name="FaceVerificationDemoWarning" xml:space="preserve"><value>يستخدم التحقق التجريبي محرك Fake الحتمي. هذا ليس تعرفاً حيوياً حقيقياً.</value></data>
+  <data name="FaceVerificationCameraPlaceholder" xml:space="preserve"><value>تظهر معاينة الكاميرا هنا للتحقق.</value></data>
+  <data name="VerificationCaptureChecklistTitle" xml:space="preserve"><value>لقطة التحقق</value></data>
+  <data name="VerificationCaptureChecklistText" xml:space="preserve"><value>أرسل صورة واضحة واحدة يظهر فيها وجهك فقط.</value></data>
+  <data name="SubmitFaceVerification" xml:space="preserve"><value>إرسال التحقق</value></data>
+  <data name="FaceVerificationResultTitle" xml:space="preserve"><value>نتيجة التحقق</value></data>
+  <data name="TryAgain" xml:space="preserve"><value>حاول مرة أخرى</value></data>
+  <data name="Threshold" xml:space="preserve"><value>العتبة</value></data>
+  <data name="FaceVerificationThresholdPolicy" xml:space="preserve"><value>يستخدم القرار مقياس الدرجة والعتبة المضبوطين.</value></data>
+  <data name="ProcessingTime" xml:space="preserve"><value>زمن المعالجة</value></data>
+  <data name="MillisecondsShort" xml:space="preserve"><value>مللي ثانية</value></data>
+  <data name="SafeVerificationMetadata" xml:space="preserve"><value>بيانات تحقق آمنة</value></data>
+  <data name="SafeVerificationMetadataText" xml:space="preserve"><value>لا تتضمن هذه البيانات الصور أو القوالب أو بصمات القوالب أو التمثيلات.</value></data>
+  <data name="ImageDimensions" xml:space="preserve"><value>أبعاد الصورة</value></data>
+  <data name="DetectedFaceCount" xml:space="preserve"><value>عدد الوجوه المكتشفة</value></data>
+  <data name="TemplateFormatVersion" xml:space="preserve"><value>إصدار صيغة القالب</value></data>
+  <data name="AdminFaceVerificationsTitle" xml:space="preserve"><value>محاولات التحقق من الوجه</value></data>
+  <data name="AdminFaceVerificationsLead" xml:space="preserve"><value>راجع محاولات التحقق الفردي مع بيانات آمنة فقط.</value></data>
+  <data name="EngineDiagnostics" xml:space="preserve"><value>تشخيص المحرك</value></data>
+  <data name="VerificationDiagnostics" xml:space="preserve"><value>تشخيص التحقق</value></data>
+  <data name="ScoreMetric" xml:space="preserve"><value>مقياس الدرجة</value></data>
+  <data name="SearchVerificationAttemptsPlaceholder" xml:space="preserve"><value>ابحث برقم الطالب أو الاسم أو البريد</value></data>
+  <data name="FaceVerificationAttemptDetails" xml:space="preserve"><value>تفاصيل محاولة التحقق من الوجه</value></data>
+  <data name="Purpose" xml:space="preserve"><value>الغرض</value></data>
+  <data name="ErrorCode" xml:space="preserve"><value>رمز الخطأ</value></data>
+  <data name="TemplateReference" xml:space="preserve"><value>مرجع القالب</value></data>
+  <data name="VerificationEnabled" xml:space="preserve"><value>التحقق مفعّل</value></data>
+  <data name="DemoMode" xml:space="preserve"><value>وضع العرض</value></data>
+  <data name="RateLimit" xml:space="preserve"><value>حد المحاولات</value></data>
+  <data name="VerificationRateLimitSummary" xml:space="preserve"><value>{0} محاولات كل {1} دقيقة مع مهلة {2} ثانية.</value></data>
+  <data name="FaceVerificationAttemptsToday" xml:space="preserve"><value>محاولات التحقق اليوم</value></data>
+  <data name="FaceVerificationMatchesToday" xml:space="preserve"><value>مطابقات التحقق اليوم</value></data>
+  <data name="DevelopmentVerificationOnly" xml:space="preserve"><value>اختبار تطوير ذاتي فقط؛ لا يتم إنشاء سجل حضور.</value></data>
+  <data name="LastVerificationOutcome" xml:space="preserve"><value>آخر نتيجة تحقق</value></data>
+  <data name="FaceVerificationDisabledMessage" xml:space="preserve"><value>التحقق من الوجه معطل من الإعدادات.</value></data>
+  <data name="FaceVerificationEngineDisabledMessage" xml:space="preserve"><value>محرك التحقق من الوجه معطل.</value></data>
+  <data name="FaceVerificationRealEngineUnavailableMessage" xml:space="preserve"><value>التحقق الحقيقي من الوجه غير موثق لأن محول الإنتاج والنماذج والتراخيص والعينات المعتمدة غير مضبوطة.</value></data>
+  <data name="FaceVerificationFakeEngineDevelopmentMessage" xml:space="preserve"><value>التحقق بمحرك Fake مفعّل لعرض Localhost فقط.</value></data>
+  <data name="FaceVerificationFakeEngineBlockedMessage" xml:space="preserve"><value>التحقق بمحرك Fake محظور لهذه البيئة أو السياسة.</value></data>
+  <data name="FaceVerificationReadyMessage" xml:space="preserve"><value>التحقق من الوجه جاهز لاختبار ذاتي فردي.</value></data>
+  <data name="FaceVerificationMatchedMessage" xml:space="preserve"><value>طابق الوجه الملتقط القالب النشط وفق سياسة العرض المضبوطة.</value></data>
+  <data name="FaceVerificationNotMatchedMessage" xml:space="preserve"><value>لم يطابق الوجه الملتقط القالب النشط وفق سياسة العرض المضبوطة.</value></data>
+  <data name="ErrorFaceVerificationUnexpectedField" xml:space="preserve"><value>يتضمن طلب التحقق حقل ملف غير متوقع.</value></data>
+  <data name="ErrorFaceVerificationCaptureRequired" xml:space="preserve"><value>أرسل لقطة تحقق واحدة.</value></data>
+  <data name="ErrorFaceVerificationRequestTooLarge" xml:space="preserve"><value>طلب التحقق كبير جداً.</value></data>
+  <data name="ErrorFaceVerificationConsentRequired" xml:space="preserve"><value>الموافقة الحيوية النشطة مطلوبة قبل التحقق.</value></data>
+  <data name="ErrorFaceVerificationActiveTemplateRequired" xml:space="preserve"><value>يلزم وجود قالب حيوي نشط قبل التحقق.</value></data>
+  <data name="ErrorFaceVerificationRequiresReEnrollment" xml:space="preserve"><value>يجب إعادة تسجيل ملفك الحيوي قبل التحقق.</value></data>
+  <data name="ErrorFaceVerificationIncompatibleTemplate" xml:space="preserve"><value>تم إنشاء ملفك الحيوي بنموذج وجه غير متوافق ويجب تسجيله مرة أخرى.</value></data>
+  <data name="ErrorFaceVerificationNoFace" xml:space="preserve"><value>لم يتم اكتشاف وجه في لقطة التحقق.</value></data>
+  <data name="ErrorFaceVerificationMultipleFaces" xml:space="preserve"><value>تم اكتشاف أكثر من وجه في لقطة التحقق.</value></data>
+  <data name="ErrorFaceVerificationEngineUnavailable" xml:space="preserve"><value>محرك التحقق من الوجه غير متاح.</value></data>
+  <data name="ErrorFaceVerificationProcessingFailed" xml:space="preserve"><value>تعذرت معالجة لقطة التحقق.</value></data>
+  <data name="ErrorFaceVerificationQualityTooLow" xml:space="preserve"><value>جودة لقطة التحقق منخفضة جداً.</value></data>
+  <data name="ErrorFaceVerificationInvalidImage" xml:space="preserve"><value>تعذرت قراءة صورة لقطة التحقق.</value></data>
+  <data name="ErrorFaceVerificationRateLimit" xml:space="preserve"><value>محاولات التحقق كثيرة جداً. حاول لاحقاً.</value></data>
+  <data name="ErrorFaceVerificationPasswordChangeRequired" xml:space="preserve"><value>غيّر كلمة المرور المؤقتة قبل التحقق من الوجه.</value></data>
+  <data name="ErrorFaceVerificationEligibility" xml:space="preserve"><value>تعذر تأكيد أهلية التحقق من الوجه.</value></data>
+  <data name="FaceVerificationOutcomeMatched" xml:space="preserve"><value>مطابق</value></data>
+  <data name="FaceVerificationOutcomeNotMatched" xml:space="preserve"><value>غير مطابق</value></data>
+  <data name="FaceVerificationOutcomeNoActiveConsent" xml:space="preserve"><value>لا توجد موافقة نشطة</value></data>
+  <data name="FaceVerificationOutcomeNoActiveTemplate" xml:space="preserve"><value>لا يوجد قالب نشط</value></data>
+  <data name="FaceVerificationOutcomeRequiresReEnrollment" xml:space="preserve"><value>يتطلب إعادة التسجيل</value></data>
+  <data name="FaceVerificationOutcomeIncompatibleTemplate" xml:space="preserve"><value>قالب غير متوافق</value></data>
+  <data name="FaceVerificationOutcomeNoFace" xml:space="preserve"><value>لا يوجد وجه</value></data>
+  <data name="FaceVerificationOutcomeMultipleFaces" xml:space="preserve"><value>وجوه متعددة</value></data>
+  <data name="FaceVerificationOutcomeLowQuality" xml:space="preserve"><value>جودة منخفضة</value></data>
+  <data name="FaceVerificationOutcomeInvalidImage" xml:space="preserve"><value>صورة غير صالحة</value></data>
+  <data name="FaceVerificationOutcomeRateLimited" xml:space="preserve"><value>محدد بعدد المحاولات</value></data>
+  <data name="FaceVerificationOutcomeEngineUnavailable" xml:space="preserve"><value>المحرك غير متاح</value></data>
+  <data name="FaceVerificationOutcomeProcessingFailed" xml:space="preserve"><value>فشلت المعالجة</value></data>
+  <data name="FaceVerificationOutcomeCancelled" xml:space="preserve"><value>ملغى</value></data>
+  <data name="FaceVerificationPurposeSelfTest" xml:space="preserve"><value>اختبار ذاتي</value></data>
+  <data name="FaceVerificationPurposeEngineValidation" xml:space="preserve"><value>تحقق المحرك</value></data>
+  <data name="FaceVerificationPurposeFutureAttendance" xml:space="preserve"><value>حضور مستقبلي</value></data>
+  <data name="FaceVerificationDecisionUnknown" xml:space="preserve"><value>غير معروف</value></data>
+  <data name="FaceVerificationDecisionMatch" xml:space="preserve"><value>مطابق</value></data>
+  <data name="FaceVerificationDecisionNoMatch" xml:space="preserve"><value>غير مطابق</value></data>
+  <data name="FaceVerificationDecisionNoFaceDetected" xml:space="preserve"><value>لم يكتشف وجه</value></data>
+  <data name="FaceVerificationDecisionMultipleFacesDetected" xml:space="preserve"><value>اكتشفت وجوه متعددة</value></data>
+  <data name="FaceVerificationDecisionEngineError" xml:space="preserve"><value>خطأ في المحرك</value></data>
+  <data name="ScoreMetricCosineSimilarity" xml:space="preserve"><value>تشابه جيبي</value></data>
+  <data name="ScoreMetricEuclideanDistance" xml:space="preserve"><value>مسافة إقليدية</value></data>
+  <data name="ScoreMetricEngineDefined" xml:space="preserve"><value>محدد من المحرك</value></data>
+  <data name="FaceVerificationAttemptDescriptionMatched" xml:space="preserve"><value>طابقت محاولة التحقق القالب النشط.</value></data>
+  <data name="FaceVerificationAttemptDescriptionNotMatched" xml:space="preserve"><value>لم تطابق محاولة التحقق القالب النشط.</value></data>
+  <data name="FaceVerificationAttemptDescriptionNoActiveConsent" xml:space="preserve"><value>تم رفض التحقق لعدم وجود موافقة نشطة.</value></data>
+  <data name="FaceVerificationAttemptDescriptionNoActiveTemplate" xml:space="preserve"><value>تم رفض التحقق لعدم توفر قالب نشط.</value></data>
+  <data name="FaceVerificationAttemptDescriptionRequiresReEnrollment" xml:space="preserve"><value>تم رفض التحقق لأن إعادة التسجيل مطلوبة.</value></data>
+  <data name="FaceVerificationAttemptDescriptionIncompatibleTemplate" xml:space="preserve"><value>تم رفض التحقق لأن القالب غير متوافق.</value></data>
+  <data name="FaceVerificationAttemptDescriptionNoFace" xml:space="preserve"><value>تم رفض لقطة التحقق لعدم اكتشاف وجه.</value></data>
+  <data name="FaceVerificationAttemptDescriptionMultipleFaces" xml:space="preserve"><value>تم رفض لقطة التحقق لاكتشاف وجوه متعددة.</value></data>
+  <data name="FaceVerificationAttemptDescriptionLowQuality" xml:space="preserve"><value>تم رفض لقطة التحقق لانخفاض الجودة.</value></data>
+  <data name="FaceVerificationAttemptDescriptionInvalidImage" xml:space="preserve"><value>تم رفض لقطة التحقق كصورة غير صالحة.</value></data>
+  <data name="FaceVerificationAttemptDescriptionRateLimited" xml:space="preserve"><value>تم تقييد محاولة التحقق بعدد المحاولات.</value></data>
+  <data name="FaceVerificationAttemptDescriptionEngineUnavailable" xml:space="preserve"><value>محرك التحقق لم يكن متاحاً.</value></data>
+  <data name="FaceVerificationAttemptDescriptionProcessingFailed" xml:space="preserve"><value>فشلت معالجة التحقق بأمان.</value></data>
+  <data name="FaceVerificationAttemptDescriptionCancelled" xml:space="preserve"><value>تم إلغاء التحقق بأمان.</value></data>
 </root>

@@ -1,0 +1,27 @@
+@model FaceVerificationResultDto
+@{
+    ViewData["Title"] = Localizer["FaceVerificationResultTitle"];
+    var statusClass = Model.IsMatch ? "status-badge-success" : Model.Outcome == FaceVerificationOutcome.NotMatched ? "status-danger" : "status-badge-warning";
+}
+<section class="page-header"><div><p class="eyebrow">@Localizer["FaceVerificationTitle"]</p><h1>@Localizer["FaceVerificationResultTitle"]</h1><p>@Localizer[Model.MessageKey]</p></div><div class="page-actions"><a class="btn btn-primary app-btn" asp-action="Verify">@Localizer["TryAgain"]</a><a class="btn btn-secondary app-btn" asp-action="Index">@Localizer["BackToStatus"]</a></div></section>
+@if (Model.IsDemoMode)
+{
+    <div class="alert app-alert alert-warning">@Localizer["FaceVerificationDemoWarning"]</div>
+}
+<section class="dashboard-grid">
+    <article class="stat-card"><span>@Localizer["Outcome"]</span><strong><span class="status-badge @statusClass">@Localizer[$"FaceVerificationOutcome{Model.Outcome}"]</span></strong><p>@Localizer[$"FaceVerificationDecision{Model.Decision}"]</p></article>
+    <article class="stat-card"><span>@Localizer["Score"]</span><strong>@(Model.Score?.ToString("0.######") ?? "-")</strong><p>@Localizer[$"ScoreMetric{Model.ScoreMetric}"]</p></article>
+    <article class="stat-card"><span>@Localizer["Threshold"]</span><strong>@Model.Threshold.ToString("0.######")</strong><p>@Localizer["FaceVerificationThresholdPolicy"]</p></article>
+    <article class="stat-card"><span>@Localizer["ProcessingTime"]</span><strong>@(Model.ProcessingDurationMilliseconds?.ToString() ?? "-")</strong><p>@Localizer["MillisecondsShort"]</p></article>
+</section>
+<section class="app-panel">
+    <div class="section-heading"><h2>@Localizer["SafeVerificationMetadata"]</h2><p>@Localizer["SafeVerificationMetadataText"]</p></div>
+    <div class="details-grid">
+        <div><span class="detail-label">@Localizer["Engine"]</span><div class="detail-value">@Model.EngineName @Model.EngineVersion</div></div>
+        <div><span class="detail-label">@Localizer["Model"]</span><div class="detail-value">@Model.ModelName @Model.ModelVersion</div></div>
+        <div><span class="detail-label">@Localizer["ImageDimensions"]</span><div class="detail-value">@(Model.ImageWidth.HasValue && Model.ImageHeight.HasValue ? $"{Model.ImageWidth} x {Model.ImageHeight}" : Localizer["NotApplicable"])</div></div>
+        <div><span class="detail-label">@Localizer["DetectedFaceCount"]</span><div class="detail-value">@(Model.DetectedFaceCount?.ToString() ?? Localizer["NotApplicable"])</div></div>
+        <div><span class="detail-label">@Localizer["QualityScore"]</span><div class="detail-value">@(Model.QualityScore?.ToString("0.####") ?? Localizer["NotApplicable"])</div></div>
+        <div><span class="detail-label">@Localizer["TemplateFormatVersion"]</span><div class="detail-value">@Model.TemplateFormatVersion</div></div>
+    </div>
+</section>
