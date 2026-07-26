@@ -24,9 +24,9 @@ These results exercise policy plumbing only. They are not real biometric accurac
 
 ## Real Calibration Status
 
-Not Verified.
+Partially evaluated.
 
-Model-only readiness is verified for OpenCV YuNet and SFace. Real threshold calibration remains Not Verified because no approved same-person pair, different-person sample, no-face sample, multiple-face sample, or poor-quality live capture set is available.
+Model-only readiness is verified for OpenCV YuNet and SFace. One authorized same-person verification returned Match with cosine similarity `0.950795`. This proves the enrolled protected OpenCV-SFace template can match a same-person probe, but it is not enough to calibrate a production threshold.
 
 Current Real development values:
 
@@ -36,12 +36,27 @@ Current Real development values:
 - Threshold status: `DevelopmentDefault`.
 - SFace output dimension: `128`.
 
+Recorded real evidence:
+
+| Scenario | Result |
+| --- | --- |
+| Real biometric re-enrollment | Verified completed. |
+| Previous Fake template replacement | Verified replaced. |
+| Protected OpenCV-SFace template creation | Verified created. |
+| Same-person verification | Match, cosine similarity `0.950795`. |
+| Different-person verification | Not Verified; result not supplied in the manual evidence available for this update. |
+| No-face rejection | Not Verified; result not supplied in the manual evidence available for this update. |
+| Multiple-face rejection | Not Verified; result not supplied in the manual evidence available for this update. |
+| Poor-quality rejection | Not Verified; result not supplied in the manual evidence available for this update. |
+| Verification after application restart | Not Verified; result not supplied in the manual evidence available for this update. |
+
 ## Required Real Evaluation
 
 Before real verification can be accepted:
 
 - Collect approved samples outside Git.
-- Run at least same-person, different-person, no-face, multiple-face, and low-quality scenarios.
+- Run and record different-person, no-face, multiple-face, and low-quality scenarios.
+- Run and record verification after application restart.
 - Record engine/model version, preprocessing, embedding dimension, score metric, score direction, threshold, and safe outcomes.
 - Compare score distributions for same-person and different-person pairs.
 - Estimate false acceptance and false rejection behavior.
@@ -58,3 +73,5 @@ Threshold calibration balances these risks. A stricter cosine threshold usually 
 ## Sprint 6 Gate
 
 Sprint 6 attendance decisions must not depend on real biometric verification until this document contains actual approved-sample evidence and the readiness gate has passed.
+
+Liveness detection, anti-spoofing, depth checks, replay prevention, and presentation-attack detection are not implemented and must not be claimed.

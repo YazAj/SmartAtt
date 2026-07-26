@@ -13,13 +13,27 @@ This value is separated from the Fake engine threshold. It is not calibrated for
 
 ## Evidence
 
-Model-only readiness is verified, but no authorized same-person or different-person biometric image pairs were provided. Therefore:
+Model-only readiness is verified. Authorized manual evidence now includes one same-person verification result:
 
-- Same-person score distribution: Not Verified.
-- Different-person score distribution: Not Verified.
+- Same-person decision: Match.
+- Same-person cosine similarity: `0.950795`.
+- Same-person score distribution: Not Verified; only one score is recorded.
+- Different-person score distribution: Not Verified; result was not supplied in the manual evidence available for this update.
 - False-acceptance estimate: Not Verified.
 - False-rejection estimate: Not Verified.
-- Local calibration status: Not Verified.
+- Local calibration status: Not Verified; threshold remains `DevelopmentDefault`.
+
+Manual closure evidence also verifies real biometric re-enrollment, replacement of the previous Fake template, and creation of a protected OpenCV-SFace template.
+
+Remaining manual evidence not supplied for this update:
+
+- Different-person verification result.
+- No-face rejection result.
+- Multiple-face rejection result.
+- Poor-quality rejection result.
+- Verification after application restart.
+- Camera cleanup result.
+- Confirmation that no attendance record was created.
 
 ## Required Calibration
 
