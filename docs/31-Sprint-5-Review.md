@@ -4,23 +4,21 @@
 
 Partially completed.
 
-The one-to-one verification architecture, database migration, fake-development runtime workflow, Student/Admin UI, authorization, security controls, localization resources, and tests are implemented. The real face-engine gate remains Not Verified because approved biometric samples, selected licensed models, production adapter, native dependencies, and threshold calibration are unavailable.
+The one-to-one verification architecture, database migration, fake-development runtime workflow, Student/Admin UI, authorization, security controls, localization resources, and tests are implemented. Real model readiness is verified, and one authorized same-person real verification has now passed. Sprint 5 remains partially completed because different-person, no-face, multiple-face, poor-quality, restart, camera-cleanup, and no-attendance-record manual evidence was not supplied for this closure update.
 
 ## Automated Verification
 
-Final command results on 2026-07-23:
+Final command results on 2026-07-26 after the manual-evidence documentation update:
 
 | Command | Exit | Warnings | Errors | Result |
 | --- | --- | --- | --- | --- |
-| `dotnet tool restore` | 0 | 0 | 0 | `dotnet-ef` 8.0.29 restored. |
-| `dotnet restore AttendAI.sln` | 0 | 0 | 0 | All projects up to date. |
 | `dotnet build AttendAI.sln` | 0 | 0 | 0 | Build succeeded. |
-| `dotnet test AttendAI.sln` | 0 | 0 | 0 | 94 total, 94 passed, 0 failed, 0 skipped. |
+| `dotnet test AttendAI.sln` | 0 | 0 | 0 | 119 total, 119 passed, 0 failed, 0 skipped. |
 | `dotnet format AttendAI.sln --verify-no-changes` | 0 | 0 | 0 | No formatting changes required. |
 | `git diff --check` | 0 | 0 blocking | 0 | Whitespace check passed; Git printed CRLF conversion notices only. |
-| `git status --short` | 0 | n/a | n/a | Shows only Sprint 5 modified/untracked source and docs. |
+| `git status` | 0 | n/a | n/a | Shows documentation-only changes from this closure update. |
 
-Implemented Sprint 5 automated coverage includes 49 unit tests and 45 integration tests.
+Implemented automated coverage now reports 74 unit tests and 45 integration tests.
 
 ## Runtime Verification
 
@@ -67,6 +65,26 @@ The first profile pass used the wrong URL (`/Account/Profile`) and produced expe
 
 Items not directly proven by approved real images remain Not Verified.
 
+## Manual Real-Face Closure Evidence
+
+Evidence recorded on 2026-07-26 from the authorized manual real-face verification update:
+
+| Scenario | Status | Evidence |
+| --- | --- | --- |
+| Real biometric re-enrollment | Verified | Re-enrollment completed in Real mode. |
+| Previous Fake template replacement | Verified | Previous Fake template was replaced. |
+| Protected OpenCV-SFace template | Verified | A protected OpenCV-SFace template was created. |
+| Same-person verification | Verified | Returned Match with cosine similarity `0.950795`. |
+| Different-person verification | Not Verified | Result was not supplied in the manual evidence available for this update. |
+| No-face rejection | Not Verified | Result was not supplied in the manual evidence available for this update. |
+| Multiple-face rejection | Not Verified | Result was not supplied in the manual evidence available for this update. |
+| Poor-quality rejection | Not Verified | Result was not supplied in the manual evidence available for this update. |
+| Verification after application restart | Not Verified | Result was not supplied in the manual evidence available for this update. |
+| Camera cleanup | Not Verified | Result was not supplied in the manual evidence available for this update. |
+| No attendance record created | Not Verified | Confirmation was not supplied in the manual evidence available for this update. |
+| Raw biometric image retention | Verified | No raw biometric images were committed or intentionally retained. |
+| Liveness and anti-spoofing | Not Implemented | No liveness, anti-spoofing, depth, replay, or presentation-attack protection is implemented or claimed. |
+
 ## Security Verification
 
 - Student id is resolved from the authenticated user.
@@ -79,12 +97,11 @@ Items not directly proven by approved real images remain Not Verified.
 
 ## Not Verified
 
-- Real engine initialization.
-- Real detection model loading.
-- Real embedding model loading.
-- Approved same-person comparison.
-- Approved different-person comparison.
+- Different-person comparison.
 - Real no-face, multiple-face, and low-quality behavior.
+- Restart-and-reverify after application restart.
+- Camera cleanup after manual verification.
+- Confirmation that no attendance record was created.
 - Threshold calibration with real samples.
 - Production liveness or anti-spoofing.
 
@@ -98,3 +115,26 @@ Items not directly proven by approved real images remain Not Verified.
 ## Recommended Commit
 
 `feat(sprint-5): implement one-to-one face verification`
+
+## Real Engine Update
+
+Sprint 5 verification can now resolve `OpenCvSFaceRecognitionEngine` in Real mode. Model-only readiness has been verified with OpenCV `4.13.0`, YuNet load, SFace load, and SFace output dimension `128`.
+
+Manual evidence now verified:
+
+- Real biometric re-enrollment completed.
+- Previous Fake template replaced.
+- Protected OpenCV-SFace template created.
+- Approved same-person comparison returned Match with cosine similarity `0.950795`.
+
+Still Not Verified:
+
+- Approved different-person comparison.
+- No-face, multiple-face, and poor-quality camera behavior.
+- Restart-and-reverify with a protected real template.
+- Camera cleanup.
+- Confirmation that no attendance record was created.
+- Threshold calibration.
+- Production liveness or anti-spoofing.
+
+Sprint 5 remains partially completed for real biometric verification until those remaining items are recorded.

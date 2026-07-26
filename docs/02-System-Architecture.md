@@ -5,7 +5,7 @@
 ```mermaid
 flowchart LR
     Web["AttendAI.Web\nMVC, Razor, auth UI, lecture/biometric/verification UI, localization, themes"] --> Application["AttendAI.Application\nContracts, role routing, schedules, sessions, biometrics, verification, safe redirects, face engine interface"]
-    Web --> Infrastructure["AttendAI.Infrastructure\nEF Core, Identity, seeding, lecture/biometric/verification services, fake engine"]
+    Web --> Infrastructure["AttendAI.Infrastructure\nEF Core, Identity, seeding, lecture/biometric/verification services, fake/real/disabled face engines"]
     Infrastructure --> Application
     Infrastructure --> Domain["AttendAI.Domain\nCore concepts and framework-free enums"]
     Application --> Domain
@@ -171,3 +171,8 @@ The verification service is future-ready for attendance use through `IOneToOneFa
 - Embedding dimension.
 
 Incompatible active templates are rejected safely and marked for re-enrollment. Fake templates are not silently accepted by a future real verifier.
+## Real Face Engine Architecture Update
+
+Real mode now resolves `OpenCvSFaceRecognitionEngine` through the existing `IFaceRecognitionEngine` abstraction. `RealFaceRecognitionModelStore` owns model path resolution, approved-root enforcement, SHA-256 checks, Git LFS pointer rejection, OpenCV native readiness, YuNet load, SFace ONNX Runtime load, and SFace tensor metadata inspection. The web layer receives only safe readiness and diagnostics data.
+
+The existing Sprint 4 enrollment processor and Sprint 5 one-to-one verifier continue to call the same engine contract. Fake templates are rejected by `TemplateCompatibilityService` in Real mode and the existing verification service marks incompatible active templates for re-enrollment. No database migration was required because `StudentFaceTemplates` already stores protected template bytes and engine/model/template metadata.

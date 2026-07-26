@@ -1,5 +1,6 @@
 using AttendAI.Application.Biometrics;
 using AttendAI.Application.FaceVerification;
+using AttendAI.Infrastructure.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
@@ -9,15 +10,18 @@ public sealed class FaceEngineDiagnosticsService : IFaceEngineDiagnosticsService
 {
     private readonly IFaceEngineReadinessService _readinessService;
     private readonly FaceVerificationOptions _verificationOptions;
+    private readonly FaceRecognitionOptions _recognitionOptions;
     private readonly IHostEnvironment _environment;
 
     public FaceEngineDiagnosticsService(
         IFaceEngineReadinessService readinessService,
         IOptions<FaceVerificationOptions> verificationOptions,
+        IOptions<FaceRecognitionOptions> recognitionOptions,
         IHostEnvironment environment)
     {
         _readinessService = readinessService;
         _verificationOptions = verificationOptions.Value;
+        _recognitionOptions = recognitionOptions.Value;
         _environment = environment;
     }
 
@@ -25,12 +29,15 @@ public sealed class FaceEngineDiagnosticsService : IFaceEngineDiagnosticsService
     {
         var readiness = _readinessService.GetReadiness();
         var mode = readiness.Mode;
-        var threshold = _verificationOptions.VerificationThreshold <= 0 ? 0.95m : (decimal)_verificationOptions.VerificationThreshold;
+        var realOptions = _recognitionOptions.RealEngine;
+        var threshold = mode == "Real"
+            ? (realOptions.CosineSimilarityThreshold <= 0 ? 0.363m : (decimal)realOptions.CosineSimilarityThreshold)
+            : (_verificationOptions.VerificationThreshold <= 0 ? 0.95m : (decimal)_verificationOptions.VerificationThreshold);
 
         var modeAllowsVerification = mode switch
         {
             "Disabled" => false,
-            "Real" => false,
+            "Real" => readiness.EnrollmentEnabled,
             "Fake" => !_environment.IsProduction() &&
                 _verificationOptions.AllowFakeEngineInDevelopment &&
                 !_verificationOptions.RequireRealEngineForVerification,
@@ -43,7 +50,7 @@ public sealed class FaceEngineDiagnosticsService : IFaceEngineDiagnosticsService
             : mode == "Disabled"
                 ? "FaceVerificationEngineDisabledMessage"
                 : mode == "Real"
-                    ? "FaceVerificationRealEngineUnavailableMessage"
+                    ? enabled ? "FaceVerificationReadyMessage" : "FaceVerificationRealEngineUnavailableMessage"
                     : enabled
                         ? "FaceVerificationFakeEngineDevelopmentMessage"
                         : "FaceVerificationFakeEngineBlockedMessage";
@@ -60,13 +67,17 @@ public sealed class FaceEngineDiagnosticsService : IFaceEngineDiagnosticsService
             messageKey,
             readiness.GateResult,
             threshold,
-            _verificationOptions.ScoreMetric,
+            mode == "Real" ? AttendAI.Domain.Enums.ScoreMetric.CosineSimilarity : _verificationOptions.ScoreMetric,
             Math.Max(1, _verificationOptions.MaximumAttemptsPerWindow),
             Math.Max(1, _verificationOptions.AttemptWindowMinutes),
             Math.Max(0, _verificationOptions.CooldownSeconds),
-            string.IsNullOrWhiteSpace(_verificationOptions.ExpectedTemplateFormatVersion)
-                ? readiness.EngineVersion
-                : _verificationOptions.ExpectedTemplateFormatVersion,
-            Math.Max(1, _verificationOptions.ExpectedEmbeddingDimension));
+            mode == "Real"
+                ? realOptions.TemplateFormatVersion
+                : string.IsNullOrWhiteSpace(_verificationOptions.ExpectedTemplateFormatVersion)
+                    ? readiness.EngineVersion
+                    : _verificationOptions.ExpectedTemplateFormatVersion,
+            mode == "Real"
+                ? Math.Max(1, realOptions.EmbeddingDimension)
+                : Math.Max(1, _verificationOptions.ExpectedEmbeddingDimension));
     }
 }

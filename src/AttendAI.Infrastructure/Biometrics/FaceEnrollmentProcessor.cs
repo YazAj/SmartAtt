@@ -113,7 +113,12 @@ public sealed class FaceEnrollmentProcessor : IFaceEnrollmentProcessor
             FaceRecognitionErrorCode.NoFaceDetected => FaceCaptureRejectionReason.NoFace,
             FaceRecognitionErrorCode.MultipleFacesDetected => FaceCaptureRejectionReason.MultipleFaces,
             FaceRecognitionErrorCode.EngineUnavailable => FaceCaptureRejectionReason.EngineUnavailable,
-            FaceRecognitionErrorCode.EmptyImage => FaceCaptureRejectionReason.InvalidImage,
+            FaceRecognitionErrorCode.EmptyImage or FaceRecognitionErrorCode.InvalidImage => FaceCaptureRejectionReason.InvalidImage,
+            FaceRecognitionErrorCode.LowBrightness => FaceCaptureRejectionReason.LowBrightness,
+            FaceRecognitionErrorCode.HighBrightness => FaceCaptureRejectionReason.HighBrightness,
+            FaceRecognitionErrorCode.LowSharpness => FaceCaptureRejectionReason.LowSharpness,
+            FaceRecognitionErrorCode.FaceTooSmall => FaceCaptureRejectionReason.FaceTooSmall,
+            FaceRecognitionErrorCode.FaceTooLarge => FaceCaptureRejectionReason.FaceTooLarge,
             _ => FaceCaptureRejectionReason.ProcessingFailed
         };
 
@@ -123,6 +128,11 @@ public sealed class FaceEnrollmentProcessor : IFaceEnrollmentProcessor
             FaceCaptureRejectionReason.MultipleFaces => "ErrorBiometricMultipleFaces",
             FaceCaptureRejectionReason.EngineUnavailable => "ErrorBiometricEngineUnavailable",
             FaceCaptureRejectionReason.InvalidImage => "ErrorBiometricInvalidImage",
+            FaceCaptureRejectionReason.LowBrightness => "ErrorBiometricLowBrightness",
+            FaceCaptureRejectionReason.HighBrightness => "ErrorBiometricHighBrightness",
+            FaceCaptureRejectionReason.LowSharpness => "ErrorBiometricLowSharpness",
+            FaceCaptureRejectionReason.FaceTooSmall => "ErrorBiometricFaceTooSmall",
+            FaceCaptureRejectionReason.FaceTooLarge => "ErrorBiometricFaceTooLarge",
             _ => "ErrorBiometricProcessingFailed"
         };
 

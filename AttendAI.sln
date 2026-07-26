@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "experiments", "experiments"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttendAI.FaceRecognition.Poc", "experiments\AttendAI.FaceRecognition.Poc\AttendAI.FaceRecognition.Poc.csproj", "{4F645225-CF4F-41C1-8ADC-2BF142A6F739}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttendAI.RealFaceEngine.Poc", "experiments\AttendAI.RealFaceEngine.Poc\AttendAI.RealFaceEngine.Poc.csproj", "{B2D330E3-90F2-4E59-A7CA-0EC93A390CA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +62,10 @@ Global
 		{4F645225-CF4F-41C1-8ADC-2BF142A6F739}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F645225-CF4F-41C1-8ADC-2BF142A6F739}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F645225-CF4F-41C1-8ADC-2BF142A6F739}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2D330E3-90F2-4E59-A7CA-0EC93A390CA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2D330E3-90F2-4E59-A7CA-0EC93A390CA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2D330E3-90F2-4E59-A7CA-0EC93A390CA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2D330E3-90F2-4E59-A7CA-0EC93A390CA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3296C92E-78FF-42EC-B995-3F604F70A4B3} = {C6DFC279-6FEC-440F-A63A-9AA777813806}
@@ -69,5 +75,6 @@ Global
 		{54D9817B-A980-43E2-A4FE-CAF8271D9170} = {34A7384A-05BF-45F6-86F4-41C9B7B5B8F6}
 		{D87CD3A7-8989-4430-91DC-F79FF815B4D4} = {34A7384A-05BF-45F6-86F4-41C9B7B5B8F6}
 		{4F645225-CF4F-41C1-8ADC-2BF142A6F739} = {DEC79885-203A-4FEB-85A5-9D636DF24881}
+		{B2D330E3-90F2-4E59-A7CA-0EC93A390CA8} = {DEC79885-203A-4FEB-85A5-9D636DF24881}
 	EndGlobalSection
 EndGlobal

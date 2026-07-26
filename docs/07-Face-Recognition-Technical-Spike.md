@@ -124,4 +124,18 @@ The real-engine gate remains Not Verified:
 
 Sprint 5 added explicit template compatibility checks using engine name/version, model name/version, template format version, and embedding dimension. Incompatible active templates are rejected safely and marked for re-enrollment. This prevents fake templates from being silently accepted by a future real verifier.
 
-Before Sprint 6 production attendance work depends on face verification, the team must provide approved local samples outside Git, choose licensed detection and embedding models, implement the adapter, document preprocessing and normalization, run same-person and different-person comparisons, verify no-face/multiple-face/low-quality handling, and calibrate a threshold. Do not commit biometric images, model files, or license keys.
+## Real Engine Integration Update
+
+The selected local adapter is OpenCvSharp YuNet plus ONNX Runtime SFace:
+
+- OpenCvSharp4/OpenCvSharp4.runtime.win `4.13.0.20260627`.
+- Microsoft.ML.OnnxRuntime `1.27.1`.
+- YuNet `face_detection_yunet_2023mar.onnx`, MIT license in OpenCV Zoo.
+- SFace `face_recognition_sface_2021dec.onnx`, Apache-2.0 license in OpenCV Zoo.
+- Verified OpenCV native version: `4.13.0`.
+- Verified SFace input: `System.Single [1, 3, 112, 112]`.
+- Verified SFace output: `System.Single [1, 128]`.
+
+ONNX Runtime remains only the SFace inference runtime. AttendAI still owns detection, five-landmark alignment, preprocessing, template normalization, cosine comparison, threshold policy, licensing, deployment, and privacy controls.
+
+Before Sprint 6 production attendance work depends on face verification, the team must provide approved local samples outside Git, document same-person and different-person scores, verify no-face/multiple-face/low-quality handling, and calibrate a threshold. Do not commit biometric images, model files, embeddings, or license keys.

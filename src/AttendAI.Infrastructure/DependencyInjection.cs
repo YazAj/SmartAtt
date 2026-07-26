@@ -26,20 +26,8 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        var faceRecognitionSection = configuration.GetSection(FaceRecognitionOptions.SectionName);
-        services.Configure<FaceRecognitionOptions>(options =>
-        {
-            options.Provider = faceRecognitionSection["Provider"] ?? options.Provider;
-            options.ModelPath = faceRecognitionSection["ModelPath"] ?? options.ModelPath;
-            options.EngineVersion = faceRecognitionSection["EngineVersion"] ?? options.EngineVersion;
-            options.ModelName = faceRecognitionSection["ModelName"] ?? options.ModelName;
-            options.ModelVersion = faceRecognitionSection["ModelVersion"] ?? options.ModelVersion;
-
-            if (double.TryParse(faceRecognitionSection["Threshold"], out var threshold))
-            {
-                options.Threshold = threshold;
-            }
-        });
+        services.Configure<FaceRecognitionOptions>(
+            configuration.GetSection(FaceRecognitionOptions.SectionName));
 
         services.Configure<BiometricEnrollmentOptions>(
             configuration.GetSection(BiometricEnrollmentOptions.SectionName));
@@ -78,12 +66,21 @@ public static class DependencyInjection
 
         services.AddScoped<IdentitySeedService>();
         services.AddScoped<ApplicationDbInitializer>();
+        services.AddSingleton<RealFaceRecognitionModelStore>();
         services.AddScoped<IFaceRecognitionEngine>(serviceProvider =>
         {
             var options = serviceProvider.GetRequiredService<IOptions<FaceRecognitionOptions>>().Value;
-            return options.Provider.Equals("Fake", StringComparison.OrdinalIgnoreCase)
-                ? ActivatorUtilities.CreateInstance<FakeFaceRecognitionEngine>(serviceProvider)
-                : ActivatorUtilities.CreateInstance<DisabledFaceRecognitionEngine>(serviceProvider);
+            if (options.Provider.Equals("Fake", StringComparison.OrdinalIgnoreCase))
+            {
+                return ActivatorUtilities.CreateInstance<FakeFaceRecognitionEngine>(serviceProvider);
+            }
+
+            if (options.Provider.Equals("Real", StringComparison.OrdinalIgnoreCase))
+            {
+                return ActivatorUtilities.CreateInstance<OpenCvSFaceRecognitionEngine>(serviceProvider);
+            }
+
+            return ActivatorUtilities.CreateInstance<DisabledFaceRecognitionEngine>(serviceProvider);
         });
         services.AddScoped<IFaceCaptureValidator, FaceCaptureValidator>();
         services.AddScoped<IFaceEnrollmentProcessor, FaceEnrollmentProcessor>();

@@ -128,3 +128,9 @@ Required runtime/manual combinations:
 - Arabic RTL Dark at 320x568.
 
 Checked surfaces include sidebar, navbar, breadcrumbs/page titles, dropdowns, forms, placeholders, validation messages, buttons, cards, tables, badges, alerts, empty states, profile menu, Student verification pages, Admin verification pages, dashboards, and error/access-denied flows. Verification capture previews are kept in browser memory/file inputs only and are not written to localStorage, IndexedDB, query strings, or persisted DOM after submit.
+
+## Real Engine UI Update
+
+Real mode reuses the existing biometric enrollment and one-to-one verification UI. The UI must show only safe readiness, match/no-match/capture-rejected/re-enrollment-required/engine-unavailable states. Normal Student pages must not display embeddings, absolute model paths, protected templates, template fingerprints, native exception details, or raw model diagnostics. Admin diagnostics may show safe engine/model names, versions, threshold, metric, expected template format, and embedding dimension.
+
+Manual visual verification for Real camera enrollment and verification remains Not Verified until authorized local participants are available. Existing English/Arabic, LTR/RTL, light/dark responsive checks remain valid for the shared UI shell and Fake workflow.

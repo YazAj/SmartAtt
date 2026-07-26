@@ -3,5 +3,6 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AnalysisLevel>latest</AnalysisLevel>
+    <NoWarn>$(NoWarn);CS9057</NoWarn>
   </PropertyGroup>
 </Project>

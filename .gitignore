@@ -36,10 +36,15 @@ appsettings.*.local.json
 local-face-images/
 face-test-images/
 approved-face-samples/
+artifacts/local-face-tests/
 experiments/**/local-images/
 experiments/**/approved-samples/
+experiments/**/local-face-tests/
 /models/
 experiments/**/models/
+*.embedding
+*.embeddings.json
+*.npy
 *.dat
 *.onnx
 *.caffemodel

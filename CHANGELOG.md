@@ -1,5 +1,43 @@
 # Changelog
 
+## 2026-07-26
+
+### Real Face Engine Added
+
+- Added `OpenCvSFaceRecognitionEngine` for `FaceRecognition:Provider=Real`.
+- Added OpenCvSharp YuNet detection with five-landmark validation, SFace-compatible alignment, OpenCV-style blob preprocessing, ONNX Runtime SFace embedding inference, L2-normalized float32 little-endian templates, and cosine comparison.
+- Added `RealFaceRecognitionModelStore`, safe model path resolution, SHA-256 validation, Git LFS pointer rejection, native/model readiness checks, and actual ONNX input/output metadata inspection.
+- Added `scripts/setup-face-models.ps1` for official OpenCV Zoo model provisioning.
+- Added `experiments/AttendAI.RealFaceEngine.Poc` for model-only readiness and approved local sample evaluation.
+- Added unit tests for model path safety, missing/corrupt/pointer/hash model failures, invalid image handling, YuNet row interpretation, template codec safety, Fake-to-Real incompatibility, real metadata compatibility, threshold equality, and DI mode selection.
+- Added docs 35 through 40 for the real-engine plan, architecture, test plan, review, model provisioning/licensing, and threshold evaluation.
+
+### Real Face Engine Verified
+
+- Verified model provisioning from official OpenCV Zoo URLs.
+- Verified YuNet SHA-256 `8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4`.
+- Verified SFace SHA-256 `0ba9fbfa01b5270c96627c4ef784da859931e02f04419c829e83484087c34e79`.
+- Verified model-only POC readiness on Windows x64: OpenCV `4.13.0`, SFace input `System.Single [1, 3, 112, 112]`, SFace output `System.Single [1, 128]`.
+- Verified closure build after manual-evidence documentation update: `dotnet build AttendAI.sln` exited 0 with 0 warnings and 0 errors.
+- Verified closure automated test run: `dotnet test AttendAI.sln` exited 0 with 119 total, 119 passed, 0 failed, 0 skipped.
+- Verified real biometric re-enrollment was completed with Real mode.
+- Verified the previous Fake template was replaced.
+- Verified a protected OpenCV-SFace template was created.
+- Verified same-person real verification returned Match with cosine similarity `0.950795`.
+- Verified no raw biometric images were committed or intentionally retained.
+
+### Real Face Engine Not Verified
+
+- Different-person verification result was not supplied in the manual evidence available for this update.
+- No-face rejection result was not supplied in the manual evidence available for this update.
+- Multiple-face rejection result was not supplied in the manual evidence available for this update.
+- Poor-quality rejection result was not supplied in the manual evidence available for this update.
+- Verification after application restart was not supplied in the manual evidence available for this update.
+- Camera cleanup result was not supplied in the manual evidence available for this update.
+- Confirmation that no attendance record was created was not supplied in the manual evidence available for this update.
+- Threshold calibration beyond the documented `DevelopmentDefault` value.
+- Liveness and anti-spoofing are not implemented and must not be claimed.
+
 ## 2026-07-22
 
 ### Sprint 5 Added
