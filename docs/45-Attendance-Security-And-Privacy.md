@@ -66,6 +66,8 @@ Attendance does not store:
 
 Challenge tokens are random and stored only as SHA-256 hashes. A consumed challenge cannot be reused. Rejected attempts consume valid challenges by default to reduce replay opportunities. Idempotency hashes allow repeated browser submits to return the original attempt result. A unique database index is the final duplicate-attendance guard.
 
+These controls reduce duplicate and basic replay risks. They do not constitute complete replay-attack prevention.
+
 ## Location Privacy
 
 The submitted latitude/longitude is used only in memory to calculate distance. The database stores distance and accuracy metadata, not exact Student coordinates. Classroom/session policy coordinates are configuration/academic resource data and may be stored as part of classroom and lecture-session policy snapshots.
@@ -74,9 +76,30 @@ The submitted latitude/longitude is used only in memory to calculate distance. T
 
 Attendance composes the existing one-to-one verifier. Template unprotection remains inside Infrastructure. Attendance does not expose templates, embeddings, template fingerprints, or raw image bytes to Web DTOs or views.
 
+## Sprint 6 Closure Evidence
+
+Sprint 6 is marked Completed based on successful automated verification and project-owner-confirmed authorized manual runtime evidence.
+
+The project owner confirmed:
+
+- Successful same-person attendance using real OpenCV YuNet/SFace one-to-one verification.
+- Different-person, no-face, multiple-face, and poor-quality captures were rejected.
+- No successful `AttendanceRecord` was created for rejected face or location attempts.
+- Browser location permission denial, outside-geofence location, and insufficiently accurate location were handled safely.
+- Closed attendance session, duplicate attendance, repeated submit, multiple-tab, and restart persistence behavior were verified.
+- Instructor roster and attendance count updated correctly.
+- Camera stream stopped after completion.
+- Client-side captured-image state and location state were cleared.
+- No raw camera image, aligned face image, embedding, or face-template bytes were intentionally retained in attendance tables.
+- Exact Student coordinates were not retained by default.
+- Sprint 5 standalone face verification did not create `AttendanceRecord`.
+
+Physical-versus-simulated location method was not recorded in the closure evidence.
+
 ## Limitations
 
 - Browser geolocation can be spoofed. Sprint 6 uses it as a policy control but does not implement device attestation.
 - No liveness or anti-spoofing is implemented.
 - A printed photo, replayed screen, or presentation attack may still fool basic face recognition.
-- Threshold calibration must remain a gate before production use.
+- Complete replay-attack prevention, tamper-proof browser geolocation, GPS anti-spoofing, production biometric certification, production fraud prevention, population-wide threshold calibration, one-to-many identification, and classroom surveillance are not implemented or claimed.
+- This is an academic Localhost implementation.

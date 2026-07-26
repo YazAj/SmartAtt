@@ -6,7 +6,7 @@ Sprint 1 established the buildable foundation. Sprint 2 adds academic and accoun
 
 ## Current Sprint Status
 
-Sprint 6 is partially completed. The secure attendance check-in implementation, EF migration, Student/Instructor UI, localization resources, automated tests, SQL Server migration check, and Admin runtime authentication smoke are verified. Completion still requires approved real-device attendance verification plus manual Arabic/English, RTL/LTR, responsive, and light/dark checks for the new attendance pages. Fake mode remains a deterministic development/demo engine only and cannot create Sprint 6 attendance records. Liveness and anti-spoofing are not implemented and must not be claimed.
+Sprint 6 is Completed. Sprint 6 is marked Completed based on successful automated verification and project-owner-confirmed authorized manual runtime evidence. Secure biometric attendance check-in is available for active enrolled lecture sessions using real one-to-one OpenCV YuNet/SFace verification, server-side geofence validation, attendance challenges, idempotency, database duplicate protection, safe attempt history, and Instructor roster visibility. Fake mode remains a deterministic development/demo engine only and cannot create Sprint 6 attendance records. Liveness, anti-spoofing, device attestation, tamper-proof browser geolocation, and complete replay-attack prevention are not implemented or claimed.
 
 ## Technology Stack
 
@@ -105,7 +105,7 @@ Sprint 4 supports biometric profile management only:
 - Student re-enrollment and consent withdrawal.
 - Admin safe metadata view, revocation, and require re-enrollment.
 
-The default `FaceRecognition:Provider` is `Fake` for development and automated tests. Fake mode is blocked in Production by the readiness service. `Real` mode resolves `OpenCvSFaceRecognitionEngine`, requires local ignored OpenCV Zoo YuNet/SFace models, rejects Fake templates as incompatible, and remains pending for authorized live-sample verification and threshold calibration.
+The default `FaceRecognition:Provider` is `Fake` for development and automated tests. Fake mode is blocked in Production by the readiness service. `Real` mode resolves `OpenCvSFaceRecognitionEngine`, requires local ignored OpenCV Zoo YuNet/SFace models, rejects Fake templates as incompatible, and was used in project-owner-confirmed Sprint 6 one-to-one attendance verification. Broader production threshold calibration remains a future gate.
 
 ## Face Verification
 
@@ -134,7 +134,7 @@ Sprint 6 supports secure Student check-in for active lecture sessions:
 - Rejected attempts are stored as safe `AttendanceAttempt` rows where a Student/session can be resolved.
 - Instructor roster shows enrolled Students, Present/Late/Missing state, and safe attempt metadata.
 
-Attendance does not store raw images, exact submitted Student coordinates, plain challenge tokens, embeddings, protected template bytes, template fingerprints, reports, exports, notifications, or liveness decisions.
+Attendance does not store raw images, exact submitted Student coordinates by default, plain challenge tokens, embeddings, protected template bytes, template fingerprints, reports, exports, notifications, or liveness decisions. Attendance challenges, idempotency, rate limiting, and unique database constraints reduce duplicate and basic replay risks; they do not make the browser, camera, or location signal tamper-proof.
 
 ## Real Face Engine Setup
 
@@ -195,7 +195,7 @@ dotnet run --project experiments/AttendAI.FaceRecognition.Poc -- <image-path>
 dotnet run --project experiments/AttendAI.FaceRecognition.Poc -- <reference-image-path> <probe-image-path>
 ```
 
-No personal biometric images are committed. To test negative fake-engine paths, use a local file containing `NO_FACE` or `MULTI_FACE`. For Real model-only readiness, use `experiments/AttendAI.RealFaceEngine.Poc`. Real biometric verification remains pending until approved samples are supplied locally.
+No personal biometric images are committed. To test negative fake-engine paths, use a local file containing `NO_FACE` or `MULTI_FACE`. For Real model-only readiness, use `experiments/AttendAI.RealFaceEngine.Poc`. Sprint 6 attendance closure records project-owner-confirmed authorized manual real one-to-one verification; broader production calibration remains a separate future gate.
 
 ## Sprint 1 Closure Evidence
 
@@ -256,7 +256,7 @@ No personal biometric images are committed. To test negative fake-engine paths, 
 - OpenCV version: `4.13.0`.
 - SFace input/output: `System.Single [1, 3, 112, 112]` and `System.Single [1, 128]`.
 - Automated tests after integration: 119 total, 119 passed, 0 failed, 0 skipped in the latest no-build test run.
-- Authorized live-camera biometric sample tests: Not Verified.
+- Authorized Sprint 6 live-camera attendance evidence: project-owner-confirmed successful same-person Match and rejection scenarios. Broader production-wide calibration remains a future gate.
 
 ## Sprint 6 Verification Evidence
 
@@ -266,15 +266,18 @@ No personal biometric images are committed. To test negative fake-engine paths, 
 - Runtime smoke used generated environment-only demo Admin credentials and verified startup, public routes, Admin login, Admin dashboard, Admin blocked from Student dashboard, change password, and profile.
 - Automated tests: 142 total, 142 passed, 0 failed, 0 skipped.
 - Formatting verification passed with no changes required.
-- Approved real-device attendance check-in and visual multilingual theme verification remain Not Verified.
+- Project-owner-confirmed authorized manual runtime evidence verified successful same-person attendance, different-person/no-face/multiple-face/poor-quality rejections, inside-geofence acceptance, outside-geofence/inaccurate-location/permission-denied handling, closed-session rejection, duplicate and repeated-submit handling, restart persistence, Instructor roster update, camera cleanup, client-side location-state cleanup, privacy retention behavior, and English/Arabic LTR/RTL light/dark desktop/mobile UI behavior.
+- Manual location method was not recorded as physical GPS versus simulated/browser-overridden evidence.
 - Security scan found no tracked real credential, private key, SDK license, biometric image/sample, model binary, database file, user secret, or build output.
 
 ## Known Limitations
 
 - No public self-registration.
 - No attendance reports, exports, liveness detection, notifications, one-to-many identification, classroom-camera recognition, or production real-engine enrollment/verification.
-- Real face recognition was evaluated and documented with model readiness evidence, but approved live-sample attendance verification remains pending.
-- Browser geolocation is used as a server-side policy factor, not as device attestation.
+- Face verification is real one-to-one verification using YuNet and SFace; it is not one-to-many identification or classroom surveillance.
+- Browser geolocation is used as a server-side policy factor, not as device attestation, GPS anti-spoofing, or tamper-proof location proof.
+- The implemented duplicate, challenge, idempotency, and rate-limit controls reduce duplicate and basic replay risks but are not complete replay-proof security.
+- This remains an academic Localhost implementation and is not production biometric certification or production fraud prevention.
 - Student and Instructor account creation currently captures academic profile data only; production onboarding policies and notification delivery remain future work.
 
 ## Documentation Index
@@ -328,4 +331,4 @@ No personal biometric images are committed. To test negative fake-engine paths, 
 
 ## Future Sprint Summary
 
-Sprint 7 planning may begin only after the team accepts Sprint 6 as a partial implementation and explicitly tracks the remaining approved real-device attendance gate. Do not add attendance reports, exports, analytics, notifications, one-to-many recognition, classroom-camera recognition, or liveness/anti-spoofing before authorized real face-engine attendance testing and threshold calibration are satisfied.
+Sprint 7 planning may begin after the team accepts the Sprint 6 completion evidence and explicitly tracks the remaining production-grade security limitations. Do not add attendance reports, exports, analytics, notifications, one-to-many recognition, classroom-camera recognition, or liveness/anti-spoofing without separate approved scope, model/dependency review, and security testing.

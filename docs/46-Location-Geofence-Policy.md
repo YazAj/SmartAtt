@@ -73,4 +73,25 @@ Not stored:
 
 Automated unit tests cover accepted same-point location, outside geofence, excessive accuracy, invalid coordinates, invalid accuracy, and missing policy.
 
-Manual real-device browser verification remains required before Sprint 6 can be marked Completed.
+Sprint 6 is marked Completed based on successful automated verification and project-owner-confirmed authorized manual runtime evidence.
+
+The project owner confirmed:
+
+- Browser location permission flow worked.
+- A fresh browser location reading was acquired.
+- Server-side geofence validation accepted an inside-geofence position.
+- Location permission denial was handled safely.
+- Outside-geofence location was rejected.
+- Insufficiently accurate location was rejected.
+- No successful `AttendanceRecord` was created for rejected location attempts.
+- Client-side location state was cleared after completion.
+
+Physical vs simulated location evidence:
+
+- User-confirmed manual location result; physical-versus-simulated method was not recorded in the closure evidence.
+
+## Limitations
+
+- Browser-provided coordinates may be manipulated.
+- Server-side geofence validation is implemented, but browser geolocation is not tamper-proof.
+- This policy does not implement device attestation, GPS anti-spoofing, WiFi/Bluetooth/NFC verification, or production fraud prevention.

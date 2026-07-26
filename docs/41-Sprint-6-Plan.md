@@ -67,7 +67,7 @@ Explicitly out of scope:
    - unit tests for domain and geofence rules
    - integration tests for success, duplicate, no-match, outside geofence, challenge replay, real-engine gating, and endpoint authorization
    - SQL Server migration verification when local SQL Server is available
-   - manual browser and real-device verification before final completion
+   - manual runtime browser/camera/location verification before final completion
 
 ## Completion Rule
 
@@ -84,4 +84,8 @@ Sprint 6 can be marked Completed only when all of these are true:
 - Instructor roster shows only safe metadata and the correct attendance state.
 - No raw biometric image, exact student coordinate, template, secret, model file, or local artifact is tracked.
 
-Until the manual real-device evidence exists, Sprint 6 remains Partially completed even if implementation and automated tests pass.
+## Closure Status
+
+Sprint 6 is marked Completed based on successful automated verification and project-owner-confirmed authorized manual runtime evidence. The project owner confirmed the required successful attendance, face rejection, location rejection, authorization, duplicate/repeated-submit, restart persistence, privacy, camera cleanup, location-state cleanup, and UI scenarios.
+
+The precise manual location method was not recorded as physical GPS versus browser developer-tool override or test double. The closure evidence therefore records: User-confirmed manual location result; physical-versus-simulated method was not recorded in the closure evidence.

@@ -78,9 +78,9 @@ Required controls:
 - Empty states.
 - Result page.
 
-## Manual Real-Device Attendance Verification
+## Manual Runtime Attendance Verification
 
-Required approved-sample scenarios:
+User-confirmed authorized manual runtime evidence:
 
 - Successful same-person check-in with real compatible template.
 - Different-person rejection.
@@ -95,9 +95,20 @@ Required approved-sample scenarios:
 - Verification after application restart.
 - Camera cleanup after submit/navigation.
 - Instructor roster after successful and rejected attempts.
+- English and Arabic localization.
+- LTR and RTL layout.
+- Light and dark mode.
+- Desktop and mobile/responsive layout.
+- Long validation message readability.
+- No page-level horizontal overflow.
+- Loading state preventing accidental duplicate submission.
+
+Physical vs simulated location evidence:
+
+- User-confirmed manual location result; physical-versus-simulated method was not recorded in the closure evidence.
 
 No personal biometric images may be committed or intentionally retained.
 
 ## Completion Decision
 
-Automated tests and SQL Server migration/runtime smoke passing are necessary but insufficient. Sprint 6 remains Partially completed until approved manual real-device attendance evidence and multilingual light/dark responsive visual evidence are recorded.
+Sprint 6 is marked Completed based on successful automated verification and project-owner-confirmed authorized manual runtime evidence. This test plan does not claim liveness detection, anti-spoofing certification, complete replay-attack prevention, tamper-proof browser geolocation, device attestation, GPS anti-spoofing, production biometric certification, production fraud prevention, one-to-many identification, or classroom surveillance.
