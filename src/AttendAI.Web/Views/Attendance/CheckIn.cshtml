@@ -1,0 +1,57 @@
+@model AttendanceChallengeDto
+@{
+    ViewData["Title"] = Localizer["AttendanceCheckIn"];
+    var idempotencyKey = Guid.NewGuid().ToString("N");
+}
+<section class="page-header">
+    <div class="entity-title">
+        <p class="eyebrow">@Localizer["AttendanceCheckIn"]</p>
+        <h1 class="lecture-identifier-title"><span>@Model.Session.CourseCode</span><span class="lecture-title-divider"> - </span><span>@Model.Session.SectionNumber</span></h1>
+        <small>@Model.Session.ScheduledStartLocal.ToString("t") - @Model.Session.ScheduledEndLocal.ToString("t")</small>
+    </div>
+    <a class="btn btn-secondary app-btn" asp-action="Index">@Localizer["BackToList"]</a>
+</section>
+
+<section class="dashboard-grid">
+    <article class="stat-card"><span>@Localizer["Classroom"]</span><strong>@Model.Session.ClassroomCode</strong><p>@Localizer["RadiusMetersShort", Model.Session.AllowedRadiusMeters]</p></article>
+    <article class="stat-card"><span>@Localizer["ChallengeExpires"]</span><strong data-countdown-target="@Model.ExpiresAtUtc.UtcDateTime.ToString("O")">--:--</strong><p>@Model.ExpiresAtLocal.ToString("t")</p></article>
+    <article class="stat-card"><span>@Localizer["LocationAccuracy"]</span><strong>@Model.MaximumAcceptedAccuracyMeters m</strong><p>@Localizer["AttendanceNoRawLocationStorage"]</p></article>
+</section>
+
+<section class="app-panel mt-3" data-face-capture data-attendance-checkin data-required-captures="1" data-max-capture-bytes="@Model.MaximumCaptureBytes" data-max-location-accuracy="@Model.MaximumAcceptedAccuracyMeters" data-location-success="@Localizer["AttendanceLocationCaptured"]" data-location-error="@Localizer["ErrorAttendanceLocationRequired"]">
+    <form asp-action="CheckIn" asp-route-id="@Model.Session.LectureSessionId" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="ChallengeToken" value="@Model.ChallengeToken" />
+        <input type="hidden" name="IdempotencyKey" value="@idempotencyKey" />
+        <input type="hidden" name="Latitude" data-attendance-latitude />
+        <input type="hidden" name="Longitude" data-attendance-longitude />
+        <input type="hidden" name="AccuracyMeters" data-attendance-accuracy />
+        <input type="hidden" name="BrowserTimestampUtc" data-attendance-timestamp />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="capture-grid">
+            <div class="camera-frame">
+                <video playsinline muted data-biometric-video></video>
+                <canvas hidden data-biometric-canvas></canvas>
+                <div class="camera-placeholder" data-biometric-placeholder>@Localizer["FaceVerificationCameraPlaceholder"]</div>
+            </div>
+            <div class="capture-panel">
+                <div class="section-heading">
+                    <h2>@Localizer["AttendanceSecureCheckIn"]</h2>
+                    <p>@Localizer["AttendanceSecureCheckInLead"]</p>
+                </div>
+                <div class="capture-counter"><span data-biometric-count>0</span><span>/</span><span>1</span></div>
+                <div class="row-actions">
+                    <button class="btn btn-secondary app-btn" type="button" data-biometric-start>@Localizer["StartCamera"]</button>
+                    <button class="btn btn-primary app-btn" type="button" data-biometric-capture disabled>@Localizer["CaptureFrame"]</button>
+                    <button class="btn btn-secondary app-btn" type="button" data-biometric-clear disabled>@Localizer["ClearCaptures"]</button>
+                </div>
+                <div class="form-field"><label class="form-label" for="AttendanceCaptureFile">@Localizer["UploadCaptureFallback"]</label><input id="AttendanceCaptureFile" type="file" name="capture" accept="@Model.AllowedContentTypes" class="form-control" data-biometric-file-input /></div>
+                <div class="capture-strip" data-biometric-strip></div>
+                <div class="row-actions">
+                    <button class="btn btn-secondary app-btn" type="button" data-attendance-location>@Localizer["CaptureLocation"]</button>
+                    <span class="badge text-bg-secondary" data-attendance-location-status>@Localizer["LocationNotCaptured"]</span>
+                </div>
+                <button class="btn btn-primary app-btn" type="submit" data-biometric-submit disabled>@Localizer["SubmitAttendanceCheckIn"]</button>
+            </div>
+        </div>
+    </form>
+</section>

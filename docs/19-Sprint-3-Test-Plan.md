@@ -100,3 +100,5 @@ The original Arabic RTL dark mobile clipping source was the closed fixed mobile 
 - Production face enrollment or verification.
 - GPS/location validation.
 - Reports, exports, notifications, QR attendance, and mobile-native workflows.
+
+Historical note: Sprint 6 later implements secure biometric attendance check-in and records its verification plan in `docs/43-Sprint-6-Test-Plan.md`.

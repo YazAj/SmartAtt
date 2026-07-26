@@ -3,7 +3,7 @@
     ViewData["Title"] = Localizer["ActiveLectureSession"];
     var sessionCountdownTarget = Model.ScheduledEndUtc.UtcDateTime.ToString("O");
 }
-<section class="page-header"><div class="entity-title"><p class="eyebrow">@Localizer["StudentRole"]</p><h1 class="lecture-identifier-title"><span>@Model.CourseCode</span><span class="lecture-title-divider"> - </span><span>@Model.SectionNumber</span></h1><small>@Localizer["StudentActiveSessionNoCode"]</small></div><a class="btn btn-secondary app-btn" asp-action="Index">@Localizer["BackToSchedule"]</a></section>
+<section class="page-header"><div class="entity-title"><p class="eyebrow">@Localizer["StudentRole"]</p><h1 class="lecture-identifier-title"><span>@Model.CourseCode</span><span class="lecture-title-divider"> - </span><span>@Model.SectionNumber</span></h1><small>@Localizer["StudentActiveSessionNoCode"]</small></div><div class="page-actions"><a class="btn btn-primary app-btn" asp-controller="Attendance" asp-action="CheckIn" asp-route-id="@Model.Id">@Localizer["AttendanceCheckIn"]</a><a class="btn btn-secondary app-btn" asp-action="Index">@Localizer["BackToSchedule"]</a></div></section>
 <section class="dashboard-grid">
     <article class="stat-card"><span>@Localizer["SessionStatus"]</span><strong>@Localizer[$"LectureSessionStatus{Model.Status}"]</strong><p>@Localizer["ActiveLectureIndicator"]</p></article>
     <article class="stat-card"><span>@Localizer["SessionCountdown"]</span><strong data-countdown-target="@sessionCountdownTarget">--:--</strong><p>@Model.ScheduledStartLocal.ToString("t") - @Model.ScheduledEndLocal.ToString("t")</p></article>

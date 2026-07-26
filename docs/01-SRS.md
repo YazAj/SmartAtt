@@ -2,9 +2,15 @@
 
 ## Real Face Engine Integration Update
 
-The system now includes an optional local Real face engine for Windows x64 localhost using OpenCvSharp YuNet detection and ONNX Runtime SFace embeddings. The default mode remains `Fake`. Real mode is limited to one-to-one enrollment and verification of the authenticated Student's active template; it must not perform attendance registration, location validation, one-to-many identification, or browser-side biometric decisions.
+The system now includes an optional local Real face engine for Windows x64 localhost using OpenCvSharp YuNet detection and ONNX Runtime SFace embeddings. The default mode remains `Fake`. The Real engine itself is limited to one-to-one enrollment and verification of the authenticated Student's active template; it must not perform attendance registration, location validation, one-to-many identification, or browser-side biometric decisions. Sprint 6 composes the one-to-one verifier with separate attendance and location services.
 
 Real mode is partially verified by model-only readiness. Production biometric completion remains blocked until authorized live-camera enrollment, same-person, different-person, no-face, multiple-face, poor-quality, restart, and threshold-calibration evidence is recorded. The system does not claim liveness detection or anti-spoofing.
+
+## Sprint 6 Attendance Update
+
+The system now includes secure biometric attendance check-in for active lecture sessions. Attendance requires the authenticated Student, active enrollment, an active lecture session, a one-time challenge, idempotent submission, browser geolocation, server-side geofence validation, and a fresh one-to-one face verification using the Real engine gate. Attendance stores safe metadata only and does not retain raw biometric images or exact submitted Student coordinates.
+
+Sprint 6 is partially completed until SQL Server/runtime closure and approved real-device attendance evidence are recorded. Liveness and anti-spoofing remain not implemented.
 
 ## Purpose
 
@@ -20,13 +26,15 @@ Sprint 3 adds weekly lecture schedules, conflict detection, instructor/student t
 
 Sprint 4 adds biometric privacy notice, explicit Student consent, capture validation, protected template storage, Student biometric enrollment and re-enrollment, consent withdrawal, Admin biometric oversight, and the real-engine readiness gate.
 
-Sprint 5 adds one-to-one Student self-verification, eligibility checks, capture validation, template compatibility, safe attempt metadata, Admin verification oversight, diagnostics, rate limiting, idempotency, threshold policy, and fake-development runtime verification. It does not implement attendance registration, attendance records, attendance statuses, attendance reports, production real face recognition, liveness detection, location validation, notifications, exports, or one-to-many identification.
+Sprint 5 adds one-to-one Student self-verification, eligibility checks, capture validation, template compatibility, safe attempt metadata, Admin verification oversight, diagnostics, rate limiting, idempotency, threshold policy, and fake-development runtime verification.
+
+Sprint 6 adds secure biometric attendance check-in, attendance records, safe attendance attempts, one-time attendance challenges, real-engine attendance gating, browser geolocation, server-side geofence validation, duplicate/replay protection, Student check-in UI, and Instructor roster visibility. It does not add attendance dashboards, analytics, reports, exports, notifications, QR/NFC/Bluetooth/WiFi/IP attendance, one-to-many identification, classroom-camera recognition, liveness detection, or anti-spoofing.
 
 ## User Roles
 
 - Admin: academic setup, lecture scheduling, session monitoring, biometric oversight, and face-verification oversight owner.
-- Instructor: assigned section viewer and authorized lecture-session operator.
-- Student: academic profile, enrollment, schedule viewer, biometric profile owner, and one-to-one self-verification actor.
+- Instructor: assigned section viewer, authorized lecture-session operator, and safe attendance roster viewer for owned sessions.
+- Student: academic profile, enrollment, schedule viewer, biometric profile owner, one-to-one self-verification actor, and attendance check-in actor for enrolled active sessions.
 
 ## Product Functions
 
@@ -54,6 +62,10 @@ Sprint 5 adds one-to-one Student self-verification, eligibility checks, capture 
 - Persist safe verification-attempt metadata without raw captures, encodings, protected templates, or template fingerprints.
 - Allow Admin users to review verification attempts and engine diagnostics using safe metadata only.
 - Clearly label fake-engine verification as development/demo behavior.
+- Allow eligible Students to check in to active lecture sessions using a fresh face verification and browser geolocation.
+- Persist attendance records and safe attendance attempts without raw captures, embeddings, exact submitted Student coordinates, or plain challenge tokens.
+- Allow Instructors to view enrolled Student attendance state and safe attempt metadata for their own sessions.
+- Block Fake/demo face mode from creating attendance records.
 
 ## Functional Requirements
 
@@ -100,6 +112,13 @@ Sprint 5 adds one-to-one Student self-verification, eligibility checks, capture 
 | FR-39 | Incompatible templates are rejected safely and marked for re-enrollment. |
 | FR-40 | Admin users can search/filter verification attempts, view safe details, and inspect diagnostics/readiness status. |
 | FR-41 | Student, Admin, Instructor, anonymous, and cross-Student authorization boundaries are enforced for verification. |
+| FR-42 | Eligible Students can open active attendance sessions and submit one check-in for an enrolled active lecture session. |
+| FR-43 | Attendance check-in requires a one-time server challenge, idempotency key, and fresh one-to-one face verification. |
+| FR-44 | Attendance requires Real face-engine readiness and rejects Fake/demo mode. |
+| FR-45 | Browser geolocation is validated on the server against the lecture-session policy snapshot. |
+| FR-46 | Attendance records are unique per Student and lecture session. |
+| FR-47 | Rejected attendance attempts persist safe metadata without creating attendance records. |
+| FR-48 | Instructor users can view safe attendance roster metadata only for sessions they own. |
 
 ## Non-Functional Requirements
 
@@ -114,6 +133,8 @@ Sprint 5 adds one-to-one Student self-verification, eligibility checks, capture 
 - Session timestamps must be stored in UTC and displayed in the configured application time zone.
 - Biometric verification must process captures in memory, persist safe metadata only, and use server-side rate limiting and idempotency.
 - Real face-engine verification must not be marked passed without approved samples, licensed models, adapter initialization, and threshold evidence.
+- Attendance check-in must use database uniqueness, one-time challenge validation, idempotency, transactions, and server-side policy checks to prevent duplicate/replay side effects.
+- Attendance location validation must not retain exact submitted Student coordinates by default.
 
 ## Security Requirements
 
@@ -129,6 +150,8 @@ Sprint 5 adds one-to-one Student self-verification, eligibility checks, capture 
 - Lecture-session state changes must use antiforgery validation, authorization checks, and optimistic concurrency.
 - Face verification POST actions must use antiforgery validation, size limits, MIME/signature validation, safe error mapping, rate limiting, and Student ownership checks.
 - The Web layer must not receive template bytes, embeddings, template fingerprints, or raw native model paths.
+- Attendance POST actions must use antiforgery validation, authenticated Student ownership, one-time challenges, idempotency, real-engine gating, server-side geofence validation, and database duplicate protection.
+- Attendance views must not expose raw captures, exact submitted Student coordinates, protected templates, template fingerprints, embeddings, or plain challenge hashes.
 
 ## Privacy Requirements
 
@@ -136,8 +159,10 @@ Sprint 5 adds one-to-one Student self-verification, eligibility checks, capture 
 - The project should store a face template where possible.
 - The system should avoid permanent storage of raw images.
 - Access to biometric data must be restricted.
-- Sprint 5 performs Student self-verification only; it does not create attendance data.
+- Sprint 5 performs Student self-verification only; Sprint 6 creates attendance data only after the secure check-in gates pass.
 - Verification captures are not intentionally retained in SQL Server, disk, browser storage, query strings, or logs.
+- Attendance check-in captures are not intentionally retained in SQL Server, disk, browser storage, query strings, or logs.
+- Exact submitted Student latitude/longitude are used in memory for distance calculation and are not retained by attendance tables.
 
 ## Localization Requirements
 
@@ -156,7 +181,7 @@ Sprint 5 adds one-to-one Student self-verification, eligibility checks, capture 
 - Public registration is not required in Sprint 3.
 - Student and Instructor production accounts are administrator-created.
 - The initial face approach is one-to-one verification.
-- Duplicate attendance prevention, location validation, and attendance decisions are future attendance rules.
+- Duplicate attendance prevention, location validation, and attendance decisions are implemented for Sprint 6 check-in only.
 - Department, Course, Classroom, Student, and Instructor codes/numbers are unique.
 - Sections are unique per Course, academic year, semester, and section number.
 - Student enrollment is unique per Student and Section.
@@ -166,6 +191,10 @@ Sprint 5 adds one-to-one Student self-verification, eligibility checks, capture 
 - A Student can see active-session state but cannot see temporary session codes.
 - A Student may verify only themselves after password-change completion, active account/profile checks, active consent, active template, compatible template metadata, enabled engine, cooldown, and rate-limit checks.
 - Verification outcomes must be Match, No Match, or a safe rejection state; they must not create attendance records.
+- Attendance outcomes must be Present, Late, Duplicate, or a safe rejection state.
+- Attendance status is decided only by the server.
+- A Student may create at most one attendance record per active lecture session.
+- Attendance challenge tokens are one-time and stored only as hashes.
 
 ## Face Recognition Statement
 
@@ -185,11 +214,27 @@ The initial version uses one-to-one face verification, not one-to-many identific
 - Apply `ScoreMetric` and `VerificationThreshold` from configuration.
 - Persist only safe `FaceVerificationAttempt` metadata.
 - Provide Student status/history/capture/result pages and Admin overview/details/diagnostics pages.
-- Keep fake mode labeled as development/demo and keep real mode Not Verified until actual gate evidence exists.
+- Keep fake mode labeled as development/demo. Fake mode must not be used for attendance decisions.
+
+## Sprint 6 Attendance Requirements
+
+- Resolve the Student from the authenticated Identity user.
+- Reject inactive users, inactive Student profiles, users still required to change password, and Students not actively enrolled in the session section.
+- Require an active lecture session and a check-in timestamp inside the server-defined attendance window.
+- Issue a short-lived attendance challenge and store only its hash.
+- Require an idempotency key and store only its hash.
+- Validate browser geolocation server-side against the lecture-session attendance policy snapshot.
+- Reject missing, invalid, inaccurate, and outside-geofence location submissions.
+- Require Real face-engine diagnostics for attendance.
+- Run one-to-one face verification with purpose `FutureAttendance`.
+- Persist successful attendance as one unique `AttendanceRecord`.
+- Persist safe `AttendanceAttempt` metadata for processed accepted/rejected/duplicate submissions.
+- Allow Instructors to view safe attendance roster metadata for their own sessions.
+- Do not store raw captures, exact submitted Student coordinates, embeddings, protected template bytes, template fingerprints, plain challenge tokens, reports, exports, notifications, or liveness decisions.
 
 ## Out Of Scope
 
-Attendance registration, student code submission for attendance, attendance records, attendance statuses, reports, exports, production real face recognition, liveness detection, anti-spoofing production claims, location validation, notifications, QR attendance, one-to-many identification, classroom-camera recognition, background recognition, and native mobile applications are out of scope for Sprint 5.
+Attendance dashboards, analytics, reports, exports, notifications, QR attendance, NFC, Bluetooth, WiFi, IP geolocation, device fingerprinting, one-to-many identification, classroom-camera recognition, background recognition, liveness detection, anti-spoofing production claims, and native mobile applications are out of scope for Sprint 6.
 
 ## Acceptance Criteria
 
@@ -216,6 +261,10 @@ Attendance registration, student code submission for attendance, attendance reco
 - Student self-verification match, no-match, safe rejection, rate-limit, and idempotency paths are tested.
 - Admin verification oversight exposes safe attempt metadata only.
 - No verification attempt stores raw image, encoding, protected template, template fingerprint, attendance status, or location data.
+- Attendance check-in migration applies to SQL Server.
+- Student attendance check-in creates one record only after active enrollment, active session, valid challenge, idempotency, real face verification, and geofence checks pass.
+- Instructor roster exposes safe attendance metadata for owned sessions.
+- No attendance table stores raw images, embeddings, protected templates, template fingerprints, exact submitted Student coordinates, or plain challenge tokens.
 
 ## Sprint 4 Biometric Enrollment Requirements
 

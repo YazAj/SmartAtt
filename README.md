@@ -2,11 +2,11 @@
 
 AttendAI is a responsive university attendance management web platform for the graduation project **Smart Attendance Management System Using Face Recognition**.
 
-Sprint 1 established the buildable foundation. Sprint 2 adds academic and account management: departments, students, instructors, courses, sections, classrooms, enrollments, instructor assignments, administrator-created accounts, first-login password changes, and role-aware academic dashboards. Sprint 3 adds weekly lecture schedules, schedule conflict detection, instructor/student timetables, live lecture sessions, secure temporary session codes, and session lifecycle audit history. Sprint 4 adds biometric consent, face enrollment profile management, protected template storage, Admin biometric oversight, and the real-engine readiness gate. Sprint 5 adds secure one-to-one Student self-verification against the authenticated Student's active compatible template, safe attempt metadata, Admin verification oversight, diagnostics, rate limiting, and threshold policy. Attendance registration, reports, exports, location validation, attendance decisions, and one-to-many identification remain intentionally out of scope.
+Sprint 1 established the buildable foundation. Sprint 2 adds academic and account management: departments, students, instructors, courses, sections, classrooms, enrollments, instructor assignments, administrator-created accounts, first-login password changes, and role-aware academic dashboards. Sprint 3 adds weekly lecture schedules, schedule conflict detection, instructor/student timetables, live lecture sessions, secure temporary session codes, and session lifecycle audit history. Sprint 4 adds biometric consent, face enrollment profile management, protected template storage, Admin biometric oversight, and the real-engine readiness gate. Sprint 5 adds secure one-to-one Student self-verification against the authenticated Student's active compatible template, safe attempt metadata, Admin verification oversight, diagnostics, rate limiting, and threshold policy. Sprint 6 adds secure biometric attendance check-in for active lecture sessions using real-mode one-to-one face verification, browser geolocation, server-side geofence validation, idempotency, one-time challenges, duplicate protection, safe attempt history, and Instructor roster visibility.
 
 ## Current Sprint Status
 
-Sprint 5 is partially completed. The one-to-one verification architecture, database migration, Student/Admin UI, fake-engine localhost workflow, security boundaries, localization resources, and automated tests are implemented and verified. A local Real engine adapter using OpenCvSharp YuNet plus ONNX Runtime SFace is implemented, and model-only readiness is verified on Windows x64 with OpenCV 4.13.0. The real biometric gate remains partially open because approved live-camera same-person, different-person, no-face, multiple-face, poor-quality, and restart verification evidence has not been run. Fake mode is a deterministic development/demo engine only and must not be represented as real biometric recognition.
+Sprint 6 is partially completed. The secure attendance check-in implementation, EF migration, Student/Instructor UI, localization resources, automated tests, SQL Server migration check, and Admin runtime authentication smoke are verified. Completion still requires approved real-device attendance verification plus manual Arabic/English, RTL/LTR, responsive, and light/dark checks for the new attendance pages. Fake mode remains a deterministic development/demo engine only and cannot create Sprint 6 attendance records. Liveness and anti-spoofing are not implemented and must not be claimed.
 
 ## Technology Stack
 
@@ -21,10 +21,10 @@ Sprint 5 is partially completed. The one-to-one verification architecture, datab
 ## Architecture Summary
 
 ```text
-src/AttendAI.Domain          Core domain abstractions, academic/lecture/biometric/verification entities, and enums
-src/AttendAI.Application     Contracts, academic/lecture/biometric/verification DTOs/services, role routing, safe redirects, face engine abstraction
-src/AttendAI.Infrastructure  EF Core, Identity persistence, academic/lecture/biometric/verification services, seeding, fake/real/disabled face engines
-src/AttendAI.Web             MVC controllers, Admin area, lecture/biometric/verification UI, Razor views, localization, theming
+src/AttendAI.Domain          Core domain abstractions, academic/lecture/biometric/verification/attendance entities, and enums
+src/AttendAI.Application     Contracts, academic/lecture/biometric/verification/attendance DTOs/services, role routing, safe redirects, face engine abstraction
+src/AttendAI.Infrastructure  EF Core, Identity persistence, academic/lecture/biometric/verification/attendance services, seeding, fake/real/disabled face engines
+src/AttendAI.Web             MVC controllers, Admin area, lecture/biometric/verification/attendance UI, Razor views, localization, theming
 tests/                       Unit and integration tests
 experiments/                 Face-recognition POC console harness
 docs/                        Sprint documentation and verification evidence
@@ -72,6 +72,7 @@ The current migration set is:
 - `20260722160127_AddLectureSchedulingAndSessions`
 - `20260722190900_AddBiometricEnrollment`
 - `20260722221335_AddFaceVerification`
+- `20260726173403_AddSecureAttendanceCheckIn`
 
 ## Demo Admin Setup
 
@@ -91,7 +92,7 @@ Do not commit real credentials.
 dotnet run --project src/AttendAI.Web
 ```
 
-The first non-test startup applies migrations and seeds Identity roles. Use the HTTPS URL printed by ASP.NET Core. Admin users can create Student and Instructor accounts with temporary passwords; those users must change password on first login. Admins can then create lecture schedules from active sections, assigned instructors, and classrooms. Instructors can start eligible lecture sessions and receive temporary codes only in the authorized response. Students can view active session state for enrolled sections but cannot see session codes. Students can also manage biometric consent, enrollment status, and one-to-one self-verification; Admins can review biometric status, verification diagnostics, and safe verification metadata.
+The first non-test startup applies migrations and seeds Identity roles. Use the HTTPS URL printed by ASP.NET Core. Admin users can create Student and Instructor accounts with temporary passwords; those users must change password on first login. Admins can then create lecture schedules from active sections, assigned instructors, and classrooms. Instructors can start eligible lecture sessions and receive temporary codes only in the authorized response. Students can view active session state for enrolled sections but cannot see session codes. Students can also manage biometric consent, enrollment status, one-to-one self-verification, and attendance check-in for active enrolled sessions. Instructors can view the safe attendance roster for their active sessions. Admins can review biometric status, verification diagnostics, and safe verification metadata.
 
 ## Biometric Enrollment
 
@@ -118,6 +119,22 @@ Sprint 5 supports Student self-verification only:
 - Captured verification images, embeddings, protected templates, template fingerprints, session codes, attendance status, and location data are not stored in verification attempts.
 
 Fake mode is visibly labeled as development/demo verification. Real mode can load the configured local models but remains a partial gate until `docs/34-Real-Face-Engine-Integration.md`, `docs/37-Real-Face-Engine-Test-Plan.md`, and `docs/40-Real-Threshold-Evaluation.md` are satisfied with approved samples.
+
+## Attendance Check-In
+
+Sprint 6 supports secure Student check-in for active lecture sessions:
+
+- The Student is resolved from the authenticated Identity user.
+- The Student must have an active account/profile, completed first password change, and active enrollment in the lecture section.
+- The lecture session must be active and inside the attendance window.
+- A one-time hashed attendance challenge and hashed idempotency key protect replay and repeated submits.
+- Attendance requires real-mode face diagnostics; Fake/demo mode is blocked for attendance decisions.
+- Browser geolocation is evaluated server-side against the lecture-session policy snapshot.
+- Successful check-in creates one `AttendanceRecord` per Student/session and stores only safe metadata.
+- Rejected attempts are stored as safe `AttendanceAttempt` rows where a Student/session can be resolved.
+- Instructor roster shows enrolled Students, Present/Late/Missing state, and safe attempt metadata.
+
+Attendance does not store raw images, exact submitted Student coordinates, plain challenge tokens, embeddings, protected template bytes, template fingerprints, reports, exports, notifications, or liveness decisions.
 
 ## Real Face Engine Setup
 
@@ -241,11 +258,23 @@ No personal biometric images are committed. To test negative fake-engine paths, 
 - Automated tests after integration: 119 total, 119 passed, 0 failed, 0 skipped in the latest no-build test run.
 - Authorized live-camera biometric sample tests: Not Verified.
 
+## Sprint 6 Verification Evidence
+
+- SQL Server LocalDB verification database: `AttendAI_Sprint6Verification_20260726`.
+- Migrations verified through `20260726173403_AddSecureAttendanceCheckIn`.
+- Attendance tables, unique attendance indexes, lecture-session attendance policy snapshot columns, and seeded Admin/Instructor/Student roles were confirmed by SQL queries.
+- Runtime smoke used generated environment-only demo Admin credentials and verified startup, public routes, Admin login, Admin dashboard, Admin blocked from Student dashboard, change password, and profile.
+- Automated tests: 142 total, 142 passed, 0 failed, 0 skipped.
+- Formatting verification passed with no changes required.
+- Approved real-device attendance check-in and visual multilingual theme verification remain Not Verified.
+- Security scan found no tracked real credential, private key, SDK license, biometric image/sample, model binary, database file, user secret, or build output.
+
 ## Known Limitations
 
 - No public self-registration.
-- No attendance registration, reports, exports, liveness detection, location validation, notifications, one-to-many identification, or production real-engine enrollment/verification.
-- Real face recognition was evaluated and documented, but not executed with approved biometric samples.
+- No attendance reports, exports, liveness detection, notifications, one-to-many identification, classroom-camera recognition, or production real-engine enrollment/verification.
+- Real face recognition was evaluated and documented with model readiness evidence, but approved live-sample attendance verification remains pending.
+- Browser geolocation is used as a server-side policy factor, not as device attestation.
 - Student and Instructor account creation currently captures academic profile data only; production onboarding policies and notification delivery remain future work.
 
 ## Documentation Index
@@ -290,7 +319,13 @@ No personal biometric images are committed. To test negative fake-engine paths, 
 - [38-Real-Face-Engine-Review.md](docs/38-Real-Face-Engine-Review.md)
 - [39-Model-Provisioning-And-Licensing.md](docs/39-Model-Provisioning-And-Licensing.md)
 - [40-Real-Threshold-Evaluation.md](docs/40-Real-Threshold-Evaluation.md)
+- [41-Sprint-6-Plan.md](docs/41-Sprint-6-Plan.md)
+- [42-Attendance-Check-In-Domain-Model.md](docs/42-Attendance-Check-In-Domain-Model.md)
+- [43-Sprint-6-Test-Plan.md](docs/43-Sprint-6-Test-Plan.md)
+- [44-Sprint-6-Review.md](docs/44-Sprint-6-Review.md)
+- [45-Attendance-Security-And-Privacy.md](docs/45-Attendance-Security-And-Privacy.md)
+- [46-Location-Geofence-Policy.md](docs/46-Location-Geofence-Policy.md)
 
 ## Future Sprint Summary
 
-Sprint 6 planning may begin only after the team accepts Sprint 5 as a partial implementation and explicitly tracks the remaining real-engine sample gate. Do not add production attendance marking, attendance reports, location validation, or one-to-many recognition before authorized real face-engine testing and threshold calibration are satisfied.
+Sprint 7 planning may begin only after the team accepts Sprint 6 as a partial implementation and explicitly tracks the remaining approved real-device attendance gate. Do not add attendance reports, exports, analytics, notifications, one-to-many recognition, classroom-camera recognition, or liveness/anti-spoofing before authorized real face-engine attendance testing and threshold calibration are satisfied.

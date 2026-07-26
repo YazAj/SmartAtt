@@ -223,6 +223,73 @@
         window.addEventListener('beforeunload', stopCamera);
     });
 
+    document.querySelectorAll('[data-attendance-checkin]').forEach(function (root) {
+        var form = root.querySelector('form');
+        var locationButton = root.querySelector('[data-attendance-location]');
+        var locationStatus = root.querySelector('[data-attendance-location-status]');
+        var latitudeInput = root.querySelector('[data-attendance-latitude]');
+        var longitudeInput = root.querySelector('[data-attendance-longitude]');
+        var accuracyInput = root.querySelector('[data-attendance-accuracy]');
+        var timestampInput = root.querySelector('[data-attendance-timestamp]');
+        var successMessage = root.getAttribute('data-location-success') || '';
+        var errorMessage = root.getAttribute('data-location-error') || '';
+
+        function setStatus(message, isReady) {
+            if (!locationStatus) {
+                return;
+            }
+
+            locationStatus.textContent = message;
+            locationStatus.classList.toggle('text-bg-success', isReady);
+            locationStatus.classList.toggle('text-bg-secondary', !isReady);
+        }
+
+        function hasLocation() {
+            return Boolean(latitudeInput && latitudeInput.value &&
+                longitudeInput && longitudeInput.value &&
+                accuracyInput && accuracyInput.value);
+        }
+
+        if (locationButton && navigator.geolocation) {
+            locationButton.addEventListener('click', function () {
+                locationButton.disabled = true;
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    if (latitudeInput) {
+                        latitudeInput.value = String(position.coords.latitude);
+                    }
+                    if (longitudeInput) {
+                        longitudeInput.value = String(position.coords.longitude);
+                    }
+                    if (accuracyInput) {
+                        accuracyInput.value = String(position.coords.accuracy);
+                    }
+                    if (timestampInput) {
+                        timestampInput.value = new Date(position.timestamp).toISOString();
+                    }
+
+                    setStatus(successMessage, true);
+                    locationButton.disabled = false;
+                }, function () {
+                    setStatus(errorMessage, false);
+                    locationButton.disabled = false;
+                }, {
+                    enableHighAccuracy: true,
+                    maximumAge: 0,
+                    timeout: 15000
+                });
+            });
+        }
+
+        if (form) {
+            form.addEventListener('submit', function (event) {
+                if (!hasLocation()) {
+                    event.preventDefault();
+                    setStatus(errorMessage, false);
+                }
+            });
+        }
+    });
+
     document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape') {
             document.body.classList.remove('sidebar-open');

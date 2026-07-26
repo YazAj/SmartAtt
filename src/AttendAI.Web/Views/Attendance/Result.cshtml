@@ -1,0 +1,23 @@
+@model AttendanceCheckInResultDto
+@{
+    ViewData["Title"] = Model.Succeeded ? Localizer["AttendanceCheckInSucceeded"] : Localizer["AttendanceCheckInRejected"];
+}
+<section class="page-header">
+    <div>
+        <p class="eyebrow">@Localizer["AttendanceCheckIn"]</p>
+        <h1>@(Model.Succeeded ? Localizer["AttendanceCheckInSucceeded"] : Localizer["AttendanceCheckInRejected"])</h1>
+        <p>@Localizer[Model.MessageKey]</p>
+    </div>
+    <a class="btn btn-secondary app-btn" asp-action="Index">@Localizer["BackToList"]</a>
+</section>
+
+<section class="app-panel">
+    <div class="details-grid">
+        <div><span class="detail-label">@Localizer["Outcome"]</span><div class="detail-value">@(Model.Succeeded ? Localizer[$"AttendanceStatus{Model.Status}"] : Localizer[$"AttendanceFailureReason{Model.FailureReason}"])</div></div>
+        <div><span class="detail-label">@Localizer["Location"]</span><div class="detail-value">@Localizer[$"LocationVerificationOutcome{Model.LocationOutcome}"]</div></div>
+        <div><span class="detail-label">@Localizer["Distance"]</span><div class="detail-value">@(Model.DistanceMeters?.ToString("0.###") ?? "-")</div></div>
+        <div><span class="detail-label">@Localizer["FaceScore"]</span><div class="detail-value">@(Model.FaceScore?.ToString("0.######") ?? "-")</div></div>
+        <div><span class="detail-label">@Localizer["AttemptedAt"]</span><div class="detail-value">@Model.AttemptedAtUtc.ToLocalTime().ToString("g")</div></div>
+        <div><span class="detail-label">@Localizer["AttendanceRecord"]</span><div class="detail-value">@(Model.AttendanceRecordId?.ToString("N") ?? "-")</div></div>
+    </div>
+</section>

@@ -1,10 +1,12 @@
 using AttendAI.Application.Academic;
 using AttendAI.Application.Academic.Dashboard;
+using AttendAI.Application.Attendance;
 using AttendAI.Application.Biometrics;
 using AttendAI.Application.FaceRecognition;
 using AttendAI.Application.FaceVerification;
 using AttendAI.Application.Lectures;
 using AttendAI.Infrastructure.Academic;
+using AttendAI.Infrastructure.Attendance;
 using AttendAI.Infrastructure.Biometrics;
 using AttendAI.Infrastructure.Configuration;
 using AttendAI.Infrastructure.FaceRecognition;
@@ -37,6 +39,9 @@ public static class DependencyInjection
 
         services.Configure<LectureSchedulingOptions>(
             configuration.GetSection(LectureSchedulingOptions.SectionName));
+
+        services.Configure<AttendanceOptions>(
+            configuration.GetSection(AttendanceOptions.SectionName));
 
         var connectionString = configuration.GetConnectionString("DefaultConnection")
             ?? "Server=(localdb)\\MSSQLLocalDB;Database=AttendAI;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True";
@@ -111,6 +116,9 @@ public static class DependencyInjection
         services.AddScoped<ILectureLookupService, LectureLookupService>();
         services.AddScoped<ILectureScheduleService, LectureScheduleService>();
         services.AddScoped<ILectureSessionService, LectureSessionService>();
+        services.AddScoped<ILocationVerificationService, LocationVerificationService>();
+        services.AddSingleton<IAttendanceRateLimiter, InMemoryAttendanceRateLimiter>();
+        services.AddScoped<IAttendanceService, AttendanceService>();
 
         return services;
     }

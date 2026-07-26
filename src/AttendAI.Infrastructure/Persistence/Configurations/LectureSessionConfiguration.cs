@@ -13,6 +13,10 @@ public sealed class LectureSessionConfiguration : IEntityTypeConfiguration<Lectu
             table.HasCheckConstraint("CK_LectureSessions_ScheduledRange", "[ScheduledStartUtc] < [ScheduledEndUtc]");
             table.HasCheckConstraint("CK_LectureSessions_LateThreshold", "[LateThresholdMinutes] >= 0");
             table.HasCheckConstraint("CK_LectureSessions_AllowedRadius", "[AllowedRadiusMeters] >= 0");
+            table.HasCheckConstraint("CK_LectureSessions_AttendanceLatitude", "[AttendanceLatitude] IS NULL OR (CAST([AttendanceLatitude] AS REAL) BETWEEN -90 AND 90)");
+            table.HasCheckConstraint("CK_LectureSessions_AttendanceLongitude", "[AttendanceLongitude] IS NULL OR (CAST([AttendanceLongitude] AS REAL) BETWEEN -180 AND 180)");
+            table.HasCheckConstraint("CK_LectureSessions_AttendanceCoordinatePair", "([AttendanceLatitude] IS NULL AND [AttendanceLongitude] IS NULL) OR ([AttendanceLatitude] IS NOT NULL AND [AttendanceLongitude] IS NOT NULL)");
+            table.HasCheckConstraint("CK_LectureSessions_MaximumAcceptedAccuracyMeters", "[MaximumAcceptedAccuracyMeters] > 0");
         });
 
         builder.HasKey(session => session.Id);
@@ -28,6 +32,12 @@ public sealed class LectureSessionConfiguration : IEntityTypeConfiguration<Lectu
         builder.Property(session => session.EndedByUserId).HasMaxLength(450);
         builder.Property(session => session.CancelledByUserId).HasMaxLength(450);
         builder.Property(session => session.EndReason).HasMaxLength(300);
+        builder.Property(session => session.AttendanceLatitude).HasColumnType("decimal(9,6)");
+        builder.Property(session => session.AttendanceLongitude).HasColumnType("decimal(9,6)");
+        builder.Property(session => session.MaximumAcceptedAccuracyMeters).HasDefaultValue(75);
+        builder.Property(session => session.AttendanceCheckInEnabled).HasDefaultValue(true);
+        builder.Property(session => session.LocationVerificationRequired).HasDefaultValue(true);
+        builder.Property(session => session.FaceVerificationRequired).HasDefaultValue(true);
         builder.Property(session => session.RowVersion).IsRowVersion();
 
         builder.HasIndex(session => new { session.LectureScheduleId, session.SessionDate }).IsUnique();

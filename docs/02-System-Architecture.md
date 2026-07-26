@@ -4,8 +4,8 @@
 
 ```mermaid
 flowchart LR
-    Web["AttendAI.Web\nMVC, Razor, auth UI, lecture/biometric/verification UI, localization, themes"] --> Application["AttendAI.Application\nContracts, role routing, schedules, sessions, biometrics, verification, safe redirects, face engine interface"]
-    Web --> Infrastructure["AttendAI.Infrastructure\nEF Core, Identity, seeding, lecture/biometric/verification services, fake/real/disabled face engines"]
+    Web["AttendAI.Web\nMVC, Razor, auth UI, lecture/biometric/verification/attendance UI, localization, themes"] --> Application["AttendAI.Application\nContracts, role routing, schedules, sessions, biometrics, verification, attendance, safe redirects, face engine interface"]
+    Web --> Infrastructure["AttendAI.Infrastructure\nEF Core, Identity, seeding, lecture/biometric/verification/attendance services, fake/real/disabled face engines"]
     Infrastructure --> Application
     Infrastructure --> Domain["AttendAI.Domain\nCore concepts and framework-free enums"]
     Application --> Domain
@@ -79,23 +79,45 @@ CSS custom properties define design tokens. `[data-theme="dark"]` overrides toke
 
 `IFaceRecognitionEngine` lives in Application. Infrastructure provides `FakeFaceRecognitionEngine` for tests and development plus `DisabledFaceRecognitionEngine` for safe rejection. Controllers and Razor views do not contain face-recognition logic. Lecture scheduling and session management do not call face recognition.
 
-## Future Attendance Workflow
+## Secure Attendance Check-In Architecture
 
 ```mermaid
 sequenceDiagram
     participant Student
     participant Web
     participant AttendanceService
-    participant FaceEngine
+    participant Verifier as One-to-One Verifier
+    participant Location as Location Policy
     participant Database
-    Student->>Web: Submit session code and face sample
-    Web->>AttendanceService: Request attendance registration
-    AttendanceService->>FaceEngine: Verify sample against stored template
-    AttendanceService->>Database: Validate time, location, duplicate, enrollment
-    AttendanceService-->>Web: Accepted or rejected result
+    Student->>Web: Open active attendance session
+    Web->>AttendanceService: Issue one-time challenge
+    AttendanceService->>Database: Store challenge hash
+    AttendanceService-->>Web: Plain challenge once
+    Student->>Web: Submit capture, browser location, challenge, idempotency key
+    Web->>AttendanceService: Check-in command with authenticated user id
+    AttendanceService->>Database: Validate Student, enrollment, session, duplicate, challenge
+    AttendanceService->>Location: Server-side geofence decision
+    AttendanceService->>Verifier: Fresh one-to-one verification, FutureAttendance purpose
+    AttendanceService->>Database: Persist safe attempt and attendance record transactionally
+    AttendanceService-->>Web: Safe accepted/rejected result
 ```
 
-This workflow is documented for future sprints only.
+Attendance is a Web/Application/Infrastructure composition layer. The browser never posts StudentId, attendance status, classroom policy, face template id, score, or decision. Infrastructure stores challenge and idempotency values only as hashes.
+
+```mermaid
+flowchart LR
+    StudentAttendanceUi["Student Attendance MVC"] --> AttendanceContracts["Attendance Application Contracts"]
+    InstructorRosterUi["Instructor Roster MVC"] --> AttendanceContracts
+    AttendanceContracts --> AttendanceDomain["AttendanceChallenge / AttendanceAttempt / AttendanceRecord"]
+    AttendanceServices["Infrastructure Attendance Services"] --> AttendanceContracts
+    AttendanceServices --> Db["ApplicationDbContext"]
+    AttendanceServices --> OneToOne["IOneToOneFaceVerifier"]
+    AttendanceServices --> Diagnostics["IFaceEngineDiagnosticsService"]
+    AttendanceServices --> Geofence["ILocationVerificationService"]
+    Db --> Sql["SQL Server"]
+```
+
+`AttendanceRecord` stores successful status and safe metadata only. `AttendanceAttempt` records accepted/rejected/duplicate safe metadata. Neither stores raw biometric images, embeddings, protected template bytes, template fingerprints, plain tokens, or exact submitted Student coordinates.
 
 ## Error Handling And Logging
 
@@ -103,7 +125,7 @@ Development uses the developer exception page. Non-development uses `/Home/Error
 
 ## Configuration Strategy
 
-Configuration supports `ConnectionStrings:DefaultConnection`, `FaceRecognition`, `SupportedCultures`, `LectureScheduling`, and optional `DemoAdmin`. Secrets belong in User Secrets or environment variables.
+Configuration supports `ConnectionStrings:DefaultConnection`, `FaceRecognition`, `FaceVerification`, `BiometricEnrollment`, `LectureScheduling`, `Attendance`, `SupportedCultures`, and optional `DemoAdmin`. Secrets belong in User Secrets or environment variables.
 
 ## Security Boundaries
 
@@ -113,6 +135,8 @@ Configuration supports `ConnectionStrings:DefaultConnection`, `FaceRecognition`,
 - Biometric templates must not be exposed through MVC models.
 - Temporary session codes must not be stored or logged in plain text.
 - Student lecture/session projections must not expose code material.
+- Attendance challenge tokens and idempotency keys must be stored only as hashes.
+- Attendance must not store exact submitted Student coordinates, raw captures, embeddings, protected templates, or template fingerprints.
 
 ## Biometric Enrollment Architecture
 
@@ -160,6 +184,8 @@ Controllers submit the authenticated user id and a capture command. They never a
 `FaceVerificationAttempt` is append-only metadata. It deliberately omits raw captures, image paths, base64 images, face encoding bytes, protected template bytes, template fingerprints, session codes, model file paths, and raw native exceptions.
 
 The verification service is future-ready for attendance use through `IOneToOneFaceVerifier`, but Sprint 5 invokes only `FaceVerificationPurpose.SelfTest`. No attendance record, attendance status, location validation, report, export, or notification path calls the service.
+
+Sprint 6 uses that boundary with `FaceVerificationPurpose.FutureAttendance` and records the resulting safe `FaceVerificationAttempt` alongside attendance attempts. The underlying one-to-one verifier still resolves the authenticated Student's active compatible template server-side and performs no one-to-many search.
 
 ## Template Compatibility
 

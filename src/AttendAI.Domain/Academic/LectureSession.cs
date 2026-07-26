@@ -27,7 +27,13 @@ public sealed class LectureSession : AcademicEntity
         DateTimeOffset sessionCodeExpiresAtUtc,
         int lateThresholdMinutes,
         int allowedRadiusMeters,
-        string startedByUserId)
+        string startedByUserId,
+        decimal? attendanceLatitude = null,
+        decimal? attendanceLongitude = null,
+        int maximumAcceptedAccuracyMeters = 75,
+        bool attendanceCheckInEnabled = true,
+        bool locationVerificationRequired = true,
+        bool faceVerificationRequired = true)
     {
         if (lectureScheduleId == Guid.Empty)
         {
@@ -67,6 +73,13 @@ public sealed class LectureSession : AcademicEntity
         LateThresholdMinutes = lateThresholdMinutes;
         AllowedRadiusMeters = allowedRadiusMeters;
         StartedByUserId = RequireText(startedByUserId, nameof(startedByUserId), 450);
+        SetAttendancePolicy(
+            attendanceLatitude,
+            attendanceLongitude,
+            maximumAcceptedAccuracyMeters,
+            attendanceCheckInEnabled,
+            locationVerificationRequired,
+            faceVerificationRequired);
     }
 
     public Guid LectureScheduleId { get; private set; }
@@ -108,6 +121,18 @@ public sealed class LectureSession : AcademicEntity
     public int LateThresholdMinutes { get; private set; }
 
     public int AllowedRadiusMeters { get; private set; }
+
+    public decimal? AttendanceLatitude { get; private set; }
+
+    public decimal? AttendanceLongitude { get; private set; }
+
+    public int MaximumAcceptedAccuracyMeters { get; private set; } = 75;
+
+    public bool AttendanceCheckInEnabled { get; private set; } = true;
+
+    public bool LocationVerificationRequired { get; private set; } = true;
+
+    public bool FaceVerificationRequired { get; private set; } = true;
 
     public string StartedByUserId { get; private set; }
 
@@ -169,6 +194,42 @@ public sealed class LectureSession : AcademicEntity
         SessionCodeHash = RequireText(sessionCodeHash, nameof(sessionCodeHash), 256);
         ProtectedSessionCode = RequireText(protectedSessionCode, nameof(protectedSessionCode), 2048);
         SessionCodeExpiresAtUtc = sessionCodeExpiresAtUtc;
+    }
+
+    private void SetAttendancePolicy(
+        decimal? attendanceLatitude,
+        decimal? attendanceLongitude,
+        int maximumAcceptedAccuracyMeters,
+        bool attendanceCheckInEnabled,
+        bool locationVerificationRequired,
+        bool faceVerificationRequired)
+    {
+        if (maximumAcceptedAccuracyMeters <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(maximumAcceptedAccuracyMeters), "Maximum accepted accuracy must be greater than zero.");
+        }
+
+        if (attendanceLatitude is < -90 or > 90)
+        {
+            throw new ArgumentOutOfRangeException(nameof(attendanceLatitude), "Latitude must be between -90 and 90.");
+        }
+
+        if (attendanceLongitude is < -180 or > 180)
+        {
+            throw new ArgumentOutOfRangeException(nameof(attendanceLongitude), "Longitude must be between -180 and 180.");
+        }
+
+        if (attendanceLatitude.HasValue != attendanceLongitude.HasValue)
+        {
+            throw new ArgumentException("Attendance latitude and longitude must be provided together.", nameof(attendanceLatitude));
+        }
+
+        AttendanceLatitude = attendanceLatitude;
+        AttendanceLongitude = attendanceLongitude;
+        MaximumAcceptedAccuracyMeters = maximumAcceptedAccuracyMeters;
+        AttendanceCheckInEnabled = attendanceCheckInEnabled;
+        LocationVerificationRequired = locationVerificationRequired;
+        FaceVerificationRequired = faceVerificationRequired;
     }
 
     private void InvalidateCode()

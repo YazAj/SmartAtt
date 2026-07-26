@@ -51,6 +51,10 @@
 | FaceVerificationPurpose | SelfTest, EngineValidation, FutureAttendance |
 | FaceVerificationDecision | Unknown, Match, NoMatch, NoFaceDetected, MultipleFacesDetected, EngineError |
 | ScoreMetric | CosineSimilarity, EuclideanDistance, EngineDefined |
+| AttendanceStatus | Present, Late |
+| AttendanceAttemptOutcome | Succeeded, Rejected, Duplicate |
+| AttendanceFailureReason | None, StudentNotFound, StudentInactive, PasswordChangeRequired, NotEnrolled, SessionNotFound, SessionNotActive, AttendanceWindowClosed, AttendanceLocationUnavailable, LocationInvalid, LocationInaccurate, OutsideGeofence, ChallengeMissing, ChallengeInvalid, ChallengeExpired, ChallengeAlreadyUsed, IdempotencyKeyInvalid, FaceVerificationFailed, FaceNotMatched, FaceNoFace, FaceMultipleFaces, FaceLowQuality, FaceEngineUnavailable, DuplicateAttendance, PersistenceFailed, RateLimited |
+| LocationVerificationOutcome | NotEvaluated, Accepted, MissingPolicy, Invalid, Inaccurate, OutsideGeofence |
 
 ## LectureSchedules
 
@@ -93,6 +97,12 @@
 | SessionCodeVersion | int | Yes | n/a | none | Internal | Incremented after each generation/regeneration. |
 | LateThresholdMinutes | int | Yes | n/a | check constraint | Internal | Historical threshold snapshot for future attendance. |
 | AllowedRadiusMeters | int | Yes | n/a | check constraint | Internal | Historical radius snapshot for future location validation. |
+| AttendanceLatitude | decimal(9,6) nullable | No | n/a | check constraint | Internal | Attendance policy latitude snapshot from classroom/session policy. |
+| AttendanceLongitude | decimal(9,6) nullable | No | n/a | check constraint | Internal | Attendance policy longitude snapshot from classroom/session policy. |
+| MaximumAcceptedAccuracyMeters | int | Yes | n/a | check constraint | Internal | Maximum browser geolocation accuracy accepted for attendance. |
+| AttendanceCheckInEnabled | bit | Yes | n/a | default true | Internal | Enables Student attendance check-in for this session. |
+| LocationVerificationRequired | bit | Yes | n/a | default true | Internal | Requires server-side browser-location validation. |
+| FaceVerificationRequired | bit | Yes | n/a | default true | Internal | Requires one-to-one face verification for attendance. |
 | StartedByUserId | nvarchar(450) | Yes | 450 | FK `AspNetUsers` | Internal | User that started the Session. |
 | EndedByUserId | nvarchar(450) nullable | No | 450 | FK `AspNetUsers` | Internal | User that ended/force-ended the Session. |
 | CancelledByUserId | nvarchar(450) nullable | No | 450 | FK `AspNetUsers` | Internal | User that cancelled the Session. |
@@ -123,6 +133,7 @@
 - Temporary session codes are returned only in authorized runtime responses and are not persisted in plain text.
 - Sprint 4 stores protected face template bytes only in `StudentFaceTemplates.ProtectedTemplate`; public DTOs and views expose metadata only.
 - Sprint 5 verification attempts store safe metadata only. They do not store raw images, image paths, base64 images, face encoding bytes, embeddings, protected templates, template fingerprints, facial landmarks, session codes, attendance status, location data, model file paths, or raw native exceptions.
+- Sprint 6 attendance attempts and records store safe metadata only. They do not store raw images, image paths, base64 images, face encodings, embeddings, protected templates, template fingerprints, exact submitted Student latitude/longitude, plain challenge tokens, plain idempotency keys, reports, exports, notifications, or raw native exceptions.
 
 ## Biometric Enrollment Tables
 
@@ -193,7 +204,7 @@
 | Id | uniqueidentifier | Yes | n/a | PK | Internal | Attempt identifier. |
 | StudentId | uniqueidentifier | Yes | n/a | FK `Students`; indexed with AttemptedAtUtc | Internal | Student subject resolved from authenticated user. |
 | FaceTemplateId | uniqueidentifier nullable | No | n/a | FK `StudentFaceTemplates`; indexed | Internal | Template used when one was loaded. |
-| VerificationPurpose | int | Yes | n/a | check constraint | Internal | Sprint 5 UI uses `SelfTest`; future attendance value is not invoked. |
+| VerificationPurpose | int | Yes | n/a | check constraint | Internal | Sprint 5 UI uses `SelfTest`; Sprint 6 attendance uses `FutureAttendance`. |
 | Outcome | int | Yes | n/a | indexed with AttemptedAtUtc; check constraint | Internal | Safe localized outcome. |
 | Decision | int | Yes | n/a | check constraint | Internal | Match, no-match, or safe rejection decision. |
 | ErrorCode | nvarchar(80) | Yes | 80 | none | Internal | Safe error code only; no raw exception text. |
@@ -233,3 +244,64 @@ Real mode stores:
 - Protected payload before Data Protection: finite L2-normalized float32 little-endian embedding bytes.
 
 The schema still has no raw image, face crop, aligned crop, unprotected embedding, model binary, or attendance column for face templates or verification attempts.
+
+## Attendance Tables
+
+### AttendanceChallenges
+
+| Column | SQL Type | Required | Max | Index / Relationship | Privacy | Description |
+| --- | --- | --- | --- | --- | --- | --- |
+| Id | uniqueidentifier | Yes | n/a | PK | Internal | Challenge identifier. |
+| StudentId | uniqueidentifier | Yes | n/a | FK `Students`; indexed with session/expiry | Internal | Student receiving the challenge. |
+| LectureSessionId | uniqueidentifier | Yes | n/a | FK `LectureSessions`; indexed | Internal | Lecture session for the challenge. |
+| TokenHash | nvarchar(128) | Yes | 128 | unique | Sensitive metadata | SHA-256 hash of the one-time challenge token. Plain token is not stored. |
+| IssuedAtUtc | datetimeoffset | Yes | n/a | none | Internal | Issue timestamp. |
+| ExpiresAtUtc | datetimeoffset | Yes | n/a | check > issued | Internal | Expiry timestamp. |
+| ConsumedAtUtc | datetimeoffset nullable | No | n/a | none | Internal | Consumption timestamp. |
+| ConsumedByAttendanceAttemptId | uniqueidentifier nullable | No | n/a | logical link | Internal | Attendance attempt that consumed the challenge. |
+| IsActive | bit | Yes | n/a | shared | Internal | Shared academic active flag. |
+| RowVersion | rowversion | Yes | n/a | concurrency token | Internal | Optimistic concurrency token. |
+
+### AttendanceAttempts
+
+| Column | SQL Type | Required | Max | Index / Relationship | Privacy | Description |
+| --- | --- | --- | --- | --- | --- | --- |
+| Id | uniqueidentifier | Yes | n/a | PK | Internal | Attempt identifier. |
+| StudentId | uniqueidentifier | Yes | n/a | FK `Students`; indexed with time | Internal | Authenticated Student subject. |
+| LectureSessionId | uniqueidentifier | Yes | n/a | FK `LectureSessions`; indexed with time | Internal | Session being checked in to. |
+| FaceVerificationAttemptId | uniqueidentifier nullable | No | n/a | FK `FaceVerificationAttempts`; indexed | Internal | Related face attempt when one was executed. |
+| Outcome | int | Yes | n/a | enum | Internal | Succeeded, Rejected, or Duplicate. |
+| FailureReason | int | Yes | n/a | enum | Internal | Safe rejection reason. |
+| LocationOutcome | int | Yes | n/a | enum | Internal | Safe geofence outcome. |
+| AttemptedAtUtc | datetimeoffset | Yes | n/a | indexed | Internal | Attempt timestamp. |
+| IdempotencyKeyHash | nvarchar(128) | Yes | 128 | unique with Student/session | Sensitive metadata | SHA-256 hash of the browser idempotency key. |
+| ChallengeTokenHash | nvarchar(128) | Yes | 128 | none | Sensitive metadata | SHA-256 hash of submitted challenge token when present. |
+| SafeDescription | nvarchar(300) | Yes | 300 | none | Internal | Localizable safe description key. |
+| DistanceMeters | decimal(9,3) nullable | No | n/a | check >= 0 | Internal | Calculated distance from approved policy. |
+| BrowserAccuracyMeters | decimal(9,3) nullable | No | n/a | check >= 0 | Internal | Browser-reported accuracy. |
+| AllowedRadiusMeters | int nullable | No | n/a | check >= 0 | Internal | Allowed radius snapshot. |
+| MaximumAcceptedAccuracyMeters | int nullable | No | n/a | check >= 0 | Internal | Accuracy policy snapshot. |
+| ProcessingDurationMilliseconds | int nullable | No | n/a | check >= 0 | Internal | Safe processing duration. |
+| CreatedAtUtc | datetimeoffset | Yes | n/a | audit | Internal | Creation timestamp. |
+| UpdatedAtUtc | datetimeoffset nullable | No | n/a | audit | Internal | Set when related face attempt is attached. |
+
+### AttendanceRecords
+
+| Column | SQL Type | Required | Max | Index / Relationship | Privacy | Description |
+| --- | --- | --- | --- | --- | --- | --- |
+| Id | uniqueidentifier | Yes | n/a | PK | Internal | Attendance record identifier. |
+| LectureSessionId | uniqueidentifier | Yes | n/a | FK `LectureSessions`; unique with Student | Internal | Lecture session attended. |
+| StudentId | uniqueidentifier | Yes | n/a | FK `Students`; unique with session | Internal | Student subject. |
+| AttendanceAttemptId | uniqueidentifier | Yes | n/a | FK `AttendanceAttempts`; unique | Internal | Attempt that created the record. |
+| FaceVerificationAttemptId | uniqueidentifier | Yes | n/a | FK `FaceVerificationAttempts`; unique | Internal | Matching face verification attempt. |
+| Status | int | Yes | n/a | indexed with session | Internal | Present or Late. |
+| CheckedInAtUtc | datetimeoffset | Yes | n/a | none | Internal | Successful check-in timestamp. |
+| ClassroomId | uniqueidentifier | Yes | n/a | FK `Classrooms`; indexed | Internal | Classroom policy reference. |
+| AllowedRadiusMeters | int | Yes | n/a | check >= 0 | Internal | Allowed radius snapshot. |
+| MaximumAcceptedAccuracyMeters | int | Yes | n/a | check >= 0 | Internal | Accuracy policy snapshot. |
+| DistanceMeters | decimal(9,3) | Yes | n/a | check >= 0 | Internal | Distance from approved classroom policy. |
+| BrowserAccuracyMeters | decimal(9,3) | Yes | n/a | check >= 0 | Internal | Browser-reported accuracy. |
+| IsActive | bit | Yes | n/a | shared | Internal | Shared active flag; records are not normally edited. |
+| RowVersion | rowversion | Yes | n/a | concurrency token | Internal | Optimistic concurrency token. |
+
+Attendance tables intentionally omit raw capture bytes, image paths, base64 images, exact submitted Student coordinates, unprotected embeddings, protected template bytes, template fingerprints, plain challenge tokens, and plain idempotency keys.

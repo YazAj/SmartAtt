@@ -2,6 +2,30 @@
 
 ## 2026-07-26
 
+### Sprint 6 Added
+
+- Added secure Student attendance check-in for active enrolled lecture sessions.
+- Added `AttendanceChallenge`, `AttendanceAttempt`, and `AttendanceRecord` domain entities, enums, EF Core mappings, and migration `20260726173403_AddSecureAttendanceCheckIn`.
+- Added lecture-session attendance policy snapshots for coordinates, radius, maximum accepted browser accuracy, and attendance verification requirements.
+- Added one-time hashed challenge tokens, hashed idempotency keys, server-side duplicate protection, replay handling, and transactional attendance persistence.
+- Added server-side Haversine geofence validation using browser latitude/longitude/accuracy without retaining exact submitted Student coordinates.
+- Added Real face-engine gate for attendance and one-to-one verification purpose `FutureAttendance`.
+- Added Student attendance index/check-in/result pages and Instructor attendance roster.
+- Added browser geolocation capture helper and localized English/Arabic attendance resources.
+- Added unit and integration tests for attendance domain rules, location policy, successful check-in, duplicate prevention, different-person rejection, outside-geofence rejection, challenge replay, real-engine gating, and endpoint authorization.
+- Added Sprint 6 documentation files `docs/41` through `docs/46`.
+
+### Sprint 6 Verification
+
+- Verified implementation build: `dotnet build AttendAI.sln` exited 0 with 0 warnings and 0 errors.
+- Verified automated tests during closure: `dotnet test AttendAI.sln` exited 0 with 142 total, 142 passed, 0 failed, 0 skipped.
+- Verified formatting: `dotnet format AttendAI.sln --verify-no-changes` exited 0.
+- Verified SQL Server LocalDB database `AttendAI_Sprint6Verification_20260726` with all 6 migrations through `AddSecureAttendanceCheckIn`, attendance tables, unique attendance indexes, lecture-session policy snapshot columns, and seeded Admin/Instructor/Student roles.
+- Verified runtime smoke against SQL Server using environment-only demo Admin credentials: app startup, HTTPS home/login/privacy/access-denied/404/error routes, Admin login, Admin dashboard, Admin blocked from Student dashboard, change password, and profile.
+- Approved real-device attendance check-in remains pending; Sprint 6 is not marked Completed until manual real-face attendance, browser camera, browser location, duplicate/replay/geofence/face rejection, Instructor roster, localization, responsive, and light/dark visual evidence is recorded.
+- Security scan found no tracked real credential, private key, SDK license, biometric image/sample, model binary, database file, user secret, or build output.
+- Liveness and anti-spoofing are not implemented and are not claimed.
+
 ### Real Face Engine Added
 
 - Added `OpenCvSFaceRecognitionEngine` for `FaceRecognition:Provider=Real`.

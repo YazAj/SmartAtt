@@ -72,6 +72,6 @@ Threshold calibration balances these risks. A stricter cosine threshold usually 
 
 ## Sprint 6 Gate
 
-Sprint 6 attendance decisions must not depend on real biometric verification until this document contains actual approved-sample evidence and the readiness gate has passed.
+Sprint 6 attendance implementation requires Real diagnostics and blocks Fake/demo mode. Sprint 6 must remain partially completed for production-readiness purposes until this document contains approved-sample same-person and different-person score distributions, rejection scenarios, and an accepted operating threshold.
 
 Liveness detection, anti-spoofing, depth checks, replay prevention, and presentation-attack detection are not implemented and must not be claimed.

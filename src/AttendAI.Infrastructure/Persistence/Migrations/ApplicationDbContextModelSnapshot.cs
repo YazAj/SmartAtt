@@ -22,6 +22,246 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("AttendAI.Domain.Academic.AttendanceAttempt", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("AllowedRadiusMeters")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("AttemptedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<decimal?>("BrowserAccuracyMeters")
+                        .HasColumnType("decimal(9,3)");
+
+                    b.Property<string>("ChallengeTokenHash")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<decimal?>("DistanceMeters")
+                        .HasColumnType("decimal(9,3)");
+
+                    b.Property<Guid?>("FaceVerificationAttemptId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("FailureReason")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdempotencyKeyHash")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<Guid>("LectureSessionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("LocationOutcome")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MaximumAcceptedAccuracyMeters")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Outcome")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProcessingDurationMilliseconds")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SafeDescription")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("UpdatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FaceVerificationAttemptId")
+                        .HasDatabaseName("IX_AttendanceAttempts_FaceVerificationAttemptId");
+
+                    b.HasIndex("LectureSessionId", "AttemptedAtUtc")
+                        .HasDatabaseName("IX_AttendanceAttempts_Session_AttemptedAtUtc");
+
+                    b.HasIndex("StudentId", "AttemptedAtUtc")
+                        .HasDatabaseName("IX_AttendanceAttempts_Student_AttemptedAtUtc");
+
+                    b.HasIndex("StudentId", "LectureSessionId", "IdempotencyKeyHash")
+                        .IsUnique()
+                        .HasDatabaseName("UX_AttendanceAttempts_Student_Session_Idempotency");
+
+                    b.ToTable("AttendanceAttempts", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_AttendanceAttempts_AllowedRadiusMeters", "[AllowedRadiusMeters] IS NULL OR [AllowedRadiusMeters] >= 0");
+
+                            t.HasCheckConstraint("CK_AttendanceAttempts_BrowserAccuracyMeters", "[BrowserAccuracyMeters] IS NULL OR [BrowserAccuracyMeters] >= 0");
+
+                            t.HasCheckConstraint("CK_AttendanceAttempts_DistanceMeters", "[DistanceMeters] IS NULL OR [DistanceMeters] >= 0");
+
+                            t.HasCheckConstraint("CK_AttendanceAttempts_MaximumAcceptedAccuracyMeters", "[MaximumAcceptedAccuracyMeters] IS NULL OR [MaximumAcceptedAccuracyMeters] >= 0");
+
+                            t.HasCheckConstraint("CK_AttendanceAttempts_ProcessingDuration", "[ProcessingDurationMilliseconds] IS NULL OR [ProcessingDurationMilliseconds] >= 0");
+                        });
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.AttendanceChallenge", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("ConsumedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid?>("ConsumedByAttendanceAttemptId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset>("ExpiresAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("IssuedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("LectureSessionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TokenHash")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<DateTimeOffset?>("UpdatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LectureSessionId");
+
+                    b.HasIndex("TokenHash")
+                        .IsUnique()
+                        .HasDatabaseName("UX_AttendanceChallenges_TokenHash");
+
+                    b.HasIndex("StudentId", "LectureSessionId", "ExpiresAtUtc")
+                        .HasDatabaseName("IX_AttendanceChallenges_Student_Session_Expires");
+
+                    b.ToTable("AttendanceChallenges", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_AttendanceChallenges_ExpiresAfterIssued", "[ExpiresAtUtc] > [IssuedAtUtc]");
+                        });
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.AttendanceRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AllowedRadiusMeters")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("AttendanceAttemptId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("BrowserAccuracyMeters")
+                        .HasColumnType("decimal(9,3)");
+
+                    b.Property<DateTimeOffset>("CheckedInAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("ClassroomId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<decimal>("DistanceMeters")
+                        .HasColumnType("decimal(9,3)");
+
+                    b.Property<Guid>("FaceVerificationAttemptId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("LectureSessionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("MaximumAcceptedAccuracyMeters")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("UpdatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttendanceAttemptId")
+                        .IsUnique()
+                        .HasDatabaseName("UX_AttendanceRecords_AttendanceAttemptId");
+
+                    b.HasIndex("ClassroomId");
+
+                    b.HasIndex("FaceVerificationAttemptId")
+                        .IsUnique()
+                        .HasDatabaseName("UX_AttendanceRecords_FaceVerificationAttemptId");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("LectureSessionId", "Status")
+                        .HasDatabaseName("IX_AttendanceRecords_Session_Status");
+
+                    b.HasIndex("LectureSessionId", "StudentId")
+                        .IsUnique()
+                        .HasDatabaseName("UX_AttendanceRecords_Session_Student");
+
+                    b.ToTable("AttendanceRecords", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_AttendanceRecords_AllowedRadiusMeters", "[AllowedRadiusMeters] >= 0");
+
+                            t.HasCheckConstraint("CK_AttendanceRecords_BrowserAccuracyMeters", "[BrowserAccuracyMeters] >= 0");
+
+                            t.HasCheckConstraint("CK_AttendanceRecords_DistanceMeters", "[DistanceMeters] >= 0");
+
+                            t.HasCheckConstraint("CK_AttendanceRecords_MaximumAcceptedAccuracyMeters", "[MaximumAcceptedAccuracyMeters] >= 0");
+                        });
+                });
+
             modelBuilder.Entity("AttendAI.Domain.Academic.BiometricConsent", b =>
                 {
                     b.Property<Guid>("Id")
@@ -150,9 +390,9 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
 
                             t.HasCheckConstraint("CK_Classrooms_CoordinatePair", "(([Latitude] IS NULL AND [Longitude] IS NULL) OR ([Latitude] IS NOT NULL AND [Longitude] IS NOT NULL))");
 
-                            t.HasCheckConstraint("CK_Classrooms_Latitude", "[Latitude] IS NULL OR ([Latitude] BETWEEN -90 AND 90)");
+                            t.HasCheckConstraint("CK_Classrooms_Latitude", "[Latitude] IS NULL OR (CAST([Latitude] AS REAL) BETWEEN -90 AND 90)");
 
-                            t.HasCheckConstraint("CK_Classrooms_Longitude", "[Longitude] IS NULL OR ([Longitude] BETWEEN -180 AND 180)");
+                            t.HasCheckConstraint("CK_Classrooms_Longitude", "[Longitude] IS NULL OR (CAST([Longitude] AS REAL) BETWEEN -180 AND 180)");
                         });
                 });
 
@@ -673,6 +913,17 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
                     b.Property<int>("AllowedRadiusMeters")
                         .HasColumnType("int");
 
+                    b.Property<bool>("AttendanceCheckInEnabled")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<decimal?>("AttendanceLatitude")
+                        .HasColumnType("decimal(9,6)");
+
+                    b.Property<decimal?>("AttendanceLongitude")
+                        .HasColumnType("decimal(9,6)");
+
                     b.Property<string>("CancelledByUserId")
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
@@ -691,6 +942,11 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<bool>("FaceVerificationRequired")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<Guid>("InstructorId")
                         .HasColumnType("uniqueidentifier");
 
@@ -702,6 +958,16 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
 
                     b.Property<Guid>("LectureScheduleId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("LocationVerificationRequired")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<int>("MaximumAcceptedAccuracyMeters")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(75);
 
                     b.Property<string>("ProtectedSessionCode")
                         .IsRequired()
@@ -765,7 +1031,15 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
                         {
                             t.HasCheckConstraint("CK_LectureSessions_AllowedRadius", "[AllowedRadiusMeters] >= 0");
 
+                            t.HasCheckConstraint("CK_LectureSessions_AttendanceCoordinatePair", "([AttendanceLatitude] IS NULL AND [AttendanceLongitude] IS NULL) OR ([AttendanceLatitude] IS NOT NULL AND [AttendanceLongitude] IS NOT NULL)");
+
+                            t.HasCheckConstraint("CK_LectureSessions_AttendanceLatitude", "[AttendanceLatitude] IS NULL OR (CAST([AttendanceLatitude] AS REAL) BETWEEN -90 AND 90)");
+
+                            t.HasCheckConstraint("CK_LectureSessions_AttendanceLongitude", "[AttendanceLongitude] IS NULL OR (CAST([AttendanceLongitude] AS REAL) BETWEEN -180 AND 180)");
+
                             t.HasCheckConstraint("CK_LectureSessions_LateThreshold", "[LateThresholdMinutes] >= 0");
+
+                            t.HasCheckConstraint("CK_LectureSessions_MaximumAcceptedAccuracyMeters", "[MaximumAcceptedAccuracyMeters] > 0");
 
                             t.HasCheckConstraint("CK_LectureSessions_ScheduledRange", "[ScheduledStartUtc] < [ScheduledEndUtc]");
                         });
@@ -1332,6 +1606,94 @@ namespace AttendAI.Infrastructure.Persistence.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.AttendanceAttempt", b =>
+                {
+                    b.HasOne("AttendAI.Domain.Academic.FaceVerificationAttempt", "FaceVerificationAttempt")
+                        .WithMany()
+                        .HasForeignKey("FaceVerificationAttemptId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("AttendAI.Domain.Academic.LectureSession", "LectureSession")
+                        .WithMany()
+                        .HasForeignKey("LectureSessionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AttendAI.Domain.Academic.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("FaceVerificationAttempt");
+
+                    b.Navigation("LectureSession");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.AttendanceChallenge", b =>
+                {
+                    b.HasOne("AttendAI.Domain.Academic.LectureSession", "LectureSession")
+                        .WithMany()
+                        .HasForeignKey("LectureSessionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AttendAI.Domain.Academic.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("LectureSession");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("AttendAI.Domain.Academic.AttendanceRecord", b =>
+                {
+                    b.HasOne("AttendAI.Domain.Academic.AttendanceAttempt", "AttendanceAttempt")
+                        .WithMany()
+                        .HasForeignKey("AttendanceAttemptId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AttendAI.Domain.Academic.Classroom", "Classroom")
+                        .WithMany()
+                        .HasForeignKey("ClassroomId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AttendAI.Domain.Academic.FaceVerificationAttempt", "FaceVerificationAttempt")
+                        .WithMany()
+                        .HasForeignKey("FaceVerificationAttemptId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AttendAI.Domain.Academic.LectureSession", "LectureSession")
+                        .WithMany()
+                        .HasForeignKey("LectureSessionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AttendAI.Domain.Academic.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AttendanceAttempt");
+
+                    b.Navigation("Classroom");
+
+                    b.Navigation("FaceVerificationAttempt");
+
+                    b.Navigation("LectureSession");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("AttendAI.Domain.Academic.BiometricConsent", b =>

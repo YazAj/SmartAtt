@@ -1,0 +1,82 @@
+# 45. Attendance Security And Privacy
+
+## Trust Boundaries
+
+The attendance check-in workflow trusts server-side data only for Student identity, enrollment, lecture session, timing, classroom policy, face template, and attendance decisions.
+
+The browser may provide:
+
+- A captured image file.
+- Browser geolocation coordinates and accuracy.
+- A one-time challenge token.
+- An idempotency key.
+
+The browser must not provide:
+
+- Student id.
+- Attendance status.
+- Classroom policy.
+- Approved radius.
+- Face template id.
+- Template bytes.
+- Face score, threshold, or decision.
+
+## Check-In Controls
+
+- Student identity is resolved from the authenticated user id.
+- Student account/profile must be active.
+- First-login password change must be complete.
+- Student must be actively enrolled in the lecture section.
+- Lecture session must be active and inside the check-in window.
+- Attendance challenge must be valid, unexpired, and unused.
+- Idempotency key prevents repeated submit side effects.
+- Unique `(LectureSessionId, StudentId)` index prevents concurrent duplicate attendance records.
+- Browser location is validated server-side against the session policy snapshot.
+- Face verification must be a fresh one-to-one check for purpose `FutureAttendance`.
+- Attendance requires Real mode diagnostics and blocks Fake/demo mode.
+
+## Data Retention
+
+Attendance stores:
+
+- Attendance status.
+- Check-in timestamp.
+- Related Student, lecture session, classroom, face verification attempt, and attendance attempt ids.
+- Distance from approved classroom policy.
+- Browser accuracy.
+- Allowed radius and maximum accepted accuracy snapshots.
+- Safe outcome/failure enum values.
+- Processing duration.
+
+Attendance does not store:
+
+- Raw biometric image.
+- Face crop or aligned crop.
+- Base64 capture.
+- Unprotected embedding.
+- Protected template bytes.
+- Template fingerprint.
+- Exact submitted Student latitude or longitude.
+- Plain challenge token.
+- Plain idempotency key.
+- Device fingerprint.
+- Native exception details.
+
+## Replay And Duplicate Handling
+
+Challenge tokens are random and stored only as SHA-256 hashes. A consumed challenge cannot be reused. Rejected attempts consume valid challenges by default to reduce replay opportunities. Idempotency hashes allow repeated browser submits to return the original attempt result. A unique database index is the final duplicate-attendance guard.
+
+## Location Privacy
+
+The submitted latitude/longitude is used only in memory to calculate distance. The database stores distance and accuracy metadata, not exact Student coordinates. Classroom/session policy coordinates are configuration/academic resource data and may be stored as part of classroom and lecture-session policy snapshots.
+
+## Biometric Privacy
+
+Attendance composes the existing one-to-one verifier. Template unprotection remains inside Infrastructure. Attendance does not expose templates, embeddings, template fingerprints, or raw image bytes to Web DTOs or views.
+
+## Limitations
+
+- Browser geolocation can be spoofed. Sprint 6 uses it as a policy control but does not implement device attestation.
+- No liveness or anti-spoofing is implemented.
+- A printed photo, replayed screen, or presentation attack may still fool basic face recognition.
+- Threshold calibration must remain a gate before production use.

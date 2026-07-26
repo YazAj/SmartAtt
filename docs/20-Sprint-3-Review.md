@@ -127,6 +127,8 @@ Verified behavior: logical visible focus order, language selector focus, theme s
 - Attendance registration, student code submission, location validation, reports, exports, notifications, QR attendance, and production biometric workflows are Not Implemented.
 - Session-code rate limiting is future Sprint 4 work before public attendance submission.
 
+Historical note: these statements describe Sprint 3 closure only. Sprint 6 later adds secure attendance check-in and records its evidence separately in `docs/44-Sprint-6-Review.md`.
+
 ## Sprint 4 Readiness
 
 Sprint 4 planning may begin from the completed Sprint 3 scheduling/session baseline. Production attendance work must still respect the documented face-recognition gate and add rate limiting before public session-code submission.

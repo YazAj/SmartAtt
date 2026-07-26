@@ -104,11 +104,31 @@
 | R-78 | No Sprint 6 scope | Source/migration review | `rg` source search and schema review | Passed | No attendance records/statuses/reports, location validation, exports, notifications, or one-to-many identification were implemented. |
 | R-79 | Fake-to-Real template boundary | `TemplateCompatibilityService`, `FaceVerificationService`, `OpenCvSFaceRecognitionEngine` | `RealFaceRecognitionEngineTests`, integration re-enrollment regression | Passed | Fake metadata is incompatible with Real diagnostics and active incompatible templates are marked for re-enrollment; Fake bytes are not converted to SFace templates. |
 
+## Sprint 6 Secure Biometric Attendance Check-In
+
+| ID | Description | Implementation Location | Test / Verification Location | Status | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| R-80 | Attendance domain model | `AttendanceChallenge`, `AttendanceAttempt`, `AttendanceRecord`, attendance enums | `AttendanceDomainTests`, migration review | Passed | Domain validation and challenge single-use tests pass. |
+| R-81 | Attendance application contracts | `AttendAI.Application/Attendance` | Build and integration tests | Passed | Options, commands, DTOs, service interfaces, and location policy contracts compile and are exercised. |
+| R-82 | SQL Server attendance migration | `20260726173403_AddSecureAttendanceCheckIn` | SQL Server LocalDB verification | Passed | Migration applied to `AttendAI_Sprint6Verification_20260726`; attendance tables, unique indexes, session policy columns, and seeded roles verified. |
+| R-83 | Authenticated Student ownership | `AttendanceService`, `AttendanceController` | `AttendanceAuthorizationTests`, `AttendanceServiceTests` | Passed | Browser-posted StudentId is not accepted; Student is resolved from authenticated user. |
+| R-84 | Active enrollment and session checks | `AttendanceService.ValidateStudentAndSessionAsync` | `AttendanceServiceTests` and code review | Passed | Service checks active account/profile, password change, enrollment, active session, and attendance window. |
+| R-85 | One-time challenge and idempotency | `AttendanceChallenge`, `AttendanceService`, EF indexes | `Duplicate_check_in_does_not_create_second_record`, `Outside_geofence_is_rejected_and_consumes_challenge` | Passed | Challenge hashes are consumed; idempotent attempts and unique record index prevent duplicate side effects. |
+| R-86 | Real face-engine attendance gate | `AttendanceService.RealFaceEngineReady` | `Attendance_requires_real_face_engine_even_when_fake_engine_can_verify_elsewhere` | Passed | Fake diagnostics are blocked from challenge issuance and attendance record creation. |
+| R-87 | FutureAttendance face verification purpose | `AttendanceService`, `FaceVerificationAttempt` | `Check_in_with_matching_real_ready_face_and_location_creates_attendance_record` | Passed | Successful attendance persists a `FaceVerificationAttempt` with purpose `FutureAttendance`. |
+| R-88 | Server-side geofence validation | `LocationVerificationService`, `AttendanceService` | `LocationVerificationServiceTests`, `Outside_geofence_is_rejected_and_consumes_challenge` | Passed | Haversine distance, accuracy limit, invalid input, missing policy, and outside-radius rejection are covered. |
+| R-89 | Attendance record uniqueness | `AttendanceRecordConfiguration` | Integration tests and migration review | Passed | Unique `(LectureSessionId, StudentId)` index and duplicate test prevent second record. |
+| R-90 | Safe attendance attempt history | `AttendanceAttempt`, `AttendanceService` | Integration tests and data dictionary review | Passed | Rejected attempts persist safe metadata without raw captures or exact submitted coordinates. |
+| R-91 | Student attendance UI | `AttendanceController`, `Views/Attendance`, layout, `site.js` | Build and authorization tests | Implemented | Pages compile and Student route access is covered; manual visual/browser camera/location verification pending. |
+| R-92 | Instructor roster UI | `InstructorAttendanceController`, `Views/InstructorAttendance` | Integration roster assertion and authorization tests | Implemented | Roster service and route authorization pass; manual visual verification pending. |
+| R-93 | Attendance localization | `SharedResource.en-US.resx`, `SharedResource.ar-JO.resx` | Build and resource review | Implemented | New attendance labels/outcomes/errors are localized; manual Arabic RTL/light/dark visual check pending. |
+| R-94 | No Sprint 7 scope | Source/migration review | Code review | Passed | No dashboards, analytics, reports, exports, notifications, QR/NFC/Bluetooth/WiFi/IP attendance, one-to-many recognition, or liveness/anti-spoofing were added. |
+
 ## Not Verified / Future Gates
 
 | ID | Description | Status | Required Before Production |
 | --- | --- | --- | --- |
-| G-01 | Real face recognition live biometric runtime | Not Verified | Approved same-person/different-person/no-face/multiple-face/poor-quality camera samples, restart-and-reverify, threshold calibration, and production liveness decision. |
-| G-02 | Production attendance registration | Not Implemented | Sprint 6 planning after Sprint 5 acceptance and real face-engine/threshold gate. |
+| G-01 | Real face recognition live biometric runtime | Partially Verified | Same-person Match score exists; approved different-person/no-face/multiple-face/poor-quality/restart/camera-cleanup evidence and threshold calibration remain required. |
+| G-02 | Sprint 6 real-device attendance closure | Not Verified | Approved same-person attendance check-in, different-person/no-face/multiple-face/poor-quality rejections, geofence rejections, replay/duplicate checks, restart, camera cleanup, and Instructor roster evidence. |
 | G-03 | Notification delivery for temporary passwords | Not Implemented | Secure out-of-band delivery design; temporary passwords are entered by Admin during Sprint 2. |
 | G-04 | Production liveness and anti-spoofing | Not Implemented | Separate approved design, licensed model/dependency review, and security testing. |

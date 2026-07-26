@@ -1,6 +1,6 @@
 # 03. Database ERD
 
-AttendAI implements ASP.NET Core Identity tables, academic setup tables, lecture schedules, lecture sessions, session lifecycle events, biometric consent/templates/events, and Sprint 5 safe face-verification attempts. Attendance records, reports, notifications, one-to-many recognition, and activity logs remain future entities.
+AttendAI implements ASP.NET Core Identity tables, academic setup tables, lecture schedules, lecture sessions, session lifecycle events, biometric consent/templates/events, Sprint 5 safe face-verification attempts, and Sprint 6 attendance challenges/attempts/records. Reports, notifications, one-to-many recognition, and activity logs remain future entities.
 
 ```mermaid
 erDiagram
@@ -172,13 +172,17 @@ erDiagram
     Students ||--o{ BiometricConsents : grants
     Students ||--o{ StudentFaceTemplates : owns
     Students ||--o{ FaceVerificationAttempts : self_verifies
-    LectureSessions ||--o{ AttendanceRecords : future_records
-    Students ||--o{ AttendanceRecords : future_marks
+    LectureSessions ||--o{ AttendanceChallenges : issues
+    Students ||--o{ AttendanceChallenges : receives
+    LectureSessions ||--o{ AttendanceAttempts : attempts
+    Students ||--o{ AttendanceAttempts : submits
+    LectureSessions ||--o{ AttendanceRecords : records
+    Students ||--o{ AttendanceRecords : marks
     AspNetUsers ||--o{ Notifications : future_receives
     AspNetUsers ||--o{ ActivityLogs : future_generates
 ```
 
-Future attendance/reporting entities retain `future_` relationship labels and must not be treated as implemented tables.
+Future reporting/notification/activity-log entities retain `future_` relationship labels and must not be treated as implemented tables.
 
 ## Sprint 4 Biometric Enrollment ERD Delta
 
@@ -283,3 +287,70 @@ erDiagram
 SQL Server constraints include two foreign keys, seven check constraints for bounded enum/score/image/face-count/timing metadata, indexes for Student/time and outcome/time queries, and a filtered unique idempotency index on `(StudentId, ClientRequestId)` when `ClientRequestId` is not empty.
 
 The table intentionally has no raw image, image path, base64 image, encoding, embedding, protected template, template fingerprint, facial landmarks, session code, attendance status, location, model path, or raw exception column.
+
+## Sprint 6 Attendance ERD Delta
+
+```mermaid
+erDiagram
+    Students ||--o{ AttendanceChallenges : receives
+    LectureSessions ||--o{ AttendanceChallenges : issues
+    Students ||--o{ AttendanceAttempts : submits
+    LectureSessions ||--o{ AttendanceAttempts : checks
+    FaceVerificationAttempts ||--o{ AttendanceAttempts : supports
+    Students ||--o{ AttendanceRecords : earns
+    LectureSessions ||--o{ AttendanceRecords : records
+    AttendanceAttempts ||--|| AttendanceRecords : creates
+    FaceVerificationAttempts ||--|| AttendanceRecords : verifies
+    Classrooms ||--o{ AttendanceRecords : policy_reference
+
+    AttendanceChallenges {
+        uniqueidentifier Id PK
+        uniqueidentifier StudentId FK
+        uniqueidentifier LectureSessionId FK
+        string TokenHash UK
+        datetime IssuedAtUtc
+        datetime ExpiresAtUtc
+        datetime ConsumedAtUtc
+        uniqueidentifier ConsumedByAttendanceAttemptId
+        rowversion RowVersion
+    }
+
+    AttendanceAttempts {
+        uniqueidentifier Id PK
+        uniqueidentifier StudentId FK
+        uniqueidentifier LectureSessionId FK
+        uniqueidentifier FaceVerificationAttemptId FK
+        int Outcome
+        int FailureReason
+        int LocationOutcome
+        datetime AttemptedAtUtc
+        string IdempotencyKeyHash
+        string ChallengeTokenHash
+        string SafeDescription
+        decimal DistanceMeters
+        decimal BrowserAccuracyMeters
+        int AllowedRadiusMeters
+        int MaximumAcceptedAccuracyMeters
+        int ProcessingDurationMilliseconds
+    }
+
+    AttendanceRecords {
+        uniqueidentifier Id PK
+        uniqueidentifier LectureSessionId FK
+        uniqueidentifier StudentId FK
+        uniqueidentifier AttendanceAttemptId FK
+        uniqueidentifier FaceVerificationAttemptId FK
+        int Status
+        datetime CheckedInAtUtc
+        uniqueidentifier ClassroomId FK
+        int AllowedRadiusMeters
+        int MaximumAcceptedAccuracyMeters
+        decimal DistanceMeters
+        decimal BrowserAccuracyMeters
+        rowversion RowVersion
+    }
+```
+
+SQL Server constraints include unique attendance record per `(LectureSessionId, StudentId)`, unique challenge token hash, unique attempt idempotency hash per Student/session, unique successful attendance attempt/face attempt links, foreign keys, rowversion concurrency on challenge/record rows, and nonnegative location metadata checks.
+
+Attendance tables intentionally have no raw image, image path, base64 image, encoding, embedding, protected template, template fingerprint, exact submitted Student latitude/longitude, plain challenge token, plain idempotency key, report/export payload, device fingerprint, or raw exception column.
