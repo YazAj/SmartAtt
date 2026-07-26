@@ -220,7 +220,7 @@ Implemented controls:
 
 ## Sprint 7 Boundary
 
-No Sprint 7 features were implemented. The branch does not add attendance dashboards, analytics, reports, exports, notifications, QR/NFC/Bluetooth/WiFi/IP attendance, one-to-many identification, classroom-camera recognition, liveness detection, or anti-spoofing.
+Historical Sprint 6 closure note: no Sprint 7 features were implemented in the Sprint 6 branch. The Sprint 7 branch later adds reporting, analytics summaries, safe audit search, and CSV export without changing the Sprint 6 attendance decision pipeline.
 
 ## Recommended Commit
 

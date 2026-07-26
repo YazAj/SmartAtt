@@ -129,6 +129,27 @@
 | R-98 | Camera and client-state cleanup | attendance views and `site.js` | User-confirmed manual runtime evidence | Passed | Camera stream stopped after completion; client-side captured-image state and location state were cleared. |
 | R-99 | Sprint 5 verification has no attendance side effect | `FaceVerificationService`, attendance persistence boundary | User-confirmed manual runtime evidence and code review | Passed | Sprint 5 standalone face verification did not create `AttendanceRecord`; only the Sprint 6 secure attendance orchestration created attendance. |
 
+## Sprint 7 Reporting, Analytics, Audit, Export, And Release Hardening
+
+| ID | Description | Implementation Location | Test / Verification Location | Status | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| R-100 | Reporting application contracts and calculator | `src/AttendAI.Application/Reporting` | `AttendanceReportingTests`, build | Passed | DTOs, filters, service contracts, percentage calculator, and CSV writer compile and are exercised by unit tests. |
+| R-101 | Student self-only attendance reporting | `ReportsController.Student`, `AttendanceReportingService.GetStudentReportAsync` | `ReportingAuthorizationTests`, `ReportingServiceTests` | Passed | Student routes require Student role and resolve Student profile from authenticated user; service tests verify scoped rows and derived missed sessions. |
+| R-102 | Instructor owned-session reporting | `ReportsController.Instructor`, `AttendanceReportingService.GetInstructorReportAsync` | `ReportingAuthorizationTests`, `ReportingServiceTests` | Passed | Instructor routes require Instructor role and service scopes rows to the authenticated Instructor profile. |
+| R-103 | Admin attendance reporting | `Areas/Admin/Controllers/ReportsController`, Admin views | Integration tests and SQL runtime smoke | Passed | Admin report route returned 200 against SQL Server; Admin report service and export tests pass. |
+| R-104 | Derived missed-session semantics | `AttendanceReportingService`, `AttendanceReportCalculator` | `ReportingServiceTests` | Passed | Future, cancelled, and attendance-disabled sessions are excluded; missing eligible records are derived without persisted absence rows. |
+| R-105 | Attendance percentage formula | `AttendanceReportCalculator` | `AttendanceReportingTests` | Passed | `(Present + Late) / Eligible * 100` uses two-decimal rounding away from zero and returns 0 for zero denominator. |
+| R-106 | Server-side filters, sorting, and pagination | `AttendanceReportingService`, report views | Integration tests and code review | Passed | Filters are applied in service queries; page size is capped; stable report DTOs are returned. |
+| R-107 | CSV export safety | `IAttendanceReportExportService`, `SafeCsvReportWriter`, controllers | `AttendanceReportingTests`, `ReportingAuthorizationTests`, SQL runtime smoke | Passed | CSV escapes commas/quotes/newlines, neutralizes formula starters, omits sensitive columns, and returns no-store headers. |
+| R-108 | Admin safe audit search/export | `AttendanceReportingService.GetAuditEventsAsync`, Admin Audit view | `ReportingServiceTests`, SQL runtime smoke | Passed | Audit route returned 200; safe event metadata is projected from existing tables without raw sensitive payloads. |
+| R-109 | SQL Server migration decision | Reporting services and EF migrations | LocalDB update | Passed | No Sprint 7 migration was created; existing six migrations applied to `AttendAI_Sprint7Verification_20260726`. |
+| R-110 | Localization resources for reports | `SharedResource.en-US.resx`, `SharedResource.ar-JO.resx`, report views | Build, runtime HTML smoke, project-owner-confirmed manual evidence | Passed | English/Arabic resources compile; runtime smoke observed Admin report shell `lang`/`dir`; project-owner-confirmed manual evidence verified English/Arabic and LTR/RTL report flows. |
+| R-111 | Dark/light responsive report UI | `site.css`, report views | Code review and project-owner-confirmed manual evidence | Passed | Tokenized CSS and responsive tables are implemented; project-owner-confirmed manual evidence verified light/dark, desktop/tablet/390px/320px, keyboard, focus, print preview, no horizontal overflow, dark-mode readability, and long Arabic wrapping. |
+| R-112 | Live SQL Student/Instructor report walkthrough | Student and Instructor report routes | Integration tests and project-owner-confirmed manual evidence | Passed | Automated route-owner tests pass; project-owner-confirmed manual evidence verified Student and Instructor report/export walkthroughs, cross-Student denial, cross-Instructor denial, and no unrelated data exposure. |
+| R-113 | Final documentation and traceability | `README.md`, `CHANGELOG.md`, `docs/47`-`docs/53`, source-of-truth docs | Documentation review | Passed | Sprint 7 plan, architecture, security/export policy, test plan, readiness, acceptance, and review documents are present. |
+| R-114 | Security and secrets audit | `.gitignore`, config, docs, source, tests | Repository scan and Git checks | Passed | Final scan found no tracked real credential, private key, SDK license, biometric sample, model binary, database file, user secret, generated export, or build output. |
+| R-115 | CI workflow | `.github` | Repository inspection | Out of scope | No `.github` directory or existing workflow was present; no CI workflow was added. |
+
 ## Future Gates And Explicit Limitations
 
 | ID | Description | Status | Required Before Production |
@@ -137,3 +158,5 @@
 | G-02 | Sprint 6 manual attendance closure | Passed | User-confirmed authorized manual runtime evidence covers same-person attendance, face/location rejections, duplicate/replay-risk controls, restart persistence, cleanup, UI, and Instructor roster. |
 | G-03 | Notification delivery for temporary passwords | Not Implemented | Secure out-of-band delivery design; temporary passwords are entered by Admin during Sprint 2. |
 | G-04 | Production liveness and anti-spoofing | Not Implemented | Separate approved design, licensed model/dependency review, and security testing. |
+| G-05 | Sprint 7 manual visual/accessibility closure | Passed | Project-owner-confirmed authorized manual runtime evidence completed English/Arabic, LTR/RTL, dark/light, desktop/tablet/390px/320px, keyboard, focus, semantic tables, print, overflow, dark readability, and long Arabic wrapping checks. |
+| G-06 | Live SQL Student/Instructor report closure | Passed | Project-owner-confirmed authorized manual runtime evidence completed Student and Instructor report/export walkthroughs against linked academic profiles and attendance records. |

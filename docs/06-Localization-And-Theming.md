@@ -126,3 +126,31 @@ The verification UI uses the existing design tokens and logical CSS properties f
 Theme preference continues to persist in `localStorage` as `attendai-theme`, and the inline layout script applies the resolved theme before stylesheet loading to reduce incorrect-theme flash. Culture preference continues to persist through the ASP.NET Core culture cookie.
 
 Manual/runtime verification target combinations are recorded in `docs/30-Sprint-5-Test-Plan.md` and `docs/31-Sprint-5-Review.md`. Any item without runtime browser evidence is marked Not Verified rather than Passed.
+
+## Sprint 7 Localization Additions
+
+Sprint 7 added English and Arabic resources for:
+
+- Student, Instructor, and Admin report navigation.
+- Report page titles and summaries.
+- Date, course, instructor, Student search, status, sort, page, and page-size filters.
+- Present, Late, Missed, and percentage labels.
+- CSV export and print actions.
+- Report empty states.
+- Admin audit search, categories, outcomes, and safe descriptions.
+- Export validation and safe error labels.
+
+Visible Razor text for Sprint 7 report and audit pages is resource-backed through `IStringLocalizer<SharedResource>`. CSV column headings follow the safe export contract and do not include biometric, exact-location, challenge, idempotency, or secret fields.
+
+## Sprint 7 Theme And Direction Notes
+
+Report and audit pages reuse existing design tokens such as `--surface`, `--surface-secondary`, `--text-primary`, `--text-secondary`, `--border-color`, `--primary`, `--success`, `--warning`, and `--danger`. Sprint 7 CSS uses logical properties and print media rules for responsive report layouts.
+
+Runtime SQL smoke observed:
+
+| Scenario | Evidence | Result |
+| --- | --- | --- |
+| English report shell | `<html lang="en" dir="ltr">` on Admin report route | Passed |
+| Arabic report shell | `<html lang="ar" dir="rtl">` on Admin report route | Passed |
+
+Full manual visual verification for English LTR Light, English LTR Dark, Arabic RTL Light, Arabic RTL Dark, desktop, tablet, 390px, 320px, keyboard navigation, and print layout remains pending for Sprint 7 and must not be marked Passed until browser evidence is recorded.

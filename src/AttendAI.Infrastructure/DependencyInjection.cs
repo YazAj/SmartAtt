@@ -5,6 +5,7 @@ using AttendAI.Application.Biometrics;
 using AttendAI.Application.FaceRecognition;
 using AttendAI.Application.FaceVerification;
 using AttendAI.Application.Lectures;
+using AttendAI.Application.Reporting;
 using AttendAI.Infrastructure.Academic;
 using AttendAI.Infrastructure.Attendance;
 using AttendAI.Infrastructure.Biometrics;
@@ -14,6 +15,7 @@ using AttendAI.Infrastructure.FaceVerification;
 using AttendAI.Infrastructure.Identity;
 using AttendAI.Infrastructure.Lectures;
 using AttendAI.Infrastructure.Persistence;
+using AttendAI.Infrastructure.Reporting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -119,6 +121,8 @@ public static class DependencyInjection
         services.AddScoped<ILocationVerificationService, LocationVerificationService>();
         services.AddSingleton<IAttendanceRateLimiter, InMemoryAttendanceRateLimiter>();
         services.AddScoped<IAttendanceService, AttendanceService>();
+        services.AddScoped<IAttendanceReportingService, AttendanceReportingService>();
+        services.AddScoped<IAttendanceReportExportService, AttendanceReportingService>();
 
         return services;
     }

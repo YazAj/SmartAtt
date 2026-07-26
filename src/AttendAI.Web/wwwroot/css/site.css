@@ -486,6 +486,24 @@ a:hover {
     color: var(--danger);
 }
 
+.report-summary .stat-card {
+    min-block-size: 9rem;
+}
+
+.report-meter {
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--surface-secondary);
+    block-size: .65rem;
+}
+
+.report-meter span {
+    display: block;
+    block-size: 100%;
+    max-inline-size: 100%;
+    background: var(--success);
+}
+
 .status-indicator {
     gap: .35rem;
     color: var(--text-primary);
@@ -1187,5 +1205,31 @@ a:hover {
         transition-duration: .01ms !important;
         animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
+    }
+}
+
+@media print {
+    .app-sidebar,
+    .app-topbar,
+    .app-footer,
+    .page-actions,
+    .filter-grid,
+    .pagination-wrap {
+        display: none !important;
+    }
+
+    .app-shell,
+    .app-main,
+    .app-content {
+        display: block;
+        inline-size: 100%;
+        max-inline-size: none;
+        min-height: auto;
+        padding: 0;
+    }
+
+    .app-panel,
+    .stat-card {
+        box-shadow: none;
     }
 }

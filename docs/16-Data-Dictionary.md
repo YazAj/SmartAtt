@@ -55,6 +55,9 @@
 | AttendanceAttemptOutcome | Succeeded, Rejected, Duplicate |
 | AttendanceFailureReason | None, StudentNotFound, StudentInactive, PasswordChangeRequired, NotEnrolled, SessionNotFound, SessionNotActive, AttendanceWindowClosed, AttendanceLocationUnavailable, LocationInvalid, LocationInaccurate, OutsideGeofence, ChallengeMissing, ChallengeInvalid, ChallengeExpired, ChallengeAlreadyUsed, IdempotencyKeyInvalid, FaceVerificationFailed, FaceNotMatched, FaceNoFace, FaceMultipleFaces, FaceLowQuality, FaceEngineUnavailable, DuplicateAttendance, PersistenceFailed, RateLimited |
 | LocationVerificationOutcome | NotEvaluated, Accepted, MissingPolicy, Invalid, Inaccurate, OutsideGeofence |
+| AttendanceReportStatus | Present, Late, Missed |
+| AttendanceReportSort | DateDescending, DateAscending, CourseAscending, StudentAscending, StatusAscending |
+| AuditEventCategory | LectureSession, Attendance, FaceVerification, FaceEnrollment |
 
 ## LectureSchedules
 
@@ -134,6 +137,7 @@
 - Sprint 4 stores protected face template bytes only in `StudentFaceTemplates.ProtectedTemplate`; public DTOs and views expose metadata only.
 - Sprint 5 verification attempts store safe metadata only. They do not store raw images, image paths, base64 images, face encoding bytes, embeddings, protected templates, template fingerprints, facial landmarks, session codes, attendance status, location data, model file paths, or raw native exceptions.
 - Sprint 6 attendance attempts and records store safe metadata only. They do not store raw images, image paths, base64 images, face encodings, embeddings, protected templates, template fingerprints, exact submitted Student latitude/longitude, plain challenge tokens, plain idempotency keys, reports, exports, notifications, or raw native exceptions.
+- Sprint 7 reports and CSV exports are generated from safe DTO projections. They are not stored in SQL Server or tracked files and they exclude biometric material, exact submitted coordinates, plain or hashed challenge/idempotency values, model paths, native exception details, passwords, and password hashes.
 
 ## Biometric Enrollment Tables
 
@@ -305,3 +309,48 @@ The schema still has no raw image, face crop, aligned crop, unprotected embeddin
 | RowVersion | rowversion | Yes | n/a | concurrency token | Internal | Optimistic concurrency token. |
 
 Attendance tables intentionally omit raw capture bytes, image paths, base64 images, exact submitted Student coordinates, unprotected embeddings, protected template bytes, template fingerprints, plain challenge tokens, and plain idempotency keys.
+
+## Sprint 7 Reporting Projections
+
+Sprint 7 adds no SQL Server table. The following values are projection fields returned by reporting services and CSV export.
+
+### AttendanceReportRowDto
+
+| Field | Type | Source | Privacy | Description |
+| --- | --- | --- | --- | --- |
+| SessionDate | DateOnly | `LectureSessions.SessionDate` | Internal | Local academic date. |
+| ScheduledStartUtc | DateTimeOffset | `LectureSessions.ScheduledStartUtc` | Internal | Scheduled session start in UTC. |
+| ScheduledEndUtc | DateTimeOffset | `LectureSessions.ScheduledEndUtc` | Internal | Scheduled session end in UTC. |
+| CourseCode | string | `Courses.Code` | Internal | Course code. |
+| CourseName | string | Course localized name | Internal | Course name displayed according to UI culture. |
+| SectionLabel | string | `Sections` | Internal | Academic year, semester, and section number label. |
+| StudentNumber | string | `Students.StudentNumber` | Internal | Student academic number; shown only to authorized report scopes. |
+| StudentName | string | Student localized name | Internal | Student display name. |
+| InstructorName | string | Instructor localized name | Internal | Instructor display name. |
+| ClassroomCode | string | `Classrooms.Code` | Internal | Classroom code or safe empty value. |
+| Status | AttendanceReportStatus | Report derivation | Internal | Present, Late, or derived Missed. |
+| CheckedInAtUtc | DateTimeOffset nullable | `AttendanceRecords.CheckedInAtUtc` | Internal | Null for derived Missed rows. |
+
+### AttendanceReportSummaryDto
+
+| Field | Type | Source | Privacy | Description |
+| --- | --- | --- | --- | --- |
+| EligibleSessions | int | Count of eligible report rows | Internal | Denominator for attendance percentage. |
+| PresentCount | int | Count of Present rows | Internal | Successful on-time attendance. |
+| LateCount | int | Count of Late rows | Internal | Successful late attendance. |
+| MissedCount | int | Count of derived Missed rows | Internal | Eligible rows with no attendance record. |
+| AttendancePercentage | decimal | `AttendanceReportCalculator` | Internal | `(Present + Late) / EligibleSessions * 100`, rounded to two decimals away from zero. |
+
+### AttendanceAuditEventDto
+
+| Field | Type | Source | Privacy | Description |
+| --- | --- | --- | --- | --- |
+| OccurredAtUtc | DateTimeOffset | Existing event/attempt tables | Internal | Event time. |
+| Category | AuditEventCategory | Source table | Internal | LectureSession, Attendance, FaceVerification, or FaceEnrollment. |
+| EventType | string | Safe enum/outcome | Internal | Localizable safe type. |
+| Actor | string | Existing safe actor metadata | Internal | User id/name when available. |
+| Subject | string | Existing safe subject metadata | Internal | Student/session subject label when available. |
+| Outcome | string | Existing safe outcome | Internal | Safe outcome text. |
+| SafeDescription | string | Existing safe description | Internal | No sensitive payloads. |
+
+CSV export uses these projection fields only. It intentionally has no columns for face scores, images, embeddings, protected templates, template fingerprints, exact submitted latitude/longitude, browser challenge values, idempotency values, token hashes, password material, model paths, native exception details, or SQL diagnostics.

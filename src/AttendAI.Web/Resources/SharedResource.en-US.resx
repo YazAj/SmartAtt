@@ -849,4 +849,53 @@
   <data name="AttendanceFailureReasonDuplicateAttendance" xml:space="preserve"><value>Duplicate attendance</value></data>
   <data name="AttendanceFailureReasonPersistenceFailed" xml:space="preserve"><value>Persistence failed</value></data>
   <data name="AttendanceFailureReasonRateLimited" xml:space="preserve"><value>Rate limited</value></data>
+  <data name="NavReports" xml:space="preserve"><value>Reports</value></data>
+  <data name="NavMyReports" xml:space="preserve"><value>My reports</value></data>
+  <data name="NavAuditTrail" xml:space="preserve"><value>Audit trail</value></data>
+  <data name="StudentReportsTitle" xml:space="preserve"><value>My attendance report</value></data>
+  <data name="StudentReportsDescription" xml:space="preserve"><value>Review completed attendance-enabled sessions and derived missed sessions for your enrollments.</value></data>
+  <data name="InstructorReportsTitle" xml:space="preserve"><value>Instructor attendance report</value></data>
+  <data name="InstructorReportsDescription" xml:space="preserve"><value>Review attendance outcomes for completed sessions you taught.</value></data>
+  <data name="AdminReportsTitle" xml:space="preserve"><value>Attendance reports</value></data>
+  <data name="AdminReportsDescription" xml:space="preserve"><value>Review role-scoped attendance analytics across completed attendance-enabled sessions.</value></data>
+  <data name="AuditTrail" xml:space="preserve"><value>Audit trail</value></data>
+  <data name="AuditTrailDescription" xml:space="preserve"><value>Search safe lecture, attendance, face verification, and enrollment events without exposing biometric templates or raw captures.</value></data>
+  <data name="AuditTrailSafeFields" xml:space="preserve"><value>Only safe event metadata is shown. Scores, hashes, templates, challenges, precise coordinates, and raw images are excluded.</value></data>
+  <data name="ReportSummary" xml:space="preserve"><value>Report summary</value></data>
+  <data name="EligibleSessions" xml:space="preserve"><value>Eligible sessions</value></data>
+  <data name="EligibleSessionsHelp" xml:space="preserve"><value>Completed attendance-enabled sessions only.</value></data>
+  <data name="AttendedSessions" xml:space="preserve"><value>Attended sessions</value></data>
+  <data name="PresentLateBreakdown" xml:space="preserve"><value>{0} present, {1} late</value></data>
+  <data name="AttendancePercentage" xml:space="preserve"><value>Attendance percentage</value></data>
+  <data name="AttendancePercentageValue" xml:space="preserve"><value>Attendance percentage {0}%</value></data>
+  <data name="ExportCsv" xml:space="preserve"><value>Export CSV</value></data>
+  <data name="Print" xml:space="preserve"><value>Print</value></data>
+  <data name="FromDate" xml:space="preserve"><value>From date</value></data>
+  <data name="ToDate" xml:space="preserve"><value>To date</value></data>
+  <data name="ApplyFilters" xml:space="preserve"><value>Apply filters</value></data>
+  <data name="Sort" xml:space="preserve"><value>Sort</value></data>
+  <data name="SearchReportsPlaceholder" xml:space="preserve"><value>Student, course, instructor, section, or classroom</value></data>
+  <data name="SearchAuditPlaceholder" xml:space="preserve"><value>Actor, subject, outcome, event type, or description</value></data>
+  <data name="SessionDate" xml:space="preserve"><value>Session date</value></data>
+  <data name="NoReportRows" xml:space="preserve"><value>No report rows match the current filters.</value></data>
+  <data name="NoAuditEvents" xml:space="preserve"><value>No audit events match the current filters.</value></data>
+  <data name="Category" xml:space="preserve"><value>Category</value></data>
+  <data name="EventType" xml:space="preserve"><value>Event type</value></data>
+  <data name="Actor" xml:space="preserve"><value>Actor</value></data>
+  <data name="Subject" xml:space="preserve"><value>Subject</value></data>
+  <data name="AttendanceReportStatusAll" xml:space="preserve"><value>All statuses</value></data>
+  <data name="AttendanceReportStatusPresent" xml:space="preserve"><value>Present</value></data>
+  <data name="AttendanceReportStatusLate" xml:space="preserve"><value>Late</value></data>
+  <data name="AttendanceReportStatusMissed" xml:space="preserve"><value>Missed</value></data>
+  <data name="AttendanceReportSortSessionDateDesc" xml:space="preserve"><value>Newest sessions first</value></data>
+  <data name="AttendanceReportSortSessionDateAsc" xml:space="preserve"><value>Oldest sessions first</value></data>
+  <data name="AttendanceReportSortStudentNameAsc" xml:space="preserve"><value>Student name A to Z</value></data>
+  <data name="AttendanceReportSortStudentNameDesc" xml:space="preserve"><value>Student name Z to A</value></data>
+  <data name="AttendanceReportSortCourseCodeAsc" xml:space="preserve"><value>Course code A to Z</value></data>
+  <data name="AttendanceReportSortCourseCodeDesc" xml:space="preserve"><value>Course code Z to A</value></data>
+  <data name="AuditEventCategoryAll" xml:space="preserve"><value>All categories</value></data>
+  <data name="AuditEventCategoryLectureSession" xml:space="preserve"><value>Lecture sessions</value></data>
+  <data name="AuditEventCategoryAttendance" xml:space="preserve"><value>Attendance</value></data>
+  <data name="AuditEventCategoryFaceVerification" xml:space="preserve"><value>Face verification</value></data>
+  <data name="AuditEventCategoryFaceEnrollment" xml:space="preserve"><value>Face enrollment</value></data>
 </root>

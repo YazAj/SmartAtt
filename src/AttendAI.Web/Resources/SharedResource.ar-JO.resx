@@ -849,4 +849,53 @@
   <data name="AttendanceFailureReasonDuplicateAttendance" xml:space="preserve"><value>حضور مكرر</value></data>
   <data name="AttendanceFailureReasonPersistenceFailed" xml:space="preserve"><value>فشل الحفظ</value></data>
   <data name="AttendanceFailureReasonRateLimited" xml:space="preserve"><value>مقيدة بعدد المحاولات</value></data>
+  <data name="NavReports" xml:space="preserve"><value>التقارير</value></data>
+  <data name="NavMyReports" xml:space="preserve"><value>تقاريري</value></data>
+  <data name="NavAuditTrail" xml:space="preserve"><value>سجل التدقيق</value></data>
+  <data name="StudentReportsTitle" xml:space="preserve"><value>تقرير حضوري</value></data>
+  <data name="StudentReportsDescription" xml:space="preserve"><value>راجع الجلسات المكتملة المفعلة للحضور والجلسات الفائتة المستنتجة لمساقاتك المسجلة.</value></data>
+  <data name="InstructorReportsTitle" xml:space="preserve"><value>تقرير حضور المدرس</value></data>
+  <data name="InstructorReportsDescription" xml:space="preserve"><value>راجع نتائج الحضور للجلسات المكتملة التي قمت بتدريسها.</value></data>
+  <data name="AdminReportsTitle" xml:space="preserve"><value>تقارير الحضور</value></data>
+  <data name="AdminReportsDescription" xml:space="preserve"><value>راجع تحليلات الحضور بحسب الدور عبر الجلسات المكتملة المفعلة للحضور.</value></data>
+  <data name="AuditTrail" xml:space="preserve"><value>سجل التدقيق</value></data>
+  <data name="AuditTrailDescription" xml:space="preserve"><value>ابحث في أحداث المحاضرات والحضور والتحقق من الوجه والتسجيل الحيوي الآمنة دون كشف القوالب أو اللقطات الخام.</value></data>
+  <data name="AuditTrailSafeFields" xml:space="preserve"><value>تظهر بيانات وصفية آمنة فقط. يتم استبعاد الدرجات والملخصات والقوالب والتحديات والإحداثيات الدقيقة والصور الخام.</value></data>
+  <data name="ReportSummary" xml:space="preserve"><value>ملخص التقرير</value></data>
+  <data name="EligibleSessions" xml:space="preserve"><value>الجلسات المؤهلة</value></data>
+  <data name="EligibleSessionsHelp" xml:space="preserve"><value>الجلسات المكتملة المفعلة للحضور فقط.</value></data>
+  <data name="AttendedSessions" xml:space="preserve"><value>الجلسات المحضورة</value></data>
+  <data name="PresentLateBreakdown" xml:space="preserve"><value>{0} حاضر، {1} متأخر</value></data>
+  <data name="AttendancePercentage" xml:space="preserve"><value>نسبة الحضور</value></data>
+  <data name="AttendancePercentageValue" xml:space="preserve"><value>نسبة الحضور {0}%</value></data>
+  <data name="ExportCsv" xml:space="preserve"><value>تصدير CSV</value></data>
+  <data name="Print" xml:space="preserve"><value>طباعة</value></data>
+  <data name="FromDate" xml:space="preserve"><value>من تاريخ</value></data>
+  <data name="ToDate" xml:space="preserve"><value>إلى تاريخ</value></data>
+  <data name="ApplyFilters" xml:space="preserve"><value>تطبيق المرشحات</value></data>
+  <data name="Sort" xml:space="preserve"><value>الترتيب</value></data>
+  <data name="SearchReportsPlaceholder" xml:space="preserve"><value>طالب أو مساق أو مدرس أو شعبة أو قاعة</value></data>
+  <data name="SearchAuditPlaceholder" xml:space="preserve"><value>منفذ أو موضوع أو نتيجة أو نوع حدث أو وصف</value></data>
+  <data name="SessionDate" xml:space="preserve"><value>تاريخ الجلسة</value></data>
+  <data name="NoReportRows" xml:space="preserve"><value>لا توجد صفوف تقرير تطابق المرشحات الحالية.</value></data>
+  <data name="NoAuditEvents" xml:space="preserve"><value>لا توجد أحداث تدقيق تطابق المرشحات الحالية.</value></data>
+  <data name="Category" xml:space="preserve"><value>الفئة</value></data>
+  <data name="EventType" xml:space="preserve"><value>نوع الحدث</value></data>
+  <data name="Actor" xml:space="preserve"><value>المنفذ</value></data>
+  <data name="Subject" xml:space="preserve"><value>الموضوع</value></data>
+  <data name="AttendanceReportStatusAll" xml:space="preserve"><value>كل الحالات</value></data>
+  <data name="AttendanceReportStatusPresent" xml:space="preserve"><value>حاضر</value></data>
+  <data name="AttendanceReportStatusLate" xml:space="preserve"><value>متأخر</value></data>
+  <data name="AttendanceReportStatusMissed" xml:space="preserve"><value>فائت</value></data>
+  <data name="AttendanceReportSortSessionDateDesc" xml:space="preserve"><value>الأحدث أولا</value></data>
+  <data name="AttendanceReportSortSessionDateAsc" xml:space="preserve"><value>الأقدم أولا</value></data>
+  <data name="AttendanceReportSortStudentNameAsc" xml:space="preserve"><value>اسم الطالب تصاعديا</value></data>
+  <data name="AttendanceReportSortStudentNameDesc" xml:space="preserve"><value>اسم الطالب تنازليا</value></data>
+  <data name="AttendanceReportSortCourseCodeAsc" xml:space="preserve"><value>رمز المساق تصاعديا</value></data>
+  <data name="AttendanceReportSortCourseCodeDesc" xml:space="preserve"><value>رمز المساق تنازليا</value></data>
+  <data name="AuditEventCategoryAll" xml:space="preserve"><value>كل الفئات</value></data>
+  <data name="AuditEventCategoryLectureSession" xml:space="preserve"><value>جلسات المحاضرات</value></data>
+  <data name="AuditEventCategoryAttendance" xml:space="preserve"><value>الحضور</value></data>
+  <data name="AuditEventCategoryFaceVerification" xml:space="preserve"><value>التحقق من الوجه</value></data>
+  <data name="AuditEventCategoryFaceEnrollment" xml:space="preserve"><value>تسجيل الوجه</value></data>
 </root>

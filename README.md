@@ -2,11 +2,13 @@
 
 AttendAI is a responsive university attendance management web platform for the graduation project **Smart Attendance Management System Using Face Recognition**.
 
-Sprint 1 established the buildable foundation. Sprint 2 adds academic and account management: departments, students, instructors, courses, sections, classrooms, enrollments, instructor assignments, administrator-created accounts, first-login password changes, and role-aware academic dashboards. Sprint 3 adds weekly lecture schedules, schedule conflict detection, instructor/student timetables, live lecture sessions, secure temporary session codes, and session lifecycle audit history. Sprint 4 adds biometric consent, face enrollment profile management, protected template storage, Admin biometric oversight, and the real-engine readiness gate. Sprint 5 adds secure one-to-one Student self-verification against the authenticated Student's active compatible template, safe attempt metadata, Admin verification oversight, diagnostics, rate limiting, and threshold policy. Sprint 6 adds secure biometric attendance check-in for active lecture sessions using real-mode one-to-one face verification, browser geolocation, server-side geofence validation, idempotency, one-time challenges, duplicate protection, safe attempt history, and Instructor roster visibility.
+Sprint 1 established the buildable foundation. Sprint 2 adds academic and account management: departments, students, instructors, courses, sections, classrooms, enrollments, instructor assignments, administrator-created accounts, first-login password changes, and role-aware academic dashboards. Sprint 3 adds weekly lecture schedules, schedule conflict detection, instructor/student timetables, live lecture sessions, secure temporary session codes, and session lifecycle audit history. Sprint 4 adds biometric consent, face enrollment profile management, protected template storage, Admin biometric oversight, and the real-engine readiness gate. Sprint 5 adds secure one-to-one Student self-verification against the authenticated Student's active compatible template, safe attempt metadata, Admin verification oversight, diagnostics, rate limiting, and threshold policy. Sprint 6 adds secure biometric attendance check-in for active lecture sessions using real-mode one-to-one face verification, browser geolocation, server-side geofence validation, idempotency, one-time challenges, duplicate protection, safe attempt history, and Instructor roster visibility. Sprint 7 adds role-scoped attendance reports, server-side analytics summaries, safe audit search, CSV export, and final release-hardening documentation.
 
 ## Current Sprint Status
 
-Sprint 6 is Completed. Sprint 6 is marked Completed based on successful automated verification and project-owner-confirmed authorized manual runtime evidence. Secure biometric attendance check-in is available for active enrolled lecture sessions using real one-to-one OpenCV YuNet/SFace verification, server-side geofence validation, attendance challenges, idempotency, database duplicate protection, safe attempt history, and Instructor roster visibility. Fake mode remains a deterministic development/demo engine only and cannot create Sprint 6 attendance records. Liveness, anti-spoofing, device attestation, tamper-proof browser geolocation, and complete replay-attack prevention are not implemented or claimed.
+Sprint 7 is marked Completed based on successful automated verification and project-owner-confirmed authorized manual runtime evidence. The reporting, analytics, safe audit, CSV export, SQL Server startup, Admin/Instructor/Student runtime acceptance, documentation, responsive UI, accessibility, localization, and automated regression suite are verified.
+
+Sprint 6 remains Completed based on successful automated verification and project-owner-confirmed authorized manual runtime evidence. Secure biometric attendance check-in is available for active enrolled lecture sessions using real one-to-one OpenCV YuNet/SFace verification, server-side geofence validation, attendance challenges, idempotency, database duplicate protection, safe attempt history, and Instructor roster visibility. Fake mode remains a deterministic development/demo engine only and cannot create Sprint 6 attendance records. Liveness, anti-spoofing, device attestation, tamper-proof browser geolocation, and complete replay-attack prevention are not implemented or claimed.
 
 ## Technology Stack
 
@@ -22,9 +24,9 @@ Sprint 6 is Completed. Sprint 6 is marked Completed based on successful automate
 
 ```text
 src/AttendAI.Domain          Core domain abstractions, academic/lecture/biometric/verification/attendance entities, and enums
-src/AttendAI.Application     Contracts, academic/lecture/biometric/verification/attendance DTOs/services, role routing, safe redirects, face engine abstraction
-src/AttendAI.Infrastructure  EF Core, Identity persistence, academic/lecture/biometric/verification/attendance services, seeding, fake/real/disabled face engines
-src/AttendAI.Web             MVC controllers, Admin area, lecture/biometric/verification/attendance UI, Razor views, localization, theming
+src/AttendAI.Application     Contracts, academic/lecture/biometric/verification/attendance/reporting DTOs/services, role routing, safe redirects, face engine abstraction
+src/AttendAI.Infrastructure  EF Core, Identity persistence, academic/lecture/biometric/verification/attendance/reporting services, seeding, fake/real/disabled face engines
+src/AttendAI.Web             MVC controllers, Admin area, lecture/biometric/verification/attendance/reporting UI, Razor views, localization, theming
 tests/                       Unit and integration tests
 experiments/                 Face-recognition POC console harness
 docs/                        Sprint documentation and verification evidence
@@ -74,6 +76,8 @@ The current migration set is:
 - `20260722221335_AddFaceVerification`
 - `20260726173403_AddSecureAttendanceCheckIn`
 
+Sprint 7 did not add a migration.
+
 ## Demo Admin Setup
 
 Roles are seeded by the application initializer. A demo administrator is created only when configured through User Secrets or environment variables:
@@ -92,7 +96,7 @@ Do not commit real credentials.
 dotnet run --project src/AttendAI.Web
 ```
 
-The first non-test startup applies migrations and seeds Identity roles. Use the HTTPS URL printed by ASP.NET Core. Admin users can create Student and Instructor accounts with temporary passwords; those users must change password on first login. Admins can then create lecture schedules from active sections, assigned instructors, and classrooms. Instructors can start eligible lecture sessions and receive temporary codes only in the authorized response. Students can view active session state for enrolled sections but cannot see session codes. Students can also manage biometric consent, enrollment status, one-to-one self-verification, and attendance check-in for active enrolled sessions. Instructors can view the safe attendance roster for their active sessions. Admins can review biometric status, verification diagnostics, and safe verification metadata.
+The first non-test startup applies migrations and seeds Identity roles. Use the HTTPS URL printed by ASP.NET Core. Admin users can create Student and Instructor accounts with temporary passwords; those users must change password on first login. Admins can then create lecture schedules from active sections, assigned instructors, and classrooms. Instructors can start eligible lecture sessions and receive temporary codes only in the authorized response. Students can view active session state for enrolled sections but cannot see session codes. Students can also manage biometric consent, enrollment status, one-to-one self-verification, and attendance check-in for active enrolled sessions. Instructors can view the safe attendance roster for their active sessions. Admins can review biometric status, verification diagnostics, safe verification metadata, attendance reports, and safe audit search.
 
 ## Biometric Enrollment
 
@@ -135,6 +139,19 @@ Sprint 6 supports secure Student check-in for active lecture sessions:
 - Instructor roster shows enrolled Students, Present/Late/Missing state, and safe attempt metadata.
 
 Attendance does not store raw images, exact submitted Student coordinates by default, plain challenge tokens, embeddings, protected template bytes, template fingerprints, reports, exports, notifications, or liveness decisions. Attendance challenges, idempotency, rate limiting, and unique database constraints reduce duplicate and basic replay risks; they do not make the browser, camera, or location signal tamper-proof.
+
+## Reporting, Analytics, Audit, And Export
+
+Sprint 7 reports are projections over existing Sprint 2-6 tables. No new migration, report snapshot table, persisted absence row, or generated report-file storage was added.
+
+- Students can view and export only their own attendance report.
+- Instructors can view and export only attendance for their owned sessions.
+- Admins can view global attendance reports, safe attempt summaries, safe audit search, and CSV exports.
+- `Missed` is derived only for eligible completed attendance-enabled sessions where an active enrolled Student has no `AttendanceRecord`.
+- Attendance percentage is `(Present + Late) / Eligible completed sessions * 100`, rounded to two decimals away from zero.
+- CSV exports use UTF-8 with BOM, no-store/private response headers, delimiter/quote/newline escaping, and spreadsheet formula neutralization.
+
+Reports and exports do not expose raw biometric images, embeddings, protected template bytes, template fingerprints, exact submitted Student coordinates, challenge hashes, idempotency hashes, model paths, native exception details, passwords, or password hashes.
 
 ## Real Face Engine Setup
 
@@ -270,13 +287,27 @@ No personal biometric images are committed. To test negative fake-engine paths, 
 - Manual location method was not recorded as physical GPS versus simulated/browser-overridden evidence.
 - Security scan found no tracked real credential, private key, SDK license, biometric image/sample, model binary, database file, user secret, or build output.
 
+## Sprint 7 Verification Evidence
+
+- SQL Server LocalDB verification database: `AttendAI_Sprint7Verification_20260726`.
+- Existing migrations verified through `20260726173403_AddSecureAttendanceCheckIn`.
+- No Sprint 7 migration was created.
+- Runtime smoke used generated environment-only demo Admin credentials and verified startup, home, login, Admin dashboard, Admin reports, Admin audit, Admin CSV export headers, Admin denial from Student reports, privacy, 404, English LTR HTML attributes, Arabic RTL HTML attributes, seeded roles, and existing migration count.
+- Automated tests after Sprint 7 implementation: 158 total, 158 passed, 0 failed, 0 skipped.
+- Format verification passed.
+- Project-owner-confirmed authorized manual runtime evidence verified Admin, Instructor, and Student report workflows; role isolation; report filters; pagination; CSV export; print-friendly views; report calculations; English/Arabic; LTR/RTL; light/dark themes; desktop/tablet/390px/320px layouts; keyboard navigation; visible focus; semantic report tables; no horizontal overflow; readable dark-mode text; long Arabic wrapping; and Sprint 1-6 regression flows.
+- Manual acceptance confirmed exports did not include biometric data, exact coordinates, challenge values, idempotency values, or internal secrets; generated CSV files were not committed.
+- Security scan found no tracked real credential, private key, SDK license, biometric image/sample, model binary, database file, user secret, generated report export, or build output.
+- AttendAI is ready for final academic graduation-project acceptance, subject to the documented academic and security limitations.
+
 ## Known Limitations
 
 - No public self-registration.
-- No attendance reports, exports, liveness detection, notifications, one-to-many identification, classroom-camera recognition, or production real-engine enrollment/verification.
+- No liveness detection, anti-spoofing certification, tamper-proof browser location, device attestation, GPS anti-spoofing, one-to-many face recognition, notifications, classroom-camera recognition, cloud deployment, public report links, server-generated PDF exports, immutable audit ledger, or production biometric certification.
 - Face verification is real one-to-one verification using YuNet and SFace; it is not one-to-many identification or classroom surveillance.
 - Browser geolocation is used as a server-side policy factor, not as device attestation, GPS anti-spoofing, or tamper-proof location proof.
 - The implemented duplicate, challenge, idempotency, and rate-limit controls reduce duplicate and basic replay risks but are not complete replay-proof security.
+- CSV handling outside the application remains the recipient's responsibility.
 - This remains an academic Localhost implementation and is not production biometric certification or production fraud prevention.
 - Student and Instructor account creation currently captures academic profile data only; production onboarding policies and notification delivery remain future work.
 
@@ -328,7 +359,14 @@ No personal biometric images are committed. To test negative fake-engine paths, 
 - [44-Sprint-6-Review.md](docs/44-Sprint-6-Review.md)
 - [45-Attendance-Security-And-Privacy.md](docs/45-Attendance-Security-And-Privacy.md)
 - [46-Location-Geofence-Policy.md](docs/46-Location-Geofence-Policy.md)
+- [47-Sprint-7-Plan.md](docs/47-Sprint-7-Plan.md)
+- [48-Reporting-And-Analytics-Architecture.md](docs/48-Reporting-And-Analytics-Architecture.md)
+- [49-Report-Export-Security-And-Privacy.md](docs/49-Report-Export-Security-And-Privacy.md)
+- [50-Sprint-7-Test-Plan.md](docs/50-Sprint-7-Test-Plan.md)
+- [51-Final-Release-Readiness.md](docs/51-Final-Release-Readiness.md)
+- [52-Final-Acceptance-And-Traceability.md](docs/52-Final-Acceptance-And-Traceability.md)
+- [53-Sprint-7-Review.md](docs/53-Sprint-7-Review.md)
 
 ## Future Sprint Summary
 
-Sprint 7 planning may begin after the team accepts the Sprint 6 completion evidence and explicitly tracks the remaining production-grade security limitations. Do not add attendance reports, exports, analytics, notifications, one-to-many recognition, classroom-camera recognition, or liveness/anti-spoofing without separate approved scope, model/dependency review, and security testing.
+Sprint 7 is the final planned project sprint and is Completed. AttendAI is ready for final academic graduation-project acceptance, subject to the documented academic and security limitations. Do not add notifications, one-to-many recognition, classroom-camera recognition, liveness/anti-spoofing, public report links, generated PDF export, cloud deployment, or Sprint 8 features without separate approved scope, dependency review, and security testing.

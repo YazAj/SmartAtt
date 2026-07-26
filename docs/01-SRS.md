@@ -1,5 +1,11 @@
 # 01. Software Requirements Specification
 
+## Sprint 7 Reporting And Release Update
+
+The system now includes role-scoped attendance reporting, analytics summaries, safe audit search, CSV export, and final release-hardening documentation. Reports are projections over existing Sprint 2-6 data and do not create report snapshots, generated export files, persisted absence rows, or a new migration.
+
+Sprint 7 is partially completed until full manual responsive/accessibility checks and live SQL-backed Student/Instructor report walkthroughs are recorded. Liveness, anti-spoofing, one-to-many identification, classroom surveillance, public report links, server-generated PDF export, cloud deployment, and production biometric certification remain not implemented.
+
 ## Real Face Engine Integration Update
 
 The system now includes an optional local Real face engine for Windows x64 localhost using OpenCvSharp YuNet detection and ONNX Runtime SFace embeddings. The default mode remains `Fake`. The Real engine itself is limited to one-to-one enrollment and verification of the authenticated Student's active template; it must not perform attendance registration, location validation, one-to-many identification, or browser-side biometric decisions. Sprint 6 composes the one-to-one verifier with separate attendance and location services.
@@ -14,7 +20,7 @@ Sprint 6 is partially completed until SQL Server/runtime closure and approved re
 
 ## Purpose
 
-AttendAI is a responsive university attendance management platform for the graduation project **Smart Attendance Management System Using Face Recognition**. Sprint 5 builds on the verified identity, academic, lecture, and biometric-enrollment foundations by adding secure one-to-one Student self-verification.
+AttendAI is a responsive university attendance management platform for the graduation project **Smart Attendance Management System Using Face Recognition**. Sprint 7 completes the planned localhost project scope by adding role-scoped reporting, safe audit search, CSV export, and release documentation on top of the verified identity, academic, lecture, biometric, verification, and secure attendance foundation.
 
 ## Scope
 
@@ -30,11 +36,13 @@ Sprint 5 adds one-to-one Student self-verification, eligibility checks, capture 
 
 Sprint 6 adds secure biometric attendance check-in, attendance records, safe attendance attempts, one-time attendance challenges, real-engine attendance gating, browser geolocation, server-side geofence validation, duplicate/replay protection, Student check-in UI, and Instructor roster visibility. It does not add attendance dashboards, analytics, reports, exports, notifications, QR/NFC/Bluetooth/WiFi/IP attendance, one-to-many identification, classroom-camera recognition, liveness detection, or anti-spoofing.
 
+Sprint 7 adds Student, Instructor, and Admin attendance reports; server-side filters, sorting, pagination, summary counts, attendance percentage, derived missed-session reporting, safe CSV export, Admin safe audit search, report localization, report theme styling, and final traceability/release documentation.
+
 ## User Roles
 
-- Admin: academic setup, lecture scheduling, session monitoring, biometric oversight, and face-verification oversight owner.
-- Instructor: assigned section viewer, authorized lecture-session operator, and safe attendance roster viewer for owned sessions.
-- Student: academic profile, enrollment, schedule viewer, biometric profile owner, one-to-one self-verification actor, and attendance check-in actor for enrolled active sessions.
+- Admin: academic setup, lecture scheduling, session monitoring, biometric oversight, face-verification oversight, global attendance reporting, and safe audit-search owner.
+- Instructor: assigned section viewer, authorized lecture-session operator, safe attendance roster viewer, and report viewer for owned sessions.
+- Student: academic profile, enrollment, schedule viewer, biometric profile owner, one-to-one self-verification actor, attendance check-in actor, and self-only report viewer.
 
 ## Product Functions
 
@@ -66,6 +74,12 @@ Sprint 6 adds secure biometric attendance check-in, attendance records, safe att
 - Persist attendance records and safe attendance attempts without raw captures, embeddings, exact submitted Student coordinates, or plain challenge tokens.
 - Allow Instructors to view enrolled Student attendance state and safe attempt metadata for their own sessions.
 - Block Fake/demo face mode from creating attendance records.
+- Allow Students to view and export only their own attendance report.
+- Allow Instructors to view and export only reports for owned lecture sessions.
+- Allow Admin users to view global attendance reports, safe attempt summaries, and safe audit search.
+- Calculate attendance percentage server-side as `(Present + Late) / Eligible completed sessions * 100`.
+- Derive missed sessions without persisting absence rows.
+- Export safe CSV files without biometric material, exact location details, challenge values, idempotency values, or secrets.
 
 ## Functional Requirements
 
@@ -119,6 +133,13 @@ Sprint 6 adds secure biometric attendance check-in, attendance records, safe att
 | FR-46 | Attendance records are unique per Student and lecture session. |
 | FR-47 | Rejected attendance attempts persist safe metadata without creating attendance records. |
 | FR-48 | Instructor users can view safe attendance roster metadata only for sessions they own. |
+| FR-49 | Student users can view only their own attendance report with filters, pagination, summary counts, percentage, CSV export, and print-friendly layout. |
+| FR-50 | Instructor users can view only reports for sessions they own, including attendance totals, derived missed counts, Student summaries, filters, pagination, CSV export, and print-friendly layout. |
+| FR-51 | Admin users can view global attendance reporting with date, course, instructor, Student search, status filters, sorting, pagination, CSV export, and safe summary metrics. |
+| FR-52 | The system derives missed report rows for eligible completed attendance-enabled sessions without creating persisted absence records. |
+| FR-53 | The system calculates attendance percentage server-side with documented denominator and rounding rules. |
+| FR-54 | CSV exports are authorized, filtered, escaped, formula-injection protected, no-store, and free of biometric, exact-location, challenge, idempotency, and secret material. |
+| FR-55 | Admin users can search and export safe audit metadata from existing event and attempt tables without exposing sensitive payloads. |
 
 ## Non-Functional Requirements
 
@@ -135,6 +156,8 @@ Sprint 6 adds secure biometric attendance check-in, attendance records, safe att
 - Real face-engine verification must not be marked passed without approved samples, licensed models, adapter initialization, and threshold evidence.
 - Attendance check-in must use database uniqueness, one-time challenge validation, idempotency, transactions, and server-side policy checks to prevent duplicate/replay side effects.
 - Attendance location validation must not retain exact submitted Student coordinates by default.
+- Reports must apply filters and pagination server-side and must not require a camera, physical GPS, model file, or internet dependency.
+- CSV export must have a bounded row limit and must not write generated export files to repository or temporary public disk paths.
 
 ## Security Requirements
 
@@ -152,6 +175,9 @@ Sprint 6 adds secure biometric attendance check-in, attendance records, safe att
 - The Web layer must not receive template bytes, embeddings, template fingerprints, or raw native model paths.
 - Attendance POST actions must use antiforgery validation, authenticated Student ownership, one-time challenges, idempotency, real-engine gating, server-side geofence validation, and database duplicate protection.
 - Attendance views must not expose raw captures, exact submitted Student coordinates, protected templates, template fingerprints, embeddings, or plain challenge hashes.
+- Report routes must enforce server-side role authorization and must not trust browser-provided ownership.
+- Personalized report exports must use no-store/private cache headers.
+- Report DTOs and CSV files must not expose raw biometric images, embeddings, protected templates, template fingerprints, exact submitted Student coordinates, challenge hashes, idempotency hashes, native model paths, or raw exception details.
 
 ## Privacy Requirements
 
@@ -163,12 +189,13 @@ Sprint 6 adds secure biometric attendance check-in, attendance records, safe att
 - Verification captures are not intentionally retained in SQL Server, disk, browser storage, query strings, or logs.
 - Attendance check-in captures are not intentionally retained in SQL Server, disk, browser storage, query strings, or logs.
 - Exact submitted Student latitude/longitude are used in memory for distance calculation and are not retained by attendance tables.
+- Reports and exports contain attendance records and safe academic metadata only; they must be treated as sensitive university records even though biometric material is excluded.
 
 ## Localization Requirements
 
 - Support `en-US` and `ar-JO`.
 - Persist selected culture in a culture cookie.
-- Localize primary navigation, authentication, dashboard, validation, error, theme, language, lecture schedule, lecture session, timetable, countdown, biometric enrollment, and face-verification text.
+- Localize primary navigation, authentication, dashboard, validation, error, theme, language, lecture schedule, lecture session, timetable, countdown, biometric enrollment, face-verification, attendance, reporting, export, and audit text.
 
 ## Theme Requirements
 
@@ -195,6 +222,9 @@ Sprint 6 adds secure biometric attendance check-in, attendance records, safe att
 - Attendance status is decided only by the server.
 - A Student may create at most one attendance record per active lecture session.
 - Attendance challenge tokens are one-time and stored only as hashes.
+- Reported `Missed` status is derived only for active enrolled Students in completed attendance-enabled sessions without a successful attendance record.
+- Future sessions, cancelled sessions, attendance-disabled sessions, inactive enrollments, inactive Students, inactive Sections, and inactive Courses are excluded from the reporting denominator.
+- Present and Late both count as attended for the Sprint 7 attendance percentage.
 
 ## Face Recognition Statement
 
@@ -232,9 +262,24 @@ The initial version uses one-to-one face verification, not one-to-many identific
 - Allow Instructors to view safe attendance roster metadata for their own sessions.
 - Do not store raw captures, exact submitted Student coordinates, embeddings, protected template bytes, template fingerprints, plain challenge tokens, reports, exports, notifications, or liveness decisions.
 
+## Sprint 7 Reporting Requirements
+
+- Resolve Student reports from the authenticated Identity user and linked Student profile.
+- Resolve Instructor reports from the authenticated Identity user and linked Instructor profile.
+- Allow Admin reporting across authorized global attendance data.
+- Apply date, course/offering, instructor, Student search, status, sorting, and pagination filters server-side where applicable.
+- Calculate official report counts and percentages on the server.
+- Derive missed sessions without storing absence rows.
+- Exclude future, cancelled, attendance-disabled, and unauthorized sessions.
+- Export CSV from the authorized filtered dataset only.
+- Neutralize spreadsheet formula injection for CSV cells beginning with `=`, `+`, `-`, `@`, tab, or carriage return.
+- Set no-store/private cache headers for personalized exports.
+- Provide Admin safe audit search over existing safe event and attempt tables.
+- Do not expose biometric material, exact submitted Student coordinates, challenge or idempotency values, model paths, raw exception details, or secrets.
+
 ## Out Of Scope
 
-Attendance dashboards, analytics, reports, exports, notifications, QR attendance, NFC, Bluetooth, WiFi, IP geolocation, device fingerprinting, one-to-many identification, classroom-camera recognition, background recognition, liveness detection, anti-spoofing production claims, and native mobile applications are out of scope for Sprint 6.
+Notifications, QR attendance, NFC, Bluetooth, WiFi, IP geolocation, device fingerprinting, one-to-many identification, classroom-camera recognition, background recognition, public report links, server-generated PDF export, cloud deployment, liveness detection, anti-spoofing production claims, production biometric certification, and native mobile applications are out of scope for Sprint 7.
 
 ## Acceptance Criteria
 
@@ -265,6 +310,10 @@ Attendance dashboards, analytics, reports, exports, notifications, QR attendance
 - Student attendance check-in creates one record only after active enrollment, active session, valid challenge, idempotency, real face verification, and geofence checks pass.
 - Instructor roster exposes safe attendance metadata for owned sessions.
 - No attendance table stores raw images, embeddings, protected templates, template fingerprints, exact submitted Student coordinates, or plain challenge tokens.
+- Student, Instructor, and Admin report routes enforce role and ownership boundaries.
+- Reports derive missed sessions and percentages according to documented rules.
+- CSV exports are authorized, escaped, formula-injection protected, no-store, and sensitive-field safe.
+- Admin audit search exposes safe metadata only.
 
 ## Sprint 4 Biometric Enrollment Requirements
 

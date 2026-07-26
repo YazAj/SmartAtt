@@ -172,6 +172,27 @@
 - Main flow: The system verifies the Instructor owns the session, lists enrolled Students, and shows Present/Late/Missing state plus safe attempt metadata.
 - Rules: Instructors cannot view rosters for sessions they do not own. Roster UI does not expose raw images, exact submitted Student coordinates, protected templates, embeddings, or template fingerprints.
 
+## UC-26 Student Attendance Report
+
+- Actor: Student
+- Trigger: Student opens My reports.
+- Main flow: The system resolves the Student from the authenticated Identity user, applies date/course/status filters, shows summary counts, attendance percentage, paginated attendance history, derived missed sessions, CSV export, and print-friendly layout.
+- Rules: The browser cannot choose another Student. The report does not expose face scores, biometric templates, raw images, exact submitted coordinates, challenge hashes, idempotency hashes, or internal database identifiers.
+
+## UC-27 Instructor Attendance Report
+
+- Actor: Instructor
+- Trigger: Instructor opens My reports.
+- Main flow: The system resolves the Instructor from the authenticated Identity user, filters to owned sessions, and shows attendance totals, Student summaries, derived missed counts, filters, pagination, CSV export, and print-friendly layout.
+- Rules: Instructors cannot report on unrelated offerings or sessions. Unauthorized filters are ignored or rejected server-side.
+
+## UC-28 Admin Reporting And Audit Search
+
+- Actor: Admin
+- Trigger: Admin opens Reports or Audit trail.
+- Main flow: Admin filters global attendance data by date, course, instructor, Student search, and status, reviews summary metrics and detailed rows, exports CSV, and searches safe audit metadata from existing event/attempt tables.
+- Rules: Admin reports are safe operational views. They do not expose raw biometric material, protected templates, embeddings, exact submitted Student coordinates, challenge or idempotency values, native exception text, or secrets.
+
 ## Future Use Cases Not Implemented
 
-Attendance dashboards, analytics, reports, exports, notifications, student code submission for attendance, QR/NFC/Bluetooth/WiFi/IP attendance, one-to-many face identification, classroom-camera recognition, liveness production claims, anti-spoofing, production threshold calibration, and native mobile applications.
+Notifications, student code submission for attendance, QR/NFC/Bluetooth/WiFi/IP attendance, public report links, generated server PDF export, one-to-many face identification, classroom-camera recognition, liveness production claims, anti-spoofing, production threshold calibration, cloud deployment, and native mobile applications.

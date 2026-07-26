@@ -1,0 +1,130 @@
+@using System.Globalization
+@model InstructorAttendanceReportDto
+@{
+    ViewData["Title"] = Localizer["InstructorReportsTitle"];
+    var filter = Model.Filter;
+    var fromDate = filter.FromDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+    var toDate = filter.ToDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+    var meterWidth = Math.Min(Model.Summary.AttendancePercentage, 100m).ToString("0.##", CultureInfo.InvariantCulture);
+    var isRtl = CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">@Localizer["NavReports"]</p>
+        <h1>@Localizer["InstructorReportsTitle"]</h1>
+        <p>@Localizer["InstructorReportsDescription"]</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-secondary app-btn" asp-action="InstructorExport" asp-route-FromDate="@fromDate" asp-route-ToDate="@toDate" asp-route-CourseId="@filter.CourseId" asp-route-SectionId="@filter.SectionId" asp-route-Status="@filter.Status" asp-route-Sort="@filter.Sort" asp-route-Search="@filter.Search">@Localizer["ExportCsv"]</a>
+        <button class="btn btn-secondary app-btn" type="button" onclick="window.print()">@Localizer["Print"]</button>
+    </div>
+</section>
+
+<section class="dashboard-grid report-summary" aria-label="@Localizer["ReportSummary"]">
+    <article class="stat-card"><span>@Localizer["EligibleSessions"]</span><strong>@Model.Summary.EligibleSessionCount</strong><p>@Localizer["EligibleSessionsHelp"]</p></article>
+    <article class="stat-card"><span>@Localizer["AttendedSessions"]</span><strong>@Model.Summary.AttendedCount</strong><p>@Localizer["PresentLateBreakdown", Model.Summary.PresentCount, Model.Summary.LateCount]</p></article>
+    <article class="stat-card"><span>@Localizer["AttendancePercentage"]</span><strong>@Model.Summary.AttendancePercentage.ToString("0.##", CultureInfo.CurrentCulture)%</strong><div class="report-meter" role="img" aria-label="@Localizer["AttendancePercentageValue", Model.Summary.AttendancePercentage]"><span style="inline-size:@meterWidth%"></span></div></article>
+</section>
+
+<section class="app-panel">
+    <form method="get" class="filter-grid">
+        <div class="form-field">
+            <label class="form-label" for="FromDate">@Localizer["FromDate"]</label>
+            <input id="FromDate" name="FromDate" type="date" value="@fromDate" class="form-control" />
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="ToDate">@Localizer["ToDate"]</label>
+            <input id="ToDate" name="ToDate" type="date" value="@toDate" class="form-control" />
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="CourseId">@Localizer["Course"]</label>
+            <select id="CourseId" name="CourseId" class="form-select">
+                <option value="">@Localizer["AllCourses"]</option>
+                @foreach (var option in Model.Courses)
+                {
+                    <option value="@option.Id" selected="@(filter.CourseId == option.Id)">@(isRtl ? option.LabelArabic : option.LabelEnglish)</option>
+                }
+            </select>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="SectionId">@Localizer["Section"]</label>
+            <select id="SectionId" name="SectionId" class="form-select">
+                <option value="">@Localizer["AllSections"]</option>
+                @foreach (var option in Model.Sections)
+                {
+                    <option value="@option.Id" selected="@(filter.SectionId == option.Id)">@(isRtl ? option.LabelArabic : option.LabelEnglish)</option>
+                }
+            </select>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="Status">@Localizer["Status"]</label>
+            <select id="Status" name="Status" class="form-select">
+                @foreach (var status in Enum.GetValues<AttendanceReportStatus>())
+                {
+                    <option value="@status" selected="@(filter.Status == status)">@Localizer[$"AttendanceReportStatus{status}"]</option>
+                }
+            </select>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="Sort">@Localizer["Sort"]</label>
+            <select id="Sort" name="Sort" class="form-select">
+                @foreach (var sort in Enum.GetValues<AttendanceReportSort>())
+                {
+                    <option value="@sort" selected="@(filter.Sort == sort)">@Localizer[$"AttendanceReportSort{sort}"]</option>
+                }
+            </select>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="Search">@Localizer["Search"]</label>
+            <input id="Search" name="Search" value="@filter.Search" class="form-control" placeholder="@Localizer["SearchReportsPlaceholder"]" />
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary app-btn" type="submit">@Localizer["ApplyFilters"]</button>
+            <a class="btn btn-secondary app-btn" asp-action="Instructor">@Localizer["Reset"]</a>
+        </div>
+    </form>
+</section>
+
+<section class="app-panel mt-3">
+    <div class="section-heading"><h2>@Localizer["ResultsCount", Model.Rows.TotalCount]</h2></div>
+    <div class="table-responsive">
+        <table class="table app-table">
+            <thead><tr><th>@Localizer["Student"]</th><th>@Localizer["SessionDate"]</th><th>@Localizer["Course"]</th><th>@Localizer["Status"]</th><th>@Localizer["CheckedInAt"]</th></tr></thead>
+            <tbody>
+            @if (Model.Rows.Items.Count == 0)
+            {
+                <tr><td class="empty-row" colspan="5">@Localizer["NoReportRows"]</td></tr>
+            }
+            @foreach (var row in Model.Rows.Items)
+            {
+                <tr>
+                    <td data-label="@Localizer["Student"]">@row.StudentNumber - @(isRtl ? row.StudentNameArabic : row.StudentNameEnglish)</td>
+                    <td data-label="@Localizer["SessionDate"]">@row.ScheduledStartLocal.ToString("g") - @row.ScheduledEndLocal.ToString("t")</td>
+                    <td data-label="@Localizer["Course"]">@row.CourseCode - @(isRtl ? row.CourseNameArabic : row.CourseNameEnglish)<br /><small>@row.SectionNumber</small></td>
+                    <td data-label="@Localizer["Status"]"><span class="status-badge @BadgeClass(row.ReportStatus)">@Localizer[$"AttendanceReportStatus{row.ReportStatus}"]</span></td>
+                    <td data-label="@Localizer["CheckedInAt"]">@(row.CheckedInAtLocal?.ToString("g") ?? Localizer["NotAvailable"].Value)</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination-wrap">
+        <span>@Localizer["PageOf", Model.Rows.PageNumber, Model.Rows.TotalPages]</span>
+        <div class="row-actions">
+            <a class="btn btn-secondary app-btn @(Model.Rows.HasPreviousPage ? "" : "disabled")" asp-action="Instructor" asp-route-FromDate="@fromDate" asp-route-ToDate="@toDate" asp-route-CourseId="@filter.CourseId" asp-route-SectionId="@filter.SectionId" asp-route-Status="@filter.Status" asp-route-Sort="@filter.Sort" asp-route-Search="@filter.Search" asp-route-PageNumber="@(Model.Rows.PageNumber - 1)">@Localizer["Previous"]</a>
+            <a class="btn btn-secondary app-btn @(Model.Rows.HasNextPage ? "" : "disabled")" asp-action="Instructor" asp-route-FromDate="@fromDate" asp-route-ToDate="@toDate" asp-route-CourseId="@filter.CourseId" asp-route-SectionId="@filter.SectionId" asp-route-Status="@filter.Status" asp-route-Sort="@filter.Sort" asp-route-Search="@filter.Search" asp-route-PageNumber="@(Model.Rows.PageNumber + 1)">@Localizer["Next"]</a>
+        </div>
+    </div>
+</section>
+
+@functions {
+    private static string BadgeClass(AttendanceReportStatus status)
+        => status switch
+        {
+            AttendanceReportStatus.Present => "status-badge-success",
+            AttendanceReportStatus.Late => "status-badge-warning",
+            AttendanceReportStatus.Missed => "status-badge-danger",
+            _ => string.Empty
+        };
+}

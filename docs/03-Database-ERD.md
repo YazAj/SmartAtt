@@ -1,6 +1,6 @@
 # 03. Database ERD
 
-AttendAI implements ASP.NET Core Identity tables, academic setup tables, lecture schedules, lecture sessions, session lifecycle events, biometric consent/templates/events, Sprint 5 safe face-verification attempts, and Sprint 6 attendance challenges/attempts/records. Reports, notifications, one-to-many recognition, and activity logs remain future entities.
+AttendAI implements ASP.NET Core Identity tables, academic setup tables, lecture schedules, lecture sessions, session lifecycle events, biometric consent/templates/events, Sprint 5 safe face-verification attempts, and Sprint 6 attendance challenges/attempts/records. Sprint 7 reports are projections over those existing tables and do not add report tables. Notifications, one-to-many recognition, and activity logs remain future entities.
 
 ```mermaid
 erDiagram
@@ -182,7 +182,7 @@ erDiagram
     AspNetUsers ||--o{ ActivityLogs : future_generates
 ```
 
-Future reporting/notification/activity-log entities retain `future_` relationship labels and must not be treated as implemented tables.
+Future notification/activity-log entities retain `future_` relationship labels and must not be treated as implemented tables. Sprint 7 reporting is implemented without a persisted reporting entity.
 
 ## Sprint 4 Biometric Enrollment ERD Delta
 
@@ -354,3 +354,19 @@ erDiagram
 SQL Server constraints include unique attendance record per `(LectureSessionId, StudentId)`, unique challenge token hash, unique attempt idempotency hash per Student/session, unique successful attendance attempt/face attempt links, foreign keys, rowversion concurrency on challenge/record rows, and nonnegative location metadata checks.
 
 Attendance tables intentionally have no raw image, image path, base64 image, encoding, embedding, protected template, template fingerprint, exact submitted Student latitude/longitude, plain challenge token, plain idempotency key, report/export payload, device fingerprint, or raw exception column.
+
+## Sprint 7 Reporting ERD Decision
+
+Sprint 7 did not add tables, columns, foreign keys, indexes, report snapshots, export storage, or persisted absence rows.
+
+Reporting queries derive rows from:
+
+- Active `StudentEnrollments`.
+- Completed attendance-enabled `LectureSessions`.
+- Successful `AttendanceRecords`.
+- Safe `AttendanceAttempts`.
+- Safe `LectureSessionEvents`.
+- Safe `FaceVerificationAttempts`.
+- Safe `FaceEnrollmentEvents`.
+
+The derived `Missed` reporting state is not stored in SQL Server. CSV exports are generated in memory from authorized report DTOs and are not represented in the ERD.

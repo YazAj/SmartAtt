@@ -96,6 +96,12 @@ The project owner confirmed:
 
 Physical-versus-simulated location method was not recorded in the closure evidence.
 
+## Sprint 7 Reporting And Export Privacy
+
+Sprint 7 reports read safe attendance projections only. CSV export does not include raw biometric images, aligned images, embeddings, protected template bytes, template fingerprints, exact submitted Student coordinates, challenge hashes, idempotency hashes, native model paths, raw exception details, passwords, or password hashes.
+
+Attendance reports may include safe academic labels, session times, Present/Late/derived Missed status, check-in timestamp, and summary percentages. Downloaded CSV files are sensitive university records and should be handled according to local institutional policy.
+
 ## Limitations
 
 - Browser geolocation can be spoofed. Sprint 6 uses it as a policy control but does not implement device attestation.

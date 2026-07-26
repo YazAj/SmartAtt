@@ -1,0 +1,72 @@
+@using System.Globalization
+@model AttendanceAuditReportDto
+@{
+    ViewData["Title"] = Localizer["AuditTrail"];
+    var filter = Model.Filter;
+    var fromDate = filter.FromDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+    var toDate = filter.ToDate?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">@Localizer["AdminRole"]</p>
+        <h1>@Localizer["AuditTrail"]</h1>
+        <p>@Localizer["AuditTrailDescription"]</p>
+    </div>
+    <div class="page-actions">
+        <a class="btn btn-secondary app-btn" asp-action="Index">@Localizer["AdminReportsTitle"]</a>
+        <a class="btn btn-secondary app-btn" asp-action="AuditExport" asp-route-FromDate="@fromDate" asp-route-ToDate="@toDate" asp-route-Category="@filter.Category" asp-route-Search="@filter.Search">@Localizer["ExportCsv"]</a>
+    </div>
+</section>
+
+<section class="app-panel">
+    <form method="get" class="filter-grid">
+        <div class="form-field"><label class="form-label" for="FromDate">@Localizer["FromDate"]</label><input id="FromDate" name="FromDate" type="date" value="@fromDate" class="form-control" /></div>
+        <div class="form-field"><label class="form-label" for="ToDate">@Localizer["ToDate"]</label><input id="ToDate" name="ToDate" type="date" value="@toDate" class="form-control" /></div>
+        <div class="form-field">
+            <label class="form-label" for="Category">@Localizer["Category"]</label>
+            <select id="Category" name="Category" class="form-select">
+                @foreach (var category in Enum.GetValues<AuditEventCategory>())
+                {
+                    <option value="@category" selected="@(filter.Category == category)">@Localizer[$"AuditEventCategory{category}"]</option>
+                }
+            </select>
+        </div>
+        <div class="form-field"><label class="form-label" for="Search">@Localizer["Search"]</label><input id="Search" name="Search" value="@filter.Search" class="form-control" placeholder="@Localizer["SearchAuditPlaceholder"]" /></div>
+        <div class="form-actions"><button class="btn btn-primary app-btn" type="submit">@Localizer["ApplyFilters"]</button><a class="btn btn-secondary app-btn" asp-action="Audit">@Localizer["Reset"]</a></div>
+    </form>
+</section>
+
+<section class="app-panel mt-3">
+    <div class="section-heading"><h2>@Localizer["ResultsCount", Model.Events.TotalCount]</h2><p>@Localizer["AuditTrailSafeFields"]</p></div>
+    <div class="table-responsive">
+        <table class="table app-table">
+            <thead><tr><th>@Localizer["OccurredAt"]</th><th>@Localizer["Category"]</th><th>@Localizer["EventType"]</th><th>@Localizer["Actor"]</th><th>@Localizer["Subject"]</th><th>@Localizer["Outcome"]</th><th>@Localizer["Description"]</th></tr></thead>
+            <tbody>
+            @if (Model.Events.Items.Count == 0)
+            {
+                <tr><td class="empty-row" colspan="7">@Localizer["NoAuditEvents"]</td></tr>
+            }
+            @foreach (var row in Model.Events.Items)
+            {
+                <tr>
+                    <td data-label="@Localizer["OccurredAt"]">@row.OccurredAtLocal.ToString("g")</td>
+                    <td data-label="@Localizer["Category"]"><span class="status-badge">@Localizer[$"AuditEventCategory{row.Category}"]</span></td>
+                    <td data-label="@Localizer["EventType"]">@row.EventType</td>
+                    <td data-label="@Localizer["Actor"]">@row.Actor</td>
+                    <td data-label="@Localizer["Subject"]">@row.Subject</td>
+                    <td data-label="@Localizer["Outcome"]">@row.Outcome</td>
+                    <td data-label="@Localizer["Description"]">@row.SafeDescription</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination-wrap">
+        <span>@Localizer["PageOf", Model.Events.PageNumber, Model.Events.TotalPages]</span>
+        <div class="row-actions">
+            <a class="btn btn-secondary app-btn @(Model.Events.HasPreviousPage ? "" : "disabled")" asp-action="Audit" asp-route-FromDate="@fromDate" asp-route-ToDate="@toDate" asp-route-Category="@filter.Category" asp-route-Search="@filter.Search" asp-route-PageNumber="@(Model.Events.PageNumber - 1)">@Localizer["Previous"]</a>
+            <a class="btn btn-secondary app-btn @(Model.Events.HasNextPage ? "" : "disabled")" asp-action="Audit" asp-route-FromDate="@fromDate" asp-route-ToDate="@toDate" asp-route-Category="@filter.Category" asp-route-Search="@filter.Search" asp-route-PageNumber="@(Model.Events.PageNumber + 1)">@Localizer["Next"]</a>
+        </div>
+    </div>
+</section>
