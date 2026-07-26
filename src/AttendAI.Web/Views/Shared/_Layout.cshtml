@@ -13,6 +13,7 @@
                 : "Index";
     var currentArea = (ViewContext.RouteData.Values["area"] as string) ?? string.Empty;
     var currentController = (ViewContext.RouteData.Values["controller"] as string) ?? string.Empty;
+    var currentAction = (ViewContext.RouteData.Values["action"] as string) ?? string.Empty;
     var userInitial = User.Identity?.Name is { Length: > 0 } userName ? userName[..1].ToUpperInvariant() : "U";
 }
 <!DOCTYPE html>
@@ -65,16 +66,20 @@
                             <a class="app-menu-link @(currentArea == "Admin" && currentController == "LectureSessions" ? "active" : "")" asp-area="Admin" asp-controller="LectureSessions" asp-action="Index">@Localizer["NavLectureSessions"]</a>
                             <a class="app-menu-link @(currentArea == "Admin" && currentController == "BiometricEnrollments" ? "active" : "")" asp-area="Admin" asp-controller="BiometricEnrollments" asp-action="Index">@Localizer["NavBiometricEnrollments"]</a>
                             <a class="app-menu-link @(currentArea == "Admin" && currentController == "FaceVerifications" ? "active" : "")" asp-area="Admin" asp-controller="FaceVerifications" asp-action="Index">@Localizer["NavFaceVerifications"]</a>
+                            <a class="app-menu-link @(currentArea == "Admin" && currentController == "Reports" && currentAction != "Audit" ? "active" : "")" asp-area="Admin" asp-controller="Reports" asp-action="Index">@Localizer["NavReports"]</a>
+                            <a class="app-menu-link @(currentArea == "Admin" && currentController == "Reports" && currentAction == "Audit" ? "active" : "")" asp-area="Admin" asp-controller="Reports" asp-action="Audit">@Localizer["NavAuditTrail"]</a>
                         </div>
                     }
                     @if (User.IsInRole(RoleConstants.Instructor))
                     {
                         <a class="app-menu-link @(currentController == "InstructorSchedule" ? "active" : "")" asp-area="" asp-controller="InstructorSchedule" asp-action="Index">@Localizer["NavMySchedule"]</a>
+                        <a class="app-menu-link @(currentController == "Reports" && currentAction == "Instructor" ? "active" : "")" asp-area="" asp-controller="Reports" asp-action="Instructor">@Localizer["NavMyReports"]</a>
                     }
                     @if (User.IsInRole(RoleConstants.Student))
                     {
                         <a class="app-menu-link @(currentController == "StudentSchedule" ? "active" : "")" asp-area="" asp-controller="StudentSchedule" asp-action="Index">@Localizer["NavMySchedule"]</a>
                         <a class="app-menu-link @(currentController == "Attendance" ? "active" : "")" asp-area="" asp-controller="Attendance" asp-action="Index">@Localizer["NavAttendanceCheckIn"]</a>
+                        <a class="app-menu-link @(currentController == "Reports" && currentAction == "Student" ? "active" : "")" asp-area="" asp-controller="Reports" asp-action="Student">@Localizer["NavMyReports"]</a>
                         <a class="app-menu-link @(currentController == "BiometricEnrollment" ? "active" : "")" asp-area="" asp-controller="BiometricEnrollment" asp-action="Index">@Localizer["NavBiometricEnrollment"]</a>
                         <a class="app-menu-link @(currentController == "FaceVerification" ? "active" : "")" asp-area="" asp-controller="FaceVerification" asp-action="Index">@Localizer["NavFaceVerification"]</a>
                     }

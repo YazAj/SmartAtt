@@ -45,6 +45,8 @@ Sprint 3 extends these styles for lecture schedule lists, filters, create/edit f
 
 Sprint 6 extends these styles for Student attendance check-in, browser-location status, challenge countdowns, safe result details, recent attempt tables, and Instructor attendance roster tables.
 
+Sprint 7 extends these styles for report summary cards, report meters, filter grids, responsive report tables, audit tables, CSV export controls, and print-friendly pages.
+
 ## Accessibility
 
 - Visible `:focus-visible` ring.
@@ -166,3 +168,33 @@ Required surfaces:
 - Access denied/unauthorized routes.
 
 Current status: implementation is present; final manual visual verification is pending Sprint 6 closure evidence.
+
+## Sprint 7 UI Components
+
+- Student, Instructor, and Admin report pages reuse `page-header`, `app-panel`, `filter-grid`, `stat-card`, `app-table`, `status-badge`, pagination, alerts, and empty states.
+- Report summary cards display eligible sessions, Present, Late, Missed, and attendance percentage using server-calculated values.
+- Report meters are tokenized and avoid using color alone as the only meaning.
+- Admin audit search uses the same filter and table patterns as existing Admin pages.
+- CSV and print actions are regular keyboard-reachable buttons/links.
+- Print styling hides navigation and filter chrome while retaining the authorized report content.
+
+## Sprint 7 Visual Verification Targets
+
+Required manual/browser combinations:
+
+- English LTR Light desktop, tablet, 390px, and 320px.
+- English LTR Dark desktop, tablet, 390px, and 320px.
+- Arabic RTL Light desktop, tablet, 390px, and 320px.
+- Arabic RTL Dark desktop, tablet, 390px, and 320px.
+
+Required surfaces:
+
+- Sidebar and active report navigation.
+- Navbar, language selector, theme selector, and profile menu.
+- Student report page.
+- Instructor report page.
+- Admin report page.
+- Admin audit page.
+- Filters, dropdowns, placeholders, validation messages, buttons, cards, tables, badges, alerts, empty states, pagination, CSV export control, and print action.
+
+Current status: the implementation uses existing design tokens and logical CSS. Final full manual visual/accessibility verification for Sprint 7 remains pending and must not be marked Passed until browser evidence is recorded.

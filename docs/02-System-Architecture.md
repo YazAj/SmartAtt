@@ -4,8 +4,8 @@
 
 ```mermaid
 flowchart LR
-    Web["AttendAI.Web\nMVC, Razor, auth UI, lecture/biometric/verification/attendance UI, localization, themes"] --> Application["AttendAI.Application\nContracts, role routing, schedules, sessions, biometrics, verification, attendance, safe redirects, face engine interface"]
-    Web --> Infrastructure["AttendAI.Infrastructure\nEF Core, Identity, seeding, lecture/biometric/verification/attendance services, fake/real/disabled face engines"]
+    Web["AttendAI.Web\nMVC, Razor, auth UI, lecture/biometric/verification/attendance/reporting UI, localization, themes"] --> Application["AttendAI.Application\nContracts, role routing, schedules, sessions, biometrics, verification, attendance, reporting, safe redirects, face engine interface"]
+    Web --> Infrastructure["AttendAI.Infrastructure\nEF Core, Identity, seeding, lecture/biometric/verification/attendance/reporting services, fake/real/disabled face engines"]
     Infrastructure --> Application
     Infrastructure --> Domain["AttendAI.Domain\nCore concepts and framework-free enums"]
     Application --> Domain
@@ -186,6 +186,30 @@ Controllers submit the authenticated user id and a capture command. They never a
 The verification service is future-ready for attendance use through `IOneToOneFaceVerifier`, but Sprint 5 invokes only `FaceVerificationPurpose.SelfTest`. No attendance record, attendance status, location validation, report, export, or notification path calls the service.
 
 Sprint 6 uses that boundary with `FaceVerificationPurpose.FutureAttendance` and records the resulting safe `FaceVerificationAttempt` alongside attendance attempts. The underlying one-to-one verifier still resolves the authenticated Student's active compatible template server-side and performs no one-to-many search.
+
+## Reporting And Analytics Architecture
+
+Sprint 7 adds reporting as a read/query layer over existing attendance, lecture, academic, verification, and enrollment data. It does not add Domain entities or a database migration.
+
+```mermaid
+flowchart LR
+    StudentReportUi["Student Report MVC"] --> ReportingContracts["Reporting Application Contracts"]
+    InstructorReportUi["Instructor Report MVC"] --> ReportingContracts
+    AdminReportUi["Admin Reports MVC"] --> ReportingContracts
+    AdminAuditUi["Admin Audit MVC"] --> ReportingContracts
+    ReportingContracts --> ReportCalculator["AttendanceReportCalculator"]
+    ReportingServices["Infrastructure Reporting Service"] --> ReportingContracts
+    ReportingServices --> ExistingDb["Existing SQL Server Tables"]
+    ReportingServices --> CsvWriter["SafeCsvReportWriter"]
+    ExistingDb --> Academic["Students / Enrollments / Courses / Sections"]
+    ExistingDb --> Sessions["LectureSessions / LectureSessionEvents"]
+    ExistingDb --> Attendance["AttendanceRecords / AttendanceAttempts"]
+    ExistingDb --> Biometrics["FaceVerificationAttempts / FaceEnrollmentEvents"]
+```
+
+Student and Instructor reports resolve academic ownership from the authenticated Identity user. Admin reports allow broader filters but still project safe DTOs. CSV export re-runs the authorized filtered query server-side, escapes fields, neutralizes spreadsheet formula starters, and returns no-store/private responses without writing generated files to disk.
+
+Report pages use existing localized Razor patterns, summary cards, responsive tables, pagination, and print styles. No JavaScript chart dependency was added; server-generated summary cards and tables are the authoritative analytics display.
 
 ## Template Compatibility
 

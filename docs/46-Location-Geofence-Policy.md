@@ -90,6 +90,10 @@ Physical vs simulated location evidence:
 
 - User-confirmed manual location result; physical-versus-simulated method was not recorded in the closure evidence.
 
+## Sprint 7 Reporting Boundary
+
+Sprint 7 reports and CSV exports do not expose exact submitted Student latitude or longitude. They may expose safe attendance status, check-in time, and report percentages, but geofence policy details and browser-submitted coordinate values remain outside the export contract.
+
 ## Limitations
 
 - Browser-provided coordinates may be manipulated.
