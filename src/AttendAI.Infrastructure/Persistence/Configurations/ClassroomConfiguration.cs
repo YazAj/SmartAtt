@@ -12,8 +12,8 @@ public sealed class ClassroomConfiguration : IEntityTypeConfiguration<Classroom>
         {
             table.HasCheckConstraint("CK_Classrooms_Capacity", "[Capacity] > 0");
             table.HasCheckConstraint("CK_Classrooms_CoordinatePair", "(([Latitude] IS NULL AND [Longitude] IS NULL) OR ([Latitude] IS NOT NULL AND [Longitude] IS NOT NULL))");
-            table.HasCheckConstraint("CK_Classrooms_Latitude", "[Latitude] IS NULL OR ([Latitude] BETWEEN -90 AND 90)");
-            table.HasCheckConstraint("CK_Classrooms_Longitude", "[Longitude] IS NULL OR ([Longitude] BETWEEN -180 AND 180)");
+            table.HasCheckConstraint("CK_Classrooms_Latitude", "[Latitude] IS NULL OR (CAST([Latitude] AS REAL) BETWEEN -90 AND 90)");
+            table.HasCheckConstraint("CK_Classrooms_Longitude", "[Longitude] IS NULL OR (CAST([Longitude] AS REAL) BETWEEN -180 AND 180)");
         });
         builder.HasKey(classroom => classroom.Id);
 

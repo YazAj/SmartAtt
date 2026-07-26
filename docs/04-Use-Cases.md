@@ -158,6 +158,20 @@
 - Main flow: Search and filter attempts by Student, outcome, decision, and date, inspect safe attempt details, and review diagnostics/readiness information.
 - Rules: Admin sees safe metadata only. Protected templates, template fingerprints, embeddings, raw captures, model paths, and raw native errors are not exposed.
 
+## UC-24 Student Secure Attendance Check-In
+
+- Actor: Student
+- Trigger: Student opens Attendance check-in for an active enrolled lecture session.
+- Main flow: The system resolves the Student from the authenticated user, checks active account/profile, password-change completion, active enrollment, active lecture session, attendance window, configured location policy, and Real face-engine readiness. The server issues a one-time challenge. The Student captures one current face image, captures browser location, and submits the challenge plus an idempotency key. The server validates the challenge, geofence, and one-to-one face verification, then creates one attendance record or a safe rejection attempt.
+- Rules: The browser never posts StudentId, attendance status, classroom policy, face score, or template id. Exact submitted Student coordinates and raw capture bytes are not retained.
+
+## UC-25 Instructor Attendance Roster
+
+- Actor: Instructor
+- Trigger: Instructor opens the roster from an active lecture session.
+- Main flow: The system verifies the Instructor owns the session, lists enrolled Students, and shows Present/Late/Missing state plus safe attempt metadata.
+- Rules: Instructors cannot view rosters for sessions they do not own. Roster UI does not expose raw images, exact submitted Student coordinates, protected templates, embeddings, or template fingerprints.
+
 ## Future Use Cases Not Implemented
 
-Attendance registration, student code submission for attendance, location validation for attendance, duplicate attendance prevention, reports, exports, notifications, one-to-many face identification, classroom-camera recognition, liveness production claims, production real-engine verification, and production attendance decisions.
+Attendance dashboards, analytics, reports, exports, notifications, student code submission for attendance, QR/NFC/Bluetooth/WiFi/IP attendance, one-to-many face identification, classroom-camera recognition, liveness production claims, anti-spoofing, production threshold calibration, and native mobile applications.

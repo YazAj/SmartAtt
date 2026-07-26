@@ -43,6 +43,8 @@ Sprint 2 reuses these styles for Admin academic management lists, filters, detai
 
 Sprint 3 extends these styles for lecture schedule lists, filters, create/edit forms, details pages, classroom/section timetables, active-session panels, lifecycle event tables, countdown cards, and code-copy actions.
 
+Sprint 6 extends these styles for Student attendance check-in, browser-location status, challenge countdowns, safe result details, recent attempt tables, and Instructor attendance roster tables.
+
 ## Accessibility
 
 - Visible `:focus-visible` ring.
@@ -134,3 +136,33 @@ Checked surfaces include sidebar, navbar, breadcrumbs/page titles, dropdowns, fo
 Real mode reuses the existing biometric enrollment and one-to-one verification UI. The UI must show only safe readiness, match/no-match/capture-rejected/re-enrollment-required/engine-unavailable states. Normal Student pages must not display embeddings, absolute model paths, protected templates, template fingerprints, native exception details, or raw model diagnostics. Admin diagnostics may show safe engine/model names, versions, threshold, metric, expected template format, and embedding dimension.
 
 Manual visual verification for Real camera enrollment and verification remains Not Verified until authorized local participants are available. Existing English/Arabic, LTR/RTL, light/dark responsive checks remain valid for the shared UI shell and Fake workflow.
+
+## Sprint 6 UI Components
+
+- Student attendance index uses existing `page-header`, `app-panel`, `details-grid`, `app-table`, badges, and empty states.
+- Student check-in reuses the one-capture camera UI from Sprint 5 and adds a browser-location capture button/status badge.
+- Challenge expiry uses the existing countdown helper.
+- Student result page renders safe outcome, location, distance, face score, and attendance record metadata without showing images or exact coordinates.
+- Instructor roster uses dashboard `stat-card` counts and a responsive `app-table` for enrolled Students.
+- Student navigation includes `Attendance check-in`; Instructor active-session view links to the roster for that session.
+
+## Sprint 6 Visual Verification Targets
+
+Required manual/browser combinations:
+
+- English LTR Light desktop.
+- English LTR Dark desktop and mobile.
+- Arabic RTL Light desktop and mobile.
+- Arabic RTL Dark desktop and mobile.
+
+Required surfaces:
+
+- Sidebar and navigation active states.
+- Student attendance index.
+- Student check-in form, camera controls, file fallback, challenge countdown, browser-location status, validation messages, and submit state.
+- Student accepted/rejected result page.
+- Student recent attempt table and empty state.
+- Instructor roster summary cards, table, missing state, and safe metadata.
+- Access denied/unauthorized routes.
+
+Current status: implementation is present; final manual visual verification is pending Sprint 6 closure evidence.

@@ -138,3 +138,7 @@ Still Not Verified:
 - Production liveness or anti-spoofing.
 
 Sprint 5 remains partially completed for real biometric verification until those remaining items are recorded.
+
+## Sprint 6 Scope Note
+
+Sprint 6 now implements attendance check-in separately from this Sprint 5 review. The Sprint 5 evidence above remains evidence for one-to-one self-verification only. Any attendance acceptance, duplicate prevention, geofence validation, or Instructor roster evidence must be recorded in `docs/44-Sprint-6-Review.md` and must not be inferred from Sprint 5 self-verification evidence.

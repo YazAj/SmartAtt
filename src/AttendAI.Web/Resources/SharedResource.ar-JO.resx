@@ -754,4 +754,99 @@
   <data name="FaceVerificationAttemptDescriptionEngineUnavailable" xml:space="preserve"><value>محرك التحقق لم يكن متاحاً.</value></data>
   <data name="FaceVerificationAttemptDescriptionProcessingFailed" xml:space="preserve"><value>فشلت معالجة التحقق بأمان.</value></data>
   <data name="FaceVerificationAttemptDescriptionCancelled" xml:space="preserve"><value>تم إلغاء التحقق بأمان.</value></data>
+  <data name="NavAttendanceCheckIn" xml:space="preserve"><value>تسجيل الحضور</value></data>
+  <data name="AttendanceCheckIn" xml:space="preserve"><value>تسجيل الحضور</value></data>
+  <data name="AttendanceCheckInLead" xml:space="preserve"><value>سجل حضورك في المحاضرات النشطة عبر تحقق وجه حديث والتحقق من الموقع على الخادم.</value></data>
+  <data name="AttendanceCheckInReady" xml:space="preserve"><value>جاهز لتسجيل الحضور</value></data>
+  <data name="ActiveAttendanceSessions" xml:space="preserve"><value>جلسات الحضور النشطة</value></data>
+  <data name="ActiveAttendanceSessionsLead" xml:space="preserve"><value>تظهر فقط الجلسات النشطة التي أنت مسجل بها ولديها سياسة حضور معدة.</value></data>
+  <data name="NoActiveAttendanceSessions" xml:space="preserve"><value>لا توجد جلسات حضور نشطة متاحة.</value></data>
+  <data name="RecentAttendanceAttempts" xml:space="preserve"><value>محاولات الحضور الأخيرة</value></data>
+  <data name="RecentAttendanceAttemptsLead" xml:space="preserve"><value>تظهر البيانات الوصفية الآمنة فقط. لا يتم الاحتفاظ بصور القياسات الحيوية الخام أو إحداثيات الطالب الدقيقة.</value></data>
+  <data name="NoAttendanceAttempts" xml:space="preserve"><value>لا توجد محاولات حضور مسجلة.</value></data>
+  <data name="FailureReason" xml:space="preserve"><value>سبب الرفض</value></data>
+  <data name="NotAvailable" xml:space="preserve"><value>غير متاح</value></data>
+  <data name="ChallengeExpires" xml:space="preserve"><value>انتهاء التحدي</value></data>
+  <data name="LocationAccuracy" xml:space="preserve"><value>دقة الموقع</value></data>
+  <data name="AttendanceNoRawLocationStorage" xml:space="preserve"><value>يتم تقييم إحداثيات الطالب الدقيقة ولا يتم الاحتفاظ بها.</value></data>
+  <data name="AttendanceSecureCheckIn" xml:space="preserve"><value>تسجيل حضور آمن</value></data>
+  <data name="AttendanceSecureCheckInLead" xml:space="preserve"><value>التقط صورة وجه واحدة حالية، ثم التقط موقع المتصفح، ثم أرسل الطلب مرة واحدة.</value></data>
+  <data name="CaptureLocation" xml:space="preserve"><value>التقاط الموقع</value></data>
+  <data name="LocationNotCaptured" xml:space="preserve"><value>لم يتم التقاط الموقع</value></data>
+  <data name="AttendanceLocationCaptured" xml:space="preserve"><value>تم التقاط الموقع</value></data>
+  <data name="SubmitAttendanceCheckIn" xml:space="preserve"><value>إرسال تسجيل الحضور</value></data>
+  <data name="AttendanceCheckInSucceeded" xml:space="preserve"><value>تم تسجيل الحضور بنجاح</value></data>
+  <data name="AttendanceCheckInRejected" xml:space="preserve"><value>تم رفض تسجيل الحضور</value></data>
+  <data name="AttendanceRoster" xml:space="preserve"><value>كشف الحضور</value></data>
+  <data name="AttendanceRosterLead" xml:space="preserve"><value>راجع الطلاب المسجلين والبيانات الوصفية الآمنة لهذه الجلسة.</value></data>
+  <data name="AttendanceRosterSafeMetadata" xml:space="preserve"><value>بيانات وصفية آمنة فقط</value></data>
+  <data name="BackToSession" xml:space="preserve"><value>العودة إلى الجلسة</value></data>
+  <data name="EnrolledStudents" xml:space="preserve"><value>الطلاب المسجلون</value></data>
+  <data name="MissingStudents" xml:space="preserve"><value>{0} غير مسجلين</value></data>
+  <data name="CheckedInAt" xml:space="preserve"><value>وقت تسجيل الحضور</value></data>
+  <data name="LastAttempt" xml:space="preserve"><value>آخر محاولة</value></data>
+  <data name="AttendanceMissing" xml:space="preserve"><value>غائب</value></data>
+  <data name="Location" xml:space="preserve"><value>الموقع</value></data>
+  <data name="FaceScore" xml:space="preserve"><value>درجة الوجه</value></data>
+  <data name="AttendanceRecord" xml:space="preserve"><value>سجل الحضور</value></data>
+  <data name="Classroom" xml:space="preserve"><value>القاعة</value></data>
+  <data name="Time" xml:space="preserve"><value>الوقت</value></data>
+  <data name="StudentName" xml:space="preserve"><value>اسم الطالب</value></data>
+  <data name="AttendanceLocationAccepted" xml:space="preserve"><value>تم قبول الموقع.</value></data>
+  <data name="ErrorAttendanceLocationRequired" xml:space="preserve"><value>التقط موقع المتصفح قبل إرسال الحضور.</value></data>
+  <data name="ErrorAttendanceLocationPolicyMissing" xml:space="preserve"><value>لا تحتوي هذه الجلسة على سياسة موقع للحضور.</value></data>
+  <data name="ErrorAttendanceLocationInvalid" xml:space="preserve"><value>الموقع المرسل غير صالح.</value></data>
+  <data name="ErrorAttendanceLocationInaccurate" xml:space="preserve"><value>دقة موقع المتصفح غير كافية لتسجيل الحضور.</value></data>
+  <data name="ErrorAttendanceOutsideGeofence" xml:space="preserve"><value>الموقع المرسل خارج نطاق الحضور المعتمد.</value></data>
+  <data name="ErrorAttendanceRealFaceEngineRequired" xml:space="preserve"><value>يتطلب الحضور جاهزية محرك التحقق الحقيقي من الوجه.</value></data>
+  <data name="ErrorAttendanceAlreadyRecorded" xml:space="preserve"><value>تم تسجيل الحضور لهذه الجلسة مسبقا.</value></data>
+  <data name="ErrorAttendancePasswordChangeRequired" xml:space="preserve"><value>غير كلمة المرور المؤقتة قبل تسجيل الحضور.</value></data>
+  <data name="ErrorAttendanceEnrollmentRequired" xml:space="preserve"><value>أنت غير مسجل في شعبة هذه المحاضرة.</value></data>
+  <data name="ErrorAttendanceSessionNotActive" xml:space="preserve"><value>جلسة المحاضرة غير نشطة لتسجيل الحضور.</value></data>
+  <data name="ErrorAttendanceWindowClosed" xml:space="preserve"><value>نافذة تسجيل الحضور مغلقة.</value></data>
+  <data name="ErrorAttendanceIdempotencyInvalid" xml:space="preserve"><value>رمز طلب الحضور غير صالح.</value></data>
+  <data name="ErrorAttendanceRateLimited" xml:space="preserve"><value>محاولات حضور كثيرة جدا. انتظر ثم حاول مرة أخرى.</value></data>
+  <data name="ErrorAttendanceChallengeMissing" xml:space="preserve"><value>تحدي الحضور مفقود.</value></data>
+  <data name="ErrorAttendanceChallengeInvalid" xml:space="preserve"><value>تحدي الحضور غير صالح.</value></data>
+  <data name="ErrorAttendanceChallengeExpired" xml:space="preserve"><value>انتهت صلاحية تحدي الحضور. افتح صفحة التسجيل مرة أخرى.</value></data>
+  <data name="ErrorAttendanceChallengeAlreadyUsed" xml:space="preserve"><value>تم استخدام تحدي الحضور مسبقا.</value></data>
+  <data name="ErrorAttendanceFaceNotMatched" xml:space="preserve"><value>نتيجة التحقق من الوجه لم تطابق القالب النشط.</value></data>
+  <data name="ErrorAttendanceCheckInRejected" xml:space="preserve"><value>تم رفض تسجيل الحضور بأمان.</value></data>
+  <data name="AttendanceStatusPresent" xml:space="preserve"><value>حاضر</value></data>
+  <data name="AttendanceStatusLate" xml:space="preserve"><value>متأخر</value></data>
+  <data name="AttendanceAttemptOutcomeSucceeded" xml:space="preserve"><value>ناجحة</value></data>
+  <data name="AttendanceAttemptOutcomeRejected" xml:space="preserve"><value>مرفوضة</value></data>
+  <data name="AttendanceAttemptOutcomeDuplicate" xml:space="preserve"><value>مكررة</value></data>
+  <data name="LocationVerificationOutcomeNotEvaluated" xml:space="preserve"><value>لم يتم التقييم</value></data>
+  <data name="LocationVerificationOutcomeAccepted" xml:space="preserve"><value>مقبول</value></data>
+  <data name="LocationVerificationOutcomeMissingPolicy" xml:space="preserve"><value>السياسة مفقودة</value></data>
+  <data name="LocationVerificationOutcomeInvalid" xml:space="preserve"><value>غير صالح</value></data>
+  <data name="LocationVerificationOutcomeInaccurate" xml:space="preserve"><value>غير دقيق</value></data>
+  <data name="LocationVerificationOutcomeOutsideGeofence" xml:space="preserve"><value>خارج النطاق الجغرافي</value></data>
+  <data name="AttendanceFailureReasonNone" xml:space="preserve"><value>لا يوجد</value></data>
+  <data name="AttendanceFailureReasonStudentNotFound" xml:space="preserve"><value>لم يتم العثور على الطالب</value></data>
+  <data name="AttendanceFailureReasonStudentInactive" xml:space="preserve"><value>الطالب غير نشط</value></data>
+  <data name="AttendanceFailureReasonPasswordChangeRequired" xml:space="preserve"><value>تغيير كلمة المرور مطلوب</value></data>
+  <data name="AttendanceFailureReasonNotEnrolled" xml:space="preserve"><value>غير مسجل</value></data>
+  <data name="AttendanceFailureReasonSessionNotFound" xml:space="preserve"><value>لم يتم العثور على الجلسة</value></data>
+  <data name="AttendanceFailureReasonSessionNotActive" xml:space="preserve"><value>الجلسة غير نشطة</value></data>
+  <data name="AttendanceFailureReasonAttendanceWindowClosed" xml:space="preserve"><value>نافذة الحضور مغلقة</value></data>
+  <data name="AttendanceFailureReasonAttendanceLocationUnavailable" xml:space="preserve"><value>سياسة الموقع غير متاحة</value></data>
+  <data name="AttendanceFailureReasonLocationInvalid" xml:space="preserve"><value>الموقع غير صالح</value></data>
+  <data name="AttendanceFailureReasonLocationInaccurate" xml:space="preserve"><value>الموقع غير دقيق</value></data>
+  <data name="AttendanceFailureReasonOutsideGeofence" xml:space="preserve"><value>خارج النطاق الجغرافي</value></data>
+  <data name="AttendanceFailureReasonChallengeMissing" xml:space="preserve"><value>التحدي مفقود</value></data>
+  <data name="AttendanceFailureReasonChallengeInvalid" xml:space="preserve"><value>التحدي غير صالح</value></data>
+  <data name="AttendanceFailureReasonChallengeExpired" xml:space="preserve"><value>انتهت صلاحية التحدي</value></data>
+  <data name="AttendanceFailureReasonChallengeAlreadyUsed" xml:space="preserve"><value>تم استخدام التحدي مسبقا</value></data>
+  <data name="AttendanceFailureReasonIdempotencyKeyInvalid" xml:space="preserve"><value>رمز الطلب غير صالح</value></data>
+  <data name="AttendanceFailureReasonFaceVerificationFailed" xml:space="preserve"><value>فشل التحقق من الوجه</value></data>
+  <data name="AttendanceFailureReasonFaceNotMatched" xml:space="preserve"><value>الوجه غير مطابق</value></data>
+  <data name="AttendanceFailureReasonFaceNoFace" xml:space="preserve"><value>لم يتم اكتشاف وجه</value></data>
+  <data name="AttendanceFailureReasonFaceMultipleFaces" xml:space="preserve"><value>تم اكتشاف وجوه متعددة</value></data>
+  <data name="AttendanceFailureReasonFaceLowQuality" xml:space="preserve"><value>جودة صورة الوجه منخفضة</value></data>
+  <data name="AttendanceFailureReasonFaceEngineUnavailable" xml:space="preserve"><value>محرك الوجه غير متاح</value></data>
+  <data name="AttendanceFailureReasonDuplicateAttendance" xml:space="preserve"><value>حضور مكرر</value></data>
+  <data name="AttendanceFailureReasonPersistenceFailed" xml:space="preserve"><value>فشل الحفظ</value></data>
+  <data name="AttendanceFailureReasonRateLimited" xml:space="preserve"><value>مقيدة بعدد المحاولات</value></data>
 </root>

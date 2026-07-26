@@ -1,0 +1,107 @@
+@model StudentAttendancePageDto
+@{
+    ViewData["Title"] = Localizer["AttendanceCheckIn"];
+}
+<section class="page-header">
+    <div>
+        <p class="eyebrow">@Localizer["StudentRole"]</p>
+        <h1>@Localizer["AttendanceCheckIn"]</h1>
+        <p>@Localizer["AttendanceCheckInLead"]</p>
+    </div>
+</section>
+
+<section class="app-panel">
+    <div class="section-heading">
+        <h2>@Localizer["VerificationDiagnostics"]</h2>
+        <p>@Localizer[Model.Diagnostics.StatusMessageKey]</p>
+    </div>
+    <div class="details-grid">
+        <div><span class="detail-label">@Localizer["EngineMode"]</span><div class="detail-value">@Model.Diagnostics.Mode</div></div>
+        <div><span class="detail-label">@Localizer["Model"]</span><div class="detail-value">@Model.Diagnostics.ModelName</div></div>
+        <div><span class="detail-label">@Localizer["Threshold"]</span><div class="detail-value">@Model.Diagnostics.Threshold</div></div>
+        <div><span class="detail-label">@Localizer["GateResult"]</span><div class="detail-value">@Model.Diagnostics.GateResult</div></div>
+    </div>
+</section>
+
+<section class="app-panel mt-3">
+    <div class="section-heading">
+        <h2>@Localizer["ActiveAttendanceSessions"]</h2>
+        <p>@Localizer["ActiveAttendanceSessionsLead"]</p>
+    </div>
+    <div class="table-responsive">
+        <table class="table app-table">
+            <thead>
+                <tr>
+                    <th>@Localizer["Course"]</th>
+                    <th>@Localizer["Section"]</th>
+                    <th>@Localizer["Classroom"]</th>
+                    <th>@Localizer["Time"]</th>
+                    <th>@Localizer["Status"]</th>
+                    <th>@Localizer["Actions"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.ActiveSessions.Count == 0)
+                {
+                    <tr><td class="empty-row" colspan="6">@Localizer["NoActiveAttendanceSessions"]</td></tr>
+                }
+                @foreach (var session in Model.ActiveSessions)
+                {
+                    <tr>
+                        <td data-label="@Localizer["Course"]">@session.CourseCode<br /><small>@session.CourseNameEnglish / @session.CourseNameArabic</small></td>
+                        <td data-label="@Localizer["Section"]">@session.SectionNumber</td>
+                        <td data-label="@Localizer["Classroom"]">@session.ClassroomCode</td>
+                        <td data-label="@Localizer["Time"]">@session.ScheduledStartLocal.ToString("t") - @session.ScheduledEndLocal.ToString("t")</td>
+                        <td data-label="@Localizer["Status"]">@Localizer[session.MessageKey]</td>
+                        <td data-label="@Localizer["Actions"]">
+                            @if (session.CanCheckIn)
+                            {
+                                <a class="btn btn-primary btn-sm" asp-action="CheckIn" asp-route-id="@session.LectureSessionId">@Localizer["AttendanceCheckIn"]</a>
+                            }
+                            else
+                            {
+                                <span class="badge text-bg-secondary">@Localizer["NotAvailable"]</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="app-panel mt-3">
+    <div class="section-heading">
+        <h2>@Localizer["RecentAttendanceAttempts"]</h2>
+        <p>@Localizer["RecentAttendanceAttemptsLead"]</p>
+    </div>
+    <div class="table-responsive">
+        <table class="table app-table">
+            <thead>
+                <tr>
+                    <th>@Localizer["AttemptedAt"]</th>
+                    <th>@Localizer["Course"]</th>
+                    <th>@Localizer["Outcome"]</th>
+                    <th>@Localizer["FailureReason"]</th>
+                    <th>@Localizer["Distance"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.RecentAttempts.Count == 0)
+                {
+                    <tr><td class="empty-row" colspan="5">@Localizer["NoAttendanceAttempts"]</td></tr>
+                }
+                @foreach (var attempt in Model.RecentAttempts)
+                {
+                    <tr>
+                        <td data-label="@Localizer["AttemptedAt"]">@attempt.AttemptedAtLocal.ToString("g")</td>
+                        <td data-label="@Localizer["Course"]">@attempt.CourseCode - @attempt.SectionNumber</td>
+                        <td data-label="@Localizer["Outcome"]">@Localizer[$"AttendanceAttemptOutcome{attempt.Outcome}"]</td>
+                        <td data-label="@Localizer["FailureReason"]">@Localizer[$"AttendanceFailureReason{attempt.FailureReason}"]</td>
+                        <td data-label="@Localizer["Distance"]">@(attempt.DistanceMeters?.ToString("0.###") ?? "-")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

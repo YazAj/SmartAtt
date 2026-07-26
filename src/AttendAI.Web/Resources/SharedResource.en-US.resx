@@ -754,4 +754,99 @@
   <data name="FaceVerificationAttemptDescriptionEngineUnavailable" xml:space="preserve"><value>Verification engine was unavailable.</value></data>
   <data name="FaceVerificationAttemptDescriptionProcessingFailed" xml:space="preserve"><value>Verification processing failed safely.</value></data>
   <data name="FaceVerificationAttemptDescriptionCancelled" xml:space="preserve"><value>Verification was cancelled safely.</value></data>
+  <data name="NavAttendanceCheckIn" xml:space="preserve"><value>Attendance check-in</value></data>
+  <data name="AttendanceCheckIn" xml:space="preserve"><value>Attendance check-in</value></data>
+  <data name="AttendanceCheckInLead" xml:space="preserve"><value>Check in to active lecture sessions with a fresh face verification and server-side location validation.</value></data>
+  <data name="AttendanceCheckInReady" xml:space="preserve"><value>Ready for check-in</value></data>
+  <data name="ActiveAttendanceSessions" xml:space="preserve"><value>Active attendance sessions</value></data>
+  <data name="ActiveAttendanceSessionsLead" xml:space="preserve"><value>Only active enrolled sessions with configured attendance policy are available.</value></data>
+  <data name="NoActiveAttendanceSessions" xml:space="preserve"><value>No active attendance sessions are available.</value></data>
+  <data name="RecentAttendanceAttempts" xml:space="preserve"><value>Recent attendance attempts</value></data>
+  <data name="RecentAttendanceAttemptsLead" xml:space="preserve"><value>Only safe metadata is shown. Raw biometric images and exact student coordinates are not retained.</value></data>
+  <data name="NoAttendanceAttempts" xml:space="preserve"><value>No attendance attempts have been recorded.</value></data>
+  <data name="FailureReason" xml:space="preserve"><value>Failure reason</value></data>
+  <data name="NotAvailable" xml:space="preserve"><value>Not available</value></data>
+  <data name="ChallengeExpires" xml:space="preserve"><value>Challenge expires</value></data>
+  <data name="LocationAccuracy" xml:space="preserve"><value>Location accuracy</value></data>
+  <data name="AttendanceNoRawLocationStorage" xml:space="preserve"><value>Exact student coordinates are evaluated, not retained.</value></data>
+  <data name="AttendanceSecureCheckIn" xml:space="preserve"><value>Secure check-in</value></data>
+  <data name="AttendanceSecureCheckInLead" xml:space="preserve"><value>Capture one current face image, capture browser location, then submit once.</value></data>
+  <data name="CaptureLocation" xml:space="preserve"><value>Capture location</value></data>
+  <data name="LocationNotCaptured" xml:space="preserve"><value>Location not captured</value></data>
+  <data name="AttendanceLocationCaptured" xml:space="preserve"><value>Location captured</value></data>
+  <data name="SubmitAttendanceCheckIn" xml:space="preserve"><value>Submit check-in</value></data>
+  <data name="AttendanceCheckInSucceeded" xml:space="preserve"><value>Attendance check-in succeeded</value></data>
+  <data name="AttendanceCheckInRejected" xml:space="preserve"><value>Attendance check-in rejected</value></data>
+  <data name="AttendanceRoster" xml:space="preserve"><value>Attendance roster</value></data>
+  <data name="AttendanceRosterLead" xml:space="preserve"><value>Review enrolled students and safe attendance metadata for this lecture session.</value></data>
+  <data name="AttendanceRosterSafeMetadata" xml:space="preserve"><value>Safe metadata only</value></data>
+  <data name="BackToSession" xml:space="preserve"><value>Back to session</value></data>
+  <data name="EnrolledStudents" xml:space="preserve"><value>Enrolled students</value></data>
+  <data name="MissingStudents" xml:space="preserve"><value>{0} missing</value></data>
+  <data name="CheckedInAt" xml:space="preserve"><value>Checked in at</value></data>
+  <data name="LastAttempt" xml:space="preserve"><value>Last attempt</value></data>
+  <data name="AttendanceMissing" xml:space="preserve"><value>Missing</value></data>
+  <data name="Location" xml:space="preserve"><value>Location</value></data>
+  <data name="FaceScore" xml:space="preserve"><value>Face score</value></data>
+  <data name="AttendanceRecord" xml:space="preserve"><value>Attendance record</value></data>
+  <data name="Classroom" xml:space="preserve"><value>Classroom</value></data>
+  <data name="Time" xml:space="preserve"><value>Time</value></data>
+  <data name="StudentName" xml:space="preserve"><value>Student name</value></data>
+  <data name="AttendanceLocationAccepted" xml:space="preserve"><value>Location accepted.</value></data>
+  <data name="ErrorAttendanceLocationRequired" xml:space="preserve"><value>Capture browser location before submitting attendance.</value></data>
+  <data name="ErrorAttendanceLocationPolicyMissing" xml:space="preserve"><value>This lecture session does not have an attendance location policy.</value></data>
+  <data name="ErrorAttendanceLocationInvalid" xml:space="preserve"><value>The submitted location was invalid.</value></data>
+  <data name="ErrorAttendanceLocationInaccurate" xml:space="preserve"><value>The browser location accuracy is too low for attendance check-in.</value></data>
+  <data name="ErrorAttendanceOutsideGeofence" xml:space="preserve"><value>The submitted location is outside the approved attendance radius.</value></data>
+  <data name="ErrorAttendanceRealFaceEngineRequired" xml:space="preserve"><value>Attendance requires the real face verification engine to be ready.</value></data>
+  <data name="ErrorAttendanceAlreadyRecorded" xml:space="preserve"><value>Attendance has already been recorded for this session.</value></data>
+  <data name="ErrorAttendancePasswordChangeRequired" xml:space="preserve"><value>Change your temporary password before checking in.</value></data>
+  <data name="ErrorAttendanceEnrollmentRequired" xml:space="preserve"><value>You are not enrolled in this lecture section.</value></data>
+  <data name="ErrorAttendanceSessionNotActive" xml:space="preserve"><value>The lecture session is not active for attendance check-in.</value></data>
+  <data name="ErrorAttendanceWindowClosed" xml:space="preserve"><value>The attendance check-in window is closed.</value></data>
+  <data name="ErrorAttendanceIdempotencyInvalid" xml:space="preserve"><value>The attendance request token was invalid.</value></data>
+  <data name="ErrorAttendanceRateLimited" xml:space="preserve"><value>Too many attendance attempts. Wait and try again.</value></data>
+  <data name="ErrorAttendanceChallengeMissing" xml:space="preserve"><value>The attendance challenge was missing.</value></data>
+  <data name="ErrorAttendanceChallengeInvalid" xml:space="preserve"><value>The attendance challenge was invalid.</value></data>
+  <data name="ErrorAttendanceChallengeExpired" xml:space="preserve"><value>The attendance challenge expired. Open check-in again.</value></data>
+  <data name="ErrorAttendanceChallengeAlreadyUsed" xml:space="preserve"><value>The attendance challenge was already used.</value></data>
+  <data name="ErrorAttendanceFaceNotMatched" xml:space="preserve"><value>The face verification result did not match the active template.</value></data>
+  <data name="ErrorAttendanceCheckInRejected" xml:space="preserve"><value>Attendance check-in was rejected safely.</value></data>
+  <data name="AttendanceStatusPresent" xml:space="preserve"><value>Present</value></data>
+  <data name="AttendanceStatusLate" xml:space="preserve"><value>Late</value></data>
+  <data name="AttendanceAttemptOutcomeSucceeded" xml:space="preserve"><value>Succeeded</value></data>
+  <data name="AttendanceAttemptOutcomeRejected" xml:space="preserve"><value>Rejected</value></data>
+  <data name="AttendanceAttemptOutcomeDuplicate" xml:space="preserve"><value>Duplicate</value></data>
+  <data name="LocationVerificationOutcomeNotEvaluated" xml:space="preserve"><value>Not evaluated</value></data>
+  <data name="LocationVerificationOutcomeAccepted" xml:space="preserve"><value>Accepted</value></data>
+  <data name="LocationVerificationOutcomeMissingPolicy" xml:space="preserve"><value>Missing policy</value></data>
+  <data name="LocationVerificationOutcomeInvalid" xml:space="preserve"><value>Invalid</value></data>
+  <data name="LocationVerificationOutcomeInaccurate" xml:space="preserve"><value>Inaccurate</value></data>
+  <data name="LocationVerificationOutcomeOutsideGeofence" xml:space="preserve"><value>Outside geofence</value></data>
+  <data name="AttendanceFailureReasonNone" xml:space="preserve"><value>None</value></data>
+  <data name="AttendanceFailureReasonStudentNotFound" xml:space="preserve"><value>Student not found</value></data>
+  <data name="AttendanceFailureReasonStudentInactive" xml:space="preserve"><value>Student inactive</value></data>
+  <data name="AttendanceFailureReasonPasswordChangeRequired" xml:space="preserve"><value>Password change required</value></data>
+  <data name="AttendanceFailureReasonNotEnrolled" xml:space="preserve"><value>Not enrolled</value></data>
+  <data name="AttendanceFailureReasonSessionNotFound" xml:space="preserve"><value>Session not found</value></data>
+  <data name="AttendanceFailureReasonSessionNotActive" xml:space="preserve"><value>Session not active</value></data>
+  <data name="AttendanceFailureReasonAttendanceWindowClosed" xml:space="preserve"><value>Attendance window closed</value></data>
+  <data name="AttendanceFailureReasonAttendanceLocationUnavailable" xml:space="preserve"><value>Location policy unavailable</value></data>
+  <data name="AttendanceFailureReasonLocationInvalid" xml:space="preserve"><value>Invalid location</value></data>
+  <data name="AttendanceFailureReasonLocationInaccurate" xml:space="preserve"><value>Location inaccurate</value></data>
+  <data name="AttendanceFailureReasonOutsideGeofence" xml:space="preserve"><value>Outside geofence</value></data>
+  <data name="AttendanceFailureReasonChallengeMissing" xml:space="preserve"><value>Challenge missing</value></data>
+  <data name="AttendanceFailureReasonChallengeInvalid" xml:space="preserve"><value>Challenge invalid</value></data>
+  <data name="AttendanceFailureReasonChallengeExpired" xml:space="preserve"><value>Challenge expired</value></data>
+  <data name="AttendanceFailureReasonChallengeAlreadyUsed" xml:space="preserve"><value>Challenge already used</value></data>
+  <data name="AttendanceFailureReasonIdempotencyKeyInvalid" xml:space="preserve"><value>Request token invalid</value></data>
+  <data name="AttendanceFailureReasonFaceVerificationFailed" xml:space="preserve"><value>Face verification failed</value></data>
+  <data name="AttendanceFailureReasonFaceNotMatched" xml:space="preserve"><value>Face did not match</value></data>
+  <data name="AttendanceFailureReasonFaceNoFace" xml:space="preserve"><value>No face detected</value></data>
+  <data name="AttendanceFailureReasonFaceMultipleFaces" xml:space="preserve"><value>Multiple faces detected</value></data>
+  <data name="AttendanceFailureReasonFaceLowQuality" xml:space="preserve"><value>Face image quality too low</value></data>
+  <data name="AttendanceFailureReasonFaceEngineUnavailable" xml:space="preserve"><value>Face engine unavailable</value></data>
+  <data name="AttendanceFailureReasonDuplicateAttendance" xml:space="preserve"><value>Duplicate attendance</value></data>
+  <data name="AttendanceFailureReasonPersistenceFailed" xml:space="preserve"><value>Persistence failed</value></data>
+  <data name="AttendanceFailureReasonRateLimited" xml:space="preserve"><value>Rate limited</value></data>
 </root>

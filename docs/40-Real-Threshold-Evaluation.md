@@ -51,3 +51,7 @@ Before production face enrollment or attendance work depends on Real mode:
 ## Limitation
 
 This integration does not implement liveness detection, anti-spoofing, depth checks, replay-attack prevention, or presentation-attack detection. A photograph or screen replay may still fool basic face recognition.
+
+## Sprint 6 Attendance Note
+
+Sprint 6 attendance blocks Fake/demo mode and requires Real diagnostics, but the Real threshold remains `DevelopmentDefault` until approved same-person and different-person score distributions are recorded. Attendance implementation evidence must not be treated as threshold calibration unless this document is updated with actual approved-sample score data.

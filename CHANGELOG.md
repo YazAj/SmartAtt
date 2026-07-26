@@ -2,6 +2,33 @@
 
 ## 2026-07-26
 
+### Sprint 6 Added
+
+- Added secure Student attendance check-in for active enrolled lecture sessions.
+- Added `AttendanceChallenge`, `AttendanceAttempt`, and `AttendanceRecord` domain entities, enums, EF Core mappings, and migration `20260726173403_AddSecureAttendanceCheckIn`.
+- Added lecture-session attendance policy snapshots for coordinates, radius, maximum accepted browser accuracy, and attendance verification requirements.
+- Added one-time hashed challenge tokens, hashed idempotency keys, server-side duplicate protection, replay handling, and transactional attendance persistence.
+- Added server-side Haversine geofence validation using browser latitude/longitude/accuracy without retaining exact submitted Student coordinates.
+- Added Real face-engine gate for attendance and one-to-one verification purpose `FutureAttendance`.
+- Added Student attendance index/check-in/result pages and Instructor attendance roster.
+- Added browser geolocation capture helper and localized English/Arabic attendance resources.
+- Added unit and integration tests for attendance domain rules, location policy, successful check-in, duplicate prevention, different-person rejection, outside-geofence rejection, challenge replay, real-engine gating, and endpoint authorization.
+- Added Sprint 6 documentation files `docs/41` through `docs/46`.
+
+### Sprint 6 Verification
+
+- Marked Sprint 6 Completed based on successful automated verification and project-owner-confirmed authorized manual runtime evidence.
+- Verified implementation build: `dotnet build AttendAI.sln` exited 0 with 0 warnings and 0 errors.
+- Verified automated tests during closure: `dotnet test AttendAI.sln` exited 0 with 142 total, 142 passed, 0 failed, 0 skipped.
+- Verified formatting: `dotnet format AttendAI.sln --verify-no-changes` exited 0.
+- Verified SQL Server LocalDB database `AttendAI_Sprint6Verification_20260726` with all 6 migrations through `AddSecureAttendanceCheckIn`, attendance tables, unique attendance indexes, lecture-session policy snapshot columns, and seeded Admin/Instructor/Student roles.
+- Verified runtime smoke against SQL Server using environment-only demo Admin credentials: app startup, HTTPS home/login/privacy/access-denied/404/error routes, Admin login, Admin dashboard, Admin blocked from Student dashboard, change password, and profile.
+- Recorded user-confirmed authorized manual verification: successful real same-person attendance, different-person/no-face/multiple-face/poor-quality rejections, inside-geofence acceptance, outside-geofence/inaccurate-location/permission-denied handling, closed-session rejection, duplicate and repeated-submit handling, challenge and idempotency behavior, restart persistence, Instructor roster update, camera cleanup, client-side location-state cleanup, no raw-image retention, no exact-coordinate retention by default, and no attendance side effect from Sprint 5 standalone verification.
+- Recorded user-confirmed UI verification: English, Arabic, LTR, RTL, light mode, dark mode, desktop, mobile/responsive layout, usable camera controls, readable long validation messages, no page-level horizontal overflow, visible dark-mode text, and loading state preventing accidental duplicate submission.
+- Recorded location-evidence limitation: physical-versus-simulated/manual browser location method was not recorded in closure evidence.
+- Security scan found no tracked real credential, private key, SDK license, biometric image/sample, model binary, database file, user secret, or build output.
+- Remaining limitations: liveness detection, anti-spoofing certification, complete replay-attack prevention, tamper-proof browser geolocation, device attestation, GPS anti-spoofing, production biometric certification, production fraud prevention, population-wide face-threshold calibration, one-to-many face identification, and classroom surveillance are not implemented or claimed.
+
 ### Real Face Engine Added
 
 - Added `OpenCvSFaceRecognitionEngine` for `FaceRecognition:Provider=Real`.
@@ -26,16 +53,10 @@
 - Verified same-person real verification returned Match with cosine similarity `0.950795`.
 - Verified no raw biometric images were committed or intentionally retained.
 
-### Real Face Engine Not Verified
+### Real Face Engine Remaining Limitations
 
-- Different-person verification result was not supplied in the manual evidence available for this update.
-- No-face rejection result was not supplied in the manual evidence available for this update.
-- Multiple-face rejection result was not supplied in the manual evidence available for this update.
-- Poor-quality rejection result was not supplied in the manual evidence available for this update.
-- Verification after application restart was not supplied in the manual evidence available for this update.
-- Camera cleanup result was not supplied in the manual evidence available for this update.
-- Confirmation that no attendance record was created was not supplied in the manual evidence available for this update.
-- Threshold calibration beyond the documented `DevelopmentDefault` value.
+- Sprint 6 manual attendance closure now records project-owner-confirmed different-person, no-face, multiple-face, poor-quality, restart, camera-cleanup, and no-attendance-side-effect evidence for the secure attendance workflow.
+- Threshold calibration beyond the documented `DevelopmentDefault` value remains a production-wide future gate.
 - Liveness and anti-spoofing are not implemented and must not be claimed.
 
 ## 2026-07-22

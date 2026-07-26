@@ -17,7 +17,7 @@ Implement lecture scheduling and live lecture-session management on top of the c
 
 ## Out Of Scope
 
-Sprint 3 does not implement attendance registration, attendance records, student code submission, production face enrollment, production face verification, liveness detection, camera capture, GPS/location validation, reports, exports, notifications, QR codes, or Sprint 4 attendance-engine behavior.
+Sprint 3 does not implement attendance registration, attendance records, student code submission, production face enrollment, production face verification, liveness detection, camera capture, GPS/location validation, reports, exports, notifications, QR codes, or Sprint 4 attendance-engine behavior. Sprint 6 later adds secure attendance check-in through a separate documented workflow.
 
 ## User Stories
 

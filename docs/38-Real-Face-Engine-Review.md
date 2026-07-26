@@ -67,3 +67,7 @@ The real local engine is integrated and model-only readiness is verified. Real b
 ## Decision
 
 Do not merge to main as Completed. The branch is suitable for review as a partially completed real-engine integration after final commands pass, but the real biometric gate must remain open until the missing manual evidence is recorded. Liveness and anti-spoofing are not implemented and must not be claimed.
+
+## Sprint 6 Attendance Dependency
+
+Sprint 6 attendance now requires Real diagnostics before it can issue attendance challenges or create attendance records. That implementation dependency does not by itself complete the real biometric gate. Approved real-device attendance closure still needs same-person attendance success, different-person/no-face/multiple-face/poor-quality rejection, restart verification, camera cleanup, and geofence/replay/duplicate evidence recorded in the Sprint 6 review.

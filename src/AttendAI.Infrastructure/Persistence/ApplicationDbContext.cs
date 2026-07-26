@@ -42,6 +42,12 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<FaceVerificationAttempt> FaceVerificationAttempts => Set<FaceVerificationAttempt>();
 
+    public DbSet<AttendanceChallenge> AttendanceChallenges => Set<AttendanceChallenge>();
+
+    public DbSet<AttendanceAttempt> AttendanceAttempts => Set<AttendanceAttempt>();
+
+    public DbSet<AttendanceRecord> AttendanceRecords => Set<AttendanceRecord>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -76,6 +82,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             ConfigureSqliteRowVersion<LectureSession>(builder);
             ConfigureSqliteRowVersion<BiometricConsent>(builder);
             ConfigureSqliteRowVersion<StudentFaceTemplate>(builder);
+            ConfigureSqliteRowVersion<AttendanceChallenge>(builder);
+            ConfigureSqliteRowVersion<AttendanceRecord>(builder);
         }
     }
 

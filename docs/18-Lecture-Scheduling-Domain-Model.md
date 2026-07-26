@@ -79,4 +79,4 @@ Edits exclude the current schedule. SQL Server indexes support bounded conflict 
 
 ## Future Attendance Engine Integration
 
-Sprint 3 prepares schedule/session identifiers, timing windows, late thresholds, radius settings, and active-session state for Sprint 4. It does not validate submitted codes, mark attendance, calculate distance, store attendance records, or invoke face recognition.
+Sprint 3 prepares schedule/session identifiers, timing windows, late thresholds, radius settings, and active-session state for later attendance work. Sprint 3 itself does not validate submitted codes, mark attendance, calculate distance, store attendance records, or invoke face recognition. Sprint 6 later consumes these session fields with additional attendance policy snapshots.

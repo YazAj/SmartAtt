@@ -138,4 +138,8 @@ The selected local adapter is OpenCvSharp YuNet plus ONNX Runtime SFace:
 
 ONNX Runtime remains only the SFace inference runtime. AttendAI still owns detection, five-landmark alignment, preprocessing, template normalization, cosine comparison, threshold policy, licensing, deployment, and privacy controls.
 
+## Sprint 6 Update
+
+Sprint 6 uses the existing one-to-one verifier for attendance with purpose `FutureAttendance` and requires Real diagnostics before an attendance challenge can be issued. Fake mode remains valid for deterministic development tests in earlier workflows, but it is blocked for Sprint 6 attendance decisions. Attendance still performs no one-to-many search and no liveness or anti-spoofing check.
+
 Before Sprint 6 production attendance work depends on face verification, the team must provide approved local samples outside Git, document same-person and different-person scores, verify no-face/multiple-face/low-quality handling, and calibrate a threshold. Do not commit biometric images, model files, embeddings, or license keys.

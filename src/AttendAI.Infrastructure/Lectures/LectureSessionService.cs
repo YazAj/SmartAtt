@@ -1,4 +1,5 @@
 using System.Data;
+using AttendAI.Application.Attendance;
 using AttendAI.Application.Common.Interfaces;
 using AttendAI.Application.Common.Models;
 using AttendAI.Application.Lectures;
@@ -17,19 +18,22 @@ public sealed class LectureSessionService : AcademicServiceBase, ILectureSession
     private readonly ISessionCodeService _sessionCodeService;
     private readonly IDateTimeProvider _dateTimeProvider;
     private readonly LectureSchedulingOptions _options;
+    private readonly AttendanceOptions _attendanceOptions;
 
     public LectureSessionService(
         ApplicationDbContext dbContext,
         IApplicationTimeZoneService timeZoneService,
         ISessionCodeService sessionCodeService,
         IDateTimeProvider dateTimeProvider,
-        IOptions<LectureSchedulingOptions> options)
+        IOptions<LectureSchedulingOptions> options,
+        IOptions<AttendanceOptions> attendanceOptions)
         : base(dbContext)
     {
         _timeZoneService = timeZoneService;
         _sessionCodeService = sessionCodeService;
         _dateTimeProvider = dateTimeProvider;
         _options = options.Value;
+        _attendanceOptions = attendanceOptions.Value;
     }
 
     public async Task<PagedResult<LectureSessionDto>> GetPagedAsync(LectureSessionQuery query, CancellationToken cancellationToken = default)
@@ -292,7 +296,13 @@ public sealed class LectureSessionService : AcademicServiceBase, ILectureSession
             code.ExpiresAtUtc,
             schedule.DefaultLateThresholdMinutes,
             schedule.DefaultAllowedRadiusMeters,
-            userId);
+            userId,
+            schedule.Classroom?.Latitude,
+            schedule.Classroom?.Longitude,
+            Math.Max(1, _attendanceOptions.MaximumAcceptedAccuracyMeters),
+            _attendanceOptions.AttendanceEnabled,
+            _attendanceOptions.RequireBrowserLocation,
+            faceVerificationRequired: true);
 
         DbContext.LectureSessions.Add(session);
         AddEvent(session.Id, LectureSessionEventType.Started, userId, null, LectureSessionStatus.Active, adminOverride ? "Admin override start." : "Session started.");

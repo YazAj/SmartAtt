@@ -74,6 +74,7 @@
                     @if (User.IsInRole(RoleConstants.Student))
                     {
                         <a class="app-menu-link @(currentController == "StudentSchedule" ? "active" : "")" asp-area="" asp-controller="StudentSchedule" asp-action="Index">@Localizer["NavMySchedule"]</a>
+                        <a class="app-menu-link @(currentController == "Attendance" ? "active" : "")" asp-area="" asp-controller="Attendance" asp-action="Index">@Localizer["NavAttendanceCheckIn"]</a>
                         <a class="app-menu-link @(currentController == "BiometricEnrollment" ? "active" : "")" asp-area="" asp-controller="BiometricEnrollment" asp-action="Index">@Localizer["NavBiometricEnrollment"]</a>
                         <a class="app-menu-link @(currentController == "FaceVerification" ? "active" : "")" asp-area="" asp-controller="FaceVerification" asp-action="Index">@Localizer["NavFaceVerification"]</a>
                     }

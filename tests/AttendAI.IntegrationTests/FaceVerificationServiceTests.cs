@@ -45,7 +45,7 @@ public sealed class FaceVerificationServiceTests : IClassFixture<IdentityCookieW
 
         var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         Assert.Equal(2, await dbContext.FaceVerificationAttempts.CountAsync(attempt => attempt.Student!.ApplicationUserId == userId));
-        Assert.DoesNotContain(dbContext.Model.GetEntityTypes(), entity => entity.GetTableName() == "AttendanceRecords");
+        Assert.Equal(0, await dbContext.AttendanceRecords.CountAsync());
     }
 
     [Fact]
