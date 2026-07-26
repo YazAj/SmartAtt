@@ -6,7 +6,7 @@ Sprint 1 established the buildable foundation. Sprint 2 adds academic and accoun
 
 ## Current Sprint Status
 
-Sprint 7 is Partially completed. The reporting, analytics, safe audit, CSV export, SQL Server startup, Admin runtime smoke, documentation, and automated regression suite are implemented and verified. Sprint 7 is not marked Completed because the full manual visual/accessibility matrix and live SQL-backed Student/Instructor report walkthroughs still require project-owner evidence.
+Sprint 7 is marked Completed based on successful automated verification and project-owner-confirmed authorized manual runtime evidence. The reporting, analytics, safe audit, CSV export, SQL Server startup, Admin/Instructor/Student runtime acceptance, documentation, responsive UI, accessibility, localization, and automated regression suite are verified.
 
 Sprint 6 remains Completed based on successful automated verification and project-owner-confirmed authorized manual runtime evidence. Secure biometric attendance check-in is available for active enrolled lecture sessions using real one-to-one OpenCV YuNet/SFace verification, server-side geofence validation, attendance challenges, idempotency, database duplicate protection, safe attempt history, and Instructor roster visibility. Fake mode remains a deterministic development/demo engine only and cannot create Sprint 6 attendance records. Liveness, anti-spoofing, device attestation, tamper-proof browser geolocation, and complete replay-attack prevention are not implemented or claimed.
 
@@ -294,16 +294,20 @@ No personal biometric images are committed. To test negative fake-engine paths, 
 - No Sprint 7 migration was created.
 - Runtime smoke used generated environment-only demo Admin credentials and verified startup, home, login, Admin dashboard, Admin reports, Admin audit, Admin CSV export headers, Admin denial from Student reports, privacy, 404, English LTR HTML attributes, Arabic RTL HTML attributes, seeded roles, and existing migration count.
 - Automated tests after Sprint 7 implementation: 158 total, 158 passed, 0 failed, 0 skipped.
+- Format verification passed.
+- Project-owner-confirmed authorized manual runtime evidence verified Admin, Instructor, and Student report workflows; role isolation; report filters; pagination; CSV export; print-friendly views; report calculations; English/Arabic; LTR/RTL; light/dark themes; desktop/tablet/390px/320px layouts; keyboard navigation; visible focus; semantic report tables; no horizontal overflow; readable dark-mode text; long Arabic wrapping; and Sprint 1-6 regression flows.
+- Manual acceptance confirmed exports did not include biometric data, exact coordinates, challenge values, idempotency values, or internal secrets; generated CSV files were not committed.
 - Security scan found no tracked real credential, private key, SDK license, biometric image/sample, model binary, database file, user secret, generated report export, or build output.
-- Sprint 7 remains Partially completed until live SQL-backed Student/Instructor report walkthroughs and the full manual visual/accessibility matrix are recorded.
+- AttendAI is ready for final academic graduation-project acceptance, subject to the documented academic and security limitations.
 
 ## Known Limitations
 
 - No public self-registration.
-- No liveness detection, anti-spoofing certification, notifications, one-to-many identification, classroom-camera recognition, cloud deployment, public report links, server-generated PDF exports, or production biometric certification.
+- No liveness detection, anti-spoofing certification, tamper-proof browser location, device attestation, GPS anti-spoofing, one-to-many face recognition, notifications, classroom-camera recognition, cloud deployment, public report links, server-generated PDF exports, immutable audit ledger, or production biometric certification.
 - Face verification is real one-to-one verification using YuNet and SFace; it is not one-to-many identification or classroom surveillance.
 - Browser geolocation is used as a server-side policy factor, not as device attestation, GPS anti-spoofing, or tamper-proof location proof.
 - The implemented duplicate, challenge, idempotency, and rate-limit controls reduce duplicate and basic replay risks but are not complete replay-proof security.
+- CSV handling outside the application remains the recipient's responsibility.
 - This remains an academic Localhost implementation and is not production biometric certification or production fraud prevention.
 - Student and Instructor account creation currently captures academic profile data only; production onboarding policies and notification delivery remain future work.
 
@@ -365,4 +369,4 @@ No personal biometric images are committed. To test negative fake-engine paths, 
 
 ## Future Sprint Summary
 
-Sprint 7 is the final planned project sprint. Before final graduation-project acceptance, complete and record the pending Sprint 7 manual visual/accessibility checks and live SQL-backed Student/Instructor report walkthroughs. Do not add notifications, one-to-many recognition, classroom-camera recognition, liveness/anti-spoofing, public report links, generated PDF export, cloud deployment, or Sprint 8 features without separate approved scope, dependency review, and security testing.
+Sprint 7 is the final planned project sprint and is Completed. AttendAI is ready for final academic graduation-project acceptance, subject to the documented academic and security limitations. Do not add notifications, one-to-many recognition, classroom-camera recognition, liveness/anti-spoofing, public report links, generated PDF export, cloud deployment, or Sprint 8 features without separate approved scope, dependency review, and security testing.

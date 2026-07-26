@@ -18,7 +18,7 @@ Sprint 7 may be marked `Completed` only when all of the following have evidence:
 - Sprint 1-6 regressions pass.
 - Build, tests, format, security scan, and documentation pass.
 
-When core implementation and automated tests pass but manual UI/runtime evidence remains, the status must be `Partially completed`.
+When core implementation and automated tests pass but manual UI/runtime evidence remains, the status must be `Partially completed`. Project-owner-confirmed authorized manual runtime evidence has now been supplied for Sprint 7, so the final Sprint 7 closure status is `Completed`.
 
 ## Sprint 7 Traceability Summary
 
@@ -33,9 +33,9 @@ When core implementation and automated tests pass but manual UI/runtime evidence
 | CSV export and injection protection | Passed by automated and SQL runtime smoke | `AttendanceReportingTests`, Admin CSV smoke |
 | Sensitive biometric/location exclusion | Passed by code review and automated CSV assertions | Safe DTO/export column checks |
 | SQL migration | Passed | No new migration required; existing six migrations applied |
-| Localization resources | Implemented, partially runtime verified | English and Arabic resource updates; `lang`/`dir` SQL smoke |
-| Dark/light responsive UI | Partially verified | Tokenized CSS implemented; final manual visual matrix pending |
-| Live Student/Instructor SQL report accounts | Partially verified | Integration tests pass; live SQL runtime smoke focused on Admin |
+| Localization resources | Passed | English and Arabic resource updates; `lang`/`dir` SQL smoke; project-owner-confirmed manual English/Arabic and LTR/RTL evidence |
+| Dark/light responsive UI | Passed | Tokenized CSS implemented; project-owner-confirmed manual light/dark desktop/tablet/390px/320px, keyboard, focus, print, overflow, readability, and Arabic wrapping evidence |
+| Live Student/Instructor SQL report accounts | Passed | Integration tests pass; project-owner-confirmed manual Student and Instructor report/export walkthroughs |
 | CI workflow | Out of scope | No existing workflow; no new CI added |
 | Liveness/anti-spoofing | Not implemented | Explicitly excluded and not claimed |
 | One-to-many identification | Not implemented | Explicitly excluded and not claimed |
@@ -43,5 +43,6 @@ When core implementation and automated tests pass but manual UI/runtime evidence
 
 ## Final Acceptance Position
 
-At code closure, Sprint 7 is implementation-complete for reporting, export, and audit, but final acceptance depends on the recorded manual evidence in `docs/53-Sprint-7-Review.md`.
+Sprint 7 is marked Completed based on successful automated verification and project-owner-confirmed authorized manual runtime evidence.
 
+AttendAI is ready for final academic graduation-project acceptance, subject to the documented academic and security limitations.

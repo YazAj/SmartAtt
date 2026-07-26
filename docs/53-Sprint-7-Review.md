@@ -2,9 +2,11 @@
 
 ## Final Status
 
-Sprint 7 is `Partially completed`.
+Sprint 7 is `Completed`.
 
-The reporting, analytics, safe audit, export, authorization, localization resources, documentation, SQL migration verification, and automated regression suite are implemented and verified. The sprint is not marked `Completed` because the required full manual visual/accessibility matrix and live SQL-backed Student/Instructor report account walkthrough were not fully executed in this closure pass.
+Sprint 7 is marked Completed based on successful automated verification and project-owner-confirmed authorized manual runtime evidence.
+
+The reporting, analytics, safe audit, export, authorization, localization resources, documentation, SQL migration verification, automated regression suite, full manual visual/accessibility matrix, and live SQL-backed Admin/Instructor/Student report walkthroughs are verified.
 
 ## Source-of-Truth Scope
 
@@ -33,9 +35,11 @@ The documentation did not define a conflicting Sprint 7 scope. Sprint 6 explicit
 ## Repository Evidence
 
 - Branch: `feature/sprint-7-reporting-release`.
+- Current implementation commit: `44444ed feat(sprint-7): add attendance reporting and final release hardening`.
+- Branch tracks `origin/feature/sprint-7-reporting-release`.
 - Baseline commit present: `4f07982 merge: complete Sprint 6 secure biometric attendance`.
 - Baseline tags present: `sprint-1` through `sprint-6`.
-- Initial working tree: clean before Sprint 7 edits.
+- Starting tree for final manual-acceptance closure: clean.
 - Remote: `https://github.com/YazAj/SmartAtt`.
 - No commit, push, merge, tag, reset, stash, or branch switch was performed.
 
@@ -141,7 +145,7 @@ Reports and exports exclude raw biometric images, embeddings, protected template
 
 ## Accessibility And Responsive Design
 
-The Sprint 7 views use semantic headings, labels, tables, captions, button controls, existing focus styles, logical layout properties, and design tokens. English LTR and Arabic RTL were runtime-smoke checked through `html` attributes. Full dark/light desktop/tablet/390px/320px manual visual verification remains pending.
+The Sprint 7 views use semantic headings, labels, tables, captions, button controls, existing focus styles, logical layout properties, and design tokens. English LTR and Arabic RTL were runtime-smoke checked through `html` attributes. Project-owner-confirmed authorized manual runtime evidence verified English LTR Light, English LTR Dark, Arabic RTL Light, Arabic RTL Dark, desktop, tablet, 390px, 320px, keyboard navigation, visible focus, semantic report tables, usable pagination, print preview, no page-level horizontal overflow, readable dark-mode text, and long Arabic wrapping.
 
 ## Automated Tests
 
@@ -155,7 +159,9 @@ The Sprint 7 views use semantic headings, labels, tables, captions, button contr
 
 ## Manual Runtime Evidence
 
-Completed:
+Project-owner-confirmed authorized manual runtime evidence.
+
+Automated/runtime closure evidence completed before owner acceptance:
 
 - SQL Server LocalDB migration update succeeded.
 - SQL Server application startup succeeded.
@@ -169,12 +175,101 @@ Completed:
 - English LTR and Arabic RTL `html` attributes were observed.
 - Seeded Admin, Instructor, and Student roles were confirmed in SQL Server.
 
-Pending:
+Admin manual evidence confirmed:
 
-- Live SQL-backed Student account report page/export walkthrough.
-- Live SQL-backed Instructor account report page/export walkthrough.
-- Full manual responsive/accessibility matrix for English/Arabic, LTR/RTL, light/dark, desktop, tablet, 390px, and 320px.
-- Keyboard and print-layout manual walkthrough for Sprint 7 report pages.
+- Admin reports page loaded successfully.
+- Date filters worked.
+- Course, offering, Instructor, and status filters worked.
+- Summary metrics matched the available attendance data.
+- Safe audit search worked.
+- Admin CSV export worked.
+- Export reflected the authorized filtered dataset.
+- Export used safe cache headers.
+- Admin could not impersonate a Student through the Student report endpoint.
+- No biometric data or exact coordinates appeared.
+
+Instructor manual evidence confirmed:
+
+- Instructor report loaded successfully.
+- Instructor saw only owned offerings and sessions.
+- Cross-Instructor access was denied.
+- Date, offering, session, Student-search, and status filters worked.
+- Pagination worked.
+- Present, Late, Missed, and eligible-session calculations were correct.
+- Future sessions were excluded.
+- Cancelled sessions were excluded.
+- Attendance-disabled sessions were excluded.
+- Instructor CSV export worked.
+- Print-friendly view worked.
+- No unrelated Student data appeared.
+
+Student manual evidence confirmed:
+
+- Student report loaded successfully.
+- Student saw only personal attendance data.
+- Cross-Student access was denied.
+- Student URL/filter manipulation did not reveal another Student's data.
+- Course and date filters worked.
+- Pagination worked.
+- Personal CSV export worked.
+- Attendance percentage was correct.
+- Zero eligible sessions returned `0.00%`.
+- No biometric score, raw location, challenge, idempotency, or internal secret appeared.
+
+Reporting calculation evidence confirmed:
+
+- Attendance formula: `(Present + Late) / Eligible completed sessions * 100`.
+- Result rounded to two decimal places.
+- Missed sessions were derived and not persisted.
+- Future sessions were not counted as missed.
+- Cancelled sessions were not counted as missed.
+- Attendance-disabled sessions were not counted as missed.
+
+CSV security evidence confirmed:
+
+- Arabic Unicode worked.
+- English text worked.
+- Commas, quotes, and newlines were handled correctly.
+- Formula-injection protection worked for `=`, `+`, `-`, `@`, tab, and carriage return.
+- Exports did not include biometric data.
+- Exports did not include exact coordinates.
+- Exports did not include challenge or idempotency values.
+- Personalized exports used private/no-store behavior.
+- Generated CSV files were not committed.
+
+UI and accessibility evidence confirmed:
+
+- English LTR Light passed.
+- English LTR Dark passed.
+- Arabic RTL Light passed.
+- Arabic RTL Dark passed.
+- Desktop passed.
+- Tablet passed.
+- 390px responsive layout passed.
+- 320px responsive layout passed.
+- Keyboard navigation passed.
+- Visible focus passed.
+- Semantic report tables passed.
+- Pagination remained usable.
+- Print preview passed.
+- No page-level horizontal overflow was observed.
+- Dark-mode text remained readable.
+- Long Arabic text wrapped correctly.
+
+Regression evidence confirmed:
+
+- Login passed.
+- Admin dashboard passed.
+- Instructor dashboard passed.
+- Student dashboard passed.
+- Lecture scheduling passed.
+- Biometric enrollment passed.
+- Real one-to-one face verification passed.
+- Sprint 6 attendance check-in passed.
+- Instructor attendance roster passed.
+- Application restart passed.
+- No raw biometric-image retention was observed.
+- No exact-coordinate retention by default was observed.
 
 ## Performance Evidence
 
@@ -186,71 +281,34 @@ No `.github` directory or GitHub Actions workflow exists. No CI workflow was add
 
 ## Exact Command Results
 
-- `dotnet tool restore`: exit 0. `dotnet-ef` 8.0.29 restored.
+- Starting `git branch --show-current`: exit 0, `feature/sprint-7-reporting-release`.
+- Starting `git status --short --branch`: exit 0, clean and tracking `origin/feature/sprint-7-reporting-release`.
+- Starting `git log -5 --oneline --decorate`: exit 0, HEAD `44444ed feat(sprint-7): add attendance reporting and final release hardening`.
+- Starting `git diff --check`: exit 0.
+- `sprint-6` tag was present.
 - `dotnet restore AttendAI.sln`: exit 0. All projects were up to date for restore.
 - `dotnet build AttendAI.sln`: exit 0. Build succeeded with 0 warnings and 0 errors.
 - `dotnet test AttendAI.sln`: exit 0. Unit tests: 91 passed. Integration tests: 67 passed. Total: 158 passed, 0 failed, 0 skipped.
 - `dotnet format AttendAI.sln --verify-no-changes`: exit 0. No formatting changes required.
-- `dotnet tool run dotnet-ef migrations list --project src\AttendAI.Infrastructure --startup-project src\AttendAI.Web --context ApplicationDbContext`: exit 0. Six migrations listed through `20260726173403_AddSecureAttendanceCheckIn`.
-- `dotnet tool run dotnet-ef database update --project src\AttendAI.Infrastructure --startup-project src\AttendAI.Web --context ApplicationDbContext`: exit 0. No migrations were applied because `AttendAI_Sprint7Verification_20260726` was already up to date.
-- SQL verification query: `MigrationCount=6`, `SafeTables=7`, `Roles=Admin,Instructor,Student`, `ReportTables=0`.
-- `git diff --check`: exit 0. Git printed LF-to-CRLF working-copy warnings for modified text files; no whitespace errors were reported.
-- `git status --short --branch`: exit 0. Branch is `feature/sprint-7-reporting-release`; working tree contains modified tracked files and untracked Sprint 7 files.
-- `git diff --stat`: exit 0. Tracked diff summary reported 20 files changed, 483 insertions, 20 deletions; untracked new files are listed separately below.
-- `git diff --name-only`: exit 0. Listed modified tracked files only.
-- Tracked artifact scan for `onnx`, image, database, key, license, CSV, and PDF file extensions: exit 1, no matches.
-- Tracked sensitive-folder scan for local face images, models, logs, artifacts, and test results: exit 1, no matches.
-- Secret-pattern scan: exit 0 with expected non-secret hits only: `DemoAdmin:Password` configuration key usage and README placeholder.
-- Ignored artifact check: `artifacts/`, `logs/`, and `models/` are ignored.
+- Final `git diff --check`: exit 0. Git printed LF-to-CRLF working-copy warnings for modified documentation files; no whitespace errors were reported.
+- Final `git status --short --branch`: exit 0. Branch is `feature/sprint-7-reporting-release...origin/feature/sprint-7-reporting-release`; only documentation files are modified.
+- Final `git diff --name-only`: exit 0. Listed only documentation files: `CHANGELOG.md`, `README.md`, `docs/11-Requirements-Traceability-Matrix.md`, `docs/47-Sprint-7-Plan.md`, `docs/50-Sprint-7-Test-Plan.md`, `docs/51-Final-Release-Readiness.md`, `docs/52-Final-Acceptance-And-Traceability.md`, and `docs/53-Sprint-7-Review.md`.
+- Final `git diff --stat`: exit 0. Eight documentation files changed, 211 insertions, 88 deletions.
+- Database evidence retained from Sprint 7 implementation closure: `AttendAI_Sprint7Verification_20260726`, no Sprint 7 migration required, six existing migrations applied.
+- Security scan retained from Sprint 7 implementation closure: no tracked secrets or sensitive generated artifacts.
 
 ## Files Modified
 
-Modified tracked files:
+Documentation-only closure files:
 
-- `CHANGELOG.md`
 - `README.md`
-- `docs/01-SRS.md`
-- `docs/02-System-Architecture.md`
-- `docs/03-Database-ERD.md`
-- `docs/04-Use-Cases.md`
-- `docs/05-UI-Design-System.md`
-- `docs/06-Localization-And-Theming.md`
+- `CHANGELOG.md`
 - `docs/11-Requirements-Traceability-Matrix.md`
-- `docs/16-Data-Dictionary.md`
-- `docs/44-Sprint-6-Review.md`
-- `docs/45-Attendance-Security-And-Privacy.md`
-- `docs/46-Location-Geofence-Policy.md`
-- `src/AttendAI.Infrastructure/DependencyInjection.cs`
-- `src/AttendAI.Web/Areas/Admin/Views/_ViewImports.cshtml`
-- `src/AttendAI.Web/Resources/SharedResource.ar-JO.resx`
-- `src/AttendAI.Web/Resources/SharedResource.en-US.resx`
-- `src/AttendAI.Web/Views/Shared/_Layout.cshtml`
-- `src/AttendAI.Web/Views/_ViewImports.cshtml`
-- `src/AttendAI.Web/wwwroot/css/site.css`
-
-Untracked new files:
-
 - `docs/47-Sprint-7-Plan.md`
-- `docs/48-Reporting-And-Analytics-Architecture.md`
-- `docs/49-Report-Export-Security-And-Privacy.md`
 - `docs/50-Sprint-7-Test-Plan.md`
 - `docs/51-Final-Release-Readiness.md`
 - `docs/52-Final-Acceptance-And-Traceability.md`
 - `docs/53-Sprint-7-Review.md`
-- `src/AttendAI.Application/Reporting/AttendanceReportCalculator.cs`
-- `src/AttendAI.Application/Reporting/AttendanceReportingDtos.cs`
-- `src/AttendAI.Application/Reporting/AttendanceReportingServices.cs`
-- `src/AttendAI.Application/Reporting/SafeCsvReportWriter.cs`
-- `src/AttendAI.Infrastructure/Reporting/AttendanceReportingService.cs`
-- `src/AttendAI.Web/Areas/Admin/Controllers/ReportsController.cs`
-- `src/AttendAI.Web/Areas/Admin/Views/Reports/Audit.cshtml`
-- `src/AttendAI.Web/Areas/Admin/Views/Reports/Index.cshtml`
-- `src/AttendAI.Web/Controllers/ReportsController.cs`
-- `src/AttendAI.Web/Views/Reports/Instructor.cshtml`
-- `src/AttendAI.Web/Views/Reports/Student.cshtml`
-- `tests/AttendAI.IntegrationTests/ReportingAuthorizationTests.cs`
-- `tests/AttendAI.IntegrationTests/ReportingServiceTests.cs`
-- `tests/AttendAI.UnitTests/Application/AttendanceReportingTests.cs`
 
 ## Documentation
 
@@ -264,22 +322,22 @@ Created:
 - `docs/52-Final-Acceptance-And-Traceability.md`
 - `docs/53-Sprint-7-Review.md`
 
-Updated source-of-truth docs are listed in the final handoff.
+Updated source-of-truth docs are listed in the final handoff. No application code, tests, migrations, configuration, project files, solution files, or scripts were modified during this final manual-acceptance documentation closure.
 
 ## Final Traceability
 
 Passed by evidence: reporting calculations, derived missed sessions, Student route authorization, Instructor route authorization, Admin reporting/audit routes, CSV export safety, no-store export headers, SQL Server migration application, seeded roles, and automated regression tests.
 
-Partially verified: Sprint 7 live Student/Instructor SQL runtime pages, manual visual matrix, accessibility walkthrough, responsive layout matrix, and dark/light visual inspection.
+Passed by project-owner-confirmed authorized manual runtime evidence: Sprint 7 live Student/Instructor SQL runtime pages, manual visual matrix, accessibility walkthrough, responsive layout matrix, dark/light visual inspection, Admin/Instructor/Student report filters, pagination, CSV export, print-friendly views, and Sprint 1-6 regressions.
 
 Not implemented/out of scope: liveness, anti-spoofing, device attestation, GPS anti-spoofing, one-to-many identification, classroom surveillance, production biometric certification, public report links, generated PDF export, notifications, cloud deployment, and CI workflow creation.
 
 ## Remaining Risks
 
-- Manual visual/accessibility verification for all Sprint 7 report pages must be completed before declaring Sprint 7 fully completed.
-- Live SQL-backed Student and Instructor report/export account flows should be verified before merge.
 - CSV exports contain sensitive attendance records and require institutional handling outside the app.
 - Browser geolocation remains non-tamper-proof; liveness and anti-spoofing remain unimplemented.
+- Audit search is operational search, not an immutable audit ledger.
+- The project remains an academic Localhost implementation, not production biometric certification.
 
 ## Regression Status
 
@@ -287,18 +345,18 @@ Automated Sprint 1-6 regressions passed in the expanded test suite. Sprint 5 sta
 
 ## Recommended Git Actions
 
-After the remaining manual evidence is supplied and final commands remain green, review the diff and commit locally with:
+After reviewing the documentation-only diff, commit locally with:
 
 ```text
-feat(sprint-7): add attendance reporting and final release hardening
+docs(sprint-7): close final manual acceptance evidence
 ```
 
 No commit or push was performed.
 
 ## Merge Readiness
 
-Not ready to merge as `Completed` until the pending manual Sprint 7 visual and live Student/Instructor SQL runtime evidence is recorded. The code and automated gates are ready for manual acceptance review.
+Ready to merge after the documentation-only closure commit, subject to normal repository review. Sprint 7 is Completed.
 
 ## Final Project Readiness
 
-AttendAI is not yet ready to claim final graduation-project acceptance as fully completed because Sprint 7 manual visual/accessibility evidence and live Student/Instructor report walkthroughs remain pending. It is ready for project-owner manual Sprint 7 acceptance testing.
+AttendAI is ready for final academic graduation-project acceptance, subject to the documented academic and security limitations.
