@@ -1,5 +1,6 @@
 using AttendAI.Application.Biometrics;
 using AttendAI.Infrastructure.Configuration;
+using AttendAI.Infrastructure.FaceRecognition;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
@@ -9,13 +10,16 @@ public sealed class FaceEngineReadinessService : IFaceEngineReadinessService
 {
     private readonly FaceRecognitionOptions _options;
     private readonly IHostEnvironment _environment;
+    private readonly RealFaceRecognitionModelStore _modelStore;
 
     public FaceEngineReadinessService(
         IOptions<FaceRecognitionOptions> options,
-        IHostEnvironment environment)
+        IHostEnvironment environment,
+        RealFaceRecognitionModelStore modelStore)
     {
         _options = options.Value;
         _environment = environment;
+        _modelStore = modelStore;
     }
 
     public FaceEngineReadinessDto GetReadiness()
@@ -43,16 +47,18 @@ public sealed class FaceEngineReadinessService : IFaceEngineReadinessService
 
         if (normalized == "real")
         {
+            var real = _options.RealEngine;
+            var readiness = _modelStore.CheckReadiness();
             return new FaceEngineReadinessDto(
                 "Real",
-                engineName,
-                engineVersion,
-                modelName,
-                modelVersion,
-                false,
-                false,
-                "BiometricRealEngineUnavailableMessage",
-                "Not Verified");
+                string.IsNullOrWhiteSpace(real.EngineName) ? engineName : real.EngineName,
+                string.IsNullOrWhiteSpace(real.EngineVersion) ? engineVersion : real.EngineVersion,
+                string.IsNullOrWhiteSpace(real.ModelName) ? modelName : real.ModelName,
+                string.IsNullOrWhiteSpace(real.ModelVersion) ? modelVersion : real.ModelVersion,
+                readiness.Succeeded,
+                !_environment.IsProduction() && readiness.Succeeded,
+                readiness.StatusMessageKey,
+                readiness.GateResult);
         }
 
         var productionSafe = !_environment.IsProduction();

@@ -84,3 +84,9 @@ Checked Student biometric status, privacy, enrollment, Admin overview, and Admin
 ## Sprint 5 Baseline Confirmation
 
 Sprint 5 implementation started after Sprint 4 was committed as `dd98658 feat(sprint-4): implement biometric enrollment foundation` on branch `main` tracking `origin/main`. Sprint 5 preserved the Sprint 4 consent, protected template, enrollment, re-enrollment, withdrawal, Admin oversight, and readiness-gate behavior. The real face-engine gate remains Not Verified and is carried into Sprint 5 as a mandatory production blocker.
+
+## Real Engine Update
+
+The Sprint 4 enrollment foundation can now call `OpenCvSFaceRecognitionEngine` when `FaceRecognition:Provider=Real` and local model readiness passes. The existing three-capture processing and highest-quality-template selection are preserved. Fake templates are not converted to Real templates.
+
+Sprint 4 real enrollment closure remains Not Verified because no authorized Student completed three live captures through the browser and no real protected template was verified in SQL Server. Model-only readiness is recorded in `docs/38-Real-Face-Engine-Review.md`.

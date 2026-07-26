@@ -6,7 +6,7 @@ Sprint 1 established the buildable foundation. Sprint 2 adds academic and accoun
 
 ## Current Sprint Status
 
-Sprint 5 is partially completed. The one-to-one verification architecture, database migration, Student/Admin UI, fake-engine localhost workflow, security boundaries, localization resources, and automated tests are implemented and verified. The real face-engine readiness gate remains Not Verified because approved biometric samples, selected licensed models, native/runtime dependencies, and a production adapter are not available. Fake mode is a deterministic development/demo engine only and must not be represented as real biometric recognition.
+Sprint 5 is partially completed. The one-to-one verification architecture, database migration, Student/Admin UI, fake-engine localhost workflow, security boundaries, localization resources, and automated tests are implemented and verified. A local Real engine adapter using OpenCvSharp YuNet plus ONNX Runtime SFace is implemented, and model-only readiness is verified on Windows x64 with OpenCV 4.13.0. The real biometric gate remains partially open because approved live-camera same-person, different-person, no-face, multiple-face, poor-quality, and restart verification evidence has not been run. Fake mode is a deterministic development/demo engine only and must not be represented as real biometric recognition.
 
 ## Technology Stack
 
@@ -16,13 +16,14 @@ Sprint 5 is partially completed. The one-to-one verification architecture, datab
 - Bootstrap 5, CSS custom properties, JavaScript
 - Built-in localization for `en-US` and `ar-JO`
 - xUnit, ASP.NET Core integration testing, SQLite in-memory test database
+- OpenCvSharp4 and ONNX Runtime for optional local Real face-engine mode
 
 ## Architecture Summary
 
 ```text
 src/AttendAI.Domain          Core domain abstractions, academic/lecture/biometric/verification entities, and enums
 src/AttendAI.Application     Contracts, academic/lecture/biometric/verification DTOs/services, role routing, safe redirects, face engine abstraction
-src/AttendAI.Infrastructure  EF Core, Identity persistence, academic/lecture/biometric/verification services, seeding, fake/disabled face engines
+src/AttendAI.Infrastructure  EF Core, Identity persistence, academic/lecture/biometric/verification services, seeding, fake/real/disabled face engines
 src/AttendAI.Web             MVC controllers, Admin area, lecture/biometric/verification UI, Razor views, localization, theming
 tests/                       Unit and integration tests
 experiments/                 Face-recognition POC console harness
@@ -103,7 +104,7 @@ Sprint 4 supports biometric profile management only:
 - Student re-enrollment and consent withdrawal.
 - Admin safe metadata view, revocation, and require re-enrollment.
 
-The default `FaceRecognition:Provider` is `Fake` for development and automated tests. Fake mode is blocked in Production by the readiness service. `Real` mode is documented but remains unavailable until an adapter, licensed detection/embedding models, native dependencies, threshold calibration, and approved test images are supplied.
+The default `FaceRecognition:Provider` is `Fake` for development and automated tests. Fake mode is blocked in Production by the readiness service. `Real` mode resolves `OpenCvSFaceRecognitionEngine`, requires local ignored OpenCV Zoo YuNet/SFace models, rejects Fake templates as incompatible, and remains pending for authorized live-sample verification and threshold calibration.
 
 ## Face Verification
 
@@ -116,7 +117,29 @@ Sprint 5 supports Student self-verification only:
 - Student pages display status, camera capture, result, and paged history. Admin pages display overview, filters, safe attempt details, diagnostics, and real-engine readiness status.
 - Captured verification images, embeddings, protected templates, template fingerprints, session codes, attendance status, and location data are not stored in verification attempts.
 
-Fake mode is visibly labeled as development/demo verification. Real mode remains unavailable until `docs/34-Real-Face-Engine-Integration.md` and `docs/27-Face-Engine-Readiness-Gate.md` are satisfied with actual licensed dependencies and approved samples.
+Fake mode is visibly labeled as development/demo verification. Real mode can load the configured local models but remains a partial gate until `docs/34-Real-Face-Engine-Integration.md`, `docs/37-Real-Face-Engine-Test-Plan.md`, and `docs/40-Real-Threshold-Evaluation.md` are satisfied with approved samples.
+
+## Real Face Engine Setup
+
+Model binaries are not committed. To provision the official OpenCV Zoo models into the ignored repository `models/face-recognition` folder:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\setup-face-models.ps1
+dotnet run --project experiments\AttendAI.RealFaceEngine.Poc -- --models-only
+```
+
+Verified model-only readiness uses:
+
+- YuNet `face_detection_yunet_2023mar.onnx`, SHA-256 `8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4`.
+- SFace `face_recognition_sface_2021dec.onnx`, SHA-256 `0ba9fbfa01b5270c96627c4ef784da859931e02f04419c829e83484087c34e79`.
+- SFace input `System.Single [1, 3, 112, 112]`.
+- SFace output `System.Single [1, 128]`.
+
+To enable Real mode locally, use User Secrets or environment variables rather than editing tracked credentials or local paths:
+
+```powershell
+dotnet user-secrets set "FaceRecognition:Provider" "Real" --project src/AttendAI.Web
+```
 
 ## Tests and Quality
 
@@ -155,7 +178,7 @@ dotnet run --project experiments/AttendAI.FaceRecognition.Poc -- <image-path>
 dotnet run --project experiments/AttendAI.FaceRecognition.Poc -- <reference-image-path> <probe-image-path>
 ```
 
-No personal biometric images are committed. To test negative fake-engine paths, use a local file containing `NO_FACE` or `MULTI_FACE`. Real engine verification remains pending until approved samples, selected licensed models, and native dependencies are supplied locally.
+No personal biometric images are committed. To test negative fake-engine paths, use a local file containing `NO_FACE` or `MULTI_FACE`. For Real model-only readiness, use `experiments/AttendAI.RealFaceEngine.Poc`. Real biometric verification remains pending until approved samples are supplied locally.
 
 ## Sprint 1 Closure Evidence
 
@@ -208,6 +231,16 @@ No personal biometric images are committed. To test negative fake-engine paths, 
 - Automated tests: 94 total, 94 passed, 0 failed, 0 skipped after adding Sprint 5 coverage.
 - Real face-engine gate: Not Verified.
 
+## Real Face Engine Model Readiness Evidence
+
+- Model provisioning script: `scripts/setup-face-models.ps1`.
+- Model-only POC: `dotnet run --project experiments\AttendAI.RealFaceEngine.Poc -- --models-only`.
+- Result: Ready, with gate `Runtime Ready - Local Sample Verification Pending`.
+- OpenCV version: `4.13.0`.
+- SFace input/output: `System.Single [1, 3, 112, 112]` and `System.Single [1, 128]`.
+- Automated tests after integration: 119 total, 119 passed, 0 failed, 0 skipped in the latest no-build test run.
+- Authorized live-camera biometric sample tests: Not Verified.
+
 ## Known Limitations
 
 - No public self-registration.
@@ -251,7 +284,13 @@ No personal biometric images are committed. To test negative fake-engine paths, 
 - [32-Face-Verification-Security.md](docs/32-Face-Verification-Security.md)
 - [33-Threshold-Evaluation-And-Calibration.md](docs/33-Threshold-Evaluation-And-Calibration.md)
 - [34-Real-Face-Engine-Integration.md](docs/34-Real-Face-Engine-Integration.md)
+- [35-Real-Face-Engine-Integration-Plan.md](docs/35-Real-Face-Engine-Integration-Plan.md)
+- [36-OpenCV-YuNet-SFace-Architecture.md](docs/36-OpenCV-YuNet-SFace-Architecture.md)
+- [37-Real-Face-Engine-Test-Plan.md](docs/37-Real-Face-Engine-Test-Plan.md)
+- [38-Real-Face-Engine-Review.md](docs/38-Real-Face-Engine-Review.md)
+- [39-Model-Provisioning-And-Licensing.md](docs/39-Model-Provisioning-And-Licensing.md)
+- [40-Real-Threshold-Evaluation.md](docs/40-Real-Threshold-Evaluation.md)
 
 ## Future Sprint Summary
 
-Sprint 6 planning may begin only after the team accepts Sprint 5 as a partial implementation and explicitly tracks the real-engine gate. Do not add production attendance marking, attendance reports, location validation, or one-to-many recognition before the real face-engine gate and threshold calibration are satisfied.
+Sprint 6 planning may begin only after the team accepts Sprint 5 as a partial implementation and explicitly tracks the remaining real-engine sample gate. Do not add production attendance marking, attendance reports, location validation, or one-to-many recognition before authorized real face-engine testing and threshold calibration are satisfied.

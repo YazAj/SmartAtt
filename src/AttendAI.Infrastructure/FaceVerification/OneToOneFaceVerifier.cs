@@ -274,7 +274,8 @@ public sealed class OneToOneFaceVerifier : IOneToOneFaceVerifier
             FaceRecognitionErrorCode.NoFaceDetected => FaceVerificationOutcome.NoFace,
             FaceRecognitionErrorCode.MultipleFacesDetected => FaceVerificationOutcome.MultipleFaces,
             FaceRecognitionErrorCode.EngineUnavailable => FaceVerificationOutcome.EngineUnavailable,
-            FaceRecognitionErrorCode.EmptyImage => FaceVerificationOutcome.InvalidImage,
+            FaceRecognitionErrorCode.EmptyImage or FaceRecognitionErrorCode.InvalidImage => FaceVerificationOutcome.InvalidImage,
+            FaceRecognitionErrorCode.LowBrightness or FaceRecognitionErrorCode.HighBrightness or FaceRecognitionErrorCode.LowSharpness or FaceRecognitionErrorCode.FaceTooSmall or FaceRecognitionErrorCode.FaceTooLarge => FaceVerificationOutcome.LowQuality,
             _ => FaceVerificationOutcome.ProcessingFailed
         };
 
@@ -292,6 +293,7 @@ public sealed class OneToOneFaceVerifier : IOneToOneFaceVerifier
             FaceVerificationOutcome.MultipleFaces => "ErrorFaceVerificationMultipleFaces",
             FaceVerificationOutcome.EngineUnavailable => "ErrorFaceVerificationEngineUnavailable",
             FaceVerificationOutcome.InvalidImage => "ErrorFaceVerificationInvalidImage",
+            FaceVerificationOutcome.LowQuality => "ErrorFaceVerificationQualityTooLow",
             _ => "ErrorFaceVerificationProcessingFailed"
         };
 
@@ -315,22 +317,47 @@ public sealed class OneToOneFaceVerifier : IOneToOneFaceVerifier
         decimal qualityScore,
         Guid templateId,
         Stopwatch stopwatch)
-        => Result(
+    {
+        var outcome = verification.ErrorCode switch
+        {
+            FaceRecognitionErrorCode.NoFaceDetected => FaceVerificationOutcome.NoFace,
+            FaceRecognitionErrorCode.MultipleFacesDetected => FaceVerificationOutcome.MultipleFaces,
+            FaceRecognitionErrorCode.EngineUnavailable => FaceVerificationOutcome.EngineUnavailable,
+            FaceRecognitionErrorCode.InvalidImage or FaceRecognitionErrorCode.EmptyImage => FaceVerificationOutcome.InvalidImage,
+            FaceRecognitionErrorCode.LowBrightness or FaceRecognitionErrorCode.HighBrightness or FaceRecognitionErrorCode.LowSharpness or FaceRecognitionErrorCode.FaceTooSmall or FaceRecognitionErrorCode.FaceTooLarge => FaceVerificationOutcome.LowQuality,
+            _ => FaceVerificationOutcome.ProcessingFailed
+        };
+
+        var decision = outcome switch
+        {
+            FaceVerificationOutcome.NoFace => FaceVerificationDecision.NoFaceDetected,
+            FaceVerificationOutcome.MultipleFaces => FaceVerificationDecision.MultipleFacesDetected,
+            _ => FaceVerificationDecision.EngineError
+        };
+
+        var messageKey = outcome switch
+        {
+            FaceVerificationOutcome.NoFace => "ErrorFaceVerificationNoFace",
+            FaceVerificationOutcome.MultipleFaces => "ErrorFaceVerificationMultipleFaces",
+            FaceVerificationOutcome.EngineUnavailable => "ErrorFaceVerificationEngineUnavailable",
+            FaceVerificationOutcome.InvalidImage => "ErrorFaceVerificationInvalidImage",
+            FaceVerificationOutcome.LowQuality => "ErrorFaceVerificationQualityTooLow",
+            _ => "ErrorFaceVerificationProcessingFailed"
+        };
+
+        return Result(
             templateId,
-            verification.ErrorCode == FaceRecognitionErrorCode.EngineUnavailable
-                ? FaceVerificationOutcome.EngineUnavailable
-                : FaceVerificationOutcome.ProcessingFailed,
-            FaceVerificationDecision.EngineError,
+            outcome,
+            decision,
             verification.ErrorCode.ToString(),
-            verification.ErrorCode == FaceRecognitionErrorCode.EngineUnavailable
-                ? "ErrorFaceVerificationEngineUnavailable"
-                : "ErrorFaceVerificationProcessingFailed",
+            messageKey,
             diagnostics,
             validation.Width,
             validation.Height,
-            1,
+            outcome == FaceVerificationOutcome.MultipleFaces ? 2 : 1,
             qualityScore,
             Elapsed(stopwatch));
+    }
 
     private static (FaceVerificationOutcome Outcome, string ErrorCode, string MessageKey)? DetectDevelopmentQualityMarker(byte[] imageBytes)
     {

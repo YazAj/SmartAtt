@@ -589,6 +589,7 @@
   <data name="BiometricReEnrollmentRequired" xml:space="preserve"><value>أصبحت إعادة التسجيل مطلوبة لهذا الطالب.</value></data>
   <data name="BiometricEngineDisabledMessage" xml:space="preserve"><value>تسجيل الوجه معطل حتى يتم ضبط وضع المحرك.</value></data>
   <data name="BiometricRealEngineUnavailableMessage" xml:space="preserve"><value>التسجيل الحقيقي للوجه غير موثق لأن محول الإنتاج والنماذج والتراخيص وصور الاختبار المعتمدة غير مضبوطة.</value></data>
+  <data name="BiometricRealEngineReadyMessage" xml:space="preserve"><value>يمكن لتسجيل الوجه الحقيقي تحميل النماذج المحلية المضبوطة. ما زال تحقق العينات الحية المعتمدة قيد الانتظار.</value></data>
   <data name="BiometricFakeEngineDevelopmentMessage" xml:space="preserve"><value>محرك التطوير الوهمي مفعّل لاختبار سير العمل فقط. التعرف الإنتاجي على الوجه ما زال غير موثق.</value></data>
   <data name="BiometricFakeEngineProductionBlockedMessage" xml:space="preserve"><value>محرك الوجه الوهمي محظور في الإنتاج.</value></data>
   <data name="FaceEnrollmentEventConsentAccepted" xml:space="preserve"><value>قبول الموافقة</value></data>

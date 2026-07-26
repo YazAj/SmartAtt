@@ -589,6 +589,7 @@
   <data name="BiometricReEnrollmentRequired" xml:space="preserve"><value>Re-enrollment is now required for this student.</value></data>
   <data name="BiometricEngineDisabledMessage" xml:space="preserve"><value>Face enrollment is disabled until an engine mode is configured.</value></data>
   <data name="BiometricRealEngineUnavailableMessage" xml:space="preserve"><value>Real face enrollment is not verified because a production engine adapter, models, licenses, and approved test images are not configured.</value></data>
+  <data name="BiometricRealEngineReadyMessage" xml:space="preserve"><value>Real face enrollment can load the configured local models. Approved live-sample verification is still pending.</value></data>
   <data name="BiometricFakeEngineDevelopmentMessage" xml:space="preserve"><value>Development fake engine is enabled for workflow testing only. Production face recognition remains not verified.</value></data>
   <data name="BiometricFakeEngineProductionBlockedMessage" xml:space="preserve"><value>The fake face engine is blocked in production.</value></data>
   <data name="FaceEnrollmentEventConsentAccepted" xml:space="preserve"><value>Consent accepted</value></data>

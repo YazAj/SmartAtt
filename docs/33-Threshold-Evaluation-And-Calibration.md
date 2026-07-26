@@ -2,7 +2,7 @@
 
 ## Current Policy
 
-Sprint 5 uses a configurable `FaceVerification:VerificationThreshold` and `FaceVerification:ScoreMetric`.
+Sprint 5 uses a configurable `FaceVerification:VerificationThreshold` and `FaceVerification:ScoreMetric` for Fake mode. Real mode uses `FaceRecognition:RealEngine:CosineSimilarityThreshold` so the Fake threshold cannot silently become the SFace threshold.
 
 Default development values:
 
@@ -26,7 +26,15 @@ These results exercise policy plumbing only. They are not real biometric accurac
 
 Not Verified.
 
-No approved same-person pair, different-person sample, no-face sample, multiple-face sample, selected detection model, selected embedding model, production adapter, or native/runtime dependency package is available.
+Model-only readiness is verified for OpenCV YuNet and SFace. Real threshold calibration remains Not Verified because no approved same-person pair, different-person sample, no-face sample, multiple-face sample, or poor-quality live capture set is available.
+
+Current Real development values:
+
+- Metric: `CosineSimilarity`.
+- Direction: higher score is more similar.
+- Threshold: `0.363`.
+- Threshold status: `DevelopmentDefault`.
+- SFace output dimension: `128`.
 
 ## Required Real Evaluation
 

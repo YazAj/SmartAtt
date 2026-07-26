@@ -218,3 +218,18 @@
 | RowVersion | rowversion | Yes | n/a | concurrency token | Internal | Optimistic concurrency token. |
 
 No normal UI path edits or physically deletes verification attempts. Retention policy remains a future production governance item.
+
+## Real Face Template Format Update
+
+No database migration was required for the Real engine. `StudentFaceTemplates.ProtectedTemplate` already stores protected opaque template bytes, and the existing metadata columns store engine name/version, model name/version, template format version, embedding dimension, capture count, quality score, and re-enrollment state.
+
+Real mode stores:
+
+- `EngineName`: `OpenCV-SFace`.
+- `ModelName`: `SFace`.
+- `ModelVersion`: `2021dec`.
+- `TemplateFormatVersion`: `opencv-sface-f32le-v1`.
+- `EmbeddingDimension`: `128`.
+- Protected payload before Data Protection: finite L2-normalized float32 little-endian embedding bytes.
+
+The schema still has no raw image, face crop, aligned crop, unprotected embedding, model binary, or attendance column for face templates or verification attempts.

@@ -100,14 +100,15 @@
 | R-74 | Localization and theme coverage | `SharedResource.*.resx`, Razor views, CSS/JS | Browser/manual verification and build | Passed | English/Arabic, LTR/RTL, light/dark resources and tokenized styling are implemented. |
 | R-75 | Dashboards and navigation | Layout, dashboards, `AcademicDashboardService` | Runtime smoke and build | Passed | Admin verification metrics and Student verification status/link added; Instructor remains unchanged. |
 | R-76 | Automated Sprint 5 quality gate | Whole solution | Restore/build/test/format/git diff | Passed | Final command results are recorded in `docs/31-Sprint-5-Review.md`. |
-| R-77 | Real engine readiness | `FaceEngineDiagnosticsService`, docs | Gate review | Not Verified | Approved samples, licensed models, adapter, native dependencies, and threshold calibration are unavailable. |
+| R-77 | Real engine model readiness | `OpenCvSFaceRecognitionEngine`, `RealFaceRecognitionModelStore`, `FaceEngineDiagnosticsService`, `scripts/setup-face-models.ps1`, real POC | Model-only POC and unit tests | Partially Passed | Adapter, official model provisioning, hashes, YuNet load, SFace load, and SFace `[1, 128]` output are verified. Approved live biometric samples and calibration remain Not Verified. |
 | R-78 | No Sprint 6 scope | Source/migration review | `rg` source search and schema review | Passed | No attendance records/statuses/reports, location validation, exports, notifications, or one-to-many identification were implemented. |
+| R-79 | Fake-to-Real template boundary | `TemplateCompatibilityService`, `FaceVerificationService`, `OpenCvSFaceRecognitionEngine` | `RealFaceRecognitionEngineTests`, integration re-enrollment regression | Passed | Fake metadata is incompatible with Real diagnostics and active incompatible templates are marked for re-enrollment; Fake bytes are not converted to SFace templates. |
 
 ## Not Verified / Future Gates
 
 | ID | Description | Status | Required Before Production |
 | --- | --- | --- | --- |
-| G-01 | Real face recognition runtime | Not Verified | Approved biometric samples, selected licensed detection and embedding models, preprocessing, threshold calibration, production adapter, and native deployment package. |
+| G-01 | Real face recognition live biometric runtime | Not Verified | Approved same-person/different-person/no-face/multiple-face/poor-quality camera samples, restart-and-reverify, threshold calibration, and production liveness decision. |
 | G-02 | Production attendance registration | Not Implemented | Sprint 6 planning after Sprint 5 acceptance and real face-engine/threshold gate. |
 | G-03 | Notification delivery for temporary passwords | Not Implemented | Secure out-of-band delivery design; temporary passwords are entered by Admin during Sprint 2. |
 | G-04 | Production liveness and anti-spoofing | Not Implemented | Separate approved design, licensed model/dependency review, and security testing. |

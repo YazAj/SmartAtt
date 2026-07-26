@@ -1,5 +1,11 @@
 # 01. Software Requirements Specification
 
+## Real Face Engine Integration Update
+
+The system now includes an optional local Real face engine for Windows x64 localhost using OpenCvSharp YuNet detection and ONNX Runtime SFace embeddings. The default mode remains `Fake`. Real mode is limited to one-to-one enrollment and verification of the authenticated Student's active template; it must not perform attendance registration, location validation, one-to-many identification, or browser-side biometric decisions.
+
+Real mode is partially verified by model-only readiness. Production biometric completion remains blocked until authorized live-camera enrollment, same-person, different-person, no-face, multiple-face, poor-quality, restart, and threshold-calibration evidence is recorded. The system does not claim liveness detection or anti-spoofing.
+
 ## Purpose
 
 AttendAI is a responsive university attendance management platform for the graduation project **Smart Attendance Management System Using Face Recognition**. Sprint 5 builds on the verified identity, academic, lecture, and biometric-enrollment foundations by adding secure one-to-one Student self-verification.

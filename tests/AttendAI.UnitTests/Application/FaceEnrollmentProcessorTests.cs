@@ -74,7 +74,11 @@ public sealed class FaceEnrollmentProcessorTests
             ModelName = "Deterministic fake engine",
             ModelVersion = "v1"
         });
-        var readiness = new FaceEngineReadinessService(faceOptions, new TestHostEnvironment());
+        var environment = new TestHostEnvironment();
+        var readiness = new FaceEngineReadinessService(
+            faceOptions,
+            environment,
+            new RealFaceRecognitionModelStore(faceOptions, environment));
 
         return new FaceEnrollmentProcessor(
             new FaceCaptureValidator(biometricOptions),

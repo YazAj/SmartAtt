@@ -2,9 +2,9 @@
 
 ## Gate Result
 
-Not Verified.
+Partially completed.
 
-Sprint 5 implements enrollment and one-to-one verification workflows with the deterministic fake engine for development, automated tests, and localhost demonstration. Production real face enrollment and verification are not verified.
+Sprint 5 implements enrollment and one-to-one verification workflows with the deterministic fake engine for development, automated tests, and localhost demonstration. A local Real adapter is now integrated and model-only readiness is verified, but production real face enrollment and verification remain Not Verified until approved biometric sample testing and threshold calibration are complete.
 
 ## Current Engine Modes
 
@@ -12,19 +12,19 @@ Sprint 5 implements enrollment and one-to-one verification workflows with the de
 | --- | --- | --- | --- | --- |
 | Fake | Enabled only outside Production | Enabled only as development/demo when allowed | Not production-safe | Deterministic SHA-256 fake templates for tests and UI workflow; UI labels it as demo verification. |
 | Disabled | Disabled | Disabled | Safe default | Shows localized unavailable message. |
-| Real | Disabled until adapter exists | Not verified until adapter and models pass the gate | Not verified | Placeholder mode documenting future production adapter requirement. |
+| Real | Enabled when local model readiness passes | Enabled when local model readiness passes | Not production-certified | OpenCvSharp YuNet plus ONNX Runtime SFace adapter; requires re-enrollment of Fake templates and approved sample verification before completion. |
 
 ## Selected Production Engine
 
-No production engine is selected.
+Local graduation-project engine selected for verification: OpenCV YuNet detector plus SFace recognizer. It is not production-certified and does not include liveness detection.
 
 ## License And Model Status
 
-- Engine license: Not selected.
-- Face detection model: Not selected.
-- Embedding model: Not selected.
-- Model license: Not verified.
-- Native/runtime dependencies: Not verified.
+- Engine packages: `OpenCvSharp4` and `OpenCvSharp4.runtime.win` `4.13.0.20260627`; `Microsoft.ML.OnnxRuntime` `1.27.1`.
+- Face detection model: OpenCV Zoo YuNet `face_detection_yunet_2023mar.onnx`.
+- Embedding model: OpenCV Zoo SFace `face_recognition_sface_2021dec.onnx`.
+- Model license: YuNet MIT, SFace Apache-2.0 per OpenCV Zoo model directories.
+- Native/runtime dependencies: Windows x64, OpenCV native runtime verified by model-only POC.
 - Approved biometric samples: Not available.
 
 ## Required Components For Real Engine
@@ -74,4 +74,13 @@ These are workflow/security tests, not real biometric accuracy tests.
 
 ## Sprint 5 Real Evidence
 
-Not Verified. No approved biometric samples, selected licensed detection model, selected licensed embedding model, real adapter, native dependencies, threshold calibration set, or model-license package was available locally.
+Model-only readiness verified:
+
+- YuNet model exists, hash matches, and loads.
+- SFace model exists, hash matches, and loads.
+- OpenCV native version: `4.13.0`.
+- SFace input: `System.Single [1, 3, 112, 112]`.
+- SFace output: `System.Single [1, 128]`.
+- Gate result: `Runtime Ready - Local Sample Verification Pending`.
+
+Not Verified: approved biometric samples, same-person/different-person outcomes, no-face/multiple-face camera captures, poor-quality camera captures, restart-and-reverify, and threshold calibration.

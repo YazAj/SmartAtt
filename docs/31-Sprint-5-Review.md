@@ -98,3 +98,18 @@ Items not directly proven by approved real images remain Not Verified.
 ## Recommended Commit
 
 `feat(sprint-5): implement one-to-one face verification`
+
+## Real Engine Update
+
+Sprint 5 verification can now resolve `OpenCvSFaceRecognitionEngine` in Real mode. Model-only readiness has been verified with OpenCV `4.13.0`, YuNet load, SFace load, and SFace output dimension `128`.
+
+Still Not Verified:
+
+- Approved same-person comparison.
+- Approved different-person comparison.
+- No-face, multiple-face, and poor-quality camera behavior.
+- Restart-and-reverify with a protected real template.
+- Threshold calibration.
+- Production liveness or anti-spoofing.
+
+Sprint 5 remains partially completed for real biometric verification until those items are recorded.
